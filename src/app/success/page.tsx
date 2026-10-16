@@ -154,38 +154,35 @@ function SuccessContent() {
 
         {status === "error" && (
           <div className="space-y-6 text-center">
-            <div className="w-16 h-16 rounded-full bg-amber-500/15 border border-amber-500/40 flex items-center justify-center mx-auto text-amber-400 shadow-[0_0_30px_rgba(245,158,11,0.2)]">
-              <AlertTriangle className="w-8 h-8" />
+            <div className="w-16 h-16 rounded-full bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mx-auto text-[#2997ff] shadow-[0_0_30px_rgba(41,151,255,0.15)]">
+              <Mail className="w-8 h-8" />
             </div>
 
             <div>
-              <span className="text-[11px] font-semibold text-amber-400 uppercase tracking-widest block mb-1">
-                Order Verification
+              <span className="text-[11px] font-semibold text-[#2997ff] uppercase tracking-widest block mb-1">
+                Order Status
               </span>
               <h2 className="text-2xl font-semibold text-white tracking-tight">
-                Confirming Your Access
+                Receipt & Access Details
               </h2>
               <p className="text-[13px] text-[#86868b] mt-2 leading-relaxed">
-                {errorMessage && !errorMessage.includes("STRIPE_SECRET_KEY") && !errorMessage.includes("not set")
-                  ? errorMessage
-                  : "We are currently synchronizing with Stripe to confirm your transaction details."}
+                Thank you for your order. If your transaction has been completed, your official Stripe confirmation and your lifetime access link have been automatically dispatched to the email address entered at checkout.
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.06] text-left text-[12px] text-[#86868b] leading-relaxed">
-              If you just completed payment, your official receipt and order details have been securely delivered to your email by Stripe. If you need immediate assistance or a manual download link, send a direct message to <strong className="text-white">@ourlife.reset</strong> on Instagram and we will assist you right away.
+            <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.06] text-left text-[12px] text-[#86868b] leading-relaxed space-y-2">
+              <p>
+                Please allow 1 to 2 minutes for email delivery, and make sure to check your inbox (as well as your Promotions or Updates tab).
+              </p>
+              <p className="text-[11px] text-[#86868b]/75">
+                Your receipt from Stripe serves as your permanent proof of purchase and includes your direct link to access the publication at any time.
+              </p>
             </div>
 
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <button
-                onClick={() => window.location.reload()}
-                className="apple-pill-btn px-6 py-3 bg-white text-black font-semibold text-[13px] hover:bg-[#e5e5ea] transition-all cursor-pointer"
-              >
-                Refresh & Re-Check
-              </button>
+            <div className="pt-2">
               <Link
                 href="/"
-                className="apple-pill-btn px-6 py-3 bg-white/10 text-white font-medium text-[13px] hover:bg-white/20 transition-all inline-flex items-center gap-2"
+                className="apple-pill-btn inline-flex items-center gap-2 px-7 py-3.5 bg-white text-black font-semibold text-[13px] hover:bg-[#e5e5ea] transition-all"
               >
                 <span>Return to Homepage</span>
                 <ArrowRight className="w-3.5 h-3.5" />

@@ -6,15 +6,16 @@ import path from "path";
 export const dynamic = "force-dynamic";
 
 function getStripe(): Stripe | null {
-  const key =
+  const rawKey =
     process.env.Stripe_API_Key ||
     process.env.STRIPE_SECRET_KEY ||
     process.env.STRIPE_API_KEY ||
     process.env.stripe_api_key;
-  if (!key) {
+  if (!rawKey) {
     console.error("Stripe API Key is not configured in environment variables");
     return null;
   }
+  const key = rawKey.trim().replace(/^["']|["']$/g, "");
   return new Stripe(key);
 }
 
@@ -35,9 +36,14 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    const session = await stripe.checkout.sessions.retrieve(sessionId.trim());
 
-    if (session.payment_status !== "paid") {
+    const isPaid =
+      session.payment_status === "paid" ||
+      session.payment_status === "no_payment_required" ||
+      session.status === "complete";
+
+    if (!isPaid) {
       return NextResponse.json(
         { error: "Payment required. This session has not been marked as paid." },
         { status: 403 }

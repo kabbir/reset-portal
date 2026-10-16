@@ -3,7 +3,15 @@ import Stripe from "stripe";
 import fs from "fs";
 import path from "path";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
+export const dynamic = "force-dynamic";
+
+function getStripe() {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) {
+    throw new Error("STRIPE_SECRET_KEY is not set in environment variables");
+  }
+  return new Stripe(key);
+}
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -14,6 +22,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
+    const stripe = getStripe();
     const session = await stripe.checkout.sessions.retrieve(sessionId);
 
     if (session.payment_status !== "paid") {
@@ -41,6 +50,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error: any) {
+    console.error("Download error:", error);
     return NextResponse.json(
       { error: "Session verification failed: " + (error?.message || "Invalid session") },
       { status: 403 }

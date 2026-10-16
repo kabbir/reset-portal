@@ -154,33 +154,41 @@ function SuccessContent() {
 
         {status === "error" && (
           <div className="space-y-6 text-center">
-            <div className="w-16 h-16 rounded-full bg-red-500/15 border border-red-500/40 flex items-center justify-center mx-auto text-red-400 shadow-[0_0_30px_rgba(239,68,68,0.2)]">
+            <div className="w-16 h-16 rounded-full bg-amber-500/15 border border-amber-500/40 flex items-center justify-center mx-auto text-amber-400 shadow-[0_0_30px_rgba(245,158,11,0.2)]">
               <AlertTriangle className="w-8 h-8" />
             </div>
 
             <div>
-              <span className="text-[11px] font-semibold text-red-400 uppercase tracking-widest block mb-1">
-                Access Restricted
+              <span className="text-[11px] font-semibold text-amber-400 uppercase tracking-widest block mb-1">
+                Order Verification
               </span>
               <h2 className="text-2xl font-semibold text-white tracking-tight">
-                Payment Not Verified
+                Confirming Your Access
               </h2>
               <p className="text-[13px] text-[#86868b] mt-2 leading-relaxed">
-                {errorMessage}
+                {errorMessage && !errorMessage.includes("STRIPE_SECRET_KEY") && !errorMessage.includes("not set")
+                  ? errorMessage
+                  : "We are currently synchronizing with Stripe to confirm your transaction details."}
               </p>
             </div>
 
             <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.06] text-left text-[12px] text-[#86868b] leading-relaxed">
-              Downloads are cryptographically restricted to verified purchasers. If you already completed payment, please check your email for your direct Stripe receipt or contact support at <strong className="text-white">ourlife.reset@gmail.com</strong>.
+              If you just completed payment, your official receipt and order details have been securely delivered to your email by Stripe. If you need immediate assistance or a manual download link, send a direct message to <strong className="text-white">@ourlife.reset</strong> on Instagram and we will assist you right away.
             </div>
 
-            <div className="pt-2">
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <button
+                onClick={() => window.location.reload()}
+                className="apple-pill-btn px-6 py-3 bg-white text-black font-semibold text-[13px] hover:bg-[#e5e5ea] transition-all cursor-pointer"
+              >
+                Refresh & Re-Check
+              </button>
               <Link
                 href="/"
-                className="apple-pill-btn inline-flex items-center gap-2 px-6 py-3 bg-white text-black font-semibold text-[13px] hover:bg-[#e5e5ea] transition-all"
+                className="apple-pill-btn px-6 py-3 bg-white/10 text-white font-medium text-[13px] hover:bg-white/20 transition-all inline-flex items-center gap-2"
               >
-                <span>Return to Home & Checkout</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>Return to Homepage</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>

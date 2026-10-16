@@ -3,10 +3,11 @@ import Stripe from "stripe";
 
 export const dynamic = "force-dynamic";
 
-function getStripe() {
+function getStripe(): Stripe | null {
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) {
-    throw new Error("STRIPE_SECRET_KEY is not set in environment variables");
+    console.error("STRIPE_SECRET_KEY is not configured in environment variables");
+    return null;
   }
   return new Stripe(key);
 }
@@ -16,11 +17,18 @@ export async function GET(request: NextRequest) {
   const sessionId = searchParams.get("session_id");
 
   if (!sessionId) {
-    return NextResponse.json({ valid: false, error: "Missing session_id parameter" }, { status: 400 });
+    return NextResponse.json({ valid: false, error: "Missing session identifier" }, { status: 400 });
+  }
+
+  const stripe = getStripe();
+  if (!stripe) {
+    return NextResponse.json(
+      { valid: false, error: "Payment verification service is temporarily unavailable. Please refresh in a moment." },
+      { status: 500 }
+    );
   }
 
   try {
-    const stripe = getStripe();
     const session = await stripe.checkout.sessions.retrieve(sessionId);
 
     if (session.payment_status === "paid") {
@@ -33,12 +41,13 @@ export async function GET(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { valid: false, error: "Payment has not been completed." },
+      { valid: false, error: "Payment has not yet been marked as completed." },
       { status: 403 }
     );
   } catch (error: any) {
+    console.error("Stripe verify error:", error?.message);
     return NextResponse.json(
-      { valid: false, error: error?.message || "Invalid session identifier" },
+      { valid: false, error: "Unable to verify transaction. Please check your order details or refresh." },
       { status: 403 }
     );
   }

@@ -115,7 +115,7 @@ export default function HomePage() {
     }
   };
 
-  /* --- The 5 Core Psychological Engines of the 112 Pages --- */
+  /* --- The 5 Core Psychological Engines of the Guide --- */
   const psychologicalEngines = [
     {
       icon: Eye,
@@ -174,27 +174,31 @@ export default function HomePage() {
     }
   ];
 
-  /* --- FAQs (112-Page Edition Details) --- */
+  /* --- Real Human FAQs --- */
   const faqs = [
     {
-      q: "What is the exact format of The Self-Mastery Guide & Workbook?",
-      a: "The Self-Mastery Guide ($19) is an archival 112-page digital book and interactive iPad workbook (PDF). It features 47 dense psychological chapters on the left-hand pages, paired with 47 dedicated ruled journaling ledgers with daily tracking bars on the right-hand pages. It is engineered with classical Cormorant Garamond typography and standard A4 proportions for iPad, Kindle, tablets, and print."
+      q: "I already read a lot of philosophy and psychology. Will this actually teach me anything new, or is it just rehashed quotes?",
+      a: "Most people who read philosophy suffer from the same quiet frustration: they understand the concepts intellectually, but their composure completely dissolves the moment an arrogant person provokes them, a high-stakes deal gets tense, or their ego gets bruised. We didn't build this to give you quotes to recite at dinner. Every chapter bypasses the history lesson and goes straight to the psychological root—why your nervous system hijacks your logic, where your ego is rationalizing weakness, and what physical rules to deploy in that exact room. Then the facing page forces you to write down your own truth. You don't just read it; you diagnose yourself."
     },
     {
-      q: "How do I write in the workbook on an iPad or tablet?",
-      a: "The PDF is fully compatible with Apple Books, GoodNotes, Notability, Kindle, and any standard tablet PDF annotation app. You can write directly into the ruled audit ledgers with your Apple Pencil or stylus, or print physical copies of the ledgers for daily handwriting."
+      q: "How much time does this actually take each day? I already have an exhausting schedule.",
+      a: "Ten to fifteen minutes. This is not a 300-page book you have to carve out an entire Sunday to read, and it's definitely not a textbook with homework. Each chapter is designed as a single two-page checkpoint. You spend three minutes absorbing the psychological principle on the left, and ten minutes working through the unsparing audit prompt on the right. Doing that once a day creates more real behavioral change than binge-reading five books you'll forget by next month."
     },
     {
-      q: "What is the difference between the $19 Guide and the upcoming App?",
-      a: "The Self-Mastery Guide ($19) is available right now for instant download. It provides the complete 112-page foundation of psychology, actionable field protocols, and written audit ledgers. The Life Reset App ($39) is our upcoming interactive web application featuring real-time impulse delay protocols, cognitive decision guides, and a searchable wisdom vault—and it will include this complete 112-page guide for free upon launch."
+      q: "Is this just another generic motivational guide with feel-good affirmations?",
+      a: "No. There are no vision boards, morning mantras, or toxic positivity here. In fact, if you're looking for something that validates your excuses or pats you on the back, you will probably hate this book. The prompts are deliberately uncomfortable. They force you to examine your shadow, acknowledge where your 'kindness' was really just fear of confrontation, admit where you envied a peer's success, and write down the promises you broke to yourself. It is a tool for self-command, not comfort."
     },
     {
-      q: "How and when do I receive my guide after checkout?",
-      a: "Instant delivery. The moment your Stripe checkout completes, your secure download button unlocks on the confirmation screen for a 1-tap download. A permanent receipt and backup access link are also emailed to you immediately."
+      q: "Do I need an iPad or Apple Pencil to use this, or can I write in a normal notebook?",
+      a: "You don't need a tablet at all. While the guide looks beautiful on an iPad in apps like GoodNotes or Apple Books, many readers simply open the PDF on their phone or laptop and write their answers in a physical notebook sitting on their desk. What matters is the act of putting pen to paper. You can lie to yourself in your head all day, but you cannot lie to your own handwriting."
     },
     {
-      q: "Can I print the guide at home or through a local bindery?",
-      a: "Yes. The guide is typeset in pure classical monochrome (100% black and white, zero colored ink boxes) at 300+ DPI. It prints cleanly on any standard home printer or high-end paper."
+      q: "How does this connect to your daily reels on @ourlife.reset?",
+      a: "Our reels are the catalyst—they deliver a 60-second spark of perspective to cut through daily noise. But a reel cannot give you a permanent operating system. This guide is the complete foundation behind those videos: the full psychological frameworks, the real-world field rules, and the daily reflection ledgers needed to actually embody the philosophy rather than just consuming it as content."
+    },
+    {
+      q: "What happens immediately after checkout?",
+      a: "The moment Stripe completes your payment, your screen redirects instantly to a private download page with a single-tap download button. We also email a permanent backup access link to your inbox at the same second, so you'll always have access to your file across all your devices with no recurring fees or subscriptions."
     }
   ];
 
@@ -236,7 +240,7 @@ export default function HomePage() {
               href="#products"
               className="apple-pill-btn text-[13px] font-semibold px-4 py-1.5 bg-[#0071e3] text-white hover:bg-[#0077ed] transition-all shadow-sm"
             >
-              Get Instant Access ($19)
+              Get Instant Access
             </a>
           </div>
         </div>
@@ -254,7 +258,7 @@ export default function HomePage() {
           </h1>
 
           <p className="text-base sm:text-lg md:text-[20px] text-[#86868b] max-w-[680px] mx-auto mb-9 font-normal leading-relaxed">
-            Our daily reels show you the principles. The 112-page Self-Mastery Guide gives you the complete blueprint to understand your psychological blind spots, master emotional composure under pressure, and build an unshakeable standard of self-command.
+            Our daily reels show you the principles. The Self-Mastery Guide gives you the complete framework to understand your blind spots, master emotional composure under pressure, and build an unshakeable standard of self-command.
           </p>
 
           {/* Action Buttons */}
@@ -263,7 +267,7 @@ export default function HomePage() {
               href="#products"
               className="apple-pill-btn w-full sm:w-auto px-8 py-3.5 bg-white text-black font-bold text-[14px] hover:bg-[#e5e5ea] transition-all flex items-center justify-center gap-2 shadow-lg shadow-white/10"
             >
-              <span>Get Instant Download ($19)</span>
+              <span>Get Instant Access</span>
               <ArrowRight className="w-4 h-4" />
             </a>
             <a
@@ -271,7 +275,7 @@ export default function HomePage() {
               className="apple-pill-btn w-full sm:w-auto px-7 py-3.5 bg-white/[0.06] hover:bg-white/[0.1] text-white border border-white/[0.12] font-medium text-[14px] transition-all flex items-center justify-center gap-2"
             >
               <BookOpen className="w-4 h-4 text-[#2997ff]" />
-              <span>Explore The 112 Pages</span>
+              <span>Inside The Guide</span>
             </a>
           </div>
 
@@ -279,7 +283,7 @@ export default function HomePage() {
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-[#86868b] pt-1">
             <div className="flex items-center gap-2 text-white/90">
               <PdfDocumentLogo className="w-4 h-4 text-[#2997ff]" />
-              <span className="font-medium text-[13px]">112-Page Field Manual • <span className="text-[#2997ff]">Available Now</span></span>
+              <span className="font-medium text-[13px]">Digital Guide & Ruled Journal • <span className="text-[#2997ff]">Instant Access</span></span>
             </div>
             <span className="text-white/20">•</span>
             <div className="flex items-center gap-2 text-white/90">
@@ -299,7 +303,7 @@ export default function HomePage() {
       <section id="products" className="relative z-10 py-16 px-4 sm:px-6">
         <div className="max-w-[1000px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           
-          {/* PRODUCT 1: The Self-Mastery Guide (112-Page PDF) - AVAILABLE NOW */}
+          {/* PRODUCT 1: The Self-Mastery Guide (PDF Edition) - AVAILABLE NOW */}
           <div className="apple-bento-card p-8 sm:p-10 bg-gradient-to-b from-[#111827]/95 via-[#0d1117] to-[#080b10] border-2 border-white/[0.25] flex flex-col justify-between relative shadow-2xl shadow-blue-500/[0.06]">
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-white text-black font-bold text-[10px] tracking-widest uppercase shadow-md flex items-center gap-1.5">
               <Star className="w-3 h-3 fill-black" />
@@ -315,7 +319,7 @@ export default function HomePage() {
                   </span>
                 </div>
                 <span className="text-[11px] font-mono uppercase px-3 py-1 rounded-full bg-white/[0.1] text-white border border-white/[0.15]">
-                  112-Page Edition
+                  Complete Digital Edition
                 </span>
               </div>
 
@@ -326,7 +330,7 @@ export default function HomePage() {
                 The Self-Mastery Guide & Workbook
               </h2>
               <p className="text-[14px] text-zinc-300 mt-2 leading-relaxed font-light">
-                A 112-page publication-grade guide and interactive iPad workbook that synthesizes deep human psychology with brutal daily self-inquiry.
+                A publication-grade guide and interactive workbook that synthesizes deep human psychology with unsparing daily self-inquiry.
               </p>
 
               <div className="my-6 py-4 border-y border-white/[0.08]">
@@ -338,16 +342,16 @@ export default function HomePage() {
 
               <ul className="space-y-3.5 text-[13px] text-zinc-200 mb-8 font-light">
                 <li className="flex items-center gap-3 font-medium text-white">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> <b className="text-white">Full 112-Page Field Manual & Ruled Workbook (PDF)</b>
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> <b className="text-white">Complete 112-Page Field Manual & Ruled Workbook (PDF)</b>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> 47 Dense Excerpt Chapters on Psychology, Power & Human Nature
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> Deep Essays on Human Nature, Impulse Control & Quiet Strategy
                 </li>
                 <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> 47 Facing Ruled Ledgers Designed to Force Radical Self-Honesty
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> Facing Ruled Journal Ledgers Designed to Force Radical Self-Honesty
                 </li>
                 <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> 5 Capstone Crucible Challenges & 90-Day Character Review
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> Real-World Crucible Challenges & 90-Day Character Audit
                 </li>
                 <li className="flex items-center gap-3">
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> Formatted for iPad, Apple Pencil, Kindle, Tablets & Print
@@ -359,7 +363,7 @@ export default function HomePage() {
               onClick={handleTriggerCheckout}
               className="apple-pill-btn w-full py-4 bg-white text-black hover:bg-[#e5e5ea] font-bold text-[13px] tracking-wide uppercase transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-white/10"
             >
-              <span>Get Instant Download ($19)</span>
+              <span>Download The Guide</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -397,7 +401,7 @@ export default function HomePage() {
               <div className="my-6 py-4 border-y border-white/[0.08]">
                 <div className="flex items-baseline gap-2">
                   <span className="text-4xl sm:text-5xl font-semibold text-zinc-400 tracking-tight">$39</span>
-                  <span className="text-[13px] text-[#86868b]">final testing • will include $19 guide</span>
+                  <span className="text-[13px] text-[#86868b]">final testing • includes the complete guide</span>
                 </div>
               </div>
 
@@ -525,7 +529,7 @@ export default function HomePage() {
               </div>
 
               <div className="mt-8 pt-4 border-t border-white/[0.06] text-xs text-zinc-500 font-mono">
-                ✕ Save your $19 if you aren't ready to face yourself in writing
+                ✕ Don't buy this if you aren't ready to face yourself in writing
               </div>
             </div>
           </div>
@@ -537,7 +541,7 @@ export default function HomePage() {
         <div className="max-w-[1060px] mx-auto">
           <div className="text-center max-w-[720px] mx-auto mb-16">
             <h2 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight">
-              The Architecture of the 112 Pages
+              How The Dual-Page System Works
             </h2>
             <p className="text-[15px] text-[#86868b] mt-3 leading-relaxed">
               Every chapter is engineered as an unsparing two-page engine: ruthless depth psychology and field protocols on the left, and a facing written audit on the right that forces you to confront yourself on paper.
@@ -857,7 +861,7 @@ export default function HomePage() {
             href={STRIPE_CHECKOUT_URL}
             className="text-[12px] text-[#2997ff] hover:underline"
           >
-            Instant PDF Access ($19)
+            Instant PDF Access
           </a>
         </div>
       </footer>

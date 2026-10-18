@@ -13,10 +13,6 @@ import {
   PenTool,
   MessageSquarePlus,
   Send,
-  Compass,
-  Eye,
-  Shield,
-  Feather,
   ChevronDown
 } from "lucide-react";
 
@@ -115,64 +111,7 @@ export default function HomePage() {
     }
   };
 
-  /* --- The 5 Core Psychological Engines of the Guide --- */
-  const psychologicalEngines = [
-    {
-      icon: Eye,
-      title: "Deconstructing Reactivity & The 10-Second Space",
-      subtitle: "Short-circuiting the biochemical impulse to retaliate, explain, or lose composure",
-      psychology:
-        "When an insult, disrespect, or crisis strikes, your amygdala triggers an immediate fight-or-flight surge within 300 milliseconds. We unpack the neuroscience of emotional hijacking and ego-threat: showing why your immediate urge to defend yourself is not strength, but psychological fragility handing control directly to whoever provoked you.",
-      actionableInsight:
-        "The Somatic Freeze & Downward Cadence: The microsecond you sense defensiveness, deliberately unclench your jaw, drop your shoulders, and wait three heartbeats before speaking. Cut your vocal cadence in half and reply using seven words or fewer to starve conflict of oxygen.",
-      writtenConfrontation:
-        "The facing written ledger corners you to write down the exact recurring trigger or individual that provoked your last outburst. You are forced to trace the hidden insecurity you were defending, write down your complicity in the escalation, and script the exact monosyllabic response you will deploy next time. You cannot lie to your own handwriting."
-    },
-    {
-      icon: Shield,
-      title: "The Shadow & The Anatomy of Self-Deception",
-      subtitle: "Unearthing the unconscious bitterness, vanity, and fear you project onto other people",
-      psychology:
-        "Carl Jung shattered the comfortable illusion of the 'harmless' person: every human psyche carries a shadow packed with repressed aggression, envy, and cowardice. When you feel visceral disgust toward someone else's arrogance or ambition, you are almost always gazing into your own disowned reflection. Unintegrated darkness inevitably leaks out as toxic passive-aggression and self-sabotage.",
-      actionableInsight:
-        "Controlled Formidability: Abandon harmlessness. Virtue is not being incapable of inflicting damage; it is knowing your destructive capacities and consciously choosing discipline. Replace cowardly compliance with non-negotiable boundaries, and direct dark energy into relentless creative output.",
-      writtenConfrontation:
-        "The Shadow Integration Audit removes the word 'victim' from your vocabulary. You sit with pen in hand and answer prompts that leave no room for diplomatic excuses: writing where your apparent kindness was actually fear of conflict, where you secretly envied someone's win, and what unvarnished truth you have been avoiding in the mirror."
-    },
-    {
-      icon: Compass,
-      title: "Primate Status, Human Nature & Quiet Strategy",
-      subtitle: "Reading hidden motives, practicing emotional opacity, and winning without fighting",
-      psychology:
-        "The world is not governed by naive idealism; it is ruled by ancient laws of status competition, mimetic desire, and insecurity. People do not evaluate your secret good intentions; they judge the boundaries, scarcity, and emotional self-containment you project. Frantic over-explaining and public venting strip you of all leverage.",
-      actionableInsight:
-        "Tactical Empathy & The Golden Bridge: Never attack head-on. Map your counterparty's secret terrors and status drivers, build them a face-saving exit that lets them claim cosmetic victory while conceding strategic terrain, and enforce absolute project opacity until your results shatter the air like thunder.",
-      writtenConfrontation:
-        "The Strategic Restraint Audit forces you to conduct a forensic inventory of your recent speech and alliances. You write down exactly where you gave away leverage by seeking premature validation, where you failed to walk away, and what non-negotiable standards you are instituting in secret."
-    },
-    {
-      icon: Feather,
-      title: "The Backward Law & The Art of Psychological Stillness",
-      subtitle: "Breaking the cycle of compulsive overthinking and desperate outcome-chasing",
-      psychology:
-        "The psychological paradox of effort: the more frantically you pursue peace or certainty, the more internal panic you generate. Just as muddy water can only be cleared by leaving it alone, mental clarity returns only when you stop fighting your internal states and release obsession with things outside your control.",
-      actionableInsight:
-        "The 24-Hour Quarantine & Radical Acceptance: When indignation or anxiety strikes, enforce a mandatory 24-hour quarantine before sending any message or making any major pivot. Separate cold physical facts from the tragic narrative your mind invented about those facts.",
-      writtenConfrontation:
-        "The Evening Reckoning Ledger demands cold physical proof. Instead of abstract journaling, you record three verified facts of kept promises, audit where you wasted emotional energy on things you cannot control, and write down the exact mental loops you are releasing before sleep."
-    },
-    {
-      icon: BookOpen,
-      title: "Field Crucibles & The 90-Day Character Review",
-      subtitle: "Taking philosophy out of the intellect and proving it through embodied behavioral friction",
-      psychology:
-        "Accumulating philosophical ideas without behavioral execution is merely intellectual vanity. If your principles collapse the moment money, ego, or conflict is tested in real conditions, you do not possess a philosophy—you have an ornament. Character is forged exclusively through voluntary friction.",
-      actionableInsight:
-        "Five Non-Negotiable Crucibles: Practical tests embedded into your everyday environment: 72 hours of voluntary discomfort, extended tactical silence in contentious meetings, uncredited anonymous labor, and ruthless boundary enforcement.",
-      writtenConfrontation:
-        "The 90-Day Character Review is a quarterly forensic audit. You sit down with your historical entries and evaluate your behavioral consistency across 90 days with clinical detachment. Your own handwriting becomes the mirror that proves whether your standards held firm."
-    }
-  ];
+
 
   /* --- Real Human FAQs --- */
   const faqs = [
@@ -227,9 +166,6 @@ export default function HomePage() {
             <a href="#who-its-for" className="hidden md:inline-block text-[13px] text-[#86868b] hover:text-white transition-colors">
               Who It's For
             </a>
-            <a href="#whats-inside" className="hidden md:inline-block text-[13px] text-[#86868b] hover:text-white transition-colors">
-              What's Inside
-            </a>
             <a href="#reviews" className="hidden sm:inline-block text-[13px] text-[#86868b] hover:text-white transition-colors">
               Reviews
             </a>
@@ -271,11 +207,11 @@ export default function HomePage() {
               <ArrowRight className="w-4 h-4" />
             </a>
             <a
-              href="#whats-inside"
+              href="#who-its-for"
               className="apple-pill-btn w-full sm:w-auto px-7 py-3.5 bg-white/[0.06] hover:bg-white/[0.1] text-white border border-white/[0.12] font-medium text-[14px] transition-all flex items-center justify-center gap-2"
             >
               <BookOpen className="w-4 h-4 text-[#2997ff]" />
-              <span>Inside The Guide</span>
+              <span>Who It's For</span>
             </a>
           </div>
 
@@ -487,9 +423,6 @@ export default function HomePage() {
                 </ul>
               </div>
 
-              <div className="mt-8 pt-4 border-t border-white/[0.06] text-xs text-emerald-400 font-mono">
-                ✓ Built for psychological depth & real-world accountability
-              </div>
             </div>
 
             {/* Column 2: Who Should Skip It */}
@@ -527,101 +460,7 @@ export default function HomePage() {
                   </li>
                 </ul>
               </div>
-
-              <div className="mt-8 pt-4 border-t border-white/[0.06] text-xs text-zinc-500 font-mono">
-                ✕ Don't buy this if you aren't ready to face yourself in writing
-              </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* WHAT'S INSIDE: Deep Psychology, Real-World Action & The Written Audit */}
-      <section id="whats-inside" className="relative z-10 py-24 px-4 sm:px-6 border-t border-white/[0.08]">
-        <div className="max-w-[1060px] mx-auto">
-          <div className="text-center max-w-[720px] mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight">
-              How The Dual-Page System Works
-            </h2>
-            <p className="text-[15px] text-[#86868b] mt-3 leading-relaxed">
-              Every chapter is engineered as an unsparing two-page engine: ruthless depth psychology and field protocols on the left, and a facing written audit on the right that forces you to confront yourself on paper.
-            </p>
-          </div>
-
-          <div className="space-y-8">
-            {psychologicalEngines.map((engine, idx) => {
-              const Icon = engine.icon;
-              return (
-                <div
-                  key={idx}
-                  className="apple-bento-card p-6 sm:p-9 border border-white/[0.08] hover:border-white/[0.16] transition-all bg-[#0a0d14]/90"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.06]">
-                    <div className="flex items-center gap-3.5">
-                      <div className="w-10 h-10 rounded-xl bg-[#2997ff]/10 text-[#2997ff] flex items-center justify-center shrink-0 border border-[#2997ff]/20">
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-semibold text-white tracking-tight">
-                          {engine.title}
-                        </h3>
-                        <div className="text-[13px] text-[#86868b] mt-0.5">
-                          {engine.subtitle}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-                    {/* Pillar 1: Depth Psychology */}
-                    <div className="p-5 rounded-xl bg-white/[0.02] border border-white/[0.05] flex flex-col justify-between">
-                      <div>
-                        <div className="text-xs font-semibold uppercase tracking-wider text-[#2997ff] mb-2.5 flex items-center gap-1.5">
-                          <span>1. Depth Psychology</span>
-                        </div>
-                        <p className="text-[13px] text-zinc-300 leading-relaxed font-light">
-                          {engine.psychology}
-                        </p>
-                      </div>
-                      <div className="mt-4 pt-3 border-t border-white/[0.04] text-[11px] text-zinc-500 font-mono">
-                        Deconstructing The Internal Hijack
-                      </div>
-                    </div>
-
-                    {/* Pillar 2: Real-Life Action Protocol */}
-                    <div className="p-5 rounded-xl bg-white/[0.02] border border-white/[0.05] flex flex-col justify-between">
-                      <div>
-                        <div className="text-xs font-semibold uppercase tracking-wider text-emerald-400 mb-2.5 flex items-center gap-1.5">
-                          <span>2. Real-Life Field Protocol</span>
-                        </div>
-                        <p className="text-[13px] text-zinc-300 leading-relaxed font-light">
-                          {engine.actionableInsight}
-                        </p>
-                      </div>
-                      <div className="mt-4 pt-3 border-t border-white/[0.04] text-[11px] text-zinc-500 font-mono">
-                        Execution In Real-World Friction
-                      </div>
-                    </div>
-
-                    {/* Pillar 3: The Forced Written Audit */}
-                    <div className="p-5 rounded-xl bg-white/[0.03] border border-white/[0.08] flex flex-col justify-between">
-                      <div>
-                        <div className="text-xs font-semibold uppercase tracking-wider text-amber-300/90 mb-2.5 flex items-center gap-1.5">
-                          <PenTool className="w-3.5 h-3.5 text-amber-300" />
-                          <span>3. The Facing Written Audit</span>
-                        </div>
-                        <p className="text-[13px] text-zinc-200 leading-relaxed font-light">
-                          {engine.writtenConfrontation}
-                        </p>
-                      </div>
-                      <div className="mt-4 pt-3 border-t border-white/[0.04] text-[11px] text-zinc-400 font-mono">
-                        You Cannot Lie To Your Own Handwriting
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
           </div>
         </div>
       </section>

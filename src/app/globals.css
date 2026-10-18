@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap');
 @import "tailwindcss";
 
 :root {
@@ -11,6 +12,10 @@
   --text-muted: #86868b;
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-active: rgba(41, 151, 255, 0.4);
+}
+
+.font-garamond {
+  font-family: 'Cormorant Garamond', Georgia, serif;
 }
 
 body {

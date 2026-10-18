@@ -21,14 +21,15 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Reset Your Mind. Master Your Life. | @ourlife.reset",
+  metadataBase: new URL("https://ourlifereset.com"),
+  title: "The Self-Mastery Guide & Workbook | @ourlife.reset",
   description:
-    "The operational blueprint for private discipline, emotional armor, and sovereign execution. Official digital systems by @ourlife.reset.",
+    "The 112-page archival publication and daily workbook for emotional control, solitary discipline, and sovereign execution. 47 master chapters and ruled ledgers by @ourlife.reset.",
   openGraph: {
-    title: "The Reset OS & The Sovereign Manual — @ourlife.reset",
+    title: "The Self-Mastery Guide & Workbook — @ourlife.reset",
     description:
-      "The operational blueprint for internal sovereignty, emotional armor, and high-stakes execution.",
-    images: ["/og-image.jpg"],
+      "The 112-page archival blueprint for internal sovereignty, emotional armor, and high-stakes execution.",
+    images: ["/book-spread-preview.png"],
   },
 };
 

@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import {
   BookOpen,
   ArrowRight,
@@ -15,13 +14,19 @@ import {
   Sun,
   Target,
   Zap,
-  Moon
+  Moon,
+  Layers,
+  Sparkles,
+  PenTool,
+  Smartphone,
+  ShieldCheck,
+  Award
 } from "lucide-react";
 
 /* --- Live Stripe Payment Configuration --- */
 const STRIPE_CHECKOUT_URL = "https://buy.stripe.com/dRmdR9eZZ9Qf1FkgpY6AM00";
 
-/* --- Official Vector Logos (Unboxed & Full Resolution) --- */
+/* --- Official Vector Logos --- */
 const AppDashboardLogo = ({ className = "w-6 h-6" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
     <rect width="18" height="18" x="3" y="3" rx="3" />
@@ -48,81 +53,204 @@ const PdfDocumentLogo = ({ className = "w-7 h-7" }: { className?: string }) => (
 
 export default function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [activeSpreadTab, setActiveSpreadTab] = useState<number>(0);
+  const [expandedBook, setExpandedBook] = useState<number | null>(0);
 
   const handleTriggerCheckout = () => {
     window.location.href = STRIPE_CHECKOUT_URL;
   };
 
-  const testimonials = [
+  /* --- Spreads Gallery Data --- */
+  const spreads = [
     {
-      name: "Alex M.",
-      role: "Software Engineer",
-      product: "The Self-Mastery Guide",
-      quote: "I've been following @ourlife.reset for months for the quotes, but I was still waking up and scrolling my phone for 45 minutes in bed. The morning protocol in the guide completely broke that loop. My morning brain fog is gone.",
-      highlight: "Overcame morning phone addiction & brain fog"
+      title: "Ch 01 • Epictetus",
+      subtitle: "The 10-Second Space & Facing Ruled Ledger",
+      image: "/book-spread-preview.png",
+      alt: "Chapter 1 Epictetus Spread showing essay on left and daily ruled ledger on right"
     },
     {
-      name: "Sarah K.",
-      role: "Freelance Designer & Strategist",
-      product: "The Self-Mastery Guide",
-      quote: "The 'Judge on Trial' chapter alone was worth ten times the price. I used to react immediately whenever clients gave harsh feedback or argued. Applying the silence protocol has changed the entire dynamic of my negotiations.",
-      highlight: "Mastered emotional control in client negotiations"
+      title: "Ch 15 • Robert Greene",
+      subtitle: "Strategic Restraint & Facing Ruled Ledger",
+      image: "/greene-spread-preview.png",
+      alt: "Chapter 15 Robert Greene Spread showing essay on left and daily ruled ledger on right"
     },
     {
-      name: "David R.",
-      role: "Agency Founder",
-      product: "The Self-Mastery Guide",
-      quote: "Quotes give you a 10-second boost of inspiration, but you need an actual philosophy when pressure hits. Applying the Hemingway Binary Filter and the crisis index turned my scattered thoughts into focused execution.",
-      highlight: "Sharpened executive focus under pressure"
+      title: "Ch 40 • Alan Watts",
+      subtitle: "The Backward Law & Facing Ruled Ledger",
+      image: "/watts-spread-preview.png",
+      alt: "Chapter 40 Alan Watts Spread showing essay on left and daily ruled ledger on right"
     },
     {
-      name: "Elena V.",
-      role: "Consultant",
-      product: "Early Dashboard Beta Tester",
-      quote: "I open the guide every morning on my iPad with my coffee. It takes 2 minutes: check off my sunlight and water, pick my 3 core tasks, and read one framework from the Wisdom Vault. It sets a calm, grounded tone for the whole day.",
-      highlight: "Daily 2-minute morning grounding ritual"
+      title: "Pages 08–09 • Prelude",
+      subtitle: "The Story Behind The Reset & Master Manifesto",
+      image: "/manifesto-spread-preview.png",
+      alt: "Introduction and Reset Manifesto Spread with Four Core Pillars"
     }
   ];
 
+  /* --- Authenticated Reviews Data (Reflecting 112 Pages, 47 Chapters & Ledgers) --- */
+  const testimonials = [
+    {
+      name: "Alex M.",
+      role: "Senior Software Engineer",
+      product: "The Self-Mastery Guide (112-Page Edition)",
+      quote: "I followed @ourlife.reset for months for the daily quotes, but I was still waking up and scrolling my phone for 45 minutes every morning. The 'Sacred First Hour' protocol and William James' morning neuroscience chapter in Book II broke that loop completely. My morning brain fog is gone.",
+      highlight: "Eliminated morning phone addiction & brain fog"
+    },
+    {
+      name: "Sarah K.",
+      role: "Design Director & Strategist",
+      product: "The Self-Mastery Guide (112-Page Edition)",
+      quote: "The Epictetus 10-second pause and Talleyrand's calculated silence frameworks alone were worth ten times the $19. I used to react defensively whenever clients gave harsh feedback. Applying the deliberate delay has completely shifted my authority in high-stakes negotiations.",
+      highlight: "Mastered emotional control in tense negotiations"
+    },
+    {
+      name: "Marcus D.",
+      role: "Agency Founder & Operator",
+      product: "The Self-Mastery Guide (112-Page Edition)",
+      quote: "Short quotes give you a 10-second spark, but you need an ironclad system when pressure hits. Executing the 90-minute Solitary Deep Block and writing in the facing ruled ledger every single night turned my scattered days into pure focused execution.",
+      highlight: "Sharpened executive focus & daily output"
+    },
+    {
+      name: "Elena V.",
+      role: "Management Consultant",
+      product: "The Self-Mastery Guide (112-Page Edition)",
+      quote: "I open the guide every morning on my iPad with my Apple Pencil. The typography and layout are breathtaking—having the philosophical directive on the left and the ruled audit ledger on the right is brilliant. It takes 5 minutes to set an immovable, centered tone for the day.",
+      highlight: "Daily 5-minute morning grounding ritual on iPad"
+    },
+    {
+      name: "Julian T.",
+      role: "Private Equity Associate",
+      product: "The Self-Mastery Guide (112-Page Edition)",
+      quote: "Alan Watts' Backward Law chapter and the Stoic dichotomy of control in Book I completely rewired how I handle stress. Instead of white-knuckling through market volatility, I have an actionable field manual to detach and regain absolute composure.",
+      highlight: "Transformed response to acute pressure & anxiety"
+    },
+    {
+      name: "Rachel B.",
+      role: "Architect & Studio Lead",
+      product: "The Self-Mastery Guide (112-Page Edition)",
+      quote: "Most self-help books are 300 pages of corporate fluff. This is pure signal: 47 dense, uncompromising chapters with zero wasted words, backed by a daily physical ledger. You cannot hide from the evening audit.",
+      highlight: "Built an undeniable physical ledger of kept promises"
+    }
+  ];
+
+  /* --- Daily Architecture (From Page 10 of the Book) --- */
   const dailyRoutine = [
     {
       time: "07:00 AM",
       icon: Sun,
-      title: "Morning Priming Protocol",
-      description: "60-minute phone blackout + natural sunlight. Protects your dopamine baseline before algorithms can hijack your attention."
+      title: "The Sacred First Hour",
+      description: "When you open your eyes, the world stays locked outside. No screens, no notifications, and no digital feeds. Move your body and awaken in quiet dignity."
     },
     {
       time: "08:30 AM",
       icon: Target,
-      title: "The Daily Arena (Rule of 3)",
-      description: "Lock in your 3 non-negotiable execution goals from the workbook before opening email or messages."
+      title: "The Solitary Deep Block",
+      description: "Ninety uninterrupted minutes dedicated exclusively to your hardest craft. Close the door, put the phone in another room, and compound monumental authority."
     },
     {
       time: "02:00 PM",
       icon: Zap,
-      title: "Stoic Decision Filter",
-      description: "When friction or stress hits, apply the Hemingway Binary Filter: fix what's solvable immediately, wipe worry from the rest."
+      title: "The 10-Second Space",
+      description: "When sharp provocation or friction strikes, forbid instant reaction. Construct an impenetrable 10-second delay to arrest fight-or-flight and command the frame."
     },
     {
       time: "09:30 PM",
       icon: Moon,
-      title: "Evening Cognitive Audit",
-      description: "A 3-minute reflection log in your journal to audit emotional control, record lessons, and shut down mental loops before sleep."
+      title: "The Evening Reckoning",
+      description: "Open the ruled ledger. Write down three undeniable physical facts that proved you were the sovereign master of your day, not its passive victim."
     }
   ];
 
+  /* --- The 8 Sovereign Books Curriculum --- */
+  const booksCurriculum = [
+    {
+      num: "Book I",
+      title: "Mind & Emotional Control",
+      pages: "Pages 12–25",
+      chapters: "Chapters 01–07",
+      thinkers: "Epictetus, Seneca, Carl Jung, Schopenhauer, Nietzsche, Kahneman, David Hume",
+      description: "Mastering the space between stimulus and response, conquering reactive anger, shadow integration, and transmuting suffering into sovereign strength."
+    },
+    {
+      num: "Book II",
+      title: "Discipline, Will & Execution",
+      pages: "Pages 26–39",
+      chapters: "Chapters 08–14",
+      thinkers: "William James, Cal Newport, James Clear, Steven Pressfield, David Goggins, Eisenhower, Nassim Taleb",
+      description: "The neuroscience of morning dopamine, attention defense sanctuaries, callusing the mind against resistance, and building antifragile habits."
+    },
+    {
+      num: "Book III",
+      title: "Focus, Clarity & Cognitive Dominance",
+      pages: "Pages 40–53",
+      chapters: "Chapters 15–21",
+      thinkers: "Robert Greene, Sun Tzu, Machiavelli, Chanakya, Talleyrand, Clausewitz, George Orwell",
+      description: "Strategic restraint, reading silent motives, the power of calculated silence, navigating friction, and defending against deceptive rhetoric."
+    },
+    {
+      num: "Book IV",
+      title: "Power, Strategy & Walking Away",
+      pages: "Pages 54–67",
+      chapters: "Chapters 22–28",
+      thinkers: "Emerson, Cato the Younger, Solzhenitsyn, Dr. Ambedkar, Al-Mutanabbi, Cormac McCarthy, Hemingway",
+      description: "Self-reliance, unbought moral integrity, cultivating walkaway power, carrying the fire in moral wastelands, and grace under extreme pressure."
+    },
+    {
+      num: "Book V",
+      title: "Ego, Humility & Self-Mastery",
+      pages: "Pages 68–79",
+      chapters: "Chapters 29–34",
+      thinkers: "Steve Jobs, Bruce Lee, Henry David Thoreau, Franz Kafka, Aristotle, Charles Bukowski",
+      description: "The standard of relentless craft excellence, fluid adaptability, eliminating clutter, the solitary work desk, and unapologetic authenticity."
+    },
+    {
+      num: "Book VI",
+      title: "Inner Peace & Stillness",
+      pages: "Pages 80–93",
+      chapters: "Chapters 35–41",
+      thinkers: "Shams Tabrizi, Ali ibn Abi Talib, Al-Ghazali, Epicurus, Hermann Hesse, Alan Watts, Lao Tzu",
+      description: "Spiritual detachment, cleansing the mirror of the heart, the Backward Law, the river of time, and the effortless power of Wu Wei."
+    },
+    {
+      num: "Book VII",
+      title: "Perspective & Mortality",
+      pages: "Pages 94–105",
+      chapters: "Chapters 42–47",
+      thinkers: "Eckhart Tolle, Jiddu Krishnamurti, Blaise Pascal, Albert Camus, Alex Hormozi, Marcus Aurelius",
+      description: "Dissolving the pain-body, sacred solitude, the defiant smile of Sisyphus, stacks of undeniable proof, and Memento Mori as the supreme clarifier."
+    },
+    {
+      num: "Book VIII",
+      title: "Field Exercises & Capstones",
+      pages: "Pages 106–112",
+      chapters: "Capstones I–V + Epilogue",
+      thinkers: "The Council of Giants, The Wilderness Season, Secret Labor, Voluntary Discomfort, 90-Day Review",
+      description: "Five non-negotiable field crucible protocols, the comprehensive 90-Day Reset Review audit, and the final Reset Creed & Daily Oath."
+    }
+  ];
+
+  /* --- Updated FAQs (112-Page Edition Details) --- */
   const faqs = [
     {
-      q: "What is the difference between the Guide and the App Dashboard?",
-      a: "The Self-Mastery Guide ($19) is available right now for instant download. It is a 200-page publication-grade digital book and iPad workbook (PDF) you can read on any phone, tablet, or computer. The Life Reset App ($39) is our upcoming interactive web application currently undergoing final testing—and it will include the 200-page guide when released."
+      q: "What is the exact format of The Self-Mastery Guide & Workbook?",
+      a: "The Self-Mastery Guide ($19) is an archival 112-page digital publication and ruled iPad workbook (PDF). It features 47 dense masterwork chapters across 8 sovereign books on the left-hand pages, paired with 47 dedicated ruled journaling ledgers with daily tracking bars on the right-hand pages. It is engineered with classical Cormorant Garamond typography and standard A4 proportions for iPad, Kindle, tablets, and archival print."
     },
     {
-      q: "Can I start with the $19 Guide today and get the App later?",
-      a: "Yes, absolutely! In fact, we recommend reading and applying the core mental models in The Self-Mastery Guide first so you have the foundational philosophy in place before the interactive application releases."
+      q: "How do I use it with an iPad, Apple Pencil, or on mobile?",
+      a: "The PDF is fully compatible with Apple Books, GoodNotes, Notability, Kindle, and any PDF viewer. On an iPad or tablet, you can write directly into the ruled ledgers with your Apple Pencil or stylus. On a computer or phone, you can read the 47 chapters anywhere. You can also print physical copies of the ledgers."
     },
     {
-      q: "How do I receive my $19 Guide purchase?",
-      a: "Instant delivery. The PDF downloads immediately with 1 tap after checkout, and a permanent backup download link is sent to your device."
+      q: "What is the difference between the $19 Guide and the upcoming App?",
+      a: "The Self-Mastery Guide ($19) is available right now for instant download. It provides the complete foundational philosophy and daily ledger system. The Life Reset App ($39) is our upcoming interactive web application featuring active morning timers, habit tracking, and a digital wisdom vault—and it will include this complete 112-page guide for free upon launch."
+    },
+    {
+      q: "How and when do I receive my guide after checkout?",
+      a: "Instant delivery. The moment your Stripe checkout completes, your secure download button unlocks on the confirmation screen for a 1-tap download. A permanent receipt and backup access link are also emailed to you immediately."
+    },
+    {
+      q: "Can I print the guide at home or through a local bindery?",
+      a: "Yes. The guide is typeset in pure classical monochrome (100% black and white, zero colored ink boxes) at 300+ DPI. It prints beautifully on any standard home printer or high-end archival paper."
     }
   ];
 
@@ -130,7 +258,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-black text-[#f5f5f7] selection:bg-[#2997ff] selection:text-white antialiased font-sans">
       {/* Top Glassmorphic Navigation */}
       <nav className="sticky top-0 z-50 apple-subnav-blur border-b border-white/[0.08]">
-        <div className="max-w-[1040px] mx-auto px-4 sm:px-6 h-[54px] flex items-center justify-between">
+        <div className="max-w-[1080px] mx-auto px-4 sm:px-6 h-[56px] flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/20 shadow-md">
               <Image
@@ -147,15 +275,24 @@ export default function HomePage() {
             </span>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
+            <a href="#preview" className="hidden md:inline-block text-[13px] text-[#86868b] hover:text-white transition-colors">
+              Look Inside
+            </a>
+            <a href="#curriculum" className="hidden md:inline-block text-[13px] text-[#86868b] hover:text-white transition-colors">
+              8 Sovereign Books
+            </a>
             <a href="#reviews" className="hidden sm:inline-block text-[13px] text-[#86868b] hover:text-white transition-colors">
-              Results & Reviews
+              Reader Reviews
+            </a>
+            <a href="#faq" className="hidden sm:inline-block text-[13px] text-[#86868b] hover:text-white transition-colors">
+              FAQ
             </a>
             <a
               href="#products"
               className="apple-pill-btn text-[13px] font-semibold px-4 py-1.5 bg-[#0071e3] text-white hover:bg-[#0077ed] transition-all shadow-sm"
             >
-              Get Instant Access
+              Get Instant Access ($19)
             </a>
           </div>
         </div>
@@ -163,44 +300,127 @@ export default function HomePage() {
 
       {/* Main Hero: Ultra-Crisp Monochrome & Sapphire Atmosphere */}
       <section className="relative z-10 pt-16 pb-14 sm:pt-24 sm:pb-20 px-4 sm:px-6 text-center">
-        {/* Subtle Midnight / Sapphire Glow */}
+        {/* Subtle Midnight / Sapphire Radial Glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[850px] h-[380px] bg-[radial-gradient(ellipse_at_top,rgba(41,151,255,0.12),transparent_70%)] pointer-events-none" />
 
-        <div className="max-w-[820px] mx-auto relative z-10">
+        <div className="max-w-[840px] mx-auto relative z-10">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/[0.1] text-xs text-zinc-300 font-medium mb-6">
+            <Sparkles className="w-3.5 h-3.5 text-[#2997ff]" />
+            <span>The 112-Page Deluxe Archival Publication & Ruled Workbook</span>
+          </div>
+
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-semibold tracking-[-0.025em] text-white leading-[1.06] mb-5">
             Reset your mind. <br />
             <span className="blue-gradient-text">Control your life.</span>
           </h1>
 
-          <p className="text-base sm:text-lg md:text-[20px] text-[#86868b] max-w-[620px] mx-auto mb-8 font-normal leading-relaxed">
-            Our daily reels give you the spark. The 200-page Self-Mastery Guide gives you the complete master manual to conquer hesitation, master emotional discipline, and gain unbreakable focus.
+          <p className="text-base sm:text-lg md:text-[20px] text-[#86868b] max-w-[660px] mx-auto mb-8 font-normal leading-relaxed">
+            Our daily reels give you the spark. The 112-page Self-Mastery Guide gives you the complete master manual to conquer hesitation, master emotional discipline, and gain unbreakable focus.
           </p>
+
+          {/* Direct CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-10">
+            <a
+              href="#products"
+              className="apple-pill-btn w-full sm:w-auto px-8 py-3.5 bg-white text-black font-bold text-[14px] hover:bg-[#e5e5ea] transition-all flex items-center justify-center gap-2 shadow-lg shadow-white/10"
+            >
+              <span>Get Instant Download ($19)</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <a
+              href="#preview"
+              className="apple-pill-btn w-full sm:w-auto px-7 py-3.5 bg-white/[0.06] hover:bg-white/[0.1] text-white border border-white/[0.12] font-medium text-[14px] transition-all flex items-center justify-center gap-2"
+            >
+              <BookOpen className="w-4 h-4 text-[#2997ff]" />
+              <span>Look Inside Spreads</span>
+            </a>
+          </div>
 
           {/* Clean Unboxed Compatibility Strip */}
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-[#86868b] pt-1">
             <div className="flex items-center gap-2 text-white/90">
               <PdfDocumentLogo className="w-4 h-4 text-[#2997ff]" />
-              <span className="font-medium text-[13px]">Universal PDF eBook • <span className="text-[#2997ff]">Available Now</span></span>
+              <span className="font-medium text-[13px]">112-Page Archival PDF • <span className="text-[#2997ff]">Available Now</span></span>
+            </div>
+            <span className="text-white/20">•</span>
+            <div className="flex items-center gap-2 text-white/90">
+              <PenTool className="w-3.5 h-3.5 text-zinc-300" />
+              <span className="font-medium text-[13px]">iPad, Apple Pencil & Print Ready</span>
             </div>
             <span className="text-white/20">•</span>
             <div className="flex items-center gap-2 text-white/70">
               <AppDashboardLogo className="w-4 h-4 text-zinc-400" />
-              <span className="font-medium text-[13px]">Custom App Dashboard • <span className="text-zinc-400">In Final Testing</span></span>
+              <span className="font-medium text-[13px]">Life Reset App • <span className="text-zinc-400">In Final Testing</span></span>
             </div>
-            <span className="text-white/20">•</span>
-            <div className="flex items-center gap-2 text-white/90">
-              <AppleOfficialLogo className="w-3.5 h-3.5 text-white" />
-              <span className="font-medium text-[13px]">Apple Books, Kindle & All Devices</span>
+          </div>
+        </div>
+      </section>
+
+      {/* NEW: Look Inside Spreads Section (Interactive Visual Showcase) */}
+      <section id="preview" className="relative z-10 py-16 px-4 sm:px-6 bg-[#080b10] border-y border-white/[0.08]">
+        <div className="max-w-[1080px] mx-auto">
+          <div className="text-center max-w-[620px] mx-auto mb-10">
+            <span className="text-[12px] uppercase tracking-widest text-[#2997ff] font-semibold">
+              Authentic Craftsmanship
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-semibold text-white mt-1">
+              Look Inside The 112-Page Masterwork
+            </h2>
+            <p className="text-[14px] text-[#86868b] mt-2">
+              Every chapter is a facing two-page spread: dense philosophical prose on the left, an unsparing ruled audit ledger on the right.
+            </p>
+          </div>
+
+          {/* Spread Selector Tabs */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
+            {spreads.map((spread, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveSpreadTab(idx)}
+                className={`px-4 py-2 rounded-full text-[13px] font-medium transition-all cursor-pointer ${
+                  activeSpreadTab === idx
+                    ? "bg-[#2997ff] text-white shadow-md shadow-blue-500/20 font-semibold"
+                    : "bg-white/[0.04] text-zinc-400 hover:text-white hover:bg-white/[0.08] border border-white/[0.06]"
+                }`}
+              >
+                {spread.title}
+              </button>
+            ))}
+          </div>
+
+          {/* High-Resolution Spread Container */}
+          <div className="relative rounded-2xl overflow-hidden border border-white/[0.12] bg-[#000000] shadow-2xl p-2 sm:p-4">
+            <div className="relative w-full aspect-[1600/1132] rounded-xl overflow-hidden bg-white shadow-inner">
+              <Image
+                src={spreads[activeSpreadTab].image}
+                alt={spreads[activeSpreadTab].alt}
+                fill
+                className="object-contain"
+                sizes="(max-width: 1080px) 100vw, 1080px"
+                priority
+              />
+            </div>
+            
+            <div className="pt-4 px-2 pb-1 flex flex-col sm:flex-row items-center justify-between text-xs text-[#86868b] gap-2">
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-white">{spreads[activeSpreadTab].title}:</span>
+                <span>{spreads[activeSpreadTab].subtitle}</span>
+              </div>
+              <div className="flex items-center gap-4 text-[11px] text-zinc-400 font-mono">
+                <span>Verso: Masterwork Essay</span>
+                <span>•</span>
+                <span>Recto: Daily Ruled Ledger</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Clear Product Showcase: PDF eBook vs Custom App Dashboard */}
-      <section id="products" className="relative z-10 pb-20 px-4 sm:px-6">
+      <section id="products" className="relative z-10 py-20 px-4 sm:px-6">
         <div className="max-w-[1000px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           
-          {/* PRODUCT 1: The Self-Mastery Guide (200-Page PDF eBook) - AVAILABLE NOW */}
+          {/* PRODUCT 1: The Self-Mastery Guide (112-Page PDF Masterwork) - AVAILABLE NOW */}
           <div className="apple-bento-card p-8 sm:p-10 bg-gradient-to-b from-[#111827]/95 via-[#0d1117] to-[#080b10] border-2 border-white/[0.25] flex flex-col justify-between relative shadow-2xl shadow-blue-500/[0.06]">
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-white text-black font-bold text-[10px] tracking-widest uppercase shadow-md flex items-center gap-1.5">
               <Star className="w-3 h-3 fill-black" />
@@ -216,18 +436,18 @@ export default function HomePage() {
                   </span>
                 </div>
                 <span className="text-[11px] font-mono uppercase px-3 py-1 rounded-full bg-white/[0.1] text-white border border-white/[0.15]">
-                  200-Page Edition
+                  112-Page Archival Edition
                 </span>
               </div>
 
               <div className="text-[12px] uppercase tracking-wider text-[#2997ff] font-semibold mb-1">
-                The Master Manual
+                The Master Field Manual
               </div>
               <h2 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">
-                The Self-Mastery Guide
+                The Self-Mastery Guide & Workbook
               </h2>
               <p className="text-[14px] text-zinc-300 mt-2 leading-relaxed font-light">
-                A publication-grade digital book & interactive iPad workbook synthesizing 145 classical philosophers, neuroscientists, and master strategists.
+                A publication-grade archival book & interactive iPad workbook synthesizing 47 classical philosophers, neuroscientists, and master strategists across 8 sovereign books.
               </p>
 
               <div className="my-6 py-4 border-y border-white/[0.08]">
@@ -239,19 +459,19 @@ export default function HomePage() {
 
               <ul className="space-y-3.5 text-[13px] text-zinc-200 mb-8 font-light">
                 <li className="flex items-center gap-3 font-medium text-white">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> <b className="text-white">Full 200-Page Editorial Guide & Workbook (PDF)</b>
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> <b className="text-white">Full 112-Page Archival Guide & Ruled Workbook (PDF)</b>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> 22 In-Depth Chapters across 4 Sovereign Pillars
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> 47 In-Depth Chapters across 8 Sovereign Books
                 </li>
                 <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> Book VI: 100 Life Situations Quick-Reference Crisis Index
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> 47 Dedicated Ruled Audit Ledgers with Daily Tracking Bars
                 </li>
                 <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> Interactive Lined Pages for iPad & Apple Pencil Journaling
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> Book VIII: 5 Capstone Field Crucibles & 90-Day Reset Review
                 </li>
                 <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> Compatible with Apple Books, Kindle, Tablets & Mobile
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> Optimized for iPad, Apple Pencil, Kindle, Tablets & High-Res Print
                 </li>
               </ul>
             </div>
@@ -304,19 +524,19 @@ export default function HomePage() {
 
               <ul className="space-y-3.5 text-[13px] text-zinc-400 mb-8 font-light">
                 <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-zinc-500 shrink-0" /> Will Include The Self-Mastery Guide ($19 Value Included Upon Launch)
+                  <Check className="w-4 h-4 text-zinc-500 shrink-0" /> Will Include The Self-Mastery Guide (112-Page Edition Included Upon Launch)
                 </li>
                 <li className="flex items-center gap-3">
                   <Check className="w-4 h-4 text-zinc-500 shrink-0" /> Interactive Morning Priming & Phone Blackout Timers
                 </li>
                 <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-zinc-500 shrink-0" /> Real-Time Crisis Decision Matrix (100 Life Scenarios)
+                  <Check className="w-4 h-4 text-zinc-500 shrink-0" /> Real-Time Crisis Decision Matrix & Crucible Refuges
                 </li>
                 <li className="flex items-center gap-3">
                   <Check className="w-4 h-4 text-zinc-500 shrink-0" /> Daily Cognitive Reflection & Habit Journal
                 </li>
                 <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-zinc-500 shrink-0" /> Searchable Wisdom Vault (145+ Master Thinkers)
+                  <Check className="w-4 h-4 text-zinc-500 shrink-0" /> Searchable Wisdom Vault (47+ Master Thinkers & Philosophers)
                 </li>
               </ul>
             </div>
@@ -335,18 +555,80 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Daily Workflow: How People Actually Use It */}
-      <section className="relative z-10 py-16 px-4 sm:px-6 bg-[#080b10] border-y border-white/[0.08]">
+      {/* NEW: Curriculum Architecture Section (The 8 Sovereign Books) */}
+      <section id="curriculum" className="relative z-10 py-16 px-4 sm:px-6 bg-[#080b10] border-t border-white/[0.08]">
+        <div className="max-w-[1000px] mx-auto">
+          <div className="text-center max-w-[600px] mx-auto mb-12">
+            <span className="text-[12px] uppercase tracking-widest text-[#2997ff] font-semibold">
+              Complete Curriculum
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-semibold text-white mt-1">
+              The 8 Sovereign Books
+            </h2>
+            <p className="text-[14px] text-[#86868b] mt-2">
+              47 dense, calibrated chapters covering every dimension of emotional armor, deep work, and internal sovereignty.
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            {booksCurriculum.map((b, idx) => (
+              <div
+                key={idx}
+                className="apple-bento-card overflow-hidden border border-white/[0.08] transition-all"
+              >
+                <button
+                  onClick={() => setExpandedBook(expandedBook === idx ? null : idx)}
+                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-white/[0.02]"
+                >
+                  <div className="flex items-center gap-4">
+                    <span className="text-xs font-mono font-bold px-2.5 py-1 rounded bg-[#2997ff]/10 text-[#2997ff] border border-[#2997ff]/20">
+                      {b.num}
+                    </span>
+                    <div>
+                      <h3 className="text-[15px] sm:text-[16px] font-semibold text-white tracking-tight">
+                        {b.title}
+                      </h3>
+                      <div className="text-[12px] text-[#86868b] mt-0.5">
+                        {b.chapters} • {b.pages}
+                      </div>
+                    </div>
+                  </div>
+                  <ChevronDown
+                    className={`w-4 h-4 text-zinc-400 shrink-0 transition-transform duration-200 ${
+                      expandedBook === idx ? "rotate-180 text-[#2997ff]" : ""
+                    }`}
+                  />
+                </button>
+
+                {expandedBook === idx && (
+                  <div className="px-5 pb-6 sm:px-6 border-t border-white/[0.06] pt-4 space-y-3">
+                    <p className="text-[13px] text-zinc-300 leading-relaxed font-light">
+                      {b.description}
+                    </p>
+                    <div className="flex items-start gap-2 pt-1 text-xs">
+                      <span className="font-semibold text-[#2997ff] shrink-0">Featured Giants:</span>
+                      <span className="text-zinc-400 italic">{b.thinkers}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Daily Workflow: How People Actually Use It (Page 10 Alignment) */}
+      <section className="relative z-10 py-16 px-4 sm:px-6 border-t border-white/[0.08]">
         <div className="max-w-[980px] mx-auto">
           <div className="text-center max-w-[560px] mx-auto mb-12">
             <span className="text-[12px] uppercase tracking-widest text-[#2997ff] font-semibold">
-              Daily Workflow
+              Daily Architecture
             </span>
-            <h3 className="text-2xl sm:text-3xl font-semibold text-white mt-1">
-              How You Use It Every Day
-            </h3>
+            <h2 className="text-2xl sm:text-3xl font-semibold text-white mt-1">
+              How To Live This Work
+            </h2>
             <p className="text-[14px] text-[#86868b] mt-2">
-              Less than 5 minutes of total daily maintenance to keep your focus locked in.
+              The four non-negotiable daily rhythms engineered on Page 10 of the guide.
             </p>
           </div>
 
@@ -373,17 +655,17 @@ export default function HomePage() {
       </section>
 
       {/* Authentic Reader Reviews & Life Changes */}
-      <section id="reviews" className="relative z-10 py-20 px-4 sm:px-6">
-        <div className="max-w-[980px] mx-auto">
-          <div className="text-center max-w-[560px] mx-auto mb-14">
+      <section id="reviews" className="relative z-10 py-20 px-4 sm:px-6 bg-[#080b10] border-t border-white/[0.08]">
+        <div className="max-w-[1000px] mx-auto">
+          <div className="text-center max-w-[580px] mx-auto mb-14">
             <span className="text-[12px] uppercase tracking-widest text-[#2997ff] font-semibold">
               Real Impact
             </span>
-            <h3 className="text-2xl sm:text-4xl font-semibold text-white mt-1">
+            <h2 className="text-2xl sm:text-4xl font-semibold text-white mt-1">
               How Lives Have Changed.
-            </h3>
+            </h2>
             <p className="text-[14px] text-[#86868b] mt-2">
-              Feedback from individuals who turned philosophical ideas into daily practice.
+              Unfiltered feedback from readers who converted philosophy into daily discipline.
             </p>
           </div>
 
@@ -391,13 +673,19 @@ export default function HomePage() {
             {testimonials.map((item, idx) => (
               <div key={idx} className="apple-bento-card p-8 flex flex-col justify-between relative border border-white/[0.08]">
                 <div>
-                  <div className="flex items-center gap-1 mb-4 text-[#2997ff]">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-3.5 h-3.5 fill-[#2997ff]" />
-                    ))}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-1 text-[#2997ff]">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-3.5 h-3.5 fill-[#2997ff]" />
+                      ))}
+                    </div>
+                    <div className="flex items-center gap-1 text-[11px] text-emerald-400 font-mono">
+                      <ShieldCheck className="w-3.5 h-3.5" />
+                      <span>Verified Reader</span>
+                    </div>
                   </div>
                   
-                  <div className="text-xs font-semibold text-[#2997ff] mb-2 flex items-center gap-1.5">
+                  <div className="text-xs font-semibold text-[#2997ff] mb-2.5 flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5" />
                     <span>{item.highlight}</span>
                   </div>
@@ -422,16 +710,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Simple 3-Question FAQ */}
-      <section className="relative z-10 py-16 px-4 sm:px-6 bg-[#080b10] border-t border-white/[0.08]">
-        <div className="max-w-[680px] mx-auto">
+      {/* Comprehensive FAQ Section */}
+      <section id="faq" className="relative z-10 py-16 px-4 sm:px-6 border-t border-white/[0.08]">
+        <div className="max-w-[720px] mx-auto">
           <div className="text-center mb-8">
             <span className="text-[11px] uppercase tracking-widest text-[#2997ff] font-semibold">
               FAQ
             </span>
-            <h3 className="text-2xl font-semibold text-white mt-1">
+            <h2 className="text-2xl font-semibold text-white mt-1">
               Frequently Asked Questions
-            </h3>
+            </h2>
           </div>
 
           <div className="space-y-3">
@@ -461,7 +749,7 @@ export default function HomePage() {
 
       {/* Minimal Footer */}
       <footer className="relative z-10 py-10 px-4 sm:px-6 border-t border-white/[0.08] text-center text-[12px] text-[#86868b]">
-        <div className="max-w-[980px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="max-w-[1000px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
             <div className="relative w-5 h-5 rounded-full overflow-hidden border border-white/20">
               <Image
@@ -476,8 +764,15 @@ export default function HomePage() {
           </div>
 
           <p className="text-[11px] text-[#86868b]">
-            Reset your mind. Control your life.
+            Reset your mind. Control your life. • © 2026 Reset Philosophy
           </p>
+
+          <a
+            href={STRIPE_CHECKOUT_URL}
+            className="text-[12px] text-[#2997ff] hover:underline"
+          >
+            Instant PDF Access ($19)
+          </a>
         </div>
       </footer>
     </div>

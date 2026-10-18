@@ -106,8 +106,8 @@ function SuccessContent() {
             <div className="p-5 rounded-2xl bg-black/60 border border-white/[0.08] text-left space-y-4">
               <div className="flex items-center justify-between pb-3.5 border-b border-white/[0.08]">
                 <div>
-                  <div className="text-[14px] font-semibold text-white">The Self-Mastery Guide</div>
-                  <div className="text-[12px] text-[#86868b]">Full 200-Page Master PDF Publication</div>
+                  <div className="text-[14px] font-semibold text-white">The Self-Mastery Guide & Workbook</div>
+                  <div className="text-[12px] text-[#86868b]">Full 112-Page Archival Masterwork (PDF)</div>
                 </div>
                 <span className="text-[11px] px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-mono border border-emerald-500/20">
                   Paid

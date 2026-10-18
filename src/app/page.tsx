@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import {
   BookOpen,
@@ -8,13 +8,16 @@ import {
   Check,
   X,
   Lock,
-  ChevronDown,
   Star,
   CheckCircle2,
   PenTool,
-  ShieldCheck,
   MessageSquarePlus,
-  Send
+  Send,
+  Compass,
+  Eye,
+  Shield,
+  Feather,
+  ChevronDown
 } from "lucide-react";
 
 /* --- Live Stripe Payment Configuration --- */
@@ -39,11 +42,22 @@ const PdfDocumentLogo = ({ className = "w-7 h-7" }: { className?: string }) => (
   </svg>
 );
 
+interface ReviewItem {
+  id: string;
+  name: string;
+  role?: string;
+  date: string;
+  rating: number;
+  highlight?: string;
+  comment: string;
+}
+
 export default function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [expandedPart, setExpandedPart] = useState<number | null>(0);
   const [showReviewModal, setShowReviewModal] = useState<boolean>(false);
   const [reviewSubmitted, setReviewSubmitted] = useState<boolean>(false);
+  const [submittingReview, setSubmittingReview] = useState<boolean>(false);
+  const [reviewsList, setReviewsList] = useState<ReviewItem[]>([]);
   const [newReview, setNewReview] = useState({
     name: "",
     role: "",
@@ -51,113 +65,112 @@ export default function HomePage() {
     comment: ""
   });
 
+  /* --- Fetch Reviews from Live Persistence API --- */
+  useEffect(() => {
+    async function loadReviews() {
+      try {
+        const res = await fetch("/api/reviews");
+        if (res.ok) {
+          const data = await res.json();
+          setReviewsList(data);
+        }
+      } catch (err) {
+        console.error("Could not load reviews:", err);
+      }
+    }
+    loadReviews();
+  }, []);
+
   const handleTriggerCheckout = () => {
     window.location.href = STRIPE_CHECKOUT_URL;
   };
 
-  /* --- Genuine Reader Reviews (Dated October 2026, Human Tone) --- */
-  const testimonials = [
-    {
-      name: "Alex M.",
-      role: "Software Engineer",
-      date: "October 16, 2026",
-      quote: "I’ve followed the Instagram page for months, but honestly I was still waking up every day and losing 45 minutes scrolling in bed. The morning blackout protocol in this guide was the first thing that actually got me out of bed without touching my phone. Having the physical pages to write in on my iPad makes a massive difference.",
-      highlight: "Stopped reaching for my phone first thing in the morning"
-    },
-    {
-      name: "Sarah K.",
-      role: "Freelance Designer",
-      date: "October 15, 2026",
-      quote: "What I appreciate most is that there's no fluff. Most self-help books take 20 pages to explain one simple concept, but each chapter here is exactly one page of reading and one page of writing. The chapter on taking a 10-second pause before reacting literally saved me from blowing up at a difficult client last Thursday.",
-      highlight: "Learned how to pause instead of reacting defensively"
-    },
-    {
-      name: "Marcus D.",
-      role: "Small Business Owner",
-      date: "October 17, 2026",
-      quote: "I bought this on a whim over the weekend. I was expecting another generic motivational PDF, but this is an actual operating manual. The idea of keeping an unvarnished physical audit of what you actually got done each day is sobering. If you didn't do the work, you have to write that down. Worth way more than $19.",
-      highlight: "Keeping a daily physical audit of what actually gets done"
-    },
-    {
-      name: "Elena V.",
-      role: "Operations Consultant",
-      date: "October 14, 2026",
-      quote: "I use this with GoodNotes on my iPad every morning with my first coffee. It takes maybe five minutes. Reading one page, setting my priorities for the day, and checking off the habit bar sets a completely different tone for my morning. Beautifully laid out too.",
-      highlight: "Simple 5-minute morning routine that keeps me grounded"
-    },
-    {
-      name: "David H.",
-      role: "Project Manager",
-      date: "October 12, 2026",
-      quote: "The section on strategic silence and speaking less than necessary hit home hard. I tend to over-explain myself in meetings when I feel insecure. Applying the restraint framework this week completely changed how my team reacted to my decisions. Simple, direct, and practical.",
-      highlight: "Speaking less and commanding more authority in meetings"
-    },
-    {
-      name: "Rachel B.",
-      role: "Architect",
-      date: "October 10, 2026",
-      quote: "It’s refreshing to read something that doesn't try to sugarcoat how hard self-discipline is. No toxic positivity, no ridiculous 4:00 AM ice bath nonsense. Just straightforward principles and a daily ledger to track whether you actually kept your word to yourself.",
-      highlight: "Direct, honest, and zero toxic positivity"
-    }
-  ];
+  /* --- Submit Review to Backend --- */
+  const handleReviewSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newReview.name.trim() || !newReview.comment.trim()) return;
 
-  /* --- What's Inside: The 8 Parts (Simple, Clear, No Leaked Thinkers) --- */
-  const guideParts = [
+    setSubmittingReview(true);
+    try {
+      const res = await fetch("/api/reviews", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newReview)
+      });
+
+      if (res.ok) {
+        const result = await res.json();
+        setReviewsList((prev) => [result.review, ...prev]);
+        setReviewSubmitted(true);
+        setTimeout(() => {
+          setShowReviewModal(false);
+          setReviewSubmitted(false);
+          setNewReview({ name: "", role: "", rating: 5, comment: "" });
+        }, 2000);
+      }
+    } catch (err) {
+      console.error("Submission error:", err);
+    } finally {
+      setSubmittingReview(false);
+    }
+  };
+
+  /* --- The 5 Core Psychological Engines of the 112 Pages --- */
+  const psychologicalEngines = [
     {
-      num: "Part I",
-      title: "Mind & Emotional Control",
-      pages: "Pages 12–25",
-      chapters: "Chapters 01–07",
-      description: "How to stop reacting on impulse, stay calm when provoked or criticized, and regain control of your emotions under pressure."
+      icon: Eye,
+      title: "Deconstructing Reactivity & The 10-Second Space",
+      subtitle: "Short-circuiting the biochemical impulse to retaliate, explain, or lose composure",
+      psychology:
+        "When an insult, disrespect, or crisis strikes, your amygdala triggers an immediate fight-or-flight surge within 300 milliseconds. We unpack the neuroscience of emotional hijacking and ego-threat: showing why your immediate urge to defend yourself is not strength, but psychological fragility handing control directly to whoever provoked you.",
+      actionableInsight:
+        "The Somatic Freeze & Downward Cadence: The microsecond you sense defensiveness, deliberately unclench your jaw, drop your shoulders, and wait three heartbeats before speaking. Cut your vocal cadence in half and reply using seven words or fewer to starve conflict of oxygen.",
+      writtenConfrontation:
+        "The facing written ledger corners you to write down the exact recurring trigger or individual that provoked your last outburst. You are forced to trace the hidden insecurity you were defending, write down your complicity in the escalation, and script the exact monosyllabic response you will deploy next time. You cannot lie to your own handwriting."
     },
     {
-      num: "Part II",
-      title: "Discipline, Will & Execution",
-      pages: "Pages 26–39",
-      chapters: "Chapters 08–14",
-      description: "How to protect your morning attention from digital distraction, beat procrastination, and stay consistent when motivation fades."
+      icon: Shield,
+      title: "The Shadow & The Anatomy of Self-Deception",
+      subtitle: "Unearthing the unconscious bitterness, vanity, and fear you project onto other people",
+      psychology:
+        "Carl Jung shattered the comfortable illusion of the 'harmless' person: every human psyche carries a shadow packed with repressed aggression, envy, and cowardice. When you feel visceral disgust toward someone else's arrogance or ambition, you are almost always gazing into your own disowned reflection. Unintegrated darkness inevitably leaks out as toxic passive-aggression and self-sabotage.",
+      actionableInsight:
+        "Controlled Formidability: Abandon harmlessness. Virtue is not being incapable of inflicting damage; it is knowing your destructive capacities and consciously choosing discipline. Replace cowardly compliance with non-negotiable boundaries, and direct dark energy into relentless creative output.",
+      writtenConfrontation:
+        "The Shadow Integration Audit removes the word 'victim' from your vocabulary. You sit with pen in hand and answer prompts that leave no room for diplomatic excuses: writing where your apparent kindness was actually fear of conflict, where you secretly envied someone's win, and what unvarnished truth you have been avoiding in the mirror."
     },
     {
-      num: "Part III",
-      title: "Focus, Clarity & Strategic Thinking",
-      pages: "Pages 40–53",
-      chapters: "Chapters 15–21",
-      description: "How to cut through daily noise, read situations accurately, speak less than necessary, and protect your energy."
+      icon: Compass,
+      title: "Primate Status, Human Nature & Quiet Strategy",
+      subtitle: "Reading hidden motives, practicing emotional opacity, and winning without fighting",
+      psychology:
+        "The world is not governed by naive idealism; it is ruled by ancient laws of status competition, mimetic desire, and insecurity. People do not evaluate your secret good intentions; they judge the boundaries, scarcity, and emotional self-containment you project. Frantic over-explaining and public venting strip you of all leverage.",
+      actionableInsight:
+        "Tactical Empathy & The Golden Bridge: Never attack head-on. Map your counterparty's secret terrors and status drivers, build them a face-saving exit that lets them claim cosmetic victory while conceding strategic terrain, and enforce absolute project opacity until your results shatter the air like thunder.",
+      writtenConfrontation:
+        "The Strategic Restraint Audit forces you to conduct a forensic inventory of your recent speech and alliances. You write down exactly where you gave away leverage by seeking premature validation, where you failed to walk away, and what non-negotiable standards you are instituting in secret."
     },
     {
-      num: "Part IV",
-      title: "Independence, Courage & Walking Away",
-      pages: "Pages 54–67",
-      chapters: "Chapters 22–28",
-      description: "How to stop seeking approval from others, hold your ground under pressure, and develop the strength to walk away from bad situations."
+      icon: Feather,
+      title: "The Backward Law & The Art of Psychological Stillness",
+      subtitle: "Breaking the cycle of compulsive overthinking and desperate outcome-chasing",
+      psychology:
+        "The psychological paradox of effort: the more frantically you pursue peace or certainty, the more internal panic you generate. Just as muddy water can only be cleared by leaving it alone, mental clarity returns only when you stop fighting your internal states and release obsession with things outside your control.",
+      actionableInsight:
+        "The 24-Hour Quarantine & Radical Acceptance: When indignation or anxiety strikes, enforce a mandatory 24-hour quarantine before sending any message or making any major pivot. Separate cold physical facts from the tragic narrative your mind invented about those facts.",
+      writtenConfrontation:
+        "The Evening Reckoning Ledger demands cold physical proof. Instead of abstract journaling, you record three verified facts of kept promises, audit where you wasted emotional energy on things you cannot control, and write down the exact mental loops you are releasing before sleep."
     },
     {
-      num: "Part V",
-      title: "Work Ethic, Humility & Craft",
-      pages: "Pages 68–79",
-      chapters: "Chapters 29–34",
-      description: "How to bring high standards to your daily work, eliminate clutter from your schedule, and build genuine competence without ego."
-    },
-    {
-      num: "Part VI",
-      title: "Inner Peace & Stillness",
-      pages: "Pages 80–93",
-      chapters: "Chapters 35–41",
-      description: "How to quiet relentless mental chatter, let go of outcomes outside your control, and maintain genuine peace of mind."
-    },
-    {
-      num: "Part VII",
-      title: "Perspective & Priorities",
-      pages: "Pages 94–105",
-      chapters: "Chapters 42–47",
-      description: "How to stop stressing over minor irritations, break free from chronic anxiety, and keep what truly matters front and center."
-    },
-    {
-      num: "Part VIII",
-      title: "Field Exercises & The 90-Day Review",
-      pages: "Pages 106–112",
-      chapters: "Capstones I–V + Epilogue",
-      description: "Five practical challenges to test your discipline in daily life, followed by a full 90-day review framework to measure your real progress."
+      icon: BookOpen,
+      title: "Field Crucibles & The 90-Day Character Review",
+      subtitle: "Taking philosophy out of the intellect and proving it through embodied behavioral friction",
+      psychology:
+        "Accumulating philosophical ideas without behavioral execution is merely intellectual vanity. If your principles collapse the moment money, ego, or conflict is tested in real conditions, you do not possess a philosophy—you have an ornament. Character is forged exclusively through voluntary friction.",
+      actionableInsight:
+        "Five Non-Negotiable Crucibles: Practical tests embedded into your everyday environment: 72 hours of voluntary discomfort, extended tactical silence in contentious meetings, uncredited anonymous labor, and ruthless boundary enforcement.",
+      writtenConfrontation:
+        "The 90-Day Character Review is a quarterly forensic audit. You sit down with your historical entries and evaluate your behavioral consistency across 90 days with clinical detachment. Your own handwriting becomes the mirror that proves whether your standards held firm."
     }
   ];
 
@@ -165,15 +178,15 @@ export default function HomePage() {
   const faqs = [
     {
       q: "What is the exact format of The Self-Mastery Guide & Workbook?",
-      a: "The Self-Mastery Guide ($19) is a 112-page digital publication and ruled iPad workbook (PDF). It features 47 concise master chapters on the left-hand pages, paired with 47 dedicated ruled journaling ledgers with daily tracking bars on the right-hand pages. It is engineered with classical Cormorant Garamond typography and standard A4 proportions for iPad, Kindle, tablets, and print."
+      a: "The Self-Mastery Guide ($19) is an archival 112-page digital book and interactive iPad workbook (PDF). It features 47 dense psychological chapters on the left-hand pages, paired with 47 dedicated ruled journaling ledgers with daily tracking bars on the right-hand pages. It is engineered with classical Cormorant Garamond typography and standard A4 proportions for iPad, Kindle, tablets, and print."
     },
     {
-      q: "How do I use it with an iPad, Apple Pencil, or on mobile?",
-      a: "The PDF is fully compatible with Apple Books, GoodNotes, Notability, Kindle, and any PDF viewer. On an iPad or tablet, you can write directly into the ruled ledgers with your Apple Pencil or stylus. On a phone or computer, you can read the chapters anywhere. You can also print physical copies of the ledgers."
+      q: "How do I write in the workbook on an iPad or tablet?",
+      a: "The PDF is fully compatible with Apple Books, GoodNotes, Notability, Kindle, and any standard tablet PDF annotation app. You can write directly into the ruled audit ledgers with your Apple Pencil or stylus, or print physical copies of the ledgers for daily handwriting."
     },
     {
       q: "What is the difference between the $19 Guide and the upcoming App?",
-      a: "The Self-Mastery Guide ($19) is available right now for instant download. It provides the complete foundational philosophy and daily ledger system. The Life Reset App ($39) is our upcoming interactive web application featuring active morning timers, habit tracking, and a digital wisdom vault—and it will include this complete 112-page guide for free upon launch."
+      a: "The Self-Mastery Guide ($19) is available right now for instant download. It provides the complete 112-page foundation of psychology, actionable field protocols, and written audit ledgers. The Life Reset App ($39) is our upcoming interactive web application featuring real-time impulse delay protocols, cognitive decision guides, and a searchable wisdom vault—and it will include this complete 112-page guide for free upon launch."
     },
     {
       q: "How and when do I receive my guide after checkout?",
@@ -181,20 +194,9 @@ export default function HomePage() {
     },
     {
       q: "Can I print the guide at home or through a local bindery?",
-      a: "Yes. The guide is typeset in pure classical monochrome (100% black and white, zero colored ink boxes) at 300+ DPI. It prints beautifully on any standard home printer or high-end paper."
+      a: "Yes. The guide is typeset in pure classical monochrome (100% black and white, zero colored ink boxes) at 300+ DPI. It prints cleanly on any standard home printer or high-end paper."
     }
   ];
-
-  const handleReviewSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newReview.name.trim() || !newReview.comment.trim()) return;
-    setReviewSubmitted(true);
-    setTimeout(() => {
-      setShowReviewModal(false);
-      setReviewSubmitted(false);
-      setNewReview({ name: "", role: "", rating: 5, comment: "" });
-    }, 2200);
-  };
 
   return (
     <div className="min-h-screen bg-black text-[#f5f5f7] selection:bg-[#2997ff] selection:text-white antialiased font-sans">
@@ -240,23 +242,23 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* Main Hero Section (No redundant tags) */}
-      <section className="relative z-10 pt-16 pb-14 sm:pt-24 sm:pb-20 px-4 sm:px-6 text-center">
+      {/* Main Hero Section */}
+      <section className="relative z-10 pt-20 pb-16 sm:pt-28 sm:pb-22 px-4 sm:px-6 text-center">
         {/* Subtle Sapphire Radial Glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[850px] h-[380px] bg-[radial-gradient(ellipse_at_top,rgba(41,151,255,0.12),transparent_70%)] pointer-events-none" />
 
-        <div className="max-w-[840px] mx-auto relative z-10">
+        <div className="max-w-[860px] mx-auto relative z-10">
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-semibold tracking-[-0.025em] text-white leading-[1.06] mb-5">
             Reset your mind. <br />
             <span className="blue-gradient-text">Control your life.</span>
           </h1>
 
-          <p className="text-base sm:text-lg md:text-[20px] text-[#86868b] max-w-[660px] mx-auto mb-8 font-normal leading-relaxed">
-            Our daily reels give you the spark. The 112-page Self-Mastery Guide gives you the complete master manual to conquer hesitation, master emotional discipline, and gain unbreakable focus.
+          <p className="text-base sm:text-lg md:text-[20px] text-[#86868b] max-w-[680px] mx-auto mb-9 font-normal leading-relaxed">
+            Our daily reels show you the principles. The 112-page Self-Mastery Guide gives you the complete blueprint to understand your psychological blind spots, master emotional composure under pressure, and build an unshakeable standard of self-command.
           </p>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-10">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-12">
             <a
               href="#products"
               className="apple-pill-btn w-full sm:w-auto px-8 py-3.5 bg-white text-black font-bold text-[14px] hover:bg-[#e5e5ea] transition-all flex items-center justify-center gap-2 shadow-lg shadow-white/10"
@@ -269,7 +271,7 @@ export default function HomePage() {
               className="apple-pill-btn w-full sm:w-auto px-7 py-3.5 bg-white/[0.06] hover:bg-white/[0.1] text-white border border-white/[0.12] font-medium text-[14px] transition-all flex items-center justify-center gap-2"
             >
               <BookOpen className="w-4 h-4 text-[#2997ff]" />
-              <span>See What's Inside</span>
+              <span>Explore The 112 Pages</span>
             </a>
           </div>
 
@@ -277,7 +279,7 @@ export default function HomePage() {
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-[#86868b] pt-1">
             <div className="flex items-center gap-2 text-white/90">
               <PdfDocumentLogo className="w-4 h-4 text-[#2997ff]" />
-              <span className="font-medium text-[13px]">112-Page Edition • <span className="text-[#2997ff]">Available Now</span></span>
+              <span className="font-medium text-[13px]">112-Page Field Manual • <span className="text-[#2997ff]">Available Now</span></span>
             </div>
             <span className="text-white/20">•</span>
             <div className="flex items-center gap-2 text-white/90">
@@ -293,7 +295,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Clear Product Showcase: PDF eBook vs Custom App Dashboard */}
+      {/* Clear Product Showcase */}
       <section id="products" className="relative z-10 py-16 px-4 sm:px-6">
         <div className="max-w-[1000px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           
@@ -324,7 +326,7 @@ export default function HomePage() {
                 The Self-Mastery Guide & Workbook
               </h2>
               <p className="text-[14px] text-zinc-300 mt-2 leading-relaxed font-light">
-                A 112-page digital book and interactive iPad workbook with 47 practical chapters on emotional control, focus, and daily discipline.
+                A 112-page publication-grade guide and interactive iPad workbook that synthesizes deep human psychology with brutal daily self-inquiry.
               </p>
 
               <div className="my-6 py-4 border-y border-white/[0.08]">
@@ -336,16 +338,16 @@ export default function HomePage() {
 
               <ul className="space-y-3.5 text-[13px] text-zinc-200 mb-8 font-light">
                 <li className="flex items-center gap-3 font-medium text-white">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> <b className="text-white">Full 112-Page Guide & Ruled Workbook (PDF)</b>
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> <b className="text-white">Full 112-Page Field Manual & Ruled Workbook (PDF)</b>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> 47 Practical Chapters across 8 Core Parts
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> 47 Dense Excerpt Chapters on Psychology, Power & Human Nature
                 </li>
                 <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> 47 Dedicated Ruled Audit Ledgers with Daily Tracking Bars
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> 47 Facing Ruled Ledgers Designed to Force Radical Self-Honesty
                 </li>
                 <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> 5 Capstone Field Challenges & 90-Day Review Framework
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> 5 Capstone Crucible Challenges & 90-Day Character Review
                 </li>
                 <li className="flex items-center gap-3">
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> Formatted for iPad, Apple Pencil, Kindle, Tablets & Print
@@ -389,7 +391,7 @@ export default function HomePage() {
                 The Life Reset App
               </h2>
               <p className="text-[14px] text-zinc-400 mt-2 leading-relaxed font-light">
-                An interactive daily web application featuring morning priming timers, real-time crisis decision guides, and daily focus audits.
+                An interactive daily web application featuring real-time impulse delay protocols, cognitive decision frameworks, and daily self-command audits.
               </p>
 
               <div className="my-6 py-4 border-y border-white/[0.08]">
@@ -404,7 +406,7 @@ export default function HomePage() {
                   <Check className="w-4 h-4 text-zinc-500 shrink-0" /> Will Include The Self-Mastery Guide (Included Free Upon Launch)
                 </li>
                 <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-zinc-500 shrink-0" /> Interactive Morning Priming & Phone Blackout Timers
+                  <Check className="w-4 h-4 text-zinc-500 shrink-0" /> Interactive Impulse Delay & 10-Second Space Tools
                 </li>
                 <li className="flex items-center gap-3">
                   <Check className="w-4 h-4 text-zinc-500 shrink-0" /> Real-Time Decision Matrix & Crisis Emergency Guides
@@ -432,7 +434,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* NEW: Who Needs This Guide vs Who Doesn't Need It (Replaces How To Live This Work) */}
+      {/* WHO NEEDS THIS GUIDE VS WHO DOESN'T (Psychological & Honest) */}
       <section id="who-its-for" className="relative z-10 py-20 px-4 sm:px-6 bg-[#080b10] border-t border-white/[0.08]">
         <div className="max-w-[1000px] mx-auto">
           <div className="text-center max-w-[620px] mx-auto mb-14">
@@ -460,29 +462,29 @@ export default function HomePage() {
                 <ul className="space-y-4 text-[14px] text-zinc-300 font-light leading-relaxed">
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
-                    <span>You wake up, reach for your phone within seconds, and lose your morning to mindless scrolling and digital noise.</span>
+                    <span>You react emotionally to disrespect, criticism, or sudden friction—and hate yourself afterwards for losing your frame.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
-                    <span>You find yourself reacting defensively or impulsively under stress, criticism, or conflict—and regret it later.</span>
+                    <span>You know what you should be doing each day, but fall victim to rationalizations, procrastination, and subtle self-deception.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
-                    <span>You have plenty of ambition, but struggle to sit down and do 90 minutes of quiet, uninterrupted deep work.</span>
+                    <span>You want to understand human nature, read silent motives, and practice strategic restraint instead of over-explaining yourself.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
-                    <span>You want a private, daily evening audit to hold yourself accountable to physical proof instead of comfortable excuses.</span>
+                    <span>You are tired of reading self-help passively and want an uncompromising workbook that forces you to put pen to paper and audit your real behavior.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
-                    <span>You prefer direct, timeless principles and daily action over trendy life hacks and corporate self-help clichés.</span>
+                    <span>You want to cultivate genuine internal stillness and walkaway power when the people and noise around you are loud and chaotic.</span>
                   </li>
                 </ul>
               </div>
 
               <div className="mt-8 pt-4 border-t border-white/[0.06] text-xs text-emerald-400 font-mono">
-                ✓ Built for high execution & daily accountability
+                ✓ Built for psychological depth & real-world accountability
               </div>
             </div>
 
@@ -501,181 +503,224 @@ export default function HomePage() {
                 <ul className="space-y-4 text-[14px] text-zinc-400 font-light leading-relaxed">
                   <li className="flex items-start gap-3">
                     <X className="w-4 h-4 text-zinc-500 shrink-0 mt-1" />
-                    <span>You are looking for a quick dopamine hit, motivational quotes, or overnight transformation without real effort.</span>
+                    <span>You want gentle affirmations or comforting excuses that validate your weaknesses instead of confronting them.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <X className="w-4 h-4 text-zinc-500 shrink-0 mt-1" />
-                    <span>You want a feel-good book that comforts your excuses rather than a standard to hold yourself to.</span>
+                    <span>You aren't willing to sit in silence, face your own shortcomings, and write unvarnished truth on paper.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <X className="w-4 h-4 text-zinc-500 shrink-0 mt-1" />
-                    <span>You are unwilling to set aside 10 minutes of silent reflection each day to write in your daily audit ledger.</span>
+                    <span>You blame bosses, partners, or market conditions for your reactions instead of taking radical responsibility for your mind.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <X className="w-4 h-4 text-zinc-500 shrink-0 mt-1" />
-                    <span>You prefer endlessly consuming content about self-improvement rather than executing in the real world.</span>
+                    <span>You prefer accumulating philosophical trivia to talk about at dinner rather than practicing quiet discipline when no one is looking.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <X className="w-4 h-4 text-zinc-500 shrink-0 mt-1" />
-                    <span>You expect someone else to fix your discipline for you without personal accountability.</span>
+                    <span>You expect someone else to fix your character for you without personal labor.</span>
                   </li>
                 </ul>
               </div>
 
               <div className="mt-8 pt-4 border-t border-white/[0.06] text-xs text-zinc-500 font-mono">
-                ✕ Save your $19 if you aren't ready to do the daily work
+                ✕ Save your $19 if you aren't ready to face yourself in writing
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* What's Inside: The 8 Parts (Simplified, No Tags, No Leaked Thinkers) */}
-      <section id="whats-inside" className="relative z-10 py-20 px-4 sm:px-6 border-t border-white/[0.08]">
-        <div className="max-w-[1000px] mx-auto">
-          <div className="text-center max-w-[620px] mx-auto mb-14">
-            <h2 className="text-2xl sm:text-4xl font-semibold text-white tracking-tight">
-              What's Inside The Guide
+      {/* WHAT'S INSIDE: Deep Psychology, Real-World Action & The Written Audit */}
+      <section id="whats-inside" className="relative z-10 py-24 px-4 sm:px-6 border-t border-white/[0.08]">
+        <div className="max-w-[1060px] mx-auto">
+          <div className="text-center max-w-[720px] mx-auto mb-16">
+            <h2 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight">
+              The Architecture of the 112 Pages
             </h2>
-            <p className="text-[14px] text-[#86868b] mt-2 leading-relaxed">
-              47 concise chapters across 8 core parts, breaking down how to control your mind, sharpen your focus, and build quiet daily discipline.
+            <p className="text-[15px] text-[#86868b] mt-3 leading-relaxed">
+              Every chapter is engineered as an unsparing two-page engine: ruthless depth psychology and field protocols on the left, and a facing written audit on the right that forces you to confront yourself on paper.
             </p>
           </div>
 
-          <div className="space-y-3">
-            {guideParts.map((b, idx) => (
-              <div
-                key={idx}
-                className="apple-bento-card overflow-hidden border border-white/[0.08] transition-all"
-              >
-                <button
-                  onClick={() => setExpandedPart(expandedPart === idx ? null : idx)}
-                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-white/[0.02]"
+          <div className="space-y-8">
+            {psychologicalEngines.map((engine, idx) => {
+              const Icon = engine.icon;
+              return (
+                <div
+                  key={idx}
+                  className="apple-bento-card p-6 sm:p-9 border border-white/[0.08] hover:border-white/[0.16] transition-all bg-[#0a0d14]/90"
                 >
-                  <div className="flex items-center gap-4">
-                    <span className="text-xs font-mono font-bold px-2.5 py-1 rounded bg-[#2997ff]/10 text-[#2997ff] border border-[#2997ff]/20">
-                      {b.num}
-                    </span>
-                    <div>
-                      <h3 className="text-[15px] sm:text-[16px] font-semibold text-white tracking-tight">
-                        {b.title}
-                      </h3>
-                      <div className="text-[12px] text-[#86868b] mt-0.5">
-                        {b.chapters} • {b.pages}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.06]">
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-10 h-10 rounded-xl bg-[#2997ff]/10 text-[#2997ff] flex items-center justify-center shrink-0 border border-[#2997ff]/20">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-semibold text-white tracking-tight">
+                          {engine.title}
+                        </h3>
+                        <div className="text-[13px] text-[#86868b] mt-0.5">
+                          {engine.subtitle}
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <ChevronDown
-                    className={`w-4 h-4 text-zinc-400 shrink-0 transition-transform duration-200 ${
-                      expandedPart === idx ? "rotate-180 text-[#2997ff]" : ""
-                    }`}
-                  />
-                </button>
 
-                {expandedPart === idx && (
-                  <div className="px-5 pb-6 sm:px-6 border-t border-white/[0.06] pt-4">
-                    <p className="text-[14px] text-zinc-300 leading-relaxed font-light">
-                      {b.description}
-                    </p>
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                    {/* Pillar 1: Depth Psychology */}
+                    <div className="p-5 rounded-xl bg-white/[0.02] border border-white/[0.05] flex flex-col justify-between">
+                      <div>
+                        <div className="text-xs font-semibold uppercase tracking-wider text-[#2997ff] mb-2.5 flex items-center gap-1.5">
+                          <span>1. Depth Psychology</span>
+                        </div>
+                        <p className="text-[13px] text-zinc-300 leading-relaxed font-light">
+                          {engine.psychology}
+                        </p>
+                      </div>
+                      <div className="mt-4 pt-3 border-t border-white/[0.04] text-[11px] text-zinc-500 font-mono">
+                        Deconstructing The Internal Hijack
+                      </div>
+                    </div>
+
+                    {/* Pillar 2: Real-Life Action Protocol */}
+                    <div className="p-5 rounded-xl bg-white/[0.02] border border-white/[0.05] flex flex-col justify-between">
+                      <div>
+                        <div className="text-xs font-semibold uppercase tracking-wider text-emerald-400 mb-2.5 flex items-center gap-1.5">
+                          <span>2. Real-Life Field Protocol</span>
+                        </div>
+                        <p className="text-[13px] text-zinc-300 leading-relaxed font-light">
+                          {engine.actionableInsight}
+                        </p>
+                      </div>
+                      <div className="mt-4 pt-3 border-t border-white/[0.04] text-[11px] text-zinc-500 font-mono">
+                        Execution In Real-World Friction
+                      </div>
+                    </div>
+
+                    {/* Pillar 3: The Forced Written Audit */}
+                    <div className="p-5 rounded-xl bg-white/[0.03] border border-white/[0.08] flex flex-col justify-between">
+                      <div>
+                        <div className="text-xs font-semibold uppercase tracking-wider text-amber-300/90 mb-2.5 flex items-center gap-1.5">
+                          <PenTool className="w-3.5 h-3.5 text-amber-300" />
+                          <span>3. The Facing Written Audit</span>
+                        </div>
+                        <p className="text-[13px] text-zinc-200 leading-relaxed font-light">
+                          {engine.writtenConfrontation}
+                        </p>
+                      </div>
+                      <div className="mt-4 pt-3 border-t border-white/[0.04] text-[11px] text-zinc-400 font-mono">
+                        You Cannot Lie To Your Own Handwriting
+                      </div>
+                    </div>
                   </div>
-                )}
-              </div>
-            ))}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Authentic Reader Reviews (Dated October 2026, Human Tone, "Leave a Review" Option) */}
-      <section id="reviews" className="relative z-10 py-20 px-4 sm:px-6 bg-[#080b10] border-t border-white/[0.08]">
-        <div className="max-w-[1000px] mx-auto">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-14 text-center sm:text-left">
+      {/* REVAMPED REVIEWS SECTION: Pure White Canvas with High-End Editorial Aesthetics */}
+      <section id="reviews" className="relative z-10 py-24 px-4 sm:px-6 bg-white text-[#111111] border-y border-[#e5e5ea]">
+        <div className="max-w-[1040px] mx-auto">
+          
+          {/* Section Header */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-16 text-center sm:text-left">
             <div>
-              <h2 className="text-2xl sm:text-4xl font-semibold text-white tracking-tight">
+              <h2 className="text-3xl sm:text-4xl font-semibold text-[#111111] tracking-tight">
                 Reader Reviews
               </h2>
-              <p className="text-[14px] text-[#86868b] mt-1.5">
-                Honest feedback from readers who put the guide into practice.
+              <p className="text-[15px] text-[#555555] mt-2">
+                Honest feedback from people putting the psychology and written audits to work in real life.
               </p>
             </div>
 
             <button
               onClick={() => setShowReviewModal(true)}
-              className="apple-pill-btn px-5 py-2.5 text-[13px] font-medium bg-white/[0.08] hover:bg-white/[0.14] text-white border border-white/[0.15] transition-all flex items-center gap-2 cursor-pointer shadow-sm shrink-0"
+              className="apple-pill-btn px-6 py-3 text-[13px] font-semibold bg-[#111111] hover:bg-[#222222] text-white transition-all flex items-center gap-2 cursor-pointer shadow-md shrink-0"
             >
-              <MessageSquarePlus className="w-4 h-4 text-[#2997ff]" />
+              <MessageSquarePlus className="w-4 h-4 text-[#0071e3]" />
               <span>Leave a Review</span>
             </button>
           </div>
 
+          {/* Review Cards Grid (Clean White Canvas Palette with Elegant Borders) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {testimonials.map((item, idx) => (
-              <div key={idx} className="apple-bento-card p-8 flex flex-col justify-between relative border border-white/[0.08]">
+            {reviewsList.map((item) => (
+              <div
+                key={item.id}
+                className="p-7 sm:p-8 rounded-2xl bg-[#ffffff] border border-[#e5e5ea] shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:border-[#c7c7cc] transition-all flex flex-col justify-between"
+              >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-1 text-[#2997ff]">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-3.5 h-3.5 fill-[#2997ff]" />
+                    <div className="flex items-center gap-1">
+                      {[...Array(item.rating || 5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-[#0071e3] text-[#0071e3]" />
                       ))}
                     </div>
-                    <span className="text-[11px] font-mono text-[#86868b]">
+                    <span className="text-[12px] font-mono text-[#86868b]">
                       {item.date}
                     </span>
                   </div>
-                  
-                  <div className="text-xs font-semibold text-[#2997ff] mb-3 flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5" />
-                    <span>{item.highlight}</span>
-                  </div>
 
-                  <p className="text-[14px] text-zinc-200 leading-relaxed font-light italic mb-6">
-                    &ldquo;{item.quote}&rdquo;
+                  {item.highlight && (
+                    <div className="text-[15px] font-semibold text-[#111111] mb-2.5">
+                      &ldquo;{item.highlight}&rdquo;
+                    </div>
+                  )}
+
+                  <p className="text-[14px] text-[#333333] leading-relaxed font-normal mb-6">
+                    &ldquo;{item.comment}&rdquo;
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between border-t border-white/[0.06] pt-4 text-xs">
+                <div className="border-t border-[#f0f0f2] pt-4 flex items-center justify-between text-xs">
                   <div>
-                    <span className="font-semibold text-white block">{item.name}</span>
-                    <span className="text-[#86868b]">{item.role}</span>
-                  </div>
-                  <div className="flex items-center gap-1 text-[11px] text-emerald-400 font-mono">
-                    <ShieldCheck className="w-3.5 h-3.5" />
-                    <span>Verified Reader</span>
+                    <span className="font-semibold text-[#111111] block text-[13px]">
+                      {item.name}
+                    </span>
+                    {item.role && (
+                      <span className="text-[#666666]">{item.role}</span>
+                    )}
                   </div>
                 </div>
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
       {/* Leave a Review Modal */}
       {showReviewModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="w-full max-w-lg p-6 sm:p-8 rounded-2xl bg-[#0d1117] border border-white/[0.15] shadow-2xl relative">
+          <div className="w-full max-w-lg p-6 sm:p-8 rounded-2xl bg-white text-[#111111] border border-[#e5e5ea] shadow-2xl relative">
             <button
               onClick={() => setShowReviewModal(false)}
-              className="absolute top-4 right-4 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+              className="absolute top-4 right-4 text-zinc-400 hover:text-black transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
 
             {reviewSubmitted ? (
               <div className="py-10 text-center space-y-3">
-                <div className="w-12 h-12 rounded-full bg-emerald-500/15 border border-emerald-500 text-emerald-400 flex items-center justify-center mx-auto">
+                <div className="w-12 h-12 rounded-full bg-emerald-500/15 border border-emerald-500 text-emerald-600 flex items-center justify-center mx-auto">
                   <Check className="w-6 h-6" />
                 </div>
-                <h3 className="text-lg font-semibold text-white">Thank You for Your Review</h3>
-                <p className="text-[13px] text-[#86868b]">Your review has been submitted successfully for verification.</p>
+                <h3 className="text-xl font-semibold text-[#111111]">Thank You for Your Review</h3>
+                <p className="text-[14px] text-[#666666]">Your review has been recorded and added to the ledger.</p>
               </div>
             ) : (
               <form onSubmit={handleReviewSubmit} className="space-y-4">
                 <div>
-                  <h3 className="text-xl font-semibold text-white">Leave a Review</h3>
-                  <p className="text-[13px] text-[#86868b] mt-1">Share your experience with The Self-Mastery Guide & Workbook.</p>
+                  <h3 className="text-xl font-semibold text-[#111111]">Leave a Reader Review</h3>
+                  <p className="text-[13px] text-[#666666] mt-1">Share your honest experience with The Self-Mastery Guide & Workbook.</p>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-zinc-300 mb-1.5">Rating</label>
+                  <label className="block text-xs font-semibold text-[#333333] mb-1.5 uppercase tracking-wider">Rating</label>
                   <div className="flex items-center gap-1">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
@@ -687,8 +732,8 @@ export default function HomePage() {
                         <Star
                           className={`w-5 h-5 ${
                             star <= newReview.rating
-                              ? "fill-[#2997ff] text-[#2997ff]"
-                              : "text-zinc-600"
+                              ? "fill-[#0071e3] text-[#0071e3]"
+                              : "text-zinc-300"
                           }`}
                         />
                       </button>
@@ -697,37 +742,37 @@ export default function HomePage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-zinc-300 mb-1.5">Your Name</label>
+                  <label className="block text-xs font-semibold text-[#333333] mb-1.5 uppercase tracking-wider">Your Name</label>
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Michael T."
+                    placeholder="e.g. Marcus D."
                     value={newReview.name}
                     onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-black/60 border border-white/[0.1] text-white text-[13px] focus:outline-none focus:border-[#2997ff]"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#f5f5f7] border border-[#e5e5ea] text-[#111111] text-[13px] focus:outline-none focus:border-[#0071e3]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-zinc-300 mb-1.5">Your Role or Profession (Optional)</label>
+                  <label className="block text-xs font-semibold text-[#333333] mb-1.5 uppercase tracking-wider">Your Role or Profession (Optional)</label>
                   <input
                     type="text"
-                    placeholder="e.g. Software Engineer, Designer, Founder"
+                    placeholder="e.g. Software Engineer, Designer, Operator"
                     value={newReview.role}
                     onChange={(e) => setNewReview({ ...newReview, role: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-black/60 border border-white/[0.1] text-white text-[13px] focus:outline-none focus:border-[#2997ff]"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#f5f5f7] border border-[#e5e5ea] text-[#111111] text-[13px] focus:outline-none focus:border-[#0071e3]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-zinc-300 mb-1.5">Your Review</label>
+                  <label className="block text-xs font-semibold text-[#333333] mb-1.5 uppercase tracking-wider">Your Honest Review</label>
                   <textarea
                     required
                     rows={4}
-                    placeholder="How has the guide or workbook helped your daily routine?"
+                    placeholder="What specific framework or written prompt made the biggest difference in your daily self-command?"
                     value={newReview.comment}
                     onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-black/60 border border-white/[0.1] text-white text-[13px] focus:outline-none focus:border-[#2997ff] leading-relaxed"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#f5f5f7] border border-[#e5e5ea] text-[#111111] text-[13px] focus:outline-none focus:border-[#0071e3] leading-relaxed"
                   />
                 </div>
 
@@ -735,16 +780,17 @@ export default function HomePage() {
                   <button
                     type="button"
                     onClick={() => setShowReviewModal(false)}
-                    className="px-4 py-2 text-xs text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                    className="px-4 py-2 text-xs text-[#666666] hover:text-black transition-colors cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="apple-pill-btn px-5 py-2.5 bg-white text-black font-semibold text-xs hover:bg-[#e5e5ea] transition-all flex items-center gap-1.5 cursor-pointer"
+                    disabled={submittingReview}
+                    className="apple-pill-btn px-6 py-2.5 bg-[#111111] text-white font-semibold text-xs hover:bg-zinc-800 transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
                   >
                     <Send className="w-3.5 h-3.5" />
-                    <span>Submit Review</span>
+                    <span>{submittingReview ? "Posting..." : "Submit Review"}</span>
                   </button>
                 </div>
               </form>
@@ -753,7 +799,7 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Comprehensive FAQ Section (No Redundant Tags) */}
+      {/* Comprehensive FAQ Section */}
       <section id="faq" className="relative z-10 py-20 px-4 sm:px-6 border-t border-white/[0.08]">
         <div className="max-w-[720px] mx-auto">
           <div className="text-center mb-10">

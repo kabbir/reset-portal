@@ -112,51 +112,6 @@ export default function HomePage() {
   };
 
 
-
-  /* --- Five Internal Traps We Dismantle --- */
-  const internalTraps = [
-    {
-      trap: "The Reactivity Trap",
-      symptom:
-        "Someone questions your competence or disrespects you, and within 300 milliseconds your body is flooded with biochemical heat—compelling you to fire back, defend your ego, or raise your voice.",
-      solutionTitle: "The Somatic Freeze & Downward Cadence",
-      solutionText:
-        "Drop the shoulders, release the jaw, wait three heartbeats, and cut your speech speed by half. Starve the conflict of emotional oxygen and command the frame through immovable silence."
-    },
-    {
-      trap: "The Shadow Trap",
-      symptom:
-        "Experiencing intense moral disgust toward someone else's arrogance or vanity while convincing yourself that you are thoroughly decent, harmless, and innocent.",
-      solutionTitle: "The Complicity Inventory in Ink",
-      solutionText:
-        "Writing down where your 'kindness' was actually fear of confrontation, where you envied a peer's win, and owning your private flaws so nobody can weaponize shame against you."
-    },
-    {
-      trap: "The Validation Trap",
-      symptom:
-        "Compulsively over-explaining your motives in arguments or meetings, broadcasting your moves prematurely, and bleeding authority through nervous chatter.",
-      solutionTitle: "Strategic Opacity & The Rule of Seven Words",
-      solutionText:
-        "Speaking in concise sentences of seven words or fewer, keeping all high-leverage plans completely confidential, and letting finished results shatter the air like thunder."
-    },
-    {
-      trap: "The Struggle Paradox",
-      symptom:
-        "Frantically trying to force mental peace, obsessing over outcomes outside your control, and burning your vital energy on phantom arguments in the middle of the night.",
-      solutionTitle: "The 24-Hour Quarantine & Detachment",
-      solutionText:
-        "A mandatory 24-hour hold on sending confrontational messages, leaving undisturbed water to clear naturally, and focusing 100% of energy on input while releasing outcomes."
-    },
-    {
-      trap: "The Theory Trap",
-      symptom:
-        "Hoarding philosophical quotes and books to feel enlightened, while your actual emotional standards collapse the second you face friction with real money or real people.",
-      solutionTitle: "The Facing Ruled Ledger",
-      solutionText:
-        "A daily confrontation on ruled paper where you record cold physical facts of kept promises. You can lie to yourself in your thoughts, but you cannot lie to your own handwriting."
-    }
-  ];
-
   /* --- Real Human FAQs --- */
   const faqs = [
     {
@@ -209,9 +164,6 @@ export default function HomePage() {
           <div className="flex items-center gap-6">
             <a href="#who-its-for" className="hidden md:inline-block text-[13px] text-[#86868b] hover:text-white transition-colors">
               Who It's For
-            </a>
-            <a href="#traps" className="hidden md:inline-block text-[13px] text-[#86868b] hover:text-white transition-colors">
-              The Traps
             </a>
             <a href="#reviews" className="hidden sm:inline-block text-[13px] text-[#86868b] hover:text-white transition-colors">
               Reviews
@@ -313,7 +265,7 @@ export default function HomePage() {
                 The Self-Mastery Guide & Workbook
               </h2>
               <p className="text-[14px] text-zinc-300 mt-2 leading-relaxed font-light">
-                A publication-grade guide and interactive workbook that synthesizes deep human psychology with unsparing daily self-inquiry.
+                A field manual for total psychological self-command—designed to kill reactivity, decode human nature, and build an unshakeable standard in daily writing.
               </p>
 
               <div className="my-6 py-4 border-y border-white/[0.08]">
@@ -324,20 +276,35 @@ export default function HomePage() {
               </div>
 
               <ul className="space-y-3.5 text-[13px] text-zinc-200 mb-8 font-light">
-                <li className="flex items-center gap-3 font-medium text-white">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> <b className="text-white">Complete 112-Page Field Manual & Ruled Workbook (PDF)</b>
+                <li className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
+                  <span>
+                    <strong className="text-white font-medium">Kill Emotional Reactivity:</strong> Master the internal pause to stay dead calm when disrespected, cornered, or stressed—never losing your frame or handing power away.
+                  </span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> Deep Essays on Human Nature, Impulse Control & Quiet Strategy
+                <li className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
+                  <span>
+                    <strong className="text-white font-medium">Decode Hidden Human Nature:</strong> Read real motives beneath what people say, spot subtle manipulation early, and command respect without having to raise your voice.
+                  </span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> Facing Ruled Journal Ledgers Designed to Force Radical Self-Honesty
+                <li className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
+                  <span>
+                    <strong className="text-white font-medium">The Facing Written Audit System:</strong> Not a blank notebook—guided inquiries on ruled paper that force you to confront your excuses and hold your standard in ink.
+                  </span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> Real-World Crucible Challenges & 90-Day Character Audit
+                <li className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
+                  <span>
+                    <strong className="text-white font-medium">Friction Challenges & Quiet Detachment:</strong> Actionable behavioural tests to strip away neediness, overcome fear of conflict, and build unshakeable composure under pressure.
+                  </span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0" /> Formatted for iPad, Apple Pencil, Kindle, Tablets & Print
+                <li className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
+                  <span>
+                    <strong className="text-white font-medium">Complete 112-Page Edition (PDF):</strong> Instant download engineered for iPad, Apple Pencil, GoodNotes, Kindle Scribe, tablets, or physical print.
+                  </span>
                 </li>
               </ul>
             </div>
@@ -508,57 +475,6 @@ export default function HomePage() {
                 </ul>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FIVE INTERNAL TRAPS WE DISMANTLE */}
-      <section id="traps" className="relative z-10 py-24 px-4 sm:px-6 border-t border-white/[0.08]">
-        <div className="max-w-[1040px] mx-auto">
-          <div className="text-center max-w-[660px] mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight">
-              Five Traps We Dismantle
-            </h2>
-            <p className="text-[15px] text-[#86868b] mt-3 leading-relaxed">
-              Most of us deal with the same quiet friction every day. The guide replaces each instinctive mistake with a grounded, physical protocol.
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            {internalTraps.map((item, idx) => (
-              <div
-                key={idx}
-                className="apple-bento-card p-6 sm:p-8 border border-white/[0.08] hover:border-white/[0.18] transition-all bg-[#0a0d14]/80 flex flex-col md:flex-row md:items-center justify-between gap-6"
-              >
-                <div className="md:w-[48%]">
-                  <div className="text-xs font-semibold uppercase tracking-wider text-red-400/90 mb-1.5 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-red-400" />
-                    <span>The Instinctive Trap</span>
-                  </div>
-                  <h3 className="text-lg font-semibold text-white tracking-tight mb-2">
-                    {item.trap}
-                  </h3>
-                  <p className="text-[13px] text-zinc-400 font-light leading-relaxed">
-                    {item.symptom}
-                  </p>
-                </div>
-
-                <div className="hidden md:block w-px self-stretch bg-white/[0.08]" />
-
-                <div className="md:w-[48%]">
-                  <div className="text-xs font-semibold uppercase tracking-wider text-[#2997ff] mb-1.5 flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#2997ff]" />
-                    <span>The Grounded Shift</span>
-                  </div>
-                  <h4 className="text-[16px] font-semibold text-white tracking-tight mb-2">
-                    {item.solutionTitle}
-                  </h4>
-                  <p className="text-[13px] text-zinc-300 font-light leading-relaxed">
-                    {item.solutionText}
-                  </p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>

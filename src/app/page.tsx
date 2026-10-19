@@ -279,31 +279,31 @@ export default function HomePage() {
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-white font-medium">Kill Emotional Reactivity:</strong> Master the internal pause to stay dead calm when disrespected, cornered, or stressed—never losing your frame or handing power away.
+                    <strong className="text-white font-medium">If you react when stressed or provoked:</strong> Master the internal pause to stay dead calm, hold your frame, and keep full leverage.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-white font-medium">Decode Hidden Human Nature:</strong> Read real motives beneath what people say, spot subtle manipulation early, and command respect without having to raise your voice.
+                    <strong className="text-white font-medium">If you give too much access to draining people:</strong> Read hidden motives, enforce ruthless boundaries, and master strategic absence.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-white font-medium">The Facing Written Audit System:</strong> Not a blank notebook—guided inquiries on ruled paper that force you to confront your excuses and hold your standard in ink.
+                    <strong className="text-white font-medium">If you keep breaking promises to yourself:</strong> Facing ruled ledgers that force radical honesty in writing so you stop rationalizing.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-white font-medium">Friction Challenges & Quiet Detachment:</strong> Actionable behavioural tests to strip away neediness, overcome fear of conflict, and build unshakeable composure under pressure.
+                    <strong className="text-white font-medium">If you feel reactive to external opinions:</strong> Practical protocols that kill neediness and build quiet internal detachment.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-white font-medium">Complete 112-Page Edition (PDF):</strong> Instant download engineered for iPad, Apple Pencil, GoodNotes, Kindle Scribe, tablets, or physical print.
+                    <strong className="text-white font-medium">Why get it today:</strong> Complete 112-page guide and workbook delivered instantly for iPad, Apple Pencil, tablets, or physical print.
                   </span>
                 </li>
               </ul>

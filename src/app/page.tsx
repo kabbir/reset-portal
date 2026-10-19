@@ -10,7 +10,6 @@ import {
   Lock,
   Star,
   CheckCircle2,
-  PenTool,
   MessageSquarePlus,
   Send,
   ChevronDown
@@ -214,23 +213,6 @@ export default function HomePage() {
             </a>
           </div>
 
-          {/* Clean Compatibility Strip */}
-          <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-[#86868b] pt-1">
-            <div className="flex items-center gap-2 text-white/90">
-              <PdfDocumentLogo className="w-4 h-4 text-[#2997ff]" />
-              <span className="font-medium text-[13px]">Digital Guide & Ruled Journal • <span className="text-[#2997ff]">Instant Access</span></span>
-            </div>
-            <span className="text-white/20">•</span>
-            <div className="flex items-center gap-2 text-white/90">
-              <PenTool className="w-3.5 h-3.5 text-zinc-300" />
-              <span className="font-medium text-[13px]">iPad, Apple Pencil & Print Ready</span>
-            </div>
-            <span className="text-white/20">•</span>
-            <div className="flex items-center gap-2 text-white/70">
-              <AppDashboardLogo className="w-4 h-4 text-zinc-400" />
-              <span className="font-medium text-[13px]">Life Reset App • <span className="text-zinc-400">In Final Testing</span></span>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -253,13 +235,10 @@ export default function HomePage() {
                     Digital Publication
                   </span>
                 </div>
-                <span className="text-[11px] font-mono uppercase px-3 py-1 rounded-full bg-white/[0.1] text-white border border-white/[0.15]">
-                  Complete Digital Edition
-                </span>
               </div>
 
               <div className="text-[12px] uppercase tracking-wider text-[#2997ff] font-semibold mb-1">
-                The Daily Field Manual
+                Daily Field Manual
               </div>
               <h2 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">
                 The Self-Mastery Guide & Workbook
@@ -279,31 +258,31 @@ export default function HomePage() {
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-white font-medium">If you keep making excuses and procrastinating:</strong> Guided writing exercises that force you to face your habits and actually follow through.
+                    <strong className="text-white font-medium">If you procrastinate and make excuses:</strong> Guided daily prompts that force you to be honest and take action.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-white font-medium">If you get taken advantage of or guilt-tripped:</strong> Learn to read hidden motives beneath polite smiles and say no without feeling guilty.
+                    <strong className="text-white font-medium">If you get guilt-tripped or used:</strong> Read hidden motives beneath polite smiles and say no without guilt.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-white font-medium">If you lose your temper and regret it later:</strong> Learn how to stay completely silent and unbothered when someone tries to provoke you.
+                    <strong className="text-white font-medium">If you lose your temper and regret it:</strong> Learn to stay silent and unbothered when someone tests you.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-white font-medium">If you overthink and seek validation:</strong> Stop explaining yourself to everyone, kill people-pleasing, and stop caring what others think.
+                    <strong className="text-white font-medium">If you overthink and seek approval:</strong> Stop explaining yourself, kill people-pleasing, and protect your peace.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-white font-medium">Why you need this today:</strong> Watching reels gives you cheap motivation. This gives you the daily system to actually change how you live.
+                    <strong className="text-white font-medium">Why you need this today:</strong> Reels give temporary motivation. This is the daily system to change your life.
                   </span>
                 </li>
               </ul>
@@ -333,13 +312,10 @@ export default function HomePage() {
                     Custom Web App
                   </span>
                 </div>
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-zinc-400">
-                  <span>Final Testing</span>
-                </div>
               </div>
 
               <div className="text-[12px] uppercase tracking-wider text-zinc-400 font-semibold mb-1">
-                The Daily Operating System
+                Daily Operating System
               </div>
               <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-200 tracking-tight">
                 The Life Reset App
@@ -359,31 +335,31 @@ export default function HomePage() {
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-zinc-200 font-medium">SOS Composure Button:</strong> An instant 60-second guided pause when you feel triggered, angry, or about to react.
+                    <strong className="text-zinc-200 font-medium">SOS Composure Button:</strong> An instant 60-second guided pause when you feel triggered or angry.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-zinc-200 font-medium">Daily Non-Negotiable Tracker:</strong> Log your core discipline standards, habit streaks, and rules with zero distractions.
+                    <strong className="text-zinc-200 font-medium">Daily Non-Negotiable Tracker:</strong> Log your core habits, discipline streaks, and rules with zero clutter.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-zinc-200 font-medium">2-Minute Morning & Night Audits:</strong> Set your mental frame before the day starts and score your conduct before sleep.
+                    <strong className="text-zinc-200 font-medium">2-Minute Morning & Night Audits:</strong> Set your daily mental frame and score your conduct before sleep.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-zinc-200 font-medium">Trigger & Behavior Analytics:</strong> Identify the exact situations and patterns that cause you to lose composure over time.
+                    <strong className="text-zinc-200 font-medium">Trigger & Behavior Analytics:</strong> Spot the exact people and situations that cause you to lose composure.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-zinc-200 font-medium">Smart Frame Reminders:</strong> Tactical push notifications sent at key friction hours to pull you out of autopilot.
+                    <strong className="text-zinc-200 font-medium">Smart Frame Reminders:</strong> Timed push notifications at key friction hours to pull you off autopilot.
                   </span>
                 </li>
               </ul>

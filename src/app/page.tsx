@@ -140,7 +140,7 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-[#f5f5f7] selection:bg-[#2997ff] selection:text-white antialiased font-sans">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-black text-[#f5f5f7] selection:bg-[#2997ff] selection:text-white antialiased font-sans">
       {/* Top Glassmorphic Navigation */}
       <nav className="sticky top-0 z-50 apple-subnav-blur border-b border-white/[0.08]">
         <div className="max-w-[1080px] mx-auto px-4 sm:px-6 h-[56px] flex items-center justify-between">
@@ -181,9 +181,9 @@ export default function HomePage() {
       </nav>
 
       {/* Main Hero Section */}
-      <section className="relative z-10 pt-20 pb-16 sm:pt-28 sm:pb-22 px-4 sm:px-6 text-center">
+      <section className="relative z-10 overflow-hidden pt-14 pb-4 sm:pt-24 sm:pb-12 px-4 sm:px-6 text-center">
         {/* Subtle Sapphire Radial Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[850px] h-[380px] bg-[radial-gradient(ellipse_at_top,rgba(41,151,255,0.12),transparent_70%)] pointer-events-none" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[850px] h-[380px] bg-[radial-gradient(ellipse_at_top,rgba(41,151,255,0.12),transparent_70%)] pointer-events-none overflow-hidden" />
 
         <div className="max-w-[860px] mx-auto relative z-10">
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-semibold tracking-[-0.025em] text-white leading-[1.06] mb-5">
@@ -191,12 +191,12 @@ export default function HomePage() {
             <span className="blue-gradient-text">Control your life.</span>
           </h1>
 
-          <p className="text-base sm:text-lg md:text-[20px] text-[#86868b] max-w-[680px] mx-auto mb-9 font-normal leading-relaxed">
+          <p className="text-base sm:text-lg md:text-[20px] text-[#86868b] max-w-[680px] mx-auto mb-6 sm:mb-9 font-normal leading-relaxed">
             Our daily reels show you the principles. The Self-Mastery Guide gives you the complete framework to understand your blind spots, master emotional composure under pressure, and build an unshakeable standard of self-command.
           </p>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mb-12">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-0">
             <a
               href="#products"
               className="apple-pill-btn w-full sm:w-auto px-8 py-3.5 bg-white text-black font-bold text-[14px] hover:bg-[#e5e5ea] transition-all flex items-center justify-center gap-2 shadow-lg shadow-white/10"
@@ -217,11 +217,11 @@ export default function HomePage() {
       </section>
 
       {/* Clear Product Showcase */}
-      <section id="products" className="relative z-10 py-16 px-4 sm:px-6">
+      <section id="products" className="relative z-10 pt-4 pb-16 sm:pt-10 sm:pb-20 px-4 sm:px-6">
         <div className="max-w-[1000px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           
           {/* PRODUCT 1: The Self-Mastery Guide (PDF Edition) - AVAILABLE NOW */}
-          <div className="apple-bento-card p-8 sm:p-10 bg-gradient-to-b from-[#111827]/95 via-[#0d1117] to-[#080b10] border-2 border-white/[0.25] flex flex-col justify-between relative shadow-2xl shadow-blue-500/[0.06]">
+          <div className="apple-bento-card p-6 sm:p-10 bg-gradient-to-b from-[#111827]/95 via-[#0d1117] to-[#080b10] border-2 border-white/[0.25] flex flex-col justify-between relative shadow-2xl shadow-blue-500/[0.06]">
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-white text-black font-bold text-[10px] tracking-widest uppercase shadow-md flex items-center gap-1.5">
               <Star className="w-3 h-3 fill-black" />
               <span>Available Now • Instant Download</span>
@@ -298,7 +298,7 @@ export default function HomePage() {
           </div>
 
           {/* PRODUCT 2: The Life Reset App (Custom Web Application) - FINAL TESTING */}
-          <div className="apple-bento-card p-8 sm:p-10 bg-[#080b10]/90 border border-white/[0.08] flex flex-col justify-between relative opacity-90">
+          <div className="apple-bento-card p-6 sm:p-10 bg-[#080b10]/90 border border-white/[0.08] flex flex-col justify-between relative opacity-90">
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-[#1e293b] text-[#94a3b8] font-bold text-[10px] tracking-widest uppercase border border-white/[0.1] flex items-center gap-1.5">
               <Lock className="w-3 h-3 text-[#94a3b8]" />
               <span>In Final Testing</span>

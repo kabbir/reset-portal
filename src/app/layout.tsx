@@ -41,9 +41,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} dark`}
+      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} dark overflow-x-hidden w-full max-w-full`}
     >
-      <body className="bg-[#050507] text-[#f4f4f5] antialiased selection:bg-[#d4af37] selection:text-black">
+      <body className="bg-[#050507] text-[#f4f4f5] antialiased selection:bg-[#d4af37] selection:text-black overflow-x-hidden w-full max-w-full">
         {children}
         <Analytics />
         <SpeedInsights />

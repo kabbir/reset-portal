@@ -279,18 +279,6 @@ export default function HomePage() {
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-white font-medium">If you lose your temper and regret it later:</strong> Learn how to stay completely silent and unbothered when someone tries to provoke you.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
-                  <span>
-                    <strong className="text-white font-medium">If you overthink and seek validation:</strong> Stop explaining yourself to everyone, kill people-pleasing, and stop caring what others think.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
-                  <span>
                     <strong className="text-white font-medium">If you keep making excuses and procrastinating:</strong> Guided writing exercises that force you to face your habits and actually follow through.
                   </span>
                 </li>
@@ -298,6 +286,18 @@ export default function HomePage() {
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
                   <span>
                     <strong className="text-white font-medium">If you get taken advantage of or guilt-tripped:</strong> Learn to read hidden motives beneath polite smiles and say no without feeling guilty.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
+                  <span>
+                    <strong className="text-white font-medium">If you lose your temper and regret it later:</strong> Learn how to stay completely silent and unbothered when someone tries to provoke you.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
+                  <span>
+                    <strong className="text-white font-medium">If you overthink and seek validation:</strong> Stop explaining yourself to everyone, kill people-pleasing, and stop caring what others think.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">

@@ -279,31 +279,31 @@ export default function HomePage() {
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-white font-medium">If you react when stressed or provoked:</strong> Master the internal pause to stay dead calm, hold your frame, and keep full leverage.
+                    <strong className="text-white font-medium">If you lose your temper and regret it later:</strong> Learn how to stay completely silent and unbothered when someone tries to provoke you.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-white font-medium">If you give too much access to draining people:</strong> Read hidden motives, enforce ruthless boundaries, and master strategic absence.
+                    <strong className="text-white font-medium">If you overthink and seek validation:</strong> Stop explaining yourself to everyone, kill people-pleasing, and stop caring what others think.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-white font-medium">If you keep breaking promises to yourself:</strong> Facing ruled ledgers that force radical honesty in writing so you stop rationalizing.
+                    <strong className="text-white font-medium">If you keep making excuses and procrastinating:</strong> Guided writing exercises that force you to face your habits and actually follow through.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-white font-medium">If you feel reactive to external opinions:</strong> Practical protocols that kill neediness and build quiet internal detachment.
+                    <strong className="text-white font-medium">If you get taken advantage of or guilt-tripped:</strong> Learn to read hidden motives beneath polite smiles and say no without feeling guilty.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
                   <span>
-                    <strong className="text-white font-medium">Why get it today:</strong> Complete 112-page guide and workbook delivered instantly for iPad, Apple Pencil, tablets, or physical print.
+                    <strong className="text-white font-medium">Why you need this today:</strong> Watching reels gives you cheap motivation. This gives you the daily system to actually change how you live.
                   </span>
                 </li>
               </ul>

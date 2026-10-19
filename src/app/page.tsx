@@ -345,7 +345,7 @@ export default function HomePage() {
                 The Life Reset App
               </h2>
               <p className="text-[14px] text-zinc-400 mt-2 leading-relaxed font-light">
-                An interactive daily web application featuring real-time impulse delay protocols, cognitive decision frameworks, and daily self-command audits.
+                Your daily digital operating system for self-mastery—engineered to track non-negotiable habits, stop reactive impulses, and audit your personal growth.
               </p>
 
               <div className="my-6 py-4 border-y border-white/[0.08]">
@@ -355,21 +355,36 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <ul className="space-y-3.5 text-[13px] text-zinc-400 mb-8 font-light">
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-zinc-500 shrink-0" /> Will Include The Self-Mastery Guide (Included Free Upon Launch)
+              <ul className="space-y-3.5 text-[13px] text-zinc-300 mb-8 font-light">
+                <li className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
+                  <span>
+                    <strong className="text-zinc-200 font-medium">SOS Composure Button:</strong> An instant 60-second guided pause when you feel triggered, angry, or about to react.
+                  </span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-zinc-500 shrink-0" /> Interactive Impulse Delay & 10-Second Space Tools
+                <li className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
+                  <span>
+                    <strong className="text-zinc-200 font-medium">Daily Non-Negotiable Tracker:</strong> Log your core discipline standards, habit streaks, and rules with zero distractions.
+                  </span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-zinc-500 shrink-0" /> Real-Time Decision Matrix & Crisis Emergency Guides
+                <li className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
+                  <span>
+                    <strong className="text-zinc-200 font-medium">2-Minute Morning & Night Audits:</strong> Set your mental frame before the day starts and score your conduct before sleep.
+                  </span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-zinc-500 shrink-0" /> Daily Reflection & Habit Journal
+                <li className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
+                  <span>
+                    <strong className="text-zinc-200 font-medium">Trigger & Behavior Analytics:</strong> Identify the exact situations and patterns that cause you to lose composure over time.
+                  </span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-4 h-4 text-zinc-500 shrink-0" /> Complete Searchable Wisdom Vault
+                <li className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
+                  <span>
+                    <strong className="text-zinc-200 font-medium">Smart Frame Reminders:</strong> Tactical push notifications sent at key friction hours to pull you out of autopilot.
+                  </span>
                 </li>
               </ul>
             </div>

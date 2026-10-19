@@ -191,8 +191,22 @@ export default function HomePage() {
             <span className="blue-gradient-text">Control your life.</span>
           </h1>
 
-          <p className="text-base sm:text-lg md:text-[20px] text-[#86868b] max-w-[680px] mx-auto mb-6 sm:mb-9 font-normal leading-relaxed">
-            Our daily reels show you the principles. The Self-Mastery Guide gives you the complete framework to understand your blind spots, master emotional composure under pressure, and build an unshakeable standard of self-command.
+          <p className="text-base sm:text-lg md:text-[19px] text-[#86868b] max-w-[760px] mx-auto mb-6 sm:mb-9 font-normal leading-relaxed">
+            We’ve created two products tailored to solve the most common struggles we hear from you, our audience. One that requires you to{" "}
+            <a
+              href="#product-guide"
+              className="text-[#2997ff] hover:underline underline-offset-4 transition-colors font-medium"
+            >
+              dig deep within yourself, helps you identify your past mistakes and works through them with you (Interactive)
+            </a>
+            , and another that{" "}
+            <a
+              href="#product-app"
+              className="text-[#2997ff] hover:underline underline-offset-4 transition-colors font-medium"
+            >
+              builds a foolproof structured system around you that monitors, tracks, and gradually changes your daily habits (Dominatory)
+            </a>
+            . You pick your method.
           </p>
 
           {/* Action Buttons */}
@@ -221,7 +235,7 @@ export default function HomePage() {
         <div className="max-w-[1000px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           
           {/* PRODUCT 1: The Self-Mastery Guide (PDF Edition) - AVAILABLE NOW */}
-          <div className="apple-bento-card p-6 sm:p-10 bg-gradient-to-b from-[#111827]/95 via-[#0d1117] to-[#080b10] border-2 border-white/[0.25] flex flex-col justify-between relative shadow-2xl shadow-blue-500/[0.06]">
+          <div id="product-guide" className="apple-bento-card scroll-mt-24 p-6 sm:p-10 bg-gradient-to-b from-[#111827]/95 via-[#0d1117] to-[#080b10] border-2 border-white/[0.25] flex flex-col justify-between relative shadow-2xl shadow-blue-500/[0.06]">
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-white text-black font-bold text-[10px] tracking-widest uppercase shadow-md flex items-center gap-1.5">
               <Star className="w-3 h-3 fill-black" />
               <span>Available Now • Instant Download</span>
@@ -298,7 +312,7 @@ export default function HomePage() {
           </div>
 
           {/* PRODUCT 2: The Life Reset App (Custom Web Application) - FINAL TESTING */}
-          <div className="apple-bento-card p-6 sm:p-10 bg-[#080b10]/90 border border-white/[0.08] flex flex-col justify-between relative opacity-90">
+          <div id="product-app" className="apple-bento-card scroll-mt-24 p-6 sm:p-10 bg-[#080b10]/90 border border-white/[0.08] flex flex-col justify-between relative opacity-90">
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-[#1e293b] text-[#94a3b8] font-bold text-[10px] tracking-widest uppercase border border-white/[0.1] flex items-center gap-1.5">
               <Lock className="w-3 h-3 text-[#94a3b8]" />
               <span>In Final Testing</span>

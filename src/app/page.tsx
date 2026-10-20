@@ -191,22 +191,22 @@ export default function HomePage() {
             <span className="blue-gradient-text">Control your life.</span>
           </h1>
 
-          <p className="text-base sm:text-lg md:text-[18px] text-[#86868b] max-w-[680px] mx-auto mb-6 sm:mb-8 font-normal leading-relaxed">
-            Two products built for your most common struggles: one to{" "}
+          <p className="text-base sm:text-lg md:text-[18px] text-[#86868b] max-w-[620px] mx-auto mb-6 sm:mb-8 font-normal leading-relaxed">
+            Two tools: a{" "}
             <a
               href="#product-guide"
               className="text-[#2997ff] hover:underline underline-offset-4 transition-colors font-medium"
             >
-              dig deep, face past mistakes, and work through them (Interactive)
-            </a>
-            , and another to{" "}
+              guided workbook
+            </a>{" "}
+            to audit your thoughts, and an{" "}
             <a
               href="#product-app"
               className="text-[#2997ff] hover:underline underline-offset-4 transition-colors font-medium"
             >
-              track, monitor, and master your daily habits (Dominatory)
-            </a>
-            . You pick your method
+              app
+            </a>{" "}
+            to track your daily habits. Pick your method.
           </p>
 
           {/* Action Buttons */}

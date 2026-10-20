@@ -715,12 +715,20 @@ export default function HomePage() {
             Reset your mind. Control your life. • © 2026 Reset Philosophy
           </p>
 
-          <a
-            href={STRIPE_CHECKOUT_URL}
-            className="text-[12px] text-[#2997ff] hover:underline"
-          >
-            Instant PDF Access
-          </a>
+          <div className="flex items-center gap-4 text-[12px]">
+            <a
+              href="/refund-policy"
+              className="text-[#86868b] hover:text-white transition-colors"
+            >
+              Refund Policy
+            </a>
+            <a
+              href={STRIPE_CHECKOUT_URL}
+              className="text-[#2997ff] hover:underline"
+            >
+              Instant PDF Access
+            </a>
+          </div>
         </div>
       </footer>
     </div>

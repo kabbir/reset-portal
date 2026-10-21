@@ -13,12 +13,14 @@ import {
   X,
   CheckCircle2,
   Sparkles,
+  BookOpen,
+  Clock,
   Shield,
   Smartphone,
-  Flame,
-  Moon,
-  Clock,
-  Compass
+  Feather,
+  Zap,
+  Lock,
+  Layers
 } from "lucide-react";
 
 /* --- Live Stripe Checkout Link --- */
@@ -35,13 +37,13 @@ interface ReviewItem {
 }
 
 export default function HomePage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [activeSpreadTab, setActiveSpreadTab] = useState<number>(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [showReviewModal, setShowReviewModal] = useState<boolean>(false);
   const [reviewSubmitted, setReviewSubmitted] = useState<boolean>(false);
   const [submittingReview, setSubmittingReview] = useState<boolean>(false);
   const [reviewsList, setReviewsList] = useState<ReviewItem[]>([]);
-  const [activeComparisonView, setActiveComparisonView] = useState<"both" | "scrolling" | "audit">("both");
   const [newReview, setNewReview] = useState({
     name: "",
     role: "",
@@ -105,7 +107,7 @@ export default function HomePage() {
       image: "/manifesto-spread-preview.png",
       tag: "Foundations",
       description:
-        "The opening law: why watching short-form motivation gives you a temporary spike that leaves you exhausted, and how writing for 10 minutes creates real composure.",
+        "The opening law: why watching short-form motivation gives you a temporary high that leaves you exhausted, and how writing for 10 minutes creates real composure.",
       points: [
         "Why passive motivation never changes how you act under stress",
         "The 4 private rules of daily self-command",
@@ -150,35 +152,55 @@ export default function HomePage() {
     }
   ];
 
-  /* The 4 Core Struggles (Grounded, Concrete Human Scenarios) */
-  const struggles = [
+  /* Reflect 8-Card Bento Features */
+  const features = [
+    {
+      icon: BookOpen,
+      title: "Read 1 Page, Write 1 Page",
+      description: "A two-page daily checkpoint. 3 minutes on the principle, 7 minutes on the written audit."
+    },
     {
       icon: Clock,
-      trigger: "If you procrastinate and make excuses:",
-      solution: "Daily guided prompts that force you to write down your own rationalizations and take real action today."
+      title: "The 3-Second Delay",
+      description: "Field rules to pause before reacting. Silence and lowered voice when tested."
+    },
+    {
+      icon: Feather,
+      title: "Evening Accountability",
+      description: "Answer 3 honest questions every night to audit where your composure slipped."
+    },
+    {
+      icon: Smartphone,
+      title: "Mobile & Tablet Ready",
+      description: "Opens natively in Apple Books, Files, and GoodNotes with interactive fillable fields."
+    },
+    {
+      icon: Layers,
+      title: "Notebook Margins",
+      description: "Generous print margins if you prefer handwriting in a physical journal on your desk."
     },
     {
       icon: Shield,
-      trigger: "If you get guilt-tripped or manipulated:",
-      solution: "Read hidden motives beneath polite smiles and learn to say no without guilt, apology, or over-explaining."
+      title: "Strategic Boundaries",
+      description: "Learn to say no cleanly without guilt, apology, or over-explaining yourself to people."
     },
     {
-      icon: Flame,
-      trigger: "If you lose your temper and regret it:",
-      solution: "Practice the 3-second pause to remain completely silent and unbothered when someone tries to provoke you."
+      icon: Zap,
+      title: "Kill Reactivity",
+      description: "Break the cycle of losing your mood over one offhand comment or message."
     },
     {
-      icon: Moon,
-      trigger: "If you overthink and seek approval:",
-      solution: "Stop explaining yourself to people, drop people-pleasing, and protect your private peace."
+      icon: Lock,
+      title: "47 Kept Promises",
+      description: "47 consecutive days of honest self-mastery written down in black and white."
     }
   ];
 
   /* FAQs */
   const faqs = [
     {
-      q: "I already watch a lot of philosophy and self-improvement videos. Will this actually teach me anything new?",
-      a: "Watching videos gives you an intellectual dopamine high for thirty seconds, but your composure still dissolves the moment someone baits you or a deadline gets tense. We built this guide to break that loop. Every single chapter pairs a short psychological principle on the left with an honest written audit on the right. You don't just read about calmness; you write down who tested you, why your ego reacted, and what you will do differently next time."
+      q: "I already consume a lot of philosophy and self-improvement content. Will this actually teach me anything new?",
+      a: "Watching videos gives you an intellectual high for thirty seconds, but your composure still dissolves the moment someone baits you or a deadline gets tense. We built this guide to break that loop. Every single chapter pairs a short psychological principle on the left with an honest written audit on the right. You don't just read about calmness; you write down who tested you, why your ego reacted, and what you will do differently next time."
     },
     {
       q: "How much time does this actually take each day? I already have an exhausting schedule.",
@@ -203,123 +225,241 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="relative min-h-screen bg-[#06080b] text-[#f8fafc] overflow-x-clip selection:bg-[#38bdf8] selection:text-black">
-      {/* Clipped Dynamic Ambient Background Glows */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="reflect-ambient-glow" />
-        <div className="opal-secondary-glow" />
-        <div className="opal-tertiary-glow" />
-      </div>
-
-      {/* Floating Navigation Bar (Strictly Single Line, Zero Wrapping) */}
-      <header className="fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 pointer-events-none">
-        <nav className="reflect-nav-blur pointer-events-auto px-4 py-2 sm:px-6 sm:py-2.5 flex items-center justify-between gap-4 w-full max-w-[880px]">
+    <div className="relative min-h-screen w-full max-w-full bg-[#030014] text-white overflow-x-clip selection:bg-[#9382ff]/50 selection:text-white">
+      {/* =========================================================================
+         REFLECT EXACT HEADER
+         ========================================================================= */}
+      <header className="header">
+        <div className="container-lg">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2.5 group shrink-0">
-            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white text-black font-extrabold flex items-center justify-center text-[11px] sm:text-xs tracking-tighter">
+          <a href="#" className="flex items-center gap-3 shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#9382ff] to-[#e59cff] flex items-center justify-center text-black font-extrabold text-sm shadow-[0_0_15px_rgba(147,130,255,0.4)]">
               R
             </div>
-            <span className="text-[13px] font-bold tracking-wider text-white group-hover:text-[#38bdf8] transition-colors whitespace-nowrap">
+            <span className="text-[15px] font-medium tracking-tight text-white">
               @ourlife.reset
             </span>
           </a>
 
-          {/* Links — Distinct, Concise, Single Line */}
-          <div className="hidden md:flex items-center gap-5 lg:gap-7 text-[13px] font-medium text-zinc-300 shrink-0">
-            <a href="#preview" className="whitespace-nowrap hover:text-white transition-colors">
-              Preview
-            </a>
-            <a href="#contrast" className="whitespace-nowrap hover:text-white transition-colors">
-              Why It Works
-            </a>
-            <a href="#protocol" className="whitespace-nowrap hover:text-white transition-colors">
-              Protocol
-            </a>
-            <a href="#reviews" className="whitespace-nowrap hover:text-white transition-colors">
-              Reviews
-            </a>
-            <a href="#faq" className="whitespace-nowrap hover:text-white transition-colors">
-              FAQ
-            </a>
-          </div>
+          {/* Reflect Floating Pill Nav in dead center on desktop */}
+          <ul className="header-nav">
+            <li><a href="#preview" className="header-nav-link">Preview</a></li>
+            <li><a href="#features" className="header-nav-link">System</a></li>
+            <li><a href="#principles" className="header-nav-link">Principles</a></li>
+            <li><a href="#pricing" className="header-nav-link">Pricing</a></li>
+            <li><a href="#testimonials" className="header-nav-link">Reviews</a></li>
+            <li><a href="#faq" className="header-nav-link">FAQ</a></li>
+          </ul>
 
-          {/* CTA & Price Badge */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.1] text-xs font-semibold text-zinc-300 shrink-0 whitespace-nowrap">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse"></span>
+          {/* Header Actions */}
+          <div className="header-actions flex items-center gap-2">
+            <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-medium text-zinc-300">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#ba9cff] animate-pulse" />
               <span>$19 One-Time</span>
             </div>
-            <button
-              onClick={handleTriggerCheckout}
-              className="reflect-btn-primary px-3 py-1.5 sm:px-5 sm:py-2 text-[11px] sm:text-[13px] font-bold flex items-center gap-1 sm:gap-1.5 cursor-pointer shadow-lg shadow-white/10 shrink-0 whitespace-nowrap"
-            >
-              <span className="inline sm:hidden">Get Guide</span>
+            <button onClick={handleTriggerCheckout} className="button button-primary py-2 px-3 sm:px-4 text-xs sm:text-sm">
               <span className="hidden sm:inline">Get The Guide</span>
-              <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+              <span className="sm:hidden">Get Guide</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+              <div className="button-border" />
+            </button>
+
+            {/* Mobile Animated Hamburger Toggle */}
+            <button
+              type="button"
+              className={`header-toggle ${mobileMenuOpen ? "header-toggle-active" : ""}`}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle Navigation Menu"
+            >
+              <div />
+              <div />
+              <div />
             </button>
           </div>
-        </nav>
+        </div>
+
+        {/* Reflect Mobile Slide-Down Drawer */}
+        <div className={`header-mobile-drawer ${mobileMenuOpen ? "header-mobile-drawer-open" : ""}`}>
+          <div className="flex flex-col gap-5 text-base font-medium">
+            <a
+              href="#preview"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-zinc-200 hover:text-white transition-colors py-2 border-b border-white/[0.08]"
+            >
+              Preview The Pages
+            </a>
+            <a
+              href="#features"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-zinc-200 hover:text-white transition-colors py-2 border-b border-white/[0.08]"
+            >
+              The 8-Rule System
+            </a>
+            <a
+              href="#principles"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-zinc-200 hover:text-white transition-colors py-2 border-b border-white/[0.08]"
+            >
+              Why Writing Beats Reels
+            </a>
+            <a
+              href="#pricing"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-zinc-200 hover:text-white transition-colors py-2 border-b border-white/[0.08]"
+            >
+              Lifetime Pricing ($19)
+            </a>
+            <a
+              href="#testimonials"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-zinc-200 hover:text-white transition-colors py-2 border-b border-white/[0.08]"
+            >
+              Reader Reviews
+            </a>
+            <a
+              href="#faq"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-zinc-200 hover:text-white transition-colors py-2 border-b border-white/[0.08]"
+            >
+              Frequently Asked Questions
+            </a>
+          </div>
+
+          <div className="mt-8 pt-6 border-t border-white/[0.1] flex flex-col gap-3">
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                handleTriggerCheckout();
+              }}
+              className="button button-primary w-full justify-center py-3.5 text-sm"
+            >
+              <span>Claim The Guide — $19</span>
+              <ArrowRight className="w-4 h-4 ml-1" />
+              <div className="button-border" />
+            </button>
+            <div className="text-center text-xs text-zinc-400">
+              112 Pages • One-Time Payment • Instant Download
+            </div>
+          </div>
+        </div>
       </header>
 
-      {/* Hero Section — Rich Atmosphere & Motion */}
-      <section className="relative z-10 pt-28 sm:pt-44 pb-16 sm:pb-24 px-4 sm:px-6 max-w-[1100px] mx-auto text-center flex flex-col items-center">
-        {/* Subtle Opal Status Pill */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/[0.05] border border-white/[0.12] text-[11px] sm:text-xs font-medium text-zinc-300 mb-6 backdrop-blur-md max-w-full">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-ping shrink-0" />
-          <span className="text-zinc-200 truncate">10 Minutes a Day • Self-Command</span>
-        </div>
-
-        {/* ONE Single Bold Headline */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-[-0.035em] text-white leading-[1.08] max-w-[880px]">
-          Reset your mind.
-          <span className="block opal-cyan-gradient-text mt-1.5">
-            Control your life.
-          </span>
-        </h1>
-
-        {/* Grounded, Human Copy */}
-        <p className="text-base sm:text-xl text-zinc-300 mt-6 sm:mt-7 max-w-[680px] leading-relaxed font-light">
-          A 112-page guided manual to stop overthinking, master emotional composure, and rebuild daily discipline. 10 minutes a day on your phone or in your notebook. Read 1 page, write 1 page.
-        </p>
-
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mt-8 w-full sm:w-auto">
-          <button
-            onClick={handleTriggerCheckout}
-            className="reflect-btn-primary shimmer-button w-full sm:w-auto px-8 py-4 text-[14px] sm:text-[15px] font-bold flex items-center justify-center gap-2 cursor-pointer shadow-xl shadow-white/15"
-          >
-            <span>Get The Guide — $19</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
-          <a
-            href="#preview"
-            className="reflect-btn-secondary w-full sm:w-auto px-7 py-4 text-[14px] font-medium flex items-center justify-center gap-2"
-          >
-            <Eye className="w-4 h-4 text-[#38bdf8]" />
-            <span>Look Inside The Pages</span>
+      {/* =========================================================================
+         REFLECT EXACT HERO & BLACK HOLE ORBITS
+         ========================================================================= */}
+      <section className="hero">
+        <div className="hero-content">
+          {/* Reflect Iridescent Hero Badge */}
+          <a href="#preview" className="hero-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="url(#paint_hero_badge)" />
+              <defs>
+                <linearGradient id="paint_hero_badge" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#E59CFF" />
+                  <stop offset="0.5" stopColor="#BA9CFF" />
+                  <stop offset="1" stopColor="#9CB2FF" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <span className="hero-badge-text">The Self-Mastery Guide &amp; Workbook</span>
           </a>
-        </div>
 
-        {/* Social Proof Line */}
-        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mt-8 text-xs sm:text-[13px] text-zinc-400 font-medium">
-          <div className="flex items-center gap-1.5 text-zinc-200">
-            <div className="flex text-amber-400">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3.5 h-3.5 fill-current" />
-              ))}
-            </div>
-            <span className="font-semibold">4.9 / 5.0 Rating</span>
+          {/* Reflect Signature Heading */}
+          <h1 className="hero-title">
+            <span>Reset your mind.</span>
+            <span>Control your life.</span>
+          </h1>
+
+          {/* Reflect Subdescription */}
+          <p className="hero-subdescription">
+            A 112-page guided manual to stop overthinking, master emotional composure, and rebuild daily discipline. 10 minutes a day on your phone or in your notebook. Read 1 page, write 1 page.
+          </p>
+
+          {/* Reflect Actions */}
+          <div className="hero-actions">
+            <button onClick={handleTriggerCheckout} className="button button-primary text-[15px] py-3.5 px-7">
+              <span>Claim The Guide — $19</span>
+              <ArrowRight className="w-4 h-4 ml-1" />
+              <div className="button-border" />
+            </button>
+            <a href="#preview" className="button button-secondary text-[15px] py-3.5 px-6">
+              <Eye className="w-4 h-4 text-[#ba9cff] mr-1.5" />
+              <span>Look Inside The Pages</span>
+              <div className="button-border" />
+            </a>
           </div>
-          <span className="text-zinc-600 hidden sm:inline">•</span>
-          <span>Interactive on iPhone, iPad &amp; Android</span>
-          <span className="text-zinc-600 hidden sm:inline">•</span>
-          <span className="text-emerald-400">Instant One-Tap Access</span>
+
+          {/* Reflect Social Proof Note */}
+          <div className="flex flex-wrap items-center justify-center gap-4 mt-6 text-xs text-[#efedfd99]">
+            <div className="flex items-center gap-1.5 text-white">
+              <div className="flex text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-current" />
+                ))}
+              </div>
+              <span className="font-semibold">4.9 / 5.0 Rating</span>
+            </div>
+            <span>•</span>
+            <span>Interactive on iPhone, iPad &amp; Android</span>
+            <span>•</span>
+            <span className="text-emerald-400">Instant One-Tap Access</span>
+          </div>
         </div>
 
-        {/* Hero Product Hardware Mockup with Animated Border Beam & Floating Physics */}
-        <div className="relative mt-12 sm:mt-16 w-full max-w-[1040px]">
-          <div className="border-beam-container device-floating device-shadow">
-            <div className="border-beam-inner aspect-[16/9] overflow-hidden rounded-[1.2rem] relative">
+        {/* Reflect Exact Black Hole Orbital Circles & Twinkling Starfield */}
+        <div className="hero-black-hole">
+          <div className="hero-black-hole-circles">
+            <div>
+              <div className="hero-black-hole-circle-0">
+                {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+                  <div
+                    key={i}
+                    className="absolute w-2 h-2 rounded-full bg-[#ba9cff] shadow-[0_0_8px_#ba9cff]"
+                    style={{
+                      left: `${50 + 50 * Math.cos((i * 2 * Math.PI) / 8)}%`,
+                      top: `${50 + 50 * Math.sin((i * 2 * Math.PI) / 8)}%`,
+                      transform: "translate(-50%, -50%)"
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+            <div>
+              <div className="hero-black-hole-circle-1">
+                {[0, 1, 2, 3, 4, 5].map((i) => (
+                  <div
+                    key={i}
+                    className="absolute w-1.5 h-1.5 rounded-full bg-[#9cb2ff] shadow-[0_0_6px_#9cb2ff]"
+                    style={{
+                      left: `${50 + 50 * Math.cos((i * 2 * Math.PI) / 6)}%`,
+                      top: `${50 + 50 * Math.sin((i * 2 * Math.PI) / 6)}%`,
+                      transform: "translate(-50%, -50%)"
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Twinkling Starfield */}
+          <div className="hero-black-hole-stars">
+            {[...Array(35)].map((_, i) => (
+              <div
+                key={i}
+                style={{
+                  left: `${(i * 37) % 100}%`,
+                  top: `${(i * 53) % 100}%`,
+                  animationDelay: `${(i * 0.2) % 3}s`
+                }}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Reflect Centerpiece Luxury Mockup Frame */}
+        <div className="hero-video">
+          <div className="hero-video-preview">
+            <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden">
               <Image
                 src="/hero-mockup-luxury.jpg"
                 alt="The Self-Mastery Guide & Workbook open on iPad and iPhone on luxury dark desk"
@@ -332,278 +472,115 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Dynamic Contrast Section: Scrolling Reels vs. The Daily Audit */}
-      <section id="contrast" className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 max-w-[1040px] mx-auto border-t border-white/[0.08] scroll-mt-24">
-        {/* ONE Single Clear Heading */}
-        <div className="text-center mb-10 sm:mb-12">
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Why watching reels never changes your life.
+      {/* =========================================================================
+         REFLECT EXACT 8-BENTO ARCHITECTURAL FEATURES GRID
+         ========================================================================= */}
+      <section id="features" className="features">
+        <div className="text-center mb-16">
+          <div className="hero-badge">
+            <Sparkles className="w-4 h-4 text-[#ba9cff] mr-2" />
+            <span className="hero-badge-text">The Daily Operating System</span>
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-medium tracking-tight text-white">
+            Built for how you actually live.
           </h2>
-          <p className="text-zinc-400 text-sm sm:text-base mt-3 max-w-[580px] mx-auto font-light">
-            Watching short videos gives you 30 seconds of motivation. Writing forces real confrontation.
+          <p className="text-[#efedfd99] text-base mt-3 max-w-[540px] mx-auto">
+            A frictionless routine designed to hold you accountable without overwhelming your schedule.
           </p>
+        </div>
 
-          {/* Interactive Mode Filter */}
-          <div className="inline-flex items-center p-1 rounded-full bg-white/[0.06] border border-white/[0.1] mt-8 gap-1">
-            <button
-              onClick={() => setActiveComparisonView("both")}
-              className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                activeComparisonView === "both"
-                  ? "bg-white text-black shadow-md shadow-white/20"
-                  : "text-zinc-400 hover:text-white"
-              }`}
-            >
-              Side-by-Side
-            </button>
-            <button
-              onClick={() => setActiveComparisonView("scrolling")}
-              className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                activeComparisonView === "scrolling"
-                  ? "bg-red-500/20 text-red-300 border border-red-500/30"
-                  : "text-zinc-400 hover:text-white"
-              }`}
-            >
-              Passive Scrolling
-            </button>
-            <button
-              onClick={() => setActiveComparisonView("audit")}
-              className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
-                activeComparisonView === "audit"
-                  ? "bg-cyan-500/20 text-[#38bdf8] border border-cyan-500/30"
-                  : "text-zinc-400 hover:text-white"
-              }`}
-            >
-              The Daily Audit
-            </button>
+        <div className="features-cards">
+          {/* Reflect Architectural Gridlines */}
+          <div className="features-gridlines">
+            <div />
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+
+          <div className="features-grid">
+            {features.map((feat, idx) => {
+              const Icon = feat.icon;
+              return (
+                <div key={idx} className="features-card">
+                  <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] text-[#ba9cff] flex items-center justify-center mb-5">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <h3 className="features-card-title">{feat.title}</h3>
+                  <p className="features-card-description">{feat.description}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
-
-        {/* Dynamic Opal-Style Comparison Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          {/* Watching Reels Card */}
-          {(activeComparisonView === "both" || activeComparisonView === "scrolling") && (
-            <div className="opal-glass-card p-6 sm:p-8 flex flex-col justify-between border-red-500/20 hover:border-red-500/40">
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-red-400 animate-pulse" />
-                    <h3 className="text-lg sm:text-xl font-bold text-red-400">
-                      Passive Scrolling
-                    </h3>
-                  </div>
-                  <span className="px-2.5 py-1 rounded-full text-[11px] font-mono bg-red-500/10 text-red-400 border border-red-500/20">
-                    Average: ~3.5 hrs / day
-                  </span>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-                    <div className="text-xs font-bold uppercase tracking-wider text-red-400/80 mb-1">
-                      Fleeting Motivation
-                    </div>
-                    <p className="text-sm text-zinc-300 font-light leading-relaxed">
-                      30 seconds of artificial energy that vanishes the exact instant you swipe to the next video.
-                    </p>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-                    <div className="text-xs font-bold uppercase tracking-wider text-red-400/80 mb-1">
-                      Reactive Living
-                    </div>
-                    <p className="text-sm text-zinc-300 font-light leading-relaxed">
-                      One passive-aggressive comment or work message ruins your entire mood for the afternoon.
-                    </p>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-                    <div className="text-xs font-bold uppercase tracking-wider text-red-400/80 mb-1">
-                      2 AM Overthinking
-                    </div>
-                    <p className="text-sm text-zinc-300 font-light leading-relaxed">
-                      Lying awake in bed replaying old conflicts, feeling guilty about unkept promises to yourself.
-                    </p>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-                    <div className="text-xs font-bold uppercase tracking-wider text-red-400/80 mb-1">
-                      Zero Record
-                    </div>
-                    <p className="text-sm text-zinc-300 font-light leading-relaxed">
-                      Weeks and months slip by, yet your daily habits and emotional triggers stay the exact same.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-white/[0.06] text-xs text-zinc-400 flex items-center justify-between">
-                <span>Result: Unconscious Reactivity</span>
-                <span className="text-red-400 font-semibold">Zero Progress</span>
-              </div>
-            </div>
-          )}
-
-          {/* The Daily Audit Card */}
-          {(activeComparisonView === "both" || activeComparisonView === "audit") && (
-            <div className="opal-glass-card p-6 sm:p-8 flex flex-col justify-between border-[#38bdf8]/30 hover:border-[#38bdf8]/60 shadow-[0_0_35px_rgba(56,189,248,0.1)]">
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#38bdf8] animate-pulse" />
-                    <h3 className="text-lg sm:text-xl font-bold text-[#38bdf8]">
-                      The Daily Audit
-                    </h3>
-                  </div>
-                  <span className="px-2.5 py-1 rounded-full text-[11px] font-mono bg-cyan-500/10 text-[#38bdf8] border border-cyan-500/20">
-                    Committed: 10 mins / day
-                  </span>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="p-3.5 rounded-xl bg-white/[0.03] border border-cyan-500/20">
-                    <div className="text-xs font-bold uppercase tracking-wider text-[#38bdf8] mb-1">
-                      Written Honesty
-                    </div>
-                    <p className="text-sm text-zinc-200 font-light leading-relaxed">
-                      10 minutes of honest self-inquiry on your phone before sleep forces real confrontation with your excuses.
-                    </p>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-white/[0.03] border border-cyan-500/20">
-                    <div className="text-xs font-bold uppercase tracking-wider text-[#38bdf8] mb-1">
-                      The 3-Second Pause
-                    </div>
-                    <p className="text-sm text-zinc-200 font-light leading-relaxed">
-                      Complete emotional calm when baited or tested. Silence and lowered voice is true authority.
-                    </p>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-white/[0.03] border border-cyan-500/20">
-                    <div className="text-xs font-bold uppercase tracking-wider text-[#38bdf8] mb-1">
-                      Strategic Boundaries
-                    </div>
-                    <p className="text-sm text-zinc-200 font-light leading-relaxed">
-                      Saying no cleanly without guilt, apology, or over-explaining yourself to people.
-                    </p>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-white/[0.03] border border-cyan-500/20">
-                    <div className="text-xs font-bold uppercase tracking-wider text-[#38bdf8] mb-1">
-                      Undeniable Proof
-                    </div>
-                    <p className="text-sm text-zinc-200 font-light leading-relaxed">
-                      47 consecutive days of kept promises to yourself written down in black and white.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-white/[0.06] text-xs text-zinc-300 flex items-center justify-between">
-                <span>Result: Unshakeable Composure</span>
-                <span className="text-[#38bdf8] font-semibold">Self-Command</span>
-              </div>
-            </div>
-          )}
-        </div>
       </section>
 
-      {/* What You Actually Fix — The 4 Core Struggles */}
-      <section id="struggles" className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 max-w-[1040px] mx-auto border-t border-white/[0.08] scroll-mt-24">
-        {/* ONE Single Clear Heading */}
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Built for what actually tests you.
-          </h2>
-          <p className="text-zinc-400 text-sm sm:text-base mt-3 max-w-[600px] mx-auto font-light">
-            Real-world rules for the exact moments your composure and discipline break down.
-          </p>
-        </div>
-
-        {/* 4 Interactive Glass Items with Hover Illumination */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {struggles.map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <div
-                key={idx}
-                className="opal-glass-card p-6 sm:p-7 flex items-start gap-4 group hover:border-[#38bdf8]/40"
-              >
-                <div className="w-10 h-10 rounded-xl bg-white/[0.05] border border-white/[0.08] text-[#38bdf8] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#38bdf8]/10 transition-all duration-300">
-                  <Icon className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-base sm:text-lg font-bold text-white leading-snug group-hover:text-[#38bdf8] transition-colors">
-                    {item.trigger}
-                  </h3>
-                  <p className="text-sm text-zinc-300 mt-2 font-light leading-relaxed">
-                    {item.solution}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Interactive Look Inside The 112 Pages (With Border Beam & Ambient Motion) */}
-      <section id="preview" className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 max-w-[1100px] mx-auto border-t border-white/[0.08] scroll-mt-24">
-        {/* ONE Single Clear Heading */}
-        <div className="text-center mb-10 sm:mb-14">
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+      {/* =========================================================================
+         LOOK INSIDE THE 112 PAGES (INTERACTIVE SPREAD SHOWCASE)
+         ========================================================================= */}
+      <section id="preview" className="relative py-24 px-4 sm:px-6 max-w-[1200px] mx-auto border-t border-white/[0.08] scroll-mt-24">
+        <div className="text-center mb-14">
+          <div className="hero-badge">
+            <Eye className="w-4 h-4 text-[#ba9cff] mr-2" />
+            <span className="hero-badge-text">Interactive Page Showcase</span>
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-medium tracking-tight text-white">
             Look inside the pages.
           </h2>
-          <p className="text-zinc-400 text-sm sm:text-base mt-3 max-w-[620px] mx-auto font-light">
-            Clean typography, psychological rules, and daily reflection ledgers you can type directly on your phone or write in a notebook.
+          <p className="text-[#efedfd99] text-base mt-3 max-w-[580px] mx-auto">
+            Every chapter pairs a psychological law on the left with an honest written audit on the right.
           </p>
 
-          {/* Interactive Spread Tabs */}
-          <div className="flex flex-wrap items-center justify-center gap-2.5 mt-8">
+          {/* Spread Tabs in Reflect Pill Style */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
             {spreads.map((spread, index) => (
               <button
                 key={index}
                 onClick={() => setActiveSpreadTab(index)}
-                className={`px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer flex items-center gap-2 ${
+                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all cursor-pointer flex items-center gap-2 ${
                   activeSpreadTab === index
-                    ? "bg-white text-black shadow-lg shadow-white/20 scale-[1.03]"
-                    : "bg-white/[0.05] text-zinc-400 hover:text-white hover:bg-white/[0.08] border border-white/[0.08]"
+                    ? "bg-white text-black shadow-lg shadow-white/20 font-semibold"
+                    : "bg-white/[0.04] text-zinc-400 hover:text-white border border-white/[0.08]"
                 }`}
               >
                 <span>{spread.title}</span>
                 {activeSpreadTab === index && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#9382ff]" />
                 )}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Active Spread View with Border Beam Frame */}
+        {/* Active Spread Display */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Spread Preview Image */}
           <div className="lg:col-span-8">
-            <div className="border-beam-container shadow-2xl">
-              <div className="border-beam-inner aspect-[16/11] relative overflow-hidden rounded-[1.2rem] bg-[#0c1017]">
+            <div className="hero-video-preview">
+              <div className="relative aspect-[16/11] w-full rounded-2xl overflow-hidden bg-[#07051a]">
                 <Image
                   src={spreads[activeSpreadTab].image}
                   alt={spreads[activeSpreadTab].title}
                   fill
-                  className="object-contain p-2 sm:p-5 transition-all duration-500"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 800px"
+                  className="object-contain p-3 sm:p-6 transition-all duration-300"
                 />
               </div>
             </div>
           </div>
 
-          {/* Spread Explanation */}
           <div className="lg:col-span-4 flex flex-col justify-between space-y-6">
-            <div className="opal-glass-card p-6 sm:p-7">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#38bdf8]/10 border border-[#38bdf8]/20 text-[11px] font-mono text-[#38bdf8] mb-3">
-                <Sparkles className="w-3 h-3" />
+            <div className="p-8 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-xl">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#9382ff]/10 border border-[#9382ff]/20 text-xs font-mono text-[#ba9cff] mb-4">
+                <Sparkles className="w-3.5 h-3.5" />
                 <span>{spreads[activeSpreadTab].tag}</span>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-bold text-white">
+              <h3 className="text-2xl sm:text-3xl font-medium text-white">
                 {spreads[activeSpreadTab].title}
               </h3>
-              <p className="text-sm text-zinc-300 mt-3 leading-relaxed font-light">
+              <p className="text-sm text-[#efedfdb3] mt-3 leading-relaxed">
                 {spreads[activeSpreadTab].description}
               </p>
 
@@ -611,7 +588,7 @@ export default function HomePage() {
                 <ul className="space-y-3 text-xs sm:text-sm text-zinc-300">
                   {spreads[activeSpreadTab].points.map((p, i) => (
                     <li key={i} className="flex items-start gap-2.5">
-                      <Check className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
+                      <Check className="w-4 h-4 text-[#ba9cff] shrink-0 mt-0.5" />
                       <span>{p}</span>
                     </li>
                   ))}
@@ -621,10 +598,11 @@ export default function HomePage() {
               <div className="mt-8 pt-4 border-t border-white/[0.08]">
                 <button
                   onClick={handleTriggerCheckout}
-                  className="reflect-btn-primary shimmer-button w-full py-3.5 text-sm font-bold flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-white/10"
+                  className="button button-primary w-full py-3.5 text-sm"
                 >
-                  <span>Get The Guide — $19</span>
+                  <span>Claim The Guide — $19</span>
                   <ArrowRight className="w-4 h-4" />
+                  <div className="button-border" />
                 </button>
               </div>
             </div>
@@ -632,221 +610,273 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* The 10-Minute Daily Protocol (Flowing Light Conduit) */}
-      <section id="protocol" className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 max-w-[1080px] mx-auto border-t border-white/[0.08] scroll-mt-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-6">
-            {/* ONE Single Clear Heading */}
-            <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              10 minutes before bed.
-            </h2>
-            <p className="text-sm sm:text-base text-zinc-300 mt-4 leading-relaxed font-light">
-              No complex apps to configure. No subscriptions. Open the PDF in Apple Books, Files, or GoodNotes on your phone, or keep a notebook beside your bed.
-            </p>
-
-            {/* Glowing Flowing Conduit Steps */}
-            <div className="relative space-y-6 mt-8 pl-4 border-l-2 border-cyan-500/30">
-              <div className="relative group">
-                <div className="absolute -left-[23px] top-1 w-3.5 h-3.5 rounded-full bg-[#06080b] border-2 border-[#38bdf8] group-hover:scale-125 transition-transform" />
-                <h4 className="text-sm font-semibold text-white group-hover:text-[#38bdf8] transition-colors">
-                  01. Morning Principle (3 Mins)
-                </h4>
-                <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
-                  Read 1 rule first thing in the morning before checking social media, group chats, or emails.
-                </p>
-              </div>
-
-              <div className="relative group">
-                <div className="absolute -left-[23px] top-1 w-3.5 h-3.5 rounded-full bg-[#06080b] border-2 border-[#38bdf8] group-hover:scale-125 transition-transform" />
-                <h4 className="text-sm font-semibold text-white group-hover:text-[#38bdf8] transition-colors">
-                  02. In The Field
-                </h4>
-                <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
-                  Deploy the 3-second pause whenever someone tests your patience, insults your work, or tries to bait your ego.
-                </p>
-              </div>
-
-              <div className="relative group">
-                <div className="absolute -left-[23px] top-1 w-3.5 h-3.5 rounded-full bg-[#06080b] border-2 border-[#38bdf8] group-hover:scale-125 transition-transform" />
-                <h4 className="text-sm font-semibold text-white group-hover:text-[#38bdf8] transition-colors">
-                  03. Evening Audit (7 Mins)
-                </h4>
-                <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
-                  Type 3 honest answers directly into your phone before turning off the lights to account for your day.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-8">
-              <button
-                onClick={handleTriggerCheckout}
-                className="reflect-btn-primary shimmer-button px-7 py-3.5 text-sm font-bold flex items-center gap-2 cursor-pointer shadow-lg shadow-white/10"
-              >
-                <span>Start Your Daily Audit — $19</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
+      {/* =========================================================================
+         REFLECT PRINCIPLES & COMPARISON MATRIX
+         ========================================================================= */}
+      <section id="principles" className="relative py-24 px-4 sm:px-6 max-w-[1100px] mx-auto border-t border-white/[0.08]">
+        <div className="text-center mb-16">
+          <div className="hero-badge">
+            <Shield className="w-4 h-4 text-[#ba9cff] mr-2" />
+            <span className="hero-badge-text">Why Writing Works</span>
           </div>
-
-          {/* Lifestyle Image Render with Floating Atmosphere */}
-          <div className="lg:col-span-6">
-            <div className="border-beam-container device-shadow">
-              <div className="border-beam-inner aspect-[4/3] relative overflow-hidden rounded-[1.2rem]">
-                <Image
-                  src="/mobile-lifestyle-usage.jpg"
-                  alt="Hands holding iPhone running the self-mastery audit overlooking evening city skyline"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Direct Download Section ($19 Seamless Card with Border Beam) */}
-      <section id="checkout" className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 max-w-[880px] mx-auto border-t border-white/[0.08] scroll-mt-24">
-        {/* ONE Single Clear Heading */}
-        <div className="text-center mb-10">
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Get The Self-Mastery Guide.
+          <h2 className="text-3xl sm:text-5xl font-medium tracking-tight text-white">
+            Why watching reels never changes your life.
           </h2>
-          <p className="text-sm sm:text-base text-zinc-400 mt-2 font-light">
-            112 pages • Instant one-tap access • Lifetime ownership
+          <p className="text-[#efedfd99] text-base mt-3 max-w-[580px] mx-auto">
+            Watching short videos gives you 30 seconds of motivation. Writing forces real confrontation.
           </p>
         </div>
 
-        <div className="border-beam-container shadow-2xl">
-          <div className="border-beam-inner p-6 sm:p-10 rounded-[1.2rem]">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-white/[0.08]">
-              <div>
-                <h3 className="text-2xl sm:text-3xl font-bold text-white">
-                  The Self-Mastery Guide &amp; Workbook
-                </h3>
-                <p className="text-sm text-zinc-400 mt-1">
-                  Interactive fields on mobile &amp; tablet + print-ready layout
-                </p>
-              </div>
-              <div className="text-left sm:text-right">
-                <div className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
-                  $19
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* The Passive Trap */}
+          <div className="p-8 rounded-2xl bg-white/[0.02] border border-red-500/20 backdrop-blur-xl flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-400 animate-pulse" />
+                  <h3 className="text-xl font-medium text-red-400">Passive Scrolling</h3>
                 </div>
-                <div className="text-xs text-zinc-400 mt-0.5">One-time payment • No subscriptions</div>
+                <span className="px-2.5 py-1 rounded-full text-xs font-mono bg-red-500/10 text-red-300 border border-red-500/20">
+                  ~3.5 hrs / day
+                </span>
               </div>
-            </div>
 
-            {/* Inclusions */}
-            <div className="py-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-zinc-200">
-                <div className="flex items-start gap-2.5">
-                  <Check className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
-                  <span><strong>112 Interactive Pages</strong> formatted for iPhone, iPad &amp; Android</span>
+              <div className="space-y-4">
+                <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+                  <div className="text-xs font-bold uppercase tracking-wider text-red-400/80 mb-1">
+                    Fleeting Motivation
+                  </div>
+                  <p className="text-sm text-zinc-300 font-light leading-relaxed">
+                    30 seconds of artificial energy that vanishes the exact instant you swipe to the next video.
+                  </p>
                 </div>
-                <div className="flex items-start gap-2.5">
-                  <Check className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
-                  <span><strong>All 47 Frameworks</strong> for composure, boundaries, and focus</span>
+
+                <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+                  <div className="text-xs font-bold uppercase tracking-wider text-red-400/80 mb-1">
+                    Reactive Living
+                  </div>
+                  <p className="text-sm text-zinc-300 font-light leading-relaxed">
+                    One passive-aggressive comment or work message ruins your entire mood for the afternoon.
+                  </p>
                 </div>
-                <div className="flex items-start gap-2.5">
-                  <Check className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
-                  <span><strong>47 Ruled Daily Ledgers</strong> to audit your reactions and habits</span>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <Check className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
-                  <span><strong>Print-Ready PDF</strong> with generous margins for notebooks</span>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <Check className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
-                  <span><strong>Instant Download</strong> immediately after Stripe checkout</span>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <Check className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
-                  <span><strong>Permanent Backup Link</strong> emailed to your inbox</span>
+
+                <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+                  <div className="text-xs font-bold uppercase tracking-wider text-red-400/80 mb-1">
+                    2 AM Overthinking
+                  </div>
+                  <p className="text-sm text-zinc-300 font-light leading-relaxed">
+                    Lying awake in bed replaying old conflicts, feeling guilty about unkept promises to yourself.
+                  </p>
                 </div>
               </div>
             </div>
 
-            {/* Checkout Button */}
-            <button
-              onClick={handleTriggerCheckout}
-              className="reflect-btn-primary shimmer-button w-full py-4 sm:py-5 text-sm sm:text-base font-extrabold uppercase tracking-wider flex items-center justify-center gap-3 cursor-pointer shadow-xl shadow-white/20"
-            >
-              <span>Download The Guide ($19)</span>
-              <ArrowRight className="w-5 h-5" />
-            </button>
+            <div className="mt-8 pt-4 border-t border-white/[0.06] text-xs text-zinc-400 flex items-center justify-between">
+              <span>Result: Unconscious Reactivity</span>
+              <span className="text-red-400 font-semibold">Zero Progress</span>
+            </div>
+          </div>
 
-            {/* Founder's VIP Guarantee Note */}
-            <p className="text-xs text-zinc-400 text-center mt-5 leading-relaxed font-light">
-              <strong className="text-white font-medium">Founder's Credit:</strong> Every purchase today credits your full $19 toward lifetime access to the upcoming Life Reset mobile app when registration opens.
-            </p>
+          {/* The Daily Audit */}
+          <div className="p-8 rounded-2xl bg-white/[0.02] border border-[#ba9cff]/30 shadow-[0_0_40px_rgba(186,156,255,0.08)] backdrop-blur-xl flex flex-col justify-between">
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#ba9cff] animate-pulse" />
+                  <h3 className="text-xl font-medium text-[#ba9cff]">The Daily Audit</h3>
+                </div>
+                <span className="px-2.5 py-1 rounded-full text-xs font-mono bg-[#ba9cff]/10 text-[#ba9cff] border border-[#ba9cff]/20">
+                  10 mins / day
+                </span>
+              </div>
+
+              <div className="space-y-4">
+                <div className="p-4 rounded-xl bg-white/[0.03] border border-[#ba9cff]/20">
+                  <div className="text-xs font-bold uppercase tracking-wider text-[#ba9cff] mb-1">
+                    Written Honesty
+                  </div>
+                  <p className="text-sm text-zinc-200 font-light leading-relaxed">
+                    10 minutes of honest self-inquiry on your phone before sleep forces real confrontation with your excuses.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-white/[0.03] border border-[#ba9cff]/20">
+                  <div className="text-xs font-bold uppercase tracking-wider text-[#ba9cff] mb-1">
+                    The 3-Second Pause
+                  </div>
+                  <p className="text-sm text-zinc-200 font-light leading-relaxed">
+                    Complete emotional calm when baited or tested. Silence and lowered voice is true authority.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-white/[0.03] border border-[#ba9cff]/20">
+                  <div className="text-xs font-bold uppercase tracking-wider text-[#ba9cff] mb-1">
+                    Strategic Boundaries
+                  </div>
+                  <p className="text-sm text-zinc-200 font-light leading-relaxed">
+                    Saying no cleanly without guilt, apology, or over-explaining yourself to people.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 pt-4 border-t border-white/[0.06] text-xs text-zinc-300 flex items-center justify-between">
+              <span>Result: Unshakeable Composure</span>
+              <span className="text-[#ba9cff] font-semibold">Self-Command</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Reader Reviews (Glass Cards with Verified Indicators) */}
-      <section id="reviews" className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 max-w-[1040px] mx-auto border-t border-white/[0.08] scroll-mt-24">
-        {/* ONE Single Clear Heading */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
-          <div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
-              What readers are saying.
-            </h2>
-            <p className="text-zinc-400 text-sm sm:text-base mt-2 font-light">
-              From readers who stopped just watching and started doing the work.
-            </p>
+      {/* =========================================================================
+         REFLECT EXACT PRICING SECTION
+         ========================================================================= */}
+      <section id="pricing" className="pricing">
+        <div className="text-center mb-12">
+          <div className="hero-badge">
+            <span className="hero-badge-text">Simple Lifetime Pricing</span>
           </div>
+          <h2 className="text-4xl sm:text-6xl font-medium tracking-tight text-white">
+            One payment. Lifetime access.
+          </h2>
+          <p className="text-[#efedfd99] text-base mt-3 max-w-[500px] mx-auto">
+            No subscriptions. Claim the 112-page workbook today and get credited toward the upcoming app.
+          </p>
+        </div>
+
+        <div className="pricing-plans">
+          <div className="pricing-plan">
+            <div className="p-8 sm:p-12 rounded-3xl bg-white/[0.02] border border-white/[0.1] shadow-[0_20px_70px_rgba(0,0,0,0.8)] backdrop-blur-2xl">
+              <div className="text-center">
+                <div className="text-xs uppercase tracking-widest text-[#ba9cff] font-semibold mb-2">
+                  The Self-Mastery Guide &amp; Workbook
+                </div>
+                <div className="pricing-amount">
+                  $19
+                </div>
+                <div className="text-sm text-[#efedfd99] mt-2">
+                  One-time payment • Instant access • Lifetime updates
+                </div>
+              </div>
+
+              {/* Inclusions */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-10 text-sm text-zinc-200">
+                <div className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-[#ba9cff] shrink-0 mt-0.5" />
+                  <span><strong>112 Interactive Pages</strong> for iPhone, iPad &amp; Android</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-[#ba9cff] shrink-0 mt-0.5" />
+                  <span><strong>All 47 Frameworks</strong> for composure and boundaries</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-[#ba9cff] shrink-0 mt-0.5" />
+                  <span><strong>47 Ruled Daily Ledgers</strong> to audit daily conduct</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-[#ba9cff] shrink-0 mt-0.5" />
+                  <span><strong>Print-Ready PDF</strong> with generous margins for notebooks</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-[#ba9cff] shrink-0 mt-0.5" />
+                  <span><strong>Instant Download</strong> immediately after Stripe checkout</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Check className="w-4 h-4 text-[#ba9cff] shrink-0 mt-0.5" />
+                  <span><strong>Permanent Backup Link</strong> emailed to your inbox</span>
+                </div>
+              </div>
+
+              {/* Checkout Button */}
+              <button
+                onClick={handleTriggerCheckout}
+                className="button button-primary w-full py-4 text-base font-semibold"
+              >
+                <span>Download The Guide ($19)</span>
+                <ArrowRight className="w-4 h-4" />
+                <div className="button-border" />
+              </button>
+
+              {/* Founder's VIP Guarantee Note */}
+              <p className="text-xs text-[#efedfd99] text-center mt-6 leading-relaxed">
+                <strong className="text-white font-medium">Founder's Credit:</strong> Every purchase today credits your full $19 toward lifetime access to the upcoming Life Reset mobile app when registration opens.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+         REFLECT EXACT TESTIMONIALS SLIDING MARQUEE
+         ========================================================================= */}
+      <section id="testimonials" className="testimonials">
+        <div className="text-center mb-16 px-4">
+          <div className="hero-badge">
+            <span className="hero-badge-text">Reader Testimonials</span>
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-medium tracking-tight text-white">
+            Loved by thinkers and builders.
+          </h2>
+          <p className="text-[#efedfd99] text-base mt-3 max-w-[500px] mx-auto">
+            From readers who stopped just watching and started doing the work.
+          </p>
+
           <button
             onClick={() => setShowReviewModal(true)}
-            className="reflect-btn-secondary px-5 py-2.5 text-xs sm:text-sm font-semibold flex items-center gap-2 self-start sm:self-auto cursor-pointer"
+            className="button button-secondary mt-6"
           >
-            <MessageSquarePlus className="w-4 h-4 text-[#38bdf8]" />
+            <MessageSquarePlus className="w-4 h-4 text-[#ba9cff] mr-2" />
             <span>Leave a Review</span>
+            <div className="button-border" />
           </button>
         </div>
 
-        {/* Reviews Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {reviewsList.map((review) => (
-            <div key={review.id} className="opal-glass-card p-6 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-3">
+        {/* Reflect Sliding Marquee */}
+        <div className="testimonials-items">
+          <div className="testimonials-row">
+            {reviewsList.map((review) => (
+              <div key={review.id} className="testimonials-card">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#9382ff]/30 to-[#e59cff]/30 border border-[#ba9cff]/30 flex items-center justify-center font-bold text-xs text-white">
+                      {review.name.charAt(0)}
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-white">{review.name}</div>
+                      <div className="text-xs text-[#efedfd99]">{review.role || "Verified Reader"}</div>
+                    </div>
+                  </div>
                   <div className="flex text-amber-400">
                     {[...Array(review.rating)].map((_, i) => (
                       <Star key={i} className="w-3.5 h-3.5 fill-current" />
                     ))}
                   </div>
-                  <span className="text-[11px] font-mono text-zinc-500">{review.date}</span>
                 </div>
 
                 {review.highlight && (
-                  <h4 className="text-base font-bold text-white mb-2 leading-snug">"{review.highlight}"</h4>
+                  <h4 className="text-sm font-semibold text-white mb-2">"{review.highlight}"</h4>
                 )}
-
-                <p className="text-sm text-zinc-300 leading-relaxed font-light">
+                <p className="text-sm text-[#efedfdb3] leading-relaxed font-light">
                   "{review.comment}"
                 </p>
-              </div>
 
-              <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between">
-                <div>
-                  <div className="text-xs font-semibold text-white">{review.name}</div>
-                  {review.role && (
-                    <div className="text-[11px] text-zinc-400">{review.role}</div>
-                  )}
-                </div>
-                <div className="flex items-center gap-1 text-[11px] text-emerald-400">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>Verified</span>
+                <div className="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] text-[#efedfd99]">
+                  <span>{review.date}</span>
+                  <span className="text-emerald-400 flex items-center gap-1 font-medium">
+                    <CheckCircle2 className="w-3 h-3" />
+                    <span>Verified Purchase</span>
+                  </span>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Review Submission Modal */}
       {showReviewModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="p-6 sm:p-8 max-w-[500px] w-full bg-[#0d1117] rounded-3xl border border-white/20 relative shadow-2xl">
+          <div className="p-6 sm:p-8 max-w-[500px] w-full bg-[#0a071e] rounded-3xl border border-white/20 relative shadow-2xl">
             <button
               onClick={() => setShowReviewModal(false)}
               className="absolute top-5 right-5 text-zinc-400 hover:text-white"
@@ -857,12 +887,12 @@ export default function HomePage() {
             {reviewSubmitted ? (
               <div className="text-center py-8">
                 <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto mb-3" />
-                <h3 className="text-xl font-bold text-white">Review Submitted</h3>
+                <h3 className="text-xl font-medium text-white">Review Submitted</h3>
                 <p className="text-xs text-zinc-400 mt-1">Thank you for sharing your experience.</p>
               </div>
             ) : (
               <form onSubmit={handleReviewSubmit}>
-                <h3 className="text-xl font-bold text-white mb-1">Leave a Review</h3>
+                <h3 className="text-xl font-medium text-white mb-1">Leave a Review</h3>
                 <p className="text-xs text-zinc-400 mb-5">
                   Share how The Self-Mastery Guide has impacted your daily conduct.
                 </p>
@@ -876,7 +906,7 @@ export default function HomePage() {
                       value={newReview.name}
                       onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
                       placeholder="e.g. Marcus V."
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/[0.1] text-sm text-white focus:outline-none focus:border-[#38bdf8]"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/[0.1] text-sm text-white focus:outline-none focus:border-[#ba9cff]"
                     />
                   </div>
 
@@ -887,7 +917,7 @@ export default function HomePage() {
                       value={newReview.role}
                       onChange={(e) => setNewReview({ ...newReview, role: e.target.value })}
                       placeholder="e.g. Software Engineer, London"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/[0.1] text-sm text-white focus:outline-none focus:border-[#38bdf8]"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/[0.1] text-sm text-white focus:outline-none focus:border-[#ba9cff]"
                     />
                   </div>
 
@@ -917,17 +947,18 @@ export default function HomePage() {
                       value={newReview.comment}
                       onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
                       placeholder="What specific framework or prompt made the biggest difference in your daily composure?"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/[0.1] text-sm text-white focus:outline-none focus:border-[#38bdf8]"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/[0.1] text-sm text-white focus:outline-none focus:border-[#ba9cff]"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={submittingReview}
-                    className="reflect-btn-primary w-full py-3 text-sm font-bold flex items-center justify-center gap-2 cursor-pointer mt-2"
+                    className="button button-primary w-full py-3 mt-2"
                   >
                     <span>{submittingReview ? "Submitting..." : "Post Review"}</span>
-                    <Send className="w-4 h-4" />
+                    <Send className="w-4 h-4 ml-1" />
+                    <div className="button-border" />
                   </button>
                 </div>
               </form>
@@ -936,12 +967,16 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Frequently Asked Questions (Clean Accordion) */}
-      <section id="faq" className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 max-w-[800px] mx-auto border-t border-white/[0.08] scroll-mt-24">
-        {/* ONE Single Clear Heading */}
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
-            Frequently Asked Questions
+      {/* =========================================================================
+         REFLECT EXACT FAQ ACCORDION
+         ========================================================================= */}
+      <section id="faq" className="relative py-24 px-4 sm:px-6 max-w-[840px] mx-auto border-t border-white/[0.08] scroll-mt-24">
+        <div className="text-center mb-16">
+          <div className="hero-badge">
+            <span className="hero-badge-text">Frequently Asked Questions</span>
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-medium tracking-tight text-white">
+            Everything you need to know.
           </h2>
         </div>
 
@@ -953,16 +988,16 @@ export default function HomePage() {
               onClick={() => setOpenFaq(openFaq === index ? null : index)}
             >
               <div className="flex items-center justify-between gap-4">
-                <h4 className="text-base sm:text-lg font-medium text-white group-hover:text-[#38bdf8] transition-colors">{faq.q}</h4>
+                <h4 className="text-base sm:text-lg font-medium text-white group-hover:text-[#ba9cff] transition-colors">{faq.q}</h4>
                 <ChevronDown
                   className={`w-5 h-5 text-zinc-400 transition-transform duration-300 shrink-0 ${
-                    openFaq === index ? "rotate-180 text-[#38bdf8]" : ""
+                    openFaq === index ? "rotate-180 text-[#ba9cff]" : ""
                   }`}
                 />
               </div>
 
               {openFaq === index && (
-                <p className="text-xs sm:text-sm text-zinc-300 mt-4 leading-relaxed font-light pt-2">
+                <p className="text-sm text-[#efedfdb3] mt-4 leading-relaxed font-light pt-2">
                   {faq.a}
                 </p>
               )}
@@ -971,11 +1006,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Minimal Footer */}
-      <footer className="relative z-10 py-12 px-4 sm:px-6 border-t border-white/[0.08] text-center text-xs text-zinc-400">
-        <div className="max-w-[1000px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-white">@ourlife.reset</span>
+      {/* =========================================================================
+         REFLECT EXACT FOOTER
+         ========================================================================= */}
+      <footer className="relative py-14 px-4 sm:px-6 border-t border-white/[0.08] text-center text-xs text-[#efedfd99]">
+        <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <div className="w-6 h-6 rounded-md bg-gradient-to-tr from-[#9382ff] to-[#e59cff] flex items-center justify-center text-black font-extrabold text-[10px]">
+              R
+            </div>
+            <span className="font-semibold text-white">@ourlife.reset</span>
             <span>• The Self-Mastery Guide &amp; Workbook</span>
           </div>
 
@@ -991,12 +1031,12 @@ export default function HomePage() {
             <a href="/refund-policy" className="hover:text-white transition-colors">
               Refund Policy
             </a>
-            <a href="#checkout" className="text-[#38bdf8] font-semibold hover:underline">
+            <a href="#pricing" className="text-[#ba9cff] font-medium hover:underline">
               Download Guide ($19)
             </a>
           </div>
         </div>
-        <div className="mt-6 text-zinc-500 text-[11px]">
+        <div className="mt-8 text-zinc-600 text-[11px]">
           &copy; {new Date().getFullYear()} Our Life Reset. Reset your mind. Control your life.
         </div>
       </footer>

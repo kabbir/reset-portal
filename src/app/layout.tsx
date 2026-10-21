@@ -24,11 +24,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://ourlifereset.com"),
   title: "Reset your mind. Control your life. | @ourlife.reset",
   description:
-    "A 112-page guided manual to confront your blind spots, kill reactivity, and rebuild daily discipline. 10 minutes a day on your phone or in your notebook. By @ourlife.reset.",
+    "A 112-page guided manual to stop overthinking, master emotional composure, and rebuild daily discipline. 10 minutes a day on your phone or in your notebook. By @ourlife.reset.",
   openGraph: {
     title: "Reset your mind. Control your life. — @ourlife.reset",
     description:
-      "A 112-page guided manual to confront your blind spots, kill reactivity, and rebuild daily discipline. 10 minutes a day on your phone or in your notebook.",
+      "A 112-page guided manual to stop overthinking, master emotional composure, and rebuild daily discipline. 10 minutes a day on your phone or in your notebook.",
     images: ["/hero-mockup-luxury.jpg"],
   },
 };
@@ -43,7 +43,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} dark overflow-x-hidden w-full max-w-full`}
     >
-      <body className="bg-[#050507] text-[#f4f4f5] antialiased selection:bg-[#d4af37] selection:text-black overflow-x-hidden w-full max-w-full">
+      <body className="bg-[#06080b] text-[#f8fafc] antialiased selection:bg-[#38bdf8] selection:text-black overflow-x-hidden w-full max-w-full">
         {children}
         <Analytics />
         <SpeedInsights />

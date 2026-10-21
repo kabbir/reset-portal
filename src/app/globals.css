@@ -45,8 +45,57 @@ body {
 }
 
 /* =========================================================================
-   REFLECT & OPAL AMBIENT LIGHTING & MESH GLOWS
+   REFLECT & OPAL AMBIENT LIGHTING, BORDER BEAMS & MOTION
    ========================================================================= */
+
+@keyframes border-beam {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes drift-mesh {
+  0%, 100% {
+    transform: translate(-50%, 0) scale(1);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translate(-50%, 25px) scale(1.12);
+    opacity: 0.55;
+  }
+}
+
+@keyframes float-device {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes shimmer-sweep {
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(150%);
+  }
+}
 
 .reflect-ambient-glow {
   position: absolute;
@@ -54,22 +103,79 @@ body {
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 1000px;
-  height: 500px;
-  background: radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.22) 0%, rgba(56, 189, 248, 0.12) 40%, rgba(6, 8, 12, 0) 75%);
+  max-width: 1200px;
+  height: 620px;
+  background: radial-gradient(ellipse at 50% -10%, rgba(99, 102, 241, 0.32) 0%, rgba(56, 189, 248, 0.18) 35%, rgba(139, 92, 246, 0.08) 55%, rgba(6, 8, 12, 0) 75%);
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
+  animation: drift-mesh 14s ease-in-out infinite;
 }
 
-.opal-radial-mesh {
+.opal-secondary-glow {
   position: absolute;
-  width: 600px;
-  height: 600px;
+  top: 25%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
   border-radius: 50%;
-  filter: blur(120px);
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(6, 8, 12, 0) 70%);
+  filter: blur(80px);
   pointer-events: none;
-  opacity: 0.25;
+  z-index: 0;
+  animation: pulse-soft 10s ease-in-out infinite;
+}
+
+.opal-tertiary-glow {
+  position: absolute;
+  top: 60%;
+  left: -10%;
+  width: 550px;
+  height: 550px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, rgba(6, 8, 12, 0) 70%);
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+  animation: pulse-soft 12s ease-in-out infinite reverse;
+}
+
+/* Border Beam Effect */
+.border-beam-container {
+  position: relative;
+  border-radius: 1.25rem;
+  padding: 1px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.border-beam-container::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0%,
+    transparent 70%,
+    rgba(56, 189, 248, 0.3) 82%,
+    rgba(147, 197, 253, 0.9) 92%,
+    #ffffff 98%,
+    transparent 100%
+  );
+  animation: border-beam 7s linear infinite;
+  z-index: 0;
+}
+
+.border-beam-inner {
+  position: relative;
+  background: #06080b;
+  border-radius: inherit;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 /* Reflect Signature Titanium & Holographic Gradients */
@@ -80,7 +186,7 @@ body {
 }
 
 .opal-cyan-gradient-text {
-  background: linear-gradient(135deg, #ffffff 0%, #38bdf8 50%, #818cf8 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #38bdf8 45%, #a78bfa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -91,47 +197,33 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-/* Reflect Glass Cards */
-.reflect-card {
-  background: linear-gradient(180deg, rgba(17, 24, 39, 0.75) 0%, rgba(10, 14, 23, 0.85) 100%);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 24px;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+/* Opal Holographic Shimmer Button */
+.shimmer-button {
+  position: relative;
+  overflow: hidden;
 }
 
-.reflect-card:hover {
-  border-color: rgba(56, 189, 248, 0.35);
-  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.85), 0 0 35px -5px rgba(56, 189, 248, 0.12);
-  transform: translateY(-2px);
+.shimmer-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transform: skewX(-20deg);
+  animation: shimmer-sweep 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
 }
 
-/* Opal Holographic Pill Badge */
-.opal-badge {
-  background: rgba(56, 189, 248, 0.07);
-  border: 1px solid rgba(56, 189, 248, 0.28);
-  color: #38bdf8;
-  border-radius: 9999px;
-  padding: 6px 16px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
-}
-
-/* Floating Navigation Bar */
+/* Floating Navigation Bar with Micro-Highlight */
 .reflect-nav-blur {
-  background: rgba(6, 8, 12, 0.82);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(8, 11, 16, 0.85);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 9999px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 /* Apple/Reflect Pill Buttons */
@@ -147,24 +239,47 @@ body {
 .reflect-btn-primary:hover {
   background: #f1f5f9;
   transform: scale(1.02);
-  box-shadow: 0 12px 35px rgba(255, 255, 255, 0.25);
+  box-shadow: 0 14px 40px rgba(255, 255, 255, 0.3);
 }
 
 .reflect-btn-secondary {
   background: rgba(255, 255, 255, 0.05);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 9999px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reflect-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
   transform: scale(1.02);
 }
 
-/* Hardware Frame Glass Shimmer */
+/* Floating Device Motion */
+.device-floating {
+  animation: float-device 6s ease-in-out infinite;
+}
+
+/* Glass Interactive Cards (Opal/Reflect Depth) */
+.opal-glass-card {
+  background: linear-gradient(180deg, rgba(15, 20, 30, 0.7) 0%, rgba(9, 12, 18, 0.85) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+}
+
+.opal-glass-card:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85), 0 0 30px rgba(56, 189, 248, 0.15);
+}
+
 .device-shadow {
-  box-shadow: 0 30px 100px -20px rgba(0, 0, 0, 0.95), 0 0 70px -15px rgba(56, 189, 248, 0.15);
+  box-shadow: 0 30px 100px -20px rgba(0, 0, 0, 0.95), 0 0 70px -15px rgba(56, 189, 248, 0.2);
 }

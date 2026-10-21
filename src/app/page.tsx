@@ -6,36 +6,28 @@ import {
   BookOpen,
   ArrowRight,
   Check,
-  X,
-  Lock,
   Star,
-  CheckCircle2,
+  ShieldCheck,
+  Sparkles,
+  Smartphone,
+  Eye,
+  Lock,
+  ChevronDown,
+  Clock,
+  Compass,
+  Zap,
+  Target,
+  FileText,
+  Layers,
   MessageSquarePlus,
   Send,
-  ChevronDown
+  X,
+  CheckCircle2,
+  BookmarkCheck
 } from "lucide-react";
 
 /* --- Live Stripe Payment Configuration --- */
 const STRIPE_CHECKOUT_URL = "https://buy.stripe.com/dRmdR9eZZ9Qf1FkgpY6AM00";
-
-/* --- Official Vector Logos --- */
-const AppDashboardLogo = ({ className = "w-6 h-6" }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-    <rect width="18" height="18" x="3" y="3" rx="3" />
-    <path d="M3 9h18" />
-    <path d="M9 21V9" />
-  </svg>
-);
-
-const PdfDocumentLogo = ({ className = "w-7 h-7" }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-    <polyline points="14 2 14 8 20 8" />
-    <path d="M9 13v4" />
-    <path d="M12 13v4" />
-    <path d="M15 13v4" />
-  </svg>
-);
 
 interface ReviewItem {
   id: string;
@@ -48,6 +40,7 @@ interface ReviewItem {
 }
 
 export default function HomePage() {
+  const [activeSpreadTab, setActiveSpreadTab] = useState<number>(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [showReviewModal, setShowReviewModal] = useState<boolean>(false);
   const [reviewSubmitted, setReviewSubmitted] = useState<boolean>(false);
@@ -60,7 +53,7 @@ export default function HomePage() {
     comment: ""
   });
 
-  /* --- Fetch Reviews from Live Persistence API --- */
+  /* --- Fetch Reviews from Live API --- */
   useEffect(() => {
     async function loadReviews() {
       try {
@@ -110,549 +103,795 @@ export default function HomePage() {
     }
   };
 
+  /* --- Interactive PDF Spreads Data --- */
+  const spreads = [
+    {
+      title: "The Reset Manifesto",
+      subtitle: "Prelude • The Four Core Pillars",
+      image: "/manifesto-spread-preview.png",
+      description:
+        "The opening declaration against involuntary digital distraction. Establishes the 4 operational pillars of private discipline, emotional control, and solitary execution.",
+      highlights: [
+        "Why scrolling dopamine fractures your nervous system",
+        "The operational principle for each pillar",
+        "Quotes from Blaise Pascal & modern behavioral neuroscience"
+      ]
+    },
+    {
+      title: "Strategic Restraint & Composure",
+      subtitle: "Chapter 15 • Human Nature & Non-Reactivity",
+      image: "/greene-spread-preview.png",
+      description:
+        "Field rules for remaining unshakeable when provoked. Teaches the Rule of Seven Words, project opacity, and tactical absence.",
+      highlights: [
+        "Why reacting in anger surrenders your psychological power",
+        "The 3-Second Protocol before answering disrespect",
+        "Ruled ledger prompts to audit where you over-shared or lost composure"
+      ]
+    },
+    {
+      title: "Solitary Discipline & Night Ledger",
+      subtitle: "Chapter 22 • Deep Work & Evening Audit",
+      image: "/watts-spread-preview.png",
+      description:
+        "The unsparing evening accountability system. Every night, force yourself to write down the undeniable physical proof of kept promises.",
+      highlights: [
+        "How to audit the excuses you rationalized during the day",
+        "The 90-minute solitary deep work standard",
+        "Ruled ledger lines formatted to type on your phone or write in a notebook"
+      ]
+    },
+    {
+      title: "The Daily Checkpoint System",
+      subtitle: "Chapter 04 • The Core Operational Framework",
+      image: "/book-spread-preview.png",
+      description:
+        "The two-page daily checkpoint architecture: read 1 page of principles in the morning, complete 1 page of honest self-inquiry before bed.",
+      highlights: [
+        "Zero fluff: 10 minutes maximum per day",
+        "Interactive fillable form fields for phone and tablet",
+        "Print-ready high-resolution typesetting"
+      ]
+    }
+  ];
+
+  /* --- 4 Core Pillars Data --- */
+  const pillars = [
+    {
+      roman: "I",
+      name: "The Immovable Frame",
+      theme: "Emotional Composure & Non-Reactivity",
+      tagline: "Silence is the ultimate flex. When you react in anger, they win.",
+      items: [
+        "The 3-Second Protocol: How to neutralize rage and bait before speaking",
+        "Spotting psychological traps and covert disrespect without flinching",
+        "Killing nighttime overthinking and ending mental replay of past arguments"
+      ]
+    },
+    {
+      roman: "II",
+      name: "The Crucible of Proof",
+      theme: "Solitary Discipline & Habit Execution",
+      tagline: "Reels give 30 seconds of dopamine. Writing forces permanent change.",
+      items: [
+        "The 90-Minute Solitary Block: Eliminating fake busywork and procrastination",
+        "The Nightly Accountability Ledger: Unsparing self-inquiry before sleep",
+        "Rewiring daily friction: How to execute when you have zero motivation"
+      ]
+    },
+    {
+      roman: "III",
+      name: "Strategic Restraint",
+      theme: "Decoding Human Nature & Boundaries",
+      tagline: "Never show your cards at the outset. True power moves in silence.",
+      items: [
+        "The Rule of Seven Words: Concise communication in high-tension rooms",
+        "Saying NO cleanly without apologizing, explaining, or feeling guilty",
+        "Reading true intentions beneath polite smiles and flattery"
+      ]
+    },
+    {
+      roman: "IV",
+      name: "The Solitary Path",
+      theme: "Autonomy & Private Standards",
+      tagline: "Live by a standard that holds up even when nobody is watching.",
+      items: [
+        "Curing people-pleasing and external validation dependency",
+        "The Stoic Mortality Filter: Using death as a clarifier for daily focus",
+        "Developing private sovereignty: Complete comfort in your own solitude"
+      ]
+    }
+  ];
 
   /* --- Real Human FAQs --- */
   const faqs = [
     {
-      q: "I already read a lot of philosophy and psychology. Will this actually teach me anything new, or is it just rehashed quotes?",
-      a: "Most people who read philosophy suffer from the same quiet frustration: they understand the concepts intellectually, but their composure completely dissolves the moment an arrogant person provokes them, a high-stakes deal gets tense, or their ego gets bruised. We didn't build this to give you quotes to recite at dinner. Every chapter bypasses the history lesson and goes straight to the psychological root—why your nervous system hijacks your logic, where your ego is rationalizing weakness, and what physical rules to deploy in that exact room. Then the facing page forces you to write down your own truth. You don't just read it; you diagnose yourself."
+      q: "I already read a lot of philosophy and watch reels. Will this actually teach me anything new?",
+      a: "Most people who consume philosophy suffer from the same quiet frustration: they understand the concepts intellectually, but their composure completely dissolves the moment someone provokes them or a deadline gets tense. We didn't build this to give you quotes to recite. Every chapter bypasses the history lesson and goes straight to the psychological root—why your nervous system reacts, where your ego makes excuses, and what specific physical protocol to deploy in that exact room. Then the facing page forces you to write down your own truth. You don't just read it; you audit yourself."
     },
     {
       q: "How much time does this actually take each day? I already have an exhausting schedule.",
-      a: "Ten to fifteen minutes. This is not a 300-page book you have to carve out an entire Sunday to read, and it's definitely not a textbook with homework. Each chapter is designed as a single two-page checkpoint. You spend three minutes absorbing the psychological principle on the left, and ten minutes working through the unsparing audit prompt on the right. Doing that once a day creates more real behavioral change than binge-reading five books you'll forget by next month."
+      a: "Ten minutes. This is not a 300-page academic book you need a free weekend to read. Each chapter is designed as a single two-page checkpoint. You spend three minutes absorbing the principle on the left, and seven minutes working through the unsparing audit prompt on the right. Doing that once a day creates more real behavioral change than binge-reading five books you'll forget by next month."
+    },
+    {
+      q: "Can I use this directly on my phone, or do I need to print it out?",
+      a: "Both. The guide is custom-formatted for mobile devices. It opens natively in Apple Books, Files, Google Drive, or GoodNotes on your iPhone or Android, and includes fillable interactive text fields so you can type your daily audits directly in bed. If you prefer physical writing, the archival PDF is designed with generous print margins so you can print it or mirror the prompts into your personal notebook."
     },
     {
       q: "Is this just another generic motivational guide with feel-good affirmations?",
-      a: "No. There are no vision boards, morning mantras, or toxic positivity here. In fact, if you're looking for something that validates your excuses or pats you on the back, you will probably hate this book. The prompts are deliberately uncomfortable. They force you to examine your shadow, acknowledge where your 'kindness' was really just fear of confrontation, admit where you envied a peer's success, and write down the promises you broke to yourself. It is a tool for self-command, not comfort."
+      a: "No. There are no vision boards, morning mantras, or toxic positivity here. In fact, if you want something that comforts your excuses, you will dislike this manual. The prompts are deliberately uncomfortable. They force you to examine where your 'politeness' was really just cowardice, where you envied a peer's progress, and where you broke promises to yourself. It is a tool for self-command, not comfort."
     },
     {
-      q: "Do I need an iPad or Apple Pencil to use this, or can I write in a normal notebook?",
-      a: "You don't need a tablet at all. While the guide looks beautiful on an iPad in apps like GoodNotes or Apple Books, many readers simply open the PDF on their phone or laptop and write their answers in a physical notebook sitting on their desk. What matters is the act of putting pen to paper. You can lie to yourself in your head all day, but you cannot lie to your own handwriting."
-    },
-    {
-      q: "How does this connect to your daily reels on @ourlife.reset?",
-      a: "Our reels are the catalyst—they deliver a 60-second spark of perspective to cut through daily noise. But a reel cannot give you a permanent operating system. This guide is the complete foundation behind those videos: the full psychological frameworks, the real-world field rules, and the daily reflection ledgers needed to actually embody the philosophy rather than just consuming it as content."
+      q: "What is the Founder's Guarantee regarding the upcoming Life Reset App?",
+      a: "Our software team is currently finishing private testing on The Life Reset mobile app. Because we believe in rewarding our early core readers, every person who claims The Self-Mastery Guide today for $19 receives automatic VIP status and a full $19 credit toward lifetime access to the app when public registration opens. You get the workbook today, and your entire purchase is credited forward."
     },
     {
       q: "What happens immediately after checkout?",
-      a: "The moment Stripe completes your payment, your screen redirects instantly to a private download page with a single-tap download button. We also email a permanent backup access link to your inbox at the same second, so you'll always have access to your file across all your devices with no recurring fees or subscriptions."
+      a: "The moment Stripe completes your payment, your screen redirects instantly to a private download portal with a single-tap download button. We also email a permanent backup access link to your inbox at the exact same second, so you'll always have access to your file across all your devices with no recurring fees or subscriptions."
     }
   ];
 
   return (
-    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-black text-[#f5f5f7] selection:bg-[#2997ff] selection:text-white antialiased font-sans">
-      {/* Top Glassmorphic Navigation */}
-      <nav className="sticky top-0 z-50 apple-subnav-blur border-b border-white/[0.08]">
-        <div className="max-w-[1080px] mx-auto px-4 sm:px-6 h-[56px] flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/20 shadow-md">
-              <Image
-                src="/logo-without-bg.png"
-                alt="@ourlife.reset logo"
-                width={32}
-                height={32}
-                className="object-cover"
-                priority
-              />
+    <div className="relative min-h-screen bg-[#06080b] text-[#f8fafc] overflow-x-hidden selection:bg-[#38bdf8] selection:text-black">
+      {/* Reflect Ambient Top Glow Flare */}
+      <div className="reflect-ambient-glow" />
+
+      {/* Floating Pill Navigation Bar (Reflect Style) */}
+      <header className="fixed top-3 sm:top-5 left-0 right-0 z-50 flex justify-center px-3 sm:px-4 pointer-events-none">
+        <nav className="reflect-nav-blur pointer-events-auto px-3.5 py-2 sm:px-6 sm:py-3 flex items-center justify-between gap-2 sm:gap-8 w-full max-w-[920px]">
+          {/* Logo & Account */}
+          <a href="#" className="flex items-center gap-2 group shrink-0">
+            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white text-black font-extrabold flex items-center justify-center text-[11px] sm:text-xs tracking-tighter shadow-sm">
+              R
             </div>
-            <span className="text-[14px] font-semibold text-white tracking-tight">
+            <span className="text-[12px] sm:text-[13px] font-bold tracking-wider text-white group-hover:text-[#38bdf8] transition-colors">
               @ourlife.reset
             </span>
-          </div>
+          </a>
 
-          <div className="flex items-center gap-6">
-            <a href="#who-its-for" className="hidden md:inline-block text-[13px] text-[#86868b] hover:text-white transition-colors">
-              Who It's For
+          {/* Nav Links */}
+          <div className="hidden md:flex items-center gap-6 text-[13px] font-medium text-zinc-300">
+            <a href="#preview" className="hover:text-white transition-colors">
+              Look Inside
             </a>
-            <a href="#reviews" className="hidden sm:inline-block text-[13px] text-[#86868b] hover:text-white transition-colors">
+            <a href="#pillars" className="hover:text-white transition-colors">
+              4 Pillars
+            </a>
+            <a href="#daily-ritual" className="hover:text-white transition-colors">
+              Daily Protocol
+            </a>
+            <a href="#reviews" className="hover:text-white transition-colors">
               Reviews
             </a>
-            <a href="#faq" className="hidden sm:inline-block text-[13px] text-[#86868b] hover:text-white transition-colors">
+            <a href="#faq" className="hover:text-white transition-colors">
               FAQ
             </a>
-            <a
-              href="#products"
-              className="apple-pill-btn text-[13px] font-semibold px-4 py-1.5 bg-[#0071e3] text-white hover:bg-[#0077ed] transition-all shadow-sm"
-            >
-              Get Instant Access
-            </a>
-          </div>
-        </div>
-      </nav>
-
-      {/* Main Hero Section */}
-      <section className="relative z-10 overflow-hidden pt-14 pb-4 sm:pt-24 sm:pb-12 px-4 sm:px-6 text-center">
-        {/* Subtle Sapphire Radial Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[850px] h-[380px] bg-[radial-gradient(ellipse_at_top,rgba(41,151,255,0.12),transparent_70%)] pointer-events-none overflow-hidden" />
-
-        <div className="max-w-[860px] mx-auto relative z-10">
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-semibold tracking-[-0.025em] text-white leading-[1.06] mb-5">
-            Reset your mind. <br />
-            <span className="blue-gradient-text">Control your life.</span>
-          </h1>
-
-          <p className="text-base sm:text-lg md:text-[18px] text-[#86868b] max-w-[660px] mx-auto mb-6 sm:mb-8 font-normal leading-relaxed">
-            Two tools for self-mastery: a{" "}
-            <a
-              href="#product-guide"
-              className="text-[#2997ff] hover:underline underline-offset-4 transition-colors font-medium"
-            >
-              guided manual
-            </a>{" "}
-            to confront your blind spots and rebuild discipline, and an{" "}
-            <a
-              href="#product-app"
-              className="text-[#2997ff] hover:underline underline-offset-4 transition-colors font-medium"
-            >
-              app
-            </a>{" "}
-            to control your triggers and daily conduct in real time. Pick your method.
-          </p>
-
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-0">
-            <a
-              href="#products"
-              className="apple-pill-btn w-full sm:w-auto px-8 py-3.5 bg-white text-black font-bold text-[14px] hover:bg-[#e5e5ea] transition-all flex items-center justify-center gap-2 shadow-lg shadow-white/10"
-            >
-              <span>Get Instant Access</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
-            <a
-              href="#who-its-for"
-              className="apple-pill-btn w-full sm:w-auto px-7 py-3.5 bg-white/[0.06] hover:bg-white/[0.1] text-white border border-white/[0.12] font-medium text-[14px] transition-all flex items-center justify-center gap-2"
-            >
-              <BookOpen className="w-4 h-4 text-[#2997ff]" />
-              <span>Who It's For</span>
-            </a>
           </div>
 
-        </div>
-      </section>
-
-      {/* Clear Product Showcase */}
-      <section id="products" className="relative z-10 pt-4 pb-16 sm:pt-10 sm:pb-20 px-4 sm:px-6">
-        <div className="max-w-[1000px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-          
-          {/* PRODUCT 1: The Self-Mastery Guide (PDF Edition) - AVAILABLE NOW */}
-          <div id="product-guide" className="apple-bento-card scroll-mt-24 p-6 sm:p-10 bg-gradient-to-b from-[#111827]/95 via-[#0d1117] to-[#080b10] border-2 border-white/[0.25] flex flex-col justify-between relative shadow-2xl shadow-blue-500/[0.06]">
-            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-white text-black font-bold text-[10px] tracking-widest uppercase shadow-md flex items-center gap-1.5">
-              <Star className="w-3 h-3 fill-black" />
-              <span>Available Now • Instant Download</span>
+          {/* Quick CTA */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.1] text-xs font-semibold text-zinc-300">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse"></span>
+              <span>$19 One-Time</span>
             </div>
-
-            <div>
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3">
-                  <PdfDocumentLogo className="w-7 h-7 text-[#2997ff]" />
-                  <span className="text-[13px] font-semibold text-white tracking-wide">
-                    Digital Publication
-                  </span>
-                </div>
-              </div>
-
-              <div className="text-[12px] uppercase tracking-wider text-[#2997ff] font-semibold mb-1">
-                Daily Field Manual
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">
-                The Self-Mastery Guide & Workbook
-              </h2>
-              <p className="text-[14px] text-zinc-300 mt-2 leading-relaxed font-light">
-                A field manual for total psychological self-command—designed to kill reactivity, decode human nature, and build an unshakeable standard in daily writing.
-              </p>
-
-              <div className="my-6 py-4 border-y border-white/[0.08]">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl sm:text-5xl font-semibold text-white tracking-tight">$19</span>
-                  <span className="text-[13px] text-[#86868b]">one-time download • instant delivery</span>
-                </div>
-              </div>
-
-              <ul className="space-y-3.5 text-[13px] text-zinc-200 mb-8 font-light">
-                <li className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
-                  <span>
-                    <strong className="text-white font-medium">If you procrastinate and make excuses:</strong> Guided daily prompts that force you to be honest and take action.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
-                  <span>
-                    <strong className="text-white font-medium">If you get guilt-tripped or used:</strong> Read hidden motives beneath polite smiles and say no without guilt.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
-                  <span>
-                    <strong className="text-white font-medium">If you lose your temper and regret it:</strong> Learn to stay silent and unbothered when someone tests you.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
-                  <span>
-                    <strong className="text-white font-medium">If you overthink and seek approval:</strong> Stop explaining yourself, kill people-pleasing, and protect your peace.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-[#2997ff] shrink-0 mt-0.5" />
-                  <span>
-                    <strong className="text-white font-medium">Why you need this today:</strong> Reels give temporary motivation. This is the daily system to change your life.
-                  </span>
-                </li>
-              </ul>
-            </div>
-
             <button
               onClick={handleTriggerCheckout}
-              className="apple-pill-btn w-full py-4 bg-white text-black hover:bg-[#e5e5ea] font-bold text-[13px] tracking-wide uppercase transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-white/10"
+              className="reflect-btn-primary px-3 py-1.5 sm:px-5 sm:py-2 text-[11px] sm:text-[13px] font-bold flex items-center gap-1 sm:gap-1.5 cursor-pointer shadow-lg shadow-white/10 shrink-0"
             >
-              <span>Download The Guide</span>
-              <ArrowRight className="w-4 h-4" />
+              <span>Get Guide</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
+        </nav>
+      </header>
 
-          {/* PRODUCT 2: The Life Reset App (Custom Web Application) - FINAL TESTING */}
-          <div id="product-app" className="apple-bento-card scroll-mt-24 p-6 sm:p-10 bg-[#080b10]/90 border border-white/[0.08] flex flex-col justify-between relative opacity-90">
-            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-[#1e293b] text-[#94a3b8] font-bold text-[10px] tracking-widest uppercase border border-white/[0.1] flex items-center gap-1.5">
-              <Lock className="w-3 h-3 text-[#94a3b8]" />
-              <span>In Final Testing</span>
+      {/* Hero Section */}
+      <section className="relative z-10 pt-32 sm:pt-44 pb-16 sm:pb-24 px-4 sm:px-6 max-w-[1100px] mx-auto text-center flex flex-col items-center">
+        {/* Holographic Pill Badge */}
+        <div className="opal-badge mb-5 sm:mb-8 text-[10px] sm:text-[11px] px-3.5 py-1.5 max-w-full">
+          <Sparkles className="w-3.5 h-3.5 text-[#38bdf8] shrink-0" />
+          <span className="truncate">112-PAGE PHONE WORKBOOK • VOLUME I</span>
+        </div>
+
+        {/* Hero Headline */}
+        <h1 className="text-[28px] xs:text-[34px] sm:text-6xl md:text-7xl font-extrabold tracking-[-0.035em] text-white leading-[1.12] max-w-[960px] break-words">
+          Stop consuming motivation.
+          <span className="block opal-cyan-gradient-text mt-1 sm:mt-1.5">
+            Start auditing your life.
+          </span>
+        </h1>
+
+        {/* Hero Subtitle */}
+        <p className="text-base sm:text-xl text-zinc-300 mt-6 sm:mt-8 max-w-[740px] leading-relaxed font-light">
+          A private, 112-page operational manual to kill reactivity, decode hidden motives, and build unshakeable daily discipline—designed to open and type directly on your phone every night.
+        </p>
+
+        {/* Call to Actions */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 mt-9 w-full sm:w-auto">
+          <button
+            onClick={handleTriggerCheckout}
+            className="reflect-btn-primary w-full sm:w-auto px-8 py-4 text-[14px] sm:text-[15px] font-bold flex items-center justify-center gap-2.5 cursor-pointer shadow-xl shadow-white/15"
+          >
+            <span>Download The Guide — $19</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+          <a
+            href="#preview"
+            className="reflect-btn-secondary w-full sm:w-auto px-7 py-4 text-[14px] font-medium flex items-center justify-center gap-2"
+          >
+            <Eye className="w-4 h-4 text-[#38bdf8]" />
+            <span>Look Inside The 112 Pages</span>
+          </a>
+        </div>
+
+        {/* Trust Badges */}
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 mt-10 text-[12px] sm:text-[13px] text-zinc-400 font-medium">
+          <div className="flex items-center gap-1.5">
+            <div className="flex text-amber-400">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-3.5 h-3.5 fill-current" />
+              ))}
             </div>
+            <span className="text-zinc-200 font-semibold">4.9 / 5.0 Rating</span>
+          </div>
+          <div className="hidden sm:block w-1 h-1 rounded-full bg-zinc-700" />
+          <div className="flex items-center gap-1.5">
+            <Smartphone className="w-3.5 h-3.5 text-[#38bdf8]" />
+            <span>Interactive on iPhone & iPad</span>
+          </div>
+          <div className="hidden sm:block w-1 h-1 rounded-full bg-zinc-700" />
+          <div className="flex items-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Instant One-Tap Delivery</span>
+          </div>
+        </div>
 
-            <div>
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-3">
-                  <AppDashboardLogo className="w-7 h-7 text-zinc-400" />
-                  <span className="text-[13px] font-semibold text-zinc-300 tracking-wide">
-                    Custom Web App
-                  </span>
-                </div>
-              </div>
+        {/* Hero Product Hardware Mockup */}
+        <div className="relative mt-14 sm:mt-18 w-full max-w-[1020px] rounded-3xl p-2 sm:p-3 bg-gradient-to-b from-white/[0.12] via-white/[0.04] to-transparent border border-white/[0.1] device-shadow overflow-hidden">
+          <div className="relative rounded-2xl overflow-hidden aspect-[16/9] w-full bg-black">
+            <Image
+              src="/hero-mockup-luxury.jpg"
+              alt="The Self-Mastery Guide & Workbook open on iPad and iPhone on luxury architectural desk"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
 
-              <div className="text-[12px] uppercase tracking-wider text-zinc-400 font-semibold mb-1">
-                Daily Operating System
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-semibold text-zinc-200 tracking-tight">
-                The Life Reset App
-              </h2>
-              <p className="text-[14px] text-zinc-400 mt-2 leading-relaxed font-light">
-                Your daily digital operating system for self-mastery—engineered to track non-negotiable habits, stop reactive impulses, and audit your personal growth.
-              </p>
-
-              <div className="my-6 py-4 border-y border-white/[0.08]">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl sm:text-5xl font-semibold text-zinc-400 tracking-tight">$39</span>
-                  <span className="text-[13px] text-[#86868b]">final testing • includes the complete guide</span>
-                </div>
-              </div>
-
-              <ul className="space-y-3.5 text-[13px] text-zinc-300 mb-8 font-light">
-                <li className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
-                  <span>
-                    <strong className="text-zinc-200 font-medium">SOS Composure Button:</strong> An instant 60-second guided pause when you feel triggered or angry.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
-                  <span>
-                    <strong className="text-zinc-200 font-medium">Daily Non-Negotiable Tracker:</strong> Log your core habits, discipline streaks, and rules with zero clutter.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
-                  <span>
-                    <strong className="text-zinc-200 font-medium">2-Minute Morning & Night Audits:</strong> Set your daily mental frame and score your conduct before sleep.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
-                  <span>
-                    <strong className="text-zinc-200 font-medium">Trigger & Behavior Analytics:</strong> Spot the exact people and situations that cause you to lose composure.
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
-                  <span>
-                    <strong className="text-zinc-200 font-medium">Smart Frame Reminders:</strong> Timed push notifications at key friction hours to pull you off autopilot.
-                  </span>
-                </li>
-              </ul>
+          {/* Floating Highlight Feature Pills */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 p-3 sm:p-4 bg-[#0a0d14]/90 backdrop-blur-md rounded-2xl mt-2 border border-white/[0.06] text-left">
+            <div className="p-2 sm:p-3">
+              <div className="text-[11px] uppercase tracking-wider text-[#38bdf8] font-bold">Format</div>
+              <div className="text-[13px] sm:text-[14px] font-semibold text-white mt-0.5">Phone &amp; Tablet</div>
+              <div className="text-[11px] text-zinc-400 mt-1">Interactive fillable fields</div>
             </div>
+            <div className="p-2 sm:p-3 border-l border-white/[0.06]">
+              <div className="text-[11px] uppercase tracking-wider text-[#38bdf8] font-bold">Daily Protocol</div>
+              <div className="text-[13px] sm:text-[14px] font-semibold text-white mt-0.5">10 Mins a Day</div>
+              <div className="text-[11px] text-zinc-400 mt-1">Read 1 page, write 1 page</div>
+            </div>
+            <div className="p-2 sm:p-3 border-l border-white/[0.06]">
+              <div className="text-[11px] uppercase tracking-wider text-[#38bdf8] font-bold">Accountability</div>
+              <div className="text-[13px] sm:text-[14px] font-semibold text-white mt-0.5">47 Ruled Ledgers</div>
+              <div className="text-[11px] text-zinc-400 mt-1">Unsparing self-audit prompts</div>
+            </div>
+            <div className="p-2 sm:p-3 border-l border-white/[0.06]">
+              <div className="text-[11px] uppercase tracking-wider text-emerald-400 font-bold">Privacy</div>
+              <div className="text-[13px] sm:text-[14px] font-semibold text-white mt-0.5">100% Offline</div>
+              <div className="text-[11px] text-zinc-400 mt-1">Stored only on your device</div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <div>
+      {/* Opal-Style Contrast Section: The Reality Check */}
+      <section className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 max-w-[1020px] mx-auto">
+        <div className="text-center mb-12 sm:mb-16">
+          <div className="opal-badge mb-3">THE PSYCHOLOGY GAP</div>
+          <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">
+            Why saving reels never changes your life.
+          </h2>
+          <p className="text-zinc-400 text-sm sm:text-base mt-3 max-w-[620px] mx-auto">
+            You don't have a lack of information. You have an absence of a daily operating system.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-stretch">
+          {/* The Passive Reel Trap */}
+          <div className="reflect-card p-6 sm:p-8 border-red-500/20 bg-gradient-to-b from-red-950/15 via-[#0c0f17] to-[#080b10]">
+            <div className="flex items-center justify-between mb-6">
+              <span className="text-xs uppercase tracking-widest font-bold text-red-400">
+                The Passive Consumer Loop
+              </span>
+              <X className="w-5 h-5 text-red-400" />
+            </div>
+            <h3 className="text-xl font-bold text-white mb-4">
+              Saving 12 reels a week with zero execution
+            </h3>
+            <ul className="space-y-3.5 text-sm text-zinc-300 font-light">
+              <li className="flex items-start gap-3">
+                <span className="text-red-400 font-bold">•</span>
+                <span><strong>Fleeting Dopamine:</strong> 30 seconds of motivation that dissolves the moment you swipe to the next video.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-red-400 font-bold">•</span>
+                <span><strong>Reactive Living:</strong> You let one passive-aggressive comment ruin your mood for the entire day.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-red-400 font-bold">•</span>
+                <span><strong>Mental Replay:</strong> Lying awake in bed replaying conflicts, arguments, and conversations you wish you handled better.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-red-400 font-bold">•</span>
+                <span><strong>Zero Record:</strong> Weeks pass by and your daily habits remain virtually identical.</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* The Sovereign Protocol */}
+          <div className="reflect-card p-6 sm:p-8 border-[#38bdf8]/30 bg-gradient-to-b from-[#38bdf8]/10 via-[#0c0f17] to-[#080b10] shadow-xl shadow-[#38bdf8]/5">
+            <div className="flex items-center justify-between mb-6">
+              <span className="text-xs uppercase tracking-widest font-bold text-[#38bdf8]">
+                The Self-Mastery Protocol
+              </span>
+              <Check className="w-5 h-5 text-[#38bdf8]" />
+            </div>
+            <h3 className="text-xl font-bold text-white mb-4">
+              10 minutes of unsparing daily self-audit
+            </h3>
+            <ul className="space-y-3.5 text-sm text-zinc-200 font-light">
+              <li className="flex items-start gap-3">
+                <span className="text-[#38bdf8] font-bold">•</span>
+                <span><strong>Written Behavioral Rewiring:</strong> Putting pen to paper (or typing into your phone) forces real self-confrontation.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[#38bdf8] font-bold">•</span>
+                <span><strong>The 3-Second Protocol:</strong> Complete emotional silence when baited or tested. Calmness is ultimate dominance.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[#38bdf8] font-bold">•</span>
+                <span><strong>Strategic Restraint:</strong> Knowing how to say NO cleanly without guilt, apology, or over-explaining yourself.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[#38bdf8] font-bold">•</span>
+                <span><strong>Undeniable Evidence:</strong> 47 consecutive days of honest audits that prove your discipline to yourself.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive "Look Inside The 112 Pages" Preview Section */}
+      <section id="preview" className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 max-w-[1100px] mx-auto scroll-mt-24">
+        <div className="text-center mb-10 sm:mb-14">
+          <div className="opal-badge mb-3">PROOF OF CRAFT</div>
+          <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">
+            Look inside the 112 pages.
+          </h2>
+          <p className="text-zinc-400 text-sm sm:text-base mt-3 max-w-[600px] mx-auto">
+            Not an AI ebook. An archival masterwork engineered with exquisite typography, psychological field rules, and ruled ledgers.
+          </p>
+
+          {/* Spread Tabs */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
+            {spreads.map((spread, index) => (
               <button
-                disabled
-                className="w-full py-4 bg-white/[0.04] border border-white/[0.1] text-zinc-400 font-semibold text-[13px] tracking-wide uppercase flex items-center justify-center gap-2 cursor-not-allowed rounded-full"
+                key={index}
+                onClick={() => setActiveSpreadTab(index)}
+                className={`px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                  activeSpreadTab === index
+                    ? "bg-white text-black shadow-md shadow-white/20"
+                    : "bg-white/[0.04] text-zinc-400 hover:text-white hover:bg-white/[0.08] border border-white/[0.06]"
+                }`}
               >
-                <Lock className="w-4 h-4 text-zinc-400" />
-                <span>In Final Testing</span>
+                {spread.title}
               </button>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* WHO NEEDS THIS GUIDE VS WHO DOESN'T (Psychological & Honest) */}
-      <section id="who-its-for" className="relative z-10 py-20 px-4 sm:px-6 bg-[#080b10] border-t border-white/[0.08]">
-        <div className="max-w-[1000px] mx-auto">
-          <div className="text-center max-w-[620px] mx-auto mb-14">
-            <h2 className="text-2xl sm:text-4xl font-semibold text-white tracking-tight">
-              Who Needs This Guide (And Who Doesn't)
-            </h2>
-            <p className="text-[14px] text-[#86868b] mt-2 leading-relaxed">
-              Be completely honest with yourself before purchasing. This is a practical field manual for self-discipline, not motivational entertainment.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-            {/* Column 1: Who Needs This Guide */}
-            <div className="apple-bento-card p-8 sm:p-9 border border-emerald-500/20 bg-gradient-to-b from-[#0d1712]/90 to-[#080b10] flex flex-col justify-between">
-              <div>
-                <div className="flex items-center gap-2.5 mb-5 pb-4 border-b border-emerald-500/15">
-                  <div className="w-8 h-8 rounded-full bg-emerald-500/15 flex items-center justify-center text-emerald-400">
-                    <Check className="w-4 h-4" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-white">
-                    This Guide Is For You If...
-                  </h3>
-                </div>
-
-                <ul className="space-y-4 text-[14px] text-zinc-300 font-light leading-relaxed">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
-                    <span>You react emotionally to disrespect, criticism, or sudden friction—and hate yourself afterwards for losing your frame.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
-                    <span>You know what you should be doing each day, but fall victim to rationalizations, procrastination, and subtle self-deception.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
-                    <span>You want to understand human nature, read silent motives, and practice strategic restraint instead of over-explaining yourself.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
-                    <span>You are tired of reading self-help passively and want an uncompromising workbook that forces you to put pen to paper and audit your real behavior.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-1" />
-                    <span>You want to cultivate genuine internal stillness and walkaway power when the people and noise around you are loud and chaotic.</span>
-                  </li>
-                </ul>
-              </div>
-
-            </div>
-
-            {/* Column 2: Who Should Skip It */}
-            <div className="apple-bento-card p-8 sm:p-9 border border-zinc-700/30 bg-gradient-to-b from-[#151012]/80 to-[#080b10] flex flex-col justify-between">
-              <div>
-                <div className="flex items-center gap-2.5 mb-5 pb-4 border-b border-red-500/15">
-                  <div className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center text-red-400">
-                    <X className="w-4 h-4" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-white">
-                    You Should Skip This Guide If...
-                  </h3>
-                </div>
-
-                <ul className="space-y-4 text-[14px] text-zinc-400 font-light leading-relaxed">
-                  <li className="flex items-start gap-3">
-                    <X className="w-4 h-4 text-zinc-500 shrink-0 mt-1" />
-                    <span>You want gentle affirmations or comforting excuses that validate your weaknesses instead of confronting them.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <X className="w-4 h-4 text-zinc-500 shrink-0 mt-1" />
-                    <span>You aren't willing to sit in silence, face your own shortcomings, and write unvarnished truth on paper.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <X className="w-4 h-4 text-zinc-500 shrink-0 mt-1" />
-                    <span>You blame bosses, partners, or market conditions for your reactions instead of taking radical responsibility for your mind.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <X className="w-4 h-4 text-zinc-500 shrink-0 mt-1" />
-                    <span>You prefer accumulating philosophical trivia to talk about at dinner rather than practicing quiet discipline when no one is looking.</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <X className="w-4 h-4 text-zinc-500 shrink-0 mt-1" />
-                    <span>You expect someone else to fix your character for you without personal labor.</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* REVAMPED REVIEWS SECTION: Pure White Canvas with High-End Editorial Aesthetics */}
-      <section id="reviews" className="relative z-10 py-24 px-4 sm:px-6 bg-white text-[#111111] border-y border-[#e5e5ea]">
-        <div className="max-w-[1040px] mx-auto">
-          
-          {/* Section Header */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-16 text-center sm:text-left">
-            <div>
-              <h2 className="text-3xl sm:text-4xl font-semibold text-[#111111] tracking-tight">
-                Reader Reviews
-              </h2>
-              <p className="text-[15px] text-[#555555] mt-2">
-                Honest feedback from people putting the psychology and written audits to work in real life.
-              </p>
-            </div>
-
-            <button
-              onClick={() => setShowReviewModal(true)}
-              className="apple-pill-btn px-6 py-3 text-[13px] font-semibold bg-[#111111] hover:bg-[#222222] text-white transition-all flex items-center gap-2 cursor-pointer shadow-md shrink-0"
-            >
-              <MessageSquarePlus className="w-4 h-4 text-[#0071e3]" />
-              <span>Leave a Review</span>
-            </button>
-          </div>
-
-          {/* Review Cards Grid (Clean White Canvas Palette with Elegant Borders) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {reviewsList.map((item) => (
-              <div
-                key={item.id}
-                className="p-7 sm:p-8 rounded-2xl bg-[#ffffff] border border-[#e5e5ea] shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:border-[#c7c7cc] transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-1">
-                      {[...Array(item.rating || 5)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-[#0071e3] text-[#0071e3]" />
-                      ))}
-                    </div>
-                    <span className="text-[12px] font-mono text-[#86868b]">
-                      {item.date}
-                    </span>
-                  </div>
-
-                  {item.highlight && (
-                    <div className="text-[15px] font-semibold text-[#111111] mb-2.5">
-                      &ldquo;{item.highlight}&rdquo;
-                    </div>
-                  )}
-
-                  <p className="text-[14px] text-[#333333] leading-relaxed font-normal mb-6">
-                    &ldquo;{item.comment}&rdquo;
-                  </p>
-                </div>
-
-                <div className="border-t border-[#f0f0f2] pt-4 flex items-center justify-between text-xs">
-                  <div>
-                    <span className="font-semibold text-[#111111] block text-[13px]">
-                      {item.name}
-                    </span>
-                    {item.role && (
-                      <span className="text-[#666666]">{item.role}</span>
-                    )}
-                  </div>
-                </div>
-              </div>
             ))}
           </div>
+        </div>
 
+        {/* Active Spread Display */}
+        <div className="reflect-card p-4 sm:p-8 border border-white/[0.12] device-shadow">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Spread High-Res Image */}
+            <div className="lg:col-span-8 relative aspect-[16/11] w-full rounded-2xl overflow-hidden bg-white/5 border border-white/[0.08] shadow-2xl">
+              <Image
+                src={spreads[activeSpreadTab].image}
+                alt={spreads[activeSpreadTab].title}
+                fill
+                className="object-contain p-2 sm:p-4"
+              />
+            </div>
+
+            {/* Spread Details & Explanation */}
+            <div className="lg:col-span-4 flex flex-col justify-between">
+              <div>
+                <span className="text-xs uppercase tracking-widest font-mono text-[#38bdf8]">
+                  {spreads[activeSpreadTab].subtitle}
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-bold text-white mt-2">
+                  {spreads[activeSpreadTab].title}
+                </h3>
+                <p className="text-sm text-zinc-300 mt-4 leading-relaxed font-light">
+                  {spreads[activeSpreadTab].description}
+                </p>
+
+                <div className="mt-6 pt-6 border-t border-white/[0.08]">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-white mb-3">
+                    What this chapter delivers:
+                  </div>
+                  <ul className="space-y-2.5 text-xs sm:text-sm text-zinc-300">
+                    {spreads[activeSpreadTab].highlights.map((h, i) => (
+                      <li key={i} className="flex items-start gap-2.5">
+                        <Check className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
+                        <span>{h}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-white/[0.08]">
+                <button
+                  onClick={handleTriggerCheckout}
+                  className="reflect-btn-primary w-full py-3.5 text-xs sm:text-sm font-bold flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <span>Claim Full 112 Pages — $19</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Leave a Review Modal */}
+      {/* The 4 Core Pillars Bento Grid (Reflect Style) */}
+      <section id="pillars" className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 max-w-[1100px] mx-auto scroll-mt-24">
+        <div className="text-center mb-12 sm:mb-16">
+          <div className="opal-badge mb-3">THE CORE ARCHITECTURE</div>
+          <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">
+            4 Pillars. 47 Chapters. Total Command.
+          </h2>
+          <p className="text-zinc-400 text-sm sm:text-base mt-3 max-w-[640px] mx-auto">
+            A comprehensive curriculum synthesizing Roman Stoicism, Eastern stillness, and strategic human nature.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          {pillars.map((pillar, idx) => (
+            <div
+              key={idx}
+              className="reflect-card p-6 sm:p-8 flex flex-col justify-between relative group hover:border-[#38bdf8]/40"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-mono text-xs font-bold px-2.5 py-1 rounded bg-white/[0.06] text-[#38bdf8] border border-white/[0.08]">
+                    PILLAR {pillar.roman}
+                  </span>
+                  <span className="text-xs text-zinc-400 font-medium">{pillar.theme}</span>
+                </div>
+
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
+                  {pillar.name}
+                </h3>
+                <p className="text-sm italic text-zinc-400 mb-6 font-light">
+                  "{pillar.tagline}"
+                </p>
+
+                <ul className="space-y-3 text-xs sm:text-sm text-zinc-300 font-light">
+                  {pillar.items.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2.5">
+                      <Check className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs text-zinc-400">
+                <span>Includes dedicated self-audit ledgers</span>
+                <span className="text-[#38bdf8] font-semibold">12 Chapters →</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Lifestyle Mobile Usage Section */}
+      <section id="daily-ritual" className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 max-w-[1080px] mx-auto">
+        <div className="reflect-card p-6 sm:p-12 border border-white/[0.12] overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-6">
+              <div className="opal-badge mb-4">THE 10-MINUTE DAILY AUDIT</div>
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+                Designed for your phone.
+                <span className="block text-[#38bdf8] mt-1">Used in 10 minutes before bed.</span>
+              </h2>
+              <p className="text-sm sm:text-base text-zinc-300 mt-5 leading-relaxed font-light">
+                No apps to register for. No subscription fees. The Self-Mastery Guide opens seamlessly in Apple Books, Files, GoodNotes, or any PDF reader on iPhone, iPad, and Android.
+              </p>
+
+              <div className="space-y-4 mt-8">
+                <div className="flex items-start gap-3.5">
+                  <div className="w-8 h-8 rounded-full bg-white/[0.08] text-[#38bdf8] font-bold flex items-center justify-center shrink-0 text-xs font-mono">
+                    01
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-white">Morning Principle Checkpoint (3 Mins)</h4>
+                    <p className="text-xs text-zinc-400 mt-0.5">Absorb 1 psychological rule before checking notifications or emails.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3.5">
+                  <div className="w-8 h-8 rounded-full bg-white/[0.08] text-[#38bdf8] font-bold flex items-center justify-center shrink-0 text-xs font-mono">
+                    02
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-white">In The Field (Throughout The Day)</h4>
+                    <p className="text-xs text-zinc-400 mt-0.5">Deploy the 3-Second Protocol when someone tests your composure.</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3.5">
+                  <div className="w-8 h-8 rounded-full bg-white/[0.08] text-[#38bdf8] font-bold flex items-center justify-center shrink-0 text-xs font-mono">
+                    03
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-white">Evening Self-Audit Ledger (7 Mins)</h4>
+                    <p className="text-xs text-zinc-400 mt-0.5">Answer 3 uncomfortable questions directly on your phone before sleeping.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <button
+                  onClick={handleTriggerCheckout}
+                  className="reflect-btn-primary px-7 py-3.5 text-sm font-bold flex items-center gap-2 cursor-pointer shadow-lg shadow-white/10"
+                >
+                  <span>Start Your Daily Audit — $19</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Lifestyle Image Render */}
+            <div className="lg:col-span-6 relative aspect-[4/3] w-full rounded-2xl overflow-hidden border border-white/[0.1] shadow-2xl">
+              <Image
+                src="/mobile-lifestyle-usage.jpg"
+                alt="Hands holding iPhone running the self-mastery habit audit overlooking evening city skyline"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The Single-Product Luxury Checkout Offer */}
+      <section id="checkout" className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 max-w-[880px] mx-auto scroll-mt-24">
+        <div className="reflect-card p-8 sm:p-12 border-2 border-white/[0.22] relative overflow-hidden shadow-2xl shadow-blue-500/[0.08]">
+          {/* Top Badge */}
+          <div className="absolute top-0 right-0 left-0 bg-gradient-to-r from-[#38bdf8] via-[#818cf8] to-[#38bdf8] py-1.5 text-center text-black font-extrabold text-[11px] uppercase tracking-widest">
+            Deluxe Archival Edition • Volume I • Instant Access
+          </div>
+
+          <div className="pt-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
+              <div>
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#38bdf8]">
+                  Archival Publication
+                </span>
+                <h3 className="text-2xl sm:text-4xl font-extrabold text-white mt-1">
+                  The Self-Mastery Guide &amp; Workbook
+                </h3>
+                <p className="text-sm text-zinc-400 mt-1">
+                  112 pages • 47 chapters • Interactive phone fields + Print-ready PDF
+                </p>
+              </div>
+              <div className="text-left sm:text-right">
+                <div className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
+                  $19
+                </div>
+                <div className="text-xs text-zinc-400 mt-0.5">One-time payment • Lifetime access</div>
+              </div>
+            </div>
+
+            {/* Inclusions List */}
+            <div className="py-8">
+              <div className="text-xs font-bold uppercase tracking-wider text-zinc-300 mb-4">
+                What you receive immediately:
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-zinc-200">
+                <div className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
+                  <span><strong>112 Interactive Pages</strong> formatted for iPhone &amp; iPad</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
+                  <span><strong>All 47 Frameworks</strong> for emotional composure &amp; focus</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
+                  <span><strong>47 Ruled Daily Ledgers</strong> to audit daily discipline</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
+                  <span><strong>Archival Print Edition</strong> with generous margins for notebooks</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
+                  <span><strong>Instant One-Tap Download</strong> via Stripe</span>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-[#38bdf8] shrink-0 mt-0.5" />
+                  <span><strong>Permanent Backup Link</strong> emailed immediately</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Direct Checkout Button */}
+            <button
+              onClick={handleTriggerCheckout}
+              className="reflect-btn-primary w-full py-4 sm:py-5 text-sm sm:text-base font-extrabold uppercase tracking-wider flex items-center justify-center gap-3 cursor-pointer shadow-xl shadow-white/20"
+            >
+              <span>Download The Complete Manual ($19)</span>
+              <ArrowRight className="w-5 h-5" />
+            </button>
+
+            {/* Founder's VIP Guarantee & Future App Credit */}
+            <div className="mt-6 p-4 rounded-xl bg-gradient-to-r from-blue-950/40 via-purple-950/20 to-transparent border border-[#38bdf8]/30 flex items-start gap-3">
+              <Sparkles className="w-5 h-5 text-[#38bdf8] shrink-0 mt-0.5" />
+              <div className="text-xs text-zinc-300 leading-relaxed">
+                <strong className="text-white font-semibold">Founder's VIP Guarantee &amp; Future App Credit:</strong>{" "}
+                Our team is currently finalizing private testing on The Life Reset mobile app. Every purchase of The Self-Mastery Guide today unlocks automatic VIP status and credits your full $19 toward lifetime access to the app when public registration opens.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Verified Reader Reviews */}
+      <section id="reviews" className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 max-w-[1100px] mx-auto scroll-mt-24">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+          <div>
+            <div className="opal-badge mb-3">READER TESTIMONIALS</div>
+            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">
+              Written by readers who stopped watching and started doing.
+            </h2>
+          </div>
+          <button
+            onClick={() => setShowReviewModal(true)}
+            className="reflect-btn-secondary px-5 py-2.5 text-xs sm:text-sm font-semibold flex items-center gap-2 self-start sm:self-auto cursor-pointer"
+          >
+            <MessageSquarePlus className="w-4 h-4 text-[#38bdf8]" />
+            <span>Leave a Review</span>
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {reviewsList.map((review) => (
+            <div key={review.id} className="reflect-card p-6 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex text-amber-400">
+                    {[...Array(review.rating)].map((_, i) => (
+                      <Star key={i} className="w-3.5 h-3.5 fill-current" />
+                    ))}
+                  </div>
+                  <span className="text-[11px] font-mono text-zinc-400">{review.date}</span>
+                </div>
+
+                {review.highlight && (
+                  <h4 className="text-sm font-bold text-white mb-2">"{review.highlight}"</h4>
+                )}
+
+                <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-light">
+                  "{review.comment}"
+                </p>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between">
+                <div>
+                  <div className="text-xs font-semibold text-white">{review.name}</div>
+                  {review.role && (
+                    <div className="text-[11px] text-zinc-400">{review.role}</div>
+                  )}
+                </div>
+                <div className="flex items-center gap-1 text-[11px] text-emerald-400">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>Verified</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Review Submission Modal */}
       {showReviewModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="w-full max-w-lg p-6 sm:p-8 rounded-2xl bg-white text-[#111111] border border-[#e5e5ea] shadow-2xl relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+          <div className="reflect-card p-6 sm:p-8 max-w-[500px] w-full border border-white/20 relative">
             <button
               onClick={() => setShowReviewModal(false)}
-              className="absolute top-4 right-4 text-zinc-400 hover:text-black transition-colors cursor-pointer"
+              className="absolute top-5 right-5 text-zinc-400 hover:text-white"
             >
               <X className="w-5 h-5" />
             </button>
 
             {reviewSubmitted ? (
-              <div className="py-10 text-center space-y-3">
-                <div className="w-12 h-12 rounded-full bg-emerald-500/15 border border-emerald-500 text-emerald-600 flex items-center justify-center mx-auto">
-                  <Check className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl font-semibold text-[#111111]">Thank You for Your Review</h3>
-                <p className="text-[14px] text-[#666666]">Your review has been recorded and added to the ledger.</p>
+              <div className="text-center py-8">
+                <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto mb-3" />
+                <h3 className="text-xl font-bold text-white">Review Submitted</h3>
+                <p className="text-xs text-zinc-400 mt-1">Thank you for sharing your experience.</p>
               </div>
             ) : (
-              <form onSubmit={handleReviewSubmit} className="space-y-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-[#111111]">Leave a Reader Review</h3>
-                  <p className="text-[13px] text-[#666666] mt-1">Share your honest experience with The Self-Mastery Guide & Workbook.</p>
-                </div>
+              <form onSubmit={handleReviewSubmit}>
+                <h3 className="text-xl font-bold text-white mb-1">Leave a Review</h3>
+                <p className="text-xs text-zinc-400 mb-5">
+                  Share how The Self-Mastery Guide has impacted your daily conduct.
+                </p>
 
-                <div>
-                  <label className="block text-xs font-semibold text-[#333333] mb-1.5 uppercase tracking-wider">Rating</label>
-                  <div className="flex items-center gap-1">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <button
-                        type="button"
-                        key={star}
-                        onClick={() => setNewReview({ ...newReview, rating: star })}
-                        className="cursor-pointer p-1"
-                      >
-                        <Star
-                          className={`w-5 h-5 ${
-                            star <= newReview.rating
-                              ? "fill-[#0071e3] text-[#0071e3]"
-                              : "text-zinc-300"
-                          }`}
-                        />
-                      </button>
-                    ))}
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-xs font-semibold text-zinc-300 block mb-1">Your Name</label>
+                    <input
+                      type="text"
+                      required
+                      value={newReview.name}
+                      onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
+                      placeholder="e.g. Marcus V."
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/[0.1] text-sm text-white focus:outline-none focus:border-[#38bdf8]"
+                    />
                   </div>
-                </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-[#333333] mb-1.5 uppercase tracking-wider">Your Name</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Marcus D."
-                    value={newReview.name}
-                    onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#f5f5f7] border border-[#e5e5ea] text-[#111111] text-[13px] focus:outline-none focus:border-[#0071e3]"
-                  />
-                </div>
+                  <div>
+                    <label className="text-xs font-semibold text-zinc-300 block mb-1">Occupation / City (Optional)</label>
+                    <input
+                      type="text"
+                      value={newReview.role}
+                      onChange={(e) => setNewReview({ ...newReview, role: e.target.value })}
+                      placeholder="e.g. Software Engineer, London"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/[0.1] text-sm text-white focus:outline-none focus:border-[#38bdf8]"
+                    />
+                  </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-[#333333] mb-1.5 uppercase tracking-wider">Your Role or Profession (Optional)</label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Software Engineer, Designer, Operator"
-                    value={newReview.role}
-                    onChange={(e) => setNewReview({ ...newReview, role: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#f5f5f7] border border-[#e5e5ea] text-[#111111] text-[13px] focus:outline-none focus:border-[#0071e3]"
-                  />
-                </div>
+                  <div>
+                    <label className="text-xs font-semibold text-zinc-300 block mb-1">Rating</label>
+                    <div className="flex gap-2">
+                      {[1, 2, 3, 4, 5].map((num) => (
+                        <button
+                          type="button"
+                          key={num}
+                          onClick={() => setNewReview({ ...newReview, rating: num })}
+                          className={`p-2 rounded-lg ${
+                            newReview.rating >= num ? "text-amber-400" : "text-zinc-600"
+                          }`}
+                        >
+                          <Star className="w-5 h-5 fill-current" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-[#333333] mb-1.5 uppercase tracking-wider">Your Honest Review</label>
-                  <textarea
-                    required
-                    rows={4}
-                    placeholder="What specific framework or written prompt made the biggest difference in your daily self-command?"
-                    value={newReview.comment}
-                    onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#f5f5f7] border border-[#e5e5ea] text-[#111111] text-[13px] focus:outline-none focus:border-[#0071e3] leading-relaxed"
-                  />
-                </div>
+                  <div>
+                    <label className="text-xs font-semibold text-zinc-300 block mb-1">Your Review</label>
+                    <textarea
+                      required
+                      rows={4}
+                      value={newReview.comment}
+                      onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
+                      placeholder="How has the 10-minute daily audit changed your composure or discipline?"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/[0.1] text-sm text-white focus:outline-none focus:border-[#38bdf8]"
+                    />
+                  </div>
 
-                <div className="flex items-center justify-end gap-3 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setShowReviewModal(false)}
-                    className="px-4 py-2 text-xs text-[#666666] hover:text-black transition-colors cursor-pointer"
-                  >
-                    Cancel
-                  </button>
                   <button
                     type="submit"
                     disabled={submittingReview}
-                    className="apple-pill-btn px-6 py-2.5 bg-[#111111] text-white font-semibold text-xs hover:bg-zinc-800 transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                    className="reflect-btn-primary w-full py-3 text-sm font-bold flex items-center justify-center gap-2 cursor-pointer mt-2"
                   >
-                    <Send className="w-3.5 h-3.5" />
-                    <span>{submittingReview ? "Posting..." : "Submit Review"}</span>
+                    <span>{submittingReview ? "Submitting..." : "Post Review"}</span>
+                    <Send className="w-4 h-4" />
                   </button>
                 </div>
               </form>
@@ -661,74 +900,68 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Comprehensive FAQ Section */}
-      <section id="faq" className="relative z-10 py-20 px-4 sm:px-6 border-t border-white/[0.08]">
-        <div className="max-w-[720px] mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">
-              Frequently Asked Questions
-            </h2>
-          </div>
+      {/* Real Human FAQs */}
+      <section id="faq" className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 max-w-[860px] mx-auto scroll-mt-24">
+        <div className="text-center mb-12 sm:mb-16">
+          <div className="opal-badge mb-3">FREQUENTLY ASKED QUESTIONS</div>
+          <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">
+            Honest answers. No sales fluff.
+          </h2>
+        </div>
 
-          <div className="space-y-3">
-            {faqs.map((faq, idx) => (
-              <div key={idx} className="apple-bento-card overflow-hidden border border-white/[0.06]">
-                <button
-                  onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                  className="w-full p-5 text-left flex items-center justify-between text-[14px] font-medium text-white hover:text-[#2997ff] transition-colors cursor-pointer"
-                >
-                  <span>{faq.q}</span>
-                  <ChevronDown
-                    className={`w-4 h-4 text-zinc-400 transition-transform duration-200 ${
-                      openFaq === idx ? "rotate-180 text-[#2997ff]" : ""
-                    }`}
-                  />
-                </button>
-                {openFaq === idx && (
-                  <div className="px-5 pb-5 text-[13px] text-[#86868b] leading-relaxed border-t border-white/[0.04] pt-3 font-light">
-                    {faq.a}
-                  </div>
-                )}
+        <div className="space-y-4">
+          {faqs.map((faq, index) => (
+            <div
+              key={index}
+              className="reflect-card p-5 sm:p-6 border border-white/[0.08] cursor-pointer"
+              onClick={() => setOpenFaq(openFaq === index ? null : index)}
+            >
+              <div className="flex items-center justify-between gap-4">
+                <h4 className="text-base sm:text-lg font-semibold text-white">{faq.q}</h4>
+                <ChevronDown
+                  className={`w-5 h-5 text-zinc-400 transition-transform duration-300 shrink-0 ${
+                    openFaq === index ? "rotate-180 text-[#38bdf8]" : ""
+                  }`}
+                />
               </div>
-            ))}
-          </div>
+
+              {openFaq === index && (
+                <p className="text-xs sm:text-sm text-zinc-300 mt-4 leading-relaxed font-light border-t border-white/[0.06] pt-4">
+                  {faq.a}
+                </p>
+              )}
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Minimal Footer */}
-      <footer className="relative z-10 py-10 px-4 sm:px-6 border-t border-white/[0.08] text-center text-[12px] text-[#86868b]">
-        <div className="max-w-[1000px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2.5">
-            <div className="relative w-5 h-5 rounded-full overflow-hidden border border-white/20">
-              <Image
-                src="/logo-without-bg.png"
-                alt="@ourlife.reset logo"
-                width={20}
-                height={20}
-                className="object-cover"
-              />
-            </div>
-            <span className="font-semibold text-white">@ourlife.reset</span>
+      {/* Minimalist Luxury Footer */}
+      <footer className="relative z-10 py-12 px-4 sm:px-6 border-t border-white/[0.08] text-center text-xs text-zinc-400">
+        <div className="max-w-[1000px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-white">@ourlife.reset</span>
+            <span>• The Self-Mastery Guide &amp; Workbook</span>
           </div>
 
-          <p className="text-[11px] text-[#86868b]">
-            Reset your mind. Control your life. • © 2026 Reset Philosophy
-          </p>
-
-          <div className="flex items-center gap-4 text-[12px]">
+          <div className="flex items-center gap-6">
             <a
-              href="/refund-policy"
-              className="text-[#86868b] hover:text-white transition-colors"
+              href="https://instagram.com/ourlife.reset"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
             >
+              Instagram
+            </a>
+            <a href="/refund-policy" className="hover:text-white transition-colors">
               Refund Policy
             </a>
-            <a
-              href={STRIPE_CHECKOUT_URL}
-              className="text-[#2997ff] hover:underline"
-            >
-              Instant PDF Access
+            <a href="#checkout" className="text-[#38bdf8] font-semibold hover:underline">
+              Download Guide ($19)
             </a>
           </div>
+        </div>
+        <div className="mt-6 text-zinc-400 text-[11px]">
+          &copy; {new Date().getFullYear()} Our Life Reset. All rights reserved. Built for private honor and self-command.
         </div>
       </footer>
     </div>

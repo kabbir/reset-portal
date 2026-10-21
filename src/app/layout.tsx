@@ -22,14 +22,14 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ourlifereset.com"),
-  title: "The Self-Mastery Guide & Workbook | @ourlife.reset",
+  title: "Reset your mind. Control your life. | @ourlife.reset",
   description:
-    "The 112-page archival publication and daily workbook for emotional control, solitary discipline, and focused execution. 47 practical chapters and ruled ledgers by @ourlife.reset.",
+    "A 112-page guided manual to confront your blind spots, kill reactivity, and rebuild daily discipline. 10 minutes a day on your phone or in your notebook. By @ourlife.reset.",
   openGraph: {
-    title: "The Self-Mastery Guide & Workbook — @ourlife.reset",
+    title: "Reset your mind. Control your life. — @ourlife.reset",
     description:
-      "The 112-page archival guide and workbook for emotional discipline, clear focus, and self-mastery.",
-    images: ["/book-cover-preview.png"],
+      "A 112-page guided manual to confront your blind spots, kill reactivity, and rebuild daily discipline. 10 minutes a day on your phone or in your notebook.",
+    images: ["/hero-mockup-luxury.jpg"],
   },
 };
 

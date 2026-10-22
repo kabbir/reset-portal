@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowRight,
   Check,
@@ -12,7 +13,6 @@ import {
   Send,
   X,
   CheckCircle2,
-  Sparkles,
   BookOpen,
   Clock,
   Shield,
@@ -20,7 +20,12 @@ import {
   Feather,
   Zap,
   Lock,
-  Layers
+  Layers,
+  Users,
+  Compass,
+  HeartHandshake,
+  Briefcase,
+  Sparkles
 } from "lucide-react";
 
 /* --- Live Stripe Checkout Link --- */
@@ -40,6 +45,8 @@ export default function HomePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [activeSpreadTab, setActiveSpreadTab] = useState<number>(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  /* Review Modal State */
   const [showReviewModal, setShowReviewModal] = useState<boolean>(false);
   const [reviewSubmitted, setReviewSubmitted] = useState<boolean>(false);
   const [submittingReview, setSubmittingReview] = useState<boolean>(false);
@@ -51,7 +58,18 @@ export default function HomePage() {
     comment: ""
   });
 
-  /* Fetch live reviews */
+  /* Community Application State */
+  const [appForm, setAppForm] = useState({
+    name: "",
+    email: "",
+    handle: "",
+    reason: ""
+  });
+  const [submittingApp, setSubmittingApp] = useState<boolean>(false);
+  const [appSubmitted, setAppSubmitted] = useState<boolean>(false);
+  const [appError, setAppError] = useState<string | null>(null);
+
+  /* Fetch live reviews on mount */
   useEffect(() => {
     async function loadReviews() {
       try {
@@ -91,12 +109,43 @@ export default function HomePage() {
           setShowReviewModal(false);
           setReviewSubmitted(false);
           setNewReview({ name: "", role: "", rating: 5, comment: "" });
-        }, 2000);
+        }, 2200);
       }
     } catch (err) {
       console.error("Submission error:", err);
     } finally {
       setSubmittingReview(false);
+    }
+  };
+
+  const handleCommunitySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!appForm.name.trim() || !appForm.email.trim() || !appForm.reason.trim()) {
+      setAppError("Please complete all required fields.");
+      return;
+    }
+
+    setSubmittingApp(true);
+    setAppError(null);
+    try {
+      const res = await fetch("/api/apply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(appForm)
+      });
+
+      if (res.ok) {
+        setAppSubmitted(true);
+        setAppForm({ name: "", email: "", handle: "", reason: "" });
+      } else {
+        const err = await res.json();
+        setAppError(err.error || "Submission failed. Please try again.");
+      }
+    } catch (err) {
+      console.error("Application error:", err);
+      setAppError("Network error. Please try again.");
+    } finally {
+      setSubmittingApp(false);
     }
   };
 
@@ -107,11 +156,11 @@ export default function HomePage() {
       image: "/manifesto-spread-preview.png",
       tag: "Foundations",
       description:
-        "The opening law: why watching short-form motivation gives you a temporary high that leaves you exhausted, and how writing for 10 minutes creates real composure.",
+        "Why short-form motivation leaves you empty, and how 10 minutes of daily written inquiry builds unshakable emotional composure.",
       points: [
-        "Why passive motivation never changes how you act under stress",
-        "The 4 private rules of daily self-command",
-        "How to build quiet discipline without broadcasting it to anyone"
+        "Passive motivation vs. written confrontation",
+        "The 4 quiet laws of self-command",
+        "Building composure without broadcasting it"
       ]
     },
     {
@@ -119,491 +168,457 @@ export default function HomePage() {
       image: "/greene-spread-preview.png",
       tag: "Composure",
       description:
-        "Field rules for remaining completely unbothered when someone tests your patience. Learn why staying silent and lowering your voice wins every time.",
+        "Field rules for remaining quiet when tested. Learn why pausing and lowering your voice disarms disrespect every time.",
       points: [
-        "The 3-second delay before responding to disrespect or criticism",
-        "How to say no cleanly without guilt, apology, or over-explaining",
-        "Daily ledgers to audit the exact moments you lost composure"
+        "The 3-second delay before reacting to disrespect",
+        "Saying no cleanly without guilt or over-explaining",
+        "The daily ledger to audit slipped composure"
       ]
     },
     {
-      title: "Evening Accountability",
+      title: "Evening Audit",
       image: "/watts-spread-preview.png",
-      tag: "Night Ritual",
+      tag: "Accountability",
       description:
-        "The evening ledger. Every night before sleep, answer 3 honest questions to hold yourself accountable for your focus, boundaries, and reactions.",
+        "Every evening before sleep, answer 3 honest inquiries to hold yourself accountable for your focus, boundaries, and reactions.",
       points: [
-        "Confront the excuses you made during the day without sugarcoating",
-        "Audit where your attention slipped and what triggered the slip",
-        "Ruled lines formatted to type on your phone or write in a notebook"
+        "Confront excuses before closing your eyes",
+        "Pinpoint the exact trigger that derailed your attention",
+        "Formatted for mobile typing or handwriting"
       ]
     },
     {
-      title: "The Daily Habit Audit",
+      title: "The Daily Ledger",
       image: "/book-spread-preview.png",
       tag: "Daily Practice",
       description:
-        "The two-page daily practice: read 1 page of principles in the morning, complete 1 page of honest self-inquiry before bed.",
+        "A 2-page daily checkpoint: read 1 page of principles in the morning, complete 1 page of honest audit before sleep.",
       points: [
-        "10 minutes a day: read 1 page in the morning, write 1 page at night",
-        "Fillable interactive text fields on iPhone, iPad, and Android",
-        "Generous print margins if you prefer using a physical notebook"
+        "10 minutes daily: 3 mins reading, 7 mins writing",
+        "Fillable interactive fields on iOS & Android",
+        "Print-ready margins for your desk journal"
       ]
     }
   ];
 
-  /* Reflect 8-Card Bento Features */
-  const features = [
+  /* 8 Core Principles: Optimized for 2-column mobile grid */
+  const corePrinciples = [
     {
       icon: BookOpen,
-      title: "Read 1 Page, Write 1 Page",
-      description: "A two-page daily checkpoint. 3 minutes on the principle, 7 minutes on the written audit."
+      title: "Read 1, Write 1",
+      description: "A two-page daily checkpoint. 3 mins on the law, 7 mins on the audit."
     },
     {
       icon: Clock,
-      title: "The 3-Second Delay",
-      description: "Field rules to pause before reacting. Silence and lowered voice when tested."
+      title: "3-Second Delay",
+      description: "Field rule to pause before replying. Silence is real authority."
     },
     {
       icon: Feather,
-      title: "Evening Accountability",
-      description: "Answer 3 honest questions every night to audit where your composure slipped."
+      title: "Evening Audit",
+      description: "3 honest questions every night to audit where composure slipped."
     },
     {
       icon: Smartphone,
-      title: "Mobile & Tablet Ready",
-      description: "Opens natively in Apple Books, Files, and GoodNotes with interactive fillable fields."
+      title: "Mobile Ready",
+      description: "Native in Apple Books, Files, and GoodNotes with fillable fields."
     },
     {
       icon: Layers,
-      title: "Notebook Margins",
-      description: "Generous print margins if you prefer handwriting in a physical journal on your desk."
+      title: "Physical Margins",
+      description: "Generous notebook margins if you prefer pen and paper on your desk."
     },
     {
       icon: Shield,
-      title: "Strategic Boundaries",
-      description: "Learn to say no cleanly without guilt, apology, or over-explaining yourself to people."
+      title: "Quiet Boundaries",
+      description: "Say no cleanly without guilt, apology, or over-explaining."
     },
     {
       icon: Zap,
       title: "Kill Reactivity",
-      description: "Break the cycle of losing your mood over one offhand comment or message."
+      description: "Never lose your peace over an offhand message or comment."
     },
     {
       icon: Lock,
       title: "47 Kept Promises",
-      description: "47 consecutive days of honest self-mastery written down in black and white."
+      description: "47 consecutive days of verified self-mastery written down."
     }
   ];
 
   /* FAQs */
   const faqs = [
     {
-      q: "I already consume a lot of philosophy and self-improvement content. Will this actually teach me anything new?",
-      a: "Watching videos gives you an intellectual high for thirty seconds, but your composure still dissolves the moment someone baits you or a deadline gets tense. We built this guide to break that loop. Every single chapter pairs a short psychological principle on the left with an honest written audit on the right. You don't just read about calmness; you write down who tested you, why your ego reacted, and what you will do differently next time."
+      q: "I already consume philosophy online. How is this different?",
+      a: "Watching videos gives you an intellectual high for thirty seconds, but your composure still dissolves the moment someone baits you. Every single chapter in this manual pairs a concise law on the left with an honest written audit on the right. You don't just read about calmness; you document who tested you, why your ego reacted, and what you will do differently next time."
     },
     {
-      q: "How much time does this actually take each day? I already have an exhausting schedule.",
-      a: "Ten minutes. This is deliberately not a 300-page academic book you need hours to read. Each chapter is designed as a single two-page checkpoint. You spend three minutes absorbing the principle in the morning, and seven minutes filling out the reflection prompt before you sleep. Doing that once a day creates more real behavioral change than binge-reading five books you'll forget by next month."
+      q: "How much time does this take each day?",
+      a: "Exactly 10 minutes. This is deliberately not a 400-page academic tome. You spend three minutes reading the principle in the morning, and seven minutes completing the audit prompt before sleep. Doing that daily creates permanent behavioral shifts."
     },
     {
-      q: "Can I use this directly on my phone, or do I need to print it out?",
-      a: "Both. The guide is custom-formatted for mobile devices. It opens natively in Apple Books, Files, Google Drive, or GoodNotes on your iPhone or Android, and includes fillable interactive text fields so you can type your daily audits directly in bed. If you prefer physical writing, the PDF is designed with generous margins so you can print it or mirror the prompts into your personal notebook."
+      q: "Can I use this on my phone or do I have to print it?",
+      a: "Both. It is custom-formatted for mobile screens with interactive fillable text fields in Apple Books, Files, and GoodNotes. If you prefer handwriting, it includes clean margins for printing or copying into your journal."
     },
     {
-      q: "Is this just another generic motivational guide with feel-good affirmations?",
-      a: "No. There are no vision boards, morning mantras, or toxic positivity here. In fact, if you want something that comforts your excuses, you will dislike this book. The prompts are deliberately uncomfortable. They force you to examine where your 'politeness' was really just fear of confrontation, where you envied a peer's progress, and where you broke promises to yourself. It is a tool for self-command, not comfort."
+      q: "What is the 30,000 Locked-In Collective?",
+      a: "It is our private vetted circle of high-agency individuals who practice daily self-mastery. Members share high standards for business, health, and character. People have met co-founders and launched businesses inside, and long-term life partners have met through our shared principles. Access to the Discord is granted upon application review."
     },
     {
-      q: "What is the Founder's Guarantee regarding the upcoming Life Reset App?",
-      a: "Our team is currently finishing private testing on The Life Reset mobile app. Because we believe in rewarding our early core readers, every person who claims The Self-Mastery Guide today for $19 receives automatic VIP status and a full $19 credit toward lifetime access to the app when public registration opens. You get the workbook today, and your entire purchase is credited forward."
-    },
-    {
-      q: "What happens immediately after checkout?",
-      a: "The moment Stripe completes your payment, your screen redirects instantly to a private download page with a single-tap download button. We also email a permanent backup access link to your inbox at the exact same second, so you'll always have access to your file across all your devices with no recurring fees or subscriptions."
+      q: "What happens immediately after Stripe checkout?",
+      a: "The moment payment completes, you are redirected immediately to a one-tap download portal. You will also receive an instant email backup with permanent lifetime access."
     }
   ];
 
   return (
-    <div className="relative min-h-screen w-full max-w-full bg-[#030014] text-white overflow-x-clip selection:bg-[#9382ff]/50 selection:text-white">
+    <div className="relative min-h-screen w-full max-w-full bg-[#111d15] text-[#f7f6f2] font-sans overflow-x-clip selection:bg-[#34533e] selection:text-white">
       {/* =========================================================================
-         REFLECT EXACT HEADER
+         1. HEADER: OFFICIAL LOGO + COMPACT MOBILE NAV + OLIVE PALETTE
          ========================================================================= */}
-      <header className="header">
-        <div className="container-lg">
-          {/* Logo */}
-          <a href="#" className="flex items-center gap-3 shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#9382ff] to-[#e59cff] flex items-center justify-center text-black font-extrabold text-sm shadow-[0_0_15px_rgba(147,130,255,0.4)]">
-              R
+      <header className="sticky top-0 z-50 w-full bg-[#111d15]/90 backdrop-blur-md border-b border-[#22382b]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
+          {/* Official Logo + Name */}
+          <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
+            <Image
+              src="/logo-with-bg.png"
+              alt="Our Life Reset Official Logo"
+              width={34}
+              height={34}
+              className="rounded-lg border border-[#2d4d37] shadow-sm group-hover:border-[#4d7d5c] transition-colors"
+              priority
+            />
+            <div className="flex flex-col">
+              <span className="text-sm font-bold tracking-tight text-white group-hover:text-[#d3e5d8] transition-colors">
+                @ourlife.reset
+              </span>
+              <span className="hidden sm:inline text-[10px] text-[#86a38f] tracking-wider uppercase font-medium">
+                Self-Mastery Manual
+              </span>
             </div>
-            <span className="text-[15px] font-medium tracking-tight text-white">
-              @ourlife.reset
-            </span>
-          </a>
+          </Link>
 
-          {/* Reflect Floating Pill Nav in dead center on desktop */}
-          <ul className="header-nav">
-            <li><a href="#preview" className="header-nav-link">Preview</a></li>
-            <li><a href="#features" className="header-nav-link">System</a></li>
-            <li><a href="#principles" className="header-nav-link">Principles</a></li>
-            <li><a href="#pricing" className="header-nav-link">Pricing</a></li>
-            <li><a href="#testimonials" className="header-nav-link">Reviews</a></li>
-            <li><a href="#faq" className="header-nav-link">FAQ</a></li>
-          </ul>
+          {/* Desktop Scale-Style Nav */}
+          <nav className="hidden md:flex items-center gap-6 text-xs uppercase tracking-wider font-medium text-[#a7c2b0]">
+            <a href="#system" className="hover:text-white transition-colors">The System</a>
+            <a href="#spreads" className="hover:text-white transition-colors">Inside Pages</a>
+            <a href="#community" className="hover:text-white transition-colors">30k Collective</a>
+            <a href="#reviews" className="hover:text-white transition-colors">Reviews</a>
+            <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
+          </nav>
 
-          {/* Header Actions */}
-          <div className="header-actions flex items-center gap-2">
-            <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-medium text-zinc-300">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#ba9cff] animate-pulse" />
-              <span>$19 One-Time</span>
+          {/* Header Action Buttons */}
+          <div className="flex items-center gap-2">
+            <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#1a2d21] border border-[#2b4735] text-[11px] text-[#9fc7ab]">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>30,000 Strong</span>
             </div>
-            <button onClick={handleTriggerCheckout} className="button button-primary py-2 px-3 sm:px-4 text-xs sm:text-sm">
-              <span className="hidden sm:inline">Get The Guide</span>
-              <span className="sm:hidden">Get Guide</span>
+
+            <button
+              onClick={handleTriggerCheckout}
+              className="btn-primary py-1.5 sm:py-2 px-3 sm:px-4 text-xs font-semibold"
+            >
+              <span>Get Guide</span>
               <ArrowRight className="w-3.5 h-3.5" />
-              <div className="button-border" />
             </button>
 
-            {/* Mobile Animated Hamburger Toggle */}
+            {/* Mobile Hamburger Toggle */}
             <button
               type="button"
-              className={`header-toggle ${mobileMenuOpen ? "header-toggle-active" : ""}`}
+              className="md:hidden p-2 rounded-lg text-[#a7c2b0] hover:text-white hover:bg-[#1a2d21] transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle Navigation Menu"
             >
-              <div />
-              <div />
-              <div />
+              {mobileMenuOpen ? (
+                <X className="w-5 h-5 text-white" />
+              ) : (
+                <div className="w-5 h-4 flex flex-col justify-between">
+                  <span className="w-full h-0.5 bg-current rounded-full" />
+                  <span className="w-full h-0.5 bg-current rounded-full" />
+                  <span className="w-full h-0.5 bg-current rounded-full" />
+                </div>
+              )}
             </button>
           </div>
         </div>
 
-        {/* Reflect Mobile Slide-Down Drawer */}
-        <div className={`header-mobile-drawer ${mobileMenuOpen ? "header-mobile-drawer-open" : ""}`}>
-          <div className="flex flex-col gap-5 text-base font-medium">
+        {/* Mobile Slide Drawer */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-[#142319] border-b border-[#233b2c] px-4 py-4 space-y-3">
             <a
-              href="#preview"
+              href="#system"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-zinc-200 hover:text-white transition-colors py-2 border-b border-white/[0.08]"
-            >
-              Preview The Pages
-            </a>
-            <a
-              href="#features"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-zinc-200 hover:text-white transition-colors py-2 border-b border-white/[0.08]"
+              className="block text-sm font-medium text-[#d0e0d5] hover:text-white py-1.5 border-b border-[#1c3023]"
             >
               The 8-Rule System
             </a>
             <a
-              href="#principles"
+              href="#spreads"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-zinc-200 hover:text-white transition-colors py-2 border-b border-white/[0.08]"
+              className="block text-sm font-medium text-[#d0e0d5] hover:text-white py-1.5 border-b border-[#1c3023]"
             >
-              Why Writing Beats Reels
+              Inside The Pages
             </a>
             <a
-              href="#pricing"
+              href="#community"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-zinc-200 hover:text-white transition-colors py-2 border-b border-white/[0.08]"
+              className="block text-sm font-medium text-[#d0e0d5] hover:text-white py-1.5 border-b border-[#1c3023]"
             >
-              Lifetime Pricing ($19)
+              30,000 Member Community
             </a>
             <a
-              href="#testimonials"
+              href="#reviews"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-zinc-200 hover:text-white transition-colors py-2 border-b border-white/[0.08]"
+              className="block text-sm font-medium text-[#d0e0d5] hover:text-white py-1.5 border-b border-[#1c3023]"
             >
-              Reader Reviews
+              Google Reviews (4.9 ★)
             </a>
             <a
               href="#faq"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-zinc-200 hover:text-white transition-colors py-2 border-b border-white/[0.08]"
+              className="block text-sm font-medium text-[#d0e0d5] hover:text-white py-1.5 border-b border-[#1c3023]"
             >
-              Frequently Asked Questions
+              FAQ
             </a>
-          </div>
-
-          <div className="mt-8 pt-6 border-t border-white/[0.1] flex flex-col gap-3">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                handleTriggerCheckout();
-              }}
-              className="button button-primary w-full justify-center py-3.5 text-sm"
-            >
-              <span>Claim The Guide — $19</span>
-              <ArrowRight className="w-4 h-4 ml-1" />
-              <div className="button-border" />
-            </button>
-            <div className="text-center text-xs text-zinc-400">
-              112 Pages • One-Time Payment • Instant Download
+            <div className="pt-2">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  handleTriggerCheckout();
+                }}
+                className="btn-primary w-full py-2.5 text-xs font-semibold justify-center"
+              >
+                <span>Download Guide — $19</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
             </div>
           </div>
-        </div>
+        )}
       </header>
 
       {/* =========================================================================
-         REFLECT EXACT HERO & BLACK HOLE ORBITS
+         2. HERO: OLIVE & WARM CREAM PALETTE • COMPACT MOBILE-FIRST LAYOUT
          ========================================================================= */}
-      <section className="hero">
-        <div className="hero-content">
-          {/* Reflect Iridescent Hero Badge */}
-          <a href="#preview" className="hero-badge">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="url(#paint_hero_badge)" />
-              <defs>
-                <linearGradient id="paint_hero_badge" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#E59CFF" />
-                  <stop offset="0.5" stopColor="#BA9CFF" />
-                  <stop offset="1" stopColor="#9CB2FF" />
-                </linearGradient>
-              </defs>
-            </svg>
-            <span className="hero-badge-text">The Self-Mastery Guide &amp; Workbook</span>
+      <section className="relative pt-8 sm:pt-14 pb-12 sm:pb-20 px-4 sm:px-6 max-w-5xl mx-auto text-center radial-glow-olive">
+        {/* Scale-Style Pill Badge */}
+        <div className="inline-flex items-center gap-2 mb-4">
+          <div className="badge-pill">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-[11px] sm:text-xs font-medium tracking-wide">
+              The Self-Mastery Guide &amp; Workbook
+            </span>
+          </div>
+        </div>
+
+        {/* Headline: Editorial Display, tight mobile leading */}
+        <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white max-w-3xl mx-auto leading-[1.12]">
+          Reset your mind. <br className="hidden sm:inline" />
+          <span className="text-[#d8ebd9]">Control your life.</span>
+        </h1>
+
+        {/* Subtitle: Short, high-status, zero fluff */}
+        <p className="mt-3.5 sm:mt-5 text-sm sm:text-base text-[#bfd4c6] max-w-xl mx-auto font-light leading-relaxed">
+          A 112-page manual to eliminate overthinking, master emotional composure, and rebuild daily discipline. Read 1 page in the morning, write 1 page at night.
+        </p>
+
+        {/* Hero Actions: SIDE-BY-SIDE ON MOBILE */}
+        <div className="mt-6 sm:mt-8 flex flex-row items-center justify-center gap-2.5 w-full max-w-sm mx-auto">
+          <button
+            onClick={handleTriggerCheckout}
+            className="btn-primary flex-1 py-3 px-3.5 text-xs sm:text-sm font-semibold truncate"
+          >
+            <span>Claim Guide — $19</span>
+            <ArrowRight className="w-3.5 h-3.5 shrink-0" />
+          </button>
+
+          <a
+            href="#spreads"
+            className="btn-secondary flex-1 py-3 px-3 text-xs sm:text-sm font-medium truncate"
+          >
+            <Eye className="w-3.5 h-3.5 text-[#a4c9b0] shrink-0" />
+            <span>Look Inside</span>
           </a>
+        </div>
 
-          {/* Reflect Signature Heading */}
-          <h1 className="hero-title">
-            <span>Reset your mind.</span>
-            <span>Control your life.</span>
-          </h1>
-
-          {/* Reflect Subdescription */}
-          <p className="hero-subdescription">
-            A 112-page guided manual to stop overthinking, master emotional composure, and rebuild daily discipline. 10 minutes a day on your phone or in your notebook. Read 1 page, write 1 page.
-          </p>
-
-          {/* Reflect Actions */}
-          <div className="hero-actions">
-            <button onClick={handleTriggerCheckout} className="button button-primary text-[15px] py-3.5 px-7">
-              <span>Claim The Guide — $19</span>
-              <ArrowRight className="w-4 h-4 ml-1" />
-              <div className="button-border" />
-            </button>
-            <a href="#preview" className="button button-secondary text-[15px] py-3.5 px-6">
-              <Eye className="w-4 h-4 text-[#ba9cff] mr-1.5" />
-              <span>Look Inside The Pages</span>
-              <div className="button-border" />
-            </a>
+        {/* Hero Quick Proof Strip: SIDE BY SIDE 3 COLUMNS */}
+        <div className="grid grid-cols-3 gap-2 mt-8 max-w-md mx-auto pt-4 border-t border-[#233a2c] text-center">
+          <div className="p-2 rounded-xl bg-[#15241b]/80 border border-[#233b2c]">
+            <div className="text-xs sm:text-sm font-bold text-white">30,000+</div>
+            <div className="text-[10px] sm:text-xs text-[#8ca896]">Community</div>
           </div>
-
-          {/* Reflect Social Proof Note */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mt-6 text-xs text-[#efedfd99]">
-            <div className="flex items-center gap-1.5 text-white">
-              <div className="flex text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                ))}
-              </div>
-              <span className="font-semibold">4.9 / 5.0 Rating</span>
+          <div className="p-2 rounded-xl bg-[#15241b]/80 border border-[#233b2c]">
+            <div className="text-xs sm:text-sm font-bold text-amber-300 flex items-center justify-center gap-1">
+              <Star className="w-3 h-3 fill-amber-300" />
+              <span>4.9</span>
             </div>
-            <span>•</span>
-            <span>Interactive on iPhone, iPad &amp; Android</span>
-            <span>•</span>
-            <span className="text-emerald-400">Instant One-Tap Access</span>
+            <div className="text-[10px] sm:text-xs text-[#8ca896]">Google Rating</div>
+          </div>
+          <div className="p-2 rounded-xl bg-[#15241b]/80 border border-[#233b2c]">
+            <div className="text-xs sm:text-sm font-bold text-white">112 Pages</div>
+            <div className="text-[10px] sm:text-xs text-[#8ca896]">Interactive PDF</div>
           </div>
         </div>
 
-        {/* Reflect Exact Black Hole Orbital Circles & Twinkling Starfield */}
-        <div className="hero-black-hole">
-          <div className="hero-black-hole-circles">
-            <div>
-              <div className="hero-black-hole-circle-0">
-                {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
-                  <div
-                    key={i}
-                    className="absolute w-2 h-2 rounded-full bg-[#ba9cff] shadow-[0_0_8px_#ba9cff]"
-                    style={{
-                      left: `${50 + 50 * Math.cos((i * 2 * Math.PI) / 8)}%`,
-                      top: `${50 + 50 * Math.sin((i * 2 * Math.PI) / 8)}%`,
-                      transform: "translate(-50%, -50%)"
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-            <div>
-              <div className="hero-black-hole-circle-1">
-                {[0, 1, 2, 3, 4, 5].map((i) => (
-                  <div
-                    key={i}
-                    className="absolute w-1.5 h-1.5 rounded-full bg-[#9cb2ff] shadow-[0_0_6px_#9cb2ff]"
-                    style={{
-                      left: `${50 + 50 * Math.cos((i * 2 * Math.PI) / 6)}%`,
-                      top: `${50 + 50 * Math.sin((i * 2 * Math.PI) / 6)}%`,
-                      transform: "translate(-50%, -50%)"
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Twinkling Starfield */}
-          <div className="hero-black-hole-stars">
-            {[...Array(35)].map((_, i) => (
-              <div
-                key={i}
-                style={{
-                  left: `${(i * 37) % 100}%`,
-                  top: `${(i * 53) % 100}%`,
-                  animationDelay: `${(i * 0.2) % 3}s`
-                }}
-              />
-            ))}
+        {/* Hero Mockup Preview */}
+        <div className="mt-8 sm:mt-12 relative max-w-3xl mx-auto rounded-2xl overflow-hidden border border-[#2c4737] shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
+          <Image
+            src="/hero-mockup-luxury.jpg"
+            alt="The Self-Mastery Guide & Workbook open on iPad and iPhone"
+            width={1200}
+            height={675}
+            className="w-full h-auto object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#111d15] via-transparent to-transparent opacity-60" />
+          <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-[11px] text-[#cfe3d5] backdrop-blur-md bg-[#122017]/80 px-3.5 py-1.5 rounded-lg border border-[#2a4635]">
+            <span>Daily Ledger • Section 3 Audit</span>
+            <span className="text-emerald-400 font-medium">Apple Books &amp; GoodNotes Ready</span>
           </div>
         </div>
+      </section>
 
-        {/* Reflect Centerpiece Luxury Mockup Frame */}
-        <div className="hero-video">
-          <div className="hero-video-preview">
-            <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden">
-              <Image
-                src="/hero-mockup-luxury.jpg"
-                alt="The Self-Mastery Guide & Workbook open on iPad and iPhone on luxury dark desk"
-                fill
-                className="object-cover"
-                priority
-              />
+      {/* =========================================================================
+         3. SECTION: CONTRASTING WARM CREAM PROOF STRIP
+         ========================================================================= */}
+      <section className="bg-[#f7f6f2] text-[#141a16] py-8 sm:py-12 border-y border-[#e2dfd4]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="text-center md:text-left">
+              <span className="text-xs uppercase tracking-widest font-bold text-[#44664f]">
+                Built for Daily Composure
+              </span>
+              <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#141a16] mt-0.5">
+                The standard for high-agency minds.
+              </h2>
+            </div>
+
+            {/* Quick Badges Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-4 w-full md:w-auto">
+              <div className="p-3 rounded-xl bg-white border border-[#e5e3d7] text-center shadow-xs">
+                <div className="text-xs font-bold text-[#1d3023]">Instant Delivery</div>
+                <div className="text-[11px] text-[#637267] mt-0.5">1-Tap Download Link</div>
+              </div>
+              <div className="p-3 rounded-xl bg-white border border-[#e5e3d7] text-center shadow-xs">
+                <div className="text-xs font-bold text-[#1d3023]">Lifetime Access</div>
+                <div className="text-[11px] text-[#637267] mt-0.5">No Subscriptions</div>
+              </div>
+              <div className="col-span-2 sm:col-span-1 p-3 rounded-xl bg-white border border-[#e5e3d7] text-center shadow-xs">
+                <div className="text-xs font-bold text-[#1d3023]">Founder Credit</div>
+                <div className="text-[11px] text-[#637267] mt-0.5">$19 Credited to App</div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-         REFLECT EXACT 8-BENTO ARCHITECTURAL FEATURES GRID
+         4. SECTION: THE SYSTEM (8 RULES) • 2-COLUMN MOBILE GRID
          ========================================================================= */}
-      <section id="features" className="features">
-        <div className="text-center mb-16">
-          <div className="hero-badge">
-            <Sparkles className="w-4 h-4 text-[#ba9cff] mr-2" />
-            <span className="hero-badge-text">The Daily Operating System</span>
+      <section id="system" className="py-12 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto">
+        <div className="text-center mb-8 sm:mb-12">
+          <div className="badge-pill mb-2">
+            <Compass className="w-3.5 h-3.5 text-[#86bf9a]" />
+            <span>The Daily Operating System</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-medium tracking-tight text-white">
+          <h2 className="font-display text-2xl sm:text-4xl font-bold text-white tracking-tight">
             Built for how you actually live.
           </h2>
-          <p className="text-[#efedfd99] text-base mt-3 max-w-[540px] mx-auto">
-            A frictionless routine designed to hold you accountable without overwhelming your schedule.
+          <p className="text-xs sm:text-sm text-[#a8c2b1] mt-2 max-w-md mx-auto font-light">
+            A frictionless routine designed to build quiet self-command without overwhelming your calendar.
           </p>
         </div>
 
-        <div className="features-cards">
-          {/* Reflect Architectural Gridlines */}
-          <div className="features-gridlines">
-            <div />
-            <div />
-            <div />
-            <div />
-            <div />
-          </div>
-
-          <div className="features-grid">
-            {features.map((feat, idx) => {
-              const Icon = feat.icon;
-              return (
-                <div key={idx} className="features-card">
-                  <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] text-[#ba9cff] flex items-center justify-center mb-5">
-                    <Icon className="w-5 h-5" />
+        {/* CRITICAL MOBILE OPTIMIZATION: 2 COLUMNS ON MOBILE (grid-cols-2) */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4">
+          {corePrinciples.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={idx}
+                className="scale-card p-3.5 sm:p-5 flex flex-col justify-between hover:bg-[#182a1f] transition-all"
+              >
+                <div>
+                  <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg bg-[#203728] border border-[#30523c] flex items-center justify-center text-[#86bf9a] mb-2.5 sm:mb-3">
+                    <Icon className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
                   </div>
-                  <h3 className="features-card-title">{feat.title}</h3>
-                  <p className="features-card-description">{feat.description}</p>
+                  <h3 className="text-xs sm:text-sm font-bold text-white leading-snug">
+                    {item.title}
+                  </h3>
+                  <p className="text-[11px] sm:text-xs text-[#9eb6a6] mt-1 font-light leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
       {/* =========================================================================
-         LOOK INSIDE THE 112 PAGES (INTERACTIVE SPREAD SHOWCASE)
+         5. SECTION: LOOK INSIDE THE PAGES (WARM WHITE EDITORIAL SPREAD)
          ========================================================================= */}
-      <section id="preview" className="relative py-24 px-4 sm:px-6 max-w-[1200px] mx-auto border-t border-white/[0.08] scroll-mt-24">
-        <div className="text-center mb-14">
-          <div className="hero-badge">
-            <Eye className="w-4 h-4 text-[#ba9cff] mr-2" />
-            <span className="hero-badge-text">Interactive Page Showcase</span>
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-medium tracking-tight text-white">
-            Look inside the pages.
-          </h2>
-          <p className="text-[#efedfd99] text-base mt-3 max-w-[580px] mx-auto">
-            Every chapter pairs a psychological law on the left with an honest written audit on the right.
-          </p>
+      <section id="spreads" className="bg-[#faf9f5] text-[#141a16] py-12 sm:py-20 border-y border-[#e2dfd4]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-8">
+            <span className="text-xs uppercase tracking-widest font-bold text-[#44664f]">
+              Direct Page Showcase
+            </span>
+            <h2 className="font-serif text-2xl sm:text-4xl font-bold text-[#141a16] mt-1">
+              Look inside the pages.
+            </h2>
+            <p className="text-xs sm:text-sm text-[#54685b] mt-2 max-w-md mx-auto">
+              Every chapter pairs a psychological law on the left with an honest written audit on the right.
+            </p>
 
-          {/* Spread Tabs in Reflect Pill Style */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
-            {spreads.map((spread, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveSpreadTab(index)}
-                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all cursor-pointer flex items-center gap-2 ${
-                  activeSpreadTab === index
-                    ? "bg-white text-black shadow-lg shadow-white/20 font-semibold"
-                    : "bg-white/[0.04] text-zinc-400 hover:text-white border border-white/[0.08]"
-                }`}
-              >
-                <span>{spread.title}</span>
-                {activeSpreadTab === index && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#9382ff]" />
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Active Spread Display */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div className="lg:col-span-8">
-            <div className="hero-video-preview">
-              <div className="relative aspect-[16/11] w-full rounded-2xl overflow-hidden bg-[#07051a]">
-                <Image
-                  src={spreads[activeSpreadTab].image}
-                  alt={spreads[activeSpreadTab].title}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 800px"
-                  className="object-contain p-3 sm:p-6 transition-all duration-300"
-                />
-              </div>
+            {/* Compact Tabs: 2x2 Grid on Mobile, Flex on Desktop */}
+            <div className="grid grid-cols-2 sm:flex sm:justify-center gap-2 mt-6 max-w-xl mx-auto">
+              {spreads.map((spread, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveSpreadTab(idx)}
+                  className={`py-2 px-3 rounded-lg text-xs font-semibold transition-all ${
+                    activeSpreadTab === idx
+                      ? "bg-[#1c3024] text-white shadow-sm"
+                      : "bg-[#ece9dc] text-[#344a3c] hover:bg-[#e2ded0]"
+                  }`}
+                >
+                  <span>{spread.title}</span>
+                </button>
+              ))}
             </div>
           </div>
 
-          <div className="lg:col-span-4 flex flex-col justify-between space-y-6">
-            <div className="p-8 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-xl">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#9382ff]/10 border border-[#9382ff]/20 text-xs font-mono text-[#ba9cff] mb-4">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>{spreads[activeSpreadTab].tag}</span>
-              </div>
+          {/* Active Spread Container */}
+          <div className="max-w-3xl mx-auto bg-white rounded-2xl p-4 sm:p-6 border border-[#e2dfd4] shadow-md">
+            <div className="relative rounded-xl overflow-hidden border border-[#eae7dc] bg-[#f5f4ee]">
+              <Image
+                src={spreads[activeSpreadTab].image}
+                alt={spreads[activeSpreadTab].title}
+                width={1200}
+                height={800}
+                className="w-full h-auto object-contain"
+              />
+            </div>
 
-              <h3 className="text-2xl sm:text-3xl font-medium text-white">
-                {spreads[activeSpreadTab].title}
-              </h3>
-              <p className="text-sm text-[#efedfdb3] mt-3 leading-relaxed">
+            {/* Spread Highlights: 2-column mobile breakdown */}
+            <div className="mt-5 pt-4 border-t border-[#eae7dc]">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-[#eef5f0] text-[#2d5c3b] font-semibold border border-[#d2e3d7]">
+                  {spreads[activeSpreadTab].tag}
+                </span>
+                <h3 className="text-sm sm:text-base font-bold text-[#141a16]">
+                  {spreads[activeSpreadTab].title}
+                </h3>
+              </div>
+              <p className="text-xs sm:text-sm text-[#4b5c51] font-light leading-relaxed mb-3">
                 {spreads[activeSpreadTab].description}
               </p>
 
-              <div className="mt-6 pt-6 border-t border-white/[0.08]">
-                <ul className="space-y-3 text-xs sm:text-sm text-zinc-300">
-                  {spreads[activeSpreadTab].points.map((p, i) => (
-                    <li key={i} className="flex items-start gap-2.5">
-                      <Check className="w-4 h-4 text-[#ba9cff] shrink-0 mt-0.5" />
-                      <span>{p}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mt-8 pt-4 border-t border-white/[0.08]">
-                <button
-                  onClick={handleTriggerCheckout}
-                  className="button button-primary w-full py-3.5 text-sm"
-                >
-                  <span>Claim The Guide — $19</span>
-                  <ArrowRight className="w-4 h-4" />
-                  <div className="button-border" />
-                </button>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                {spreads[activeSpreadTab].points.map((pt, pIdx) => (
+                  <div key={pIdx} className="flex items-start gap-1.5 text-xs text-[#2b3a30]">
+                    <Check className="w-3.5 h-3.5 text-[#3d6849] shrink-0 mt-0.5" />
+                    <span className="leading-tight">{pt}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -611,258 +626,247 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-         REFLECT PRINCIPLES & COMPARISON MATRIX
+         6. SECTION: THE 30,000 LOCKED-IN COLLECTIVE (COMMUNITY + APPLICATION FORM)
          ========================================================================= */}
-      <section id="principles" className="relative py-24 px-4 sm:px-6 max-w-[1100px] mx-auto border-t border-white/[0.08]">
-        <div className="text-center mb-16">
-          <div className="hero-badge">
-            <Shield className="w-4 h-4 text-[#ba9cff] mr-2" />
-            <span className="hero-badge-text">Why Writing Works</span>
+      <section id="community" className="py-12 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto">
+        <div className="text-center mb-10">
+          <div className="badge-pill mb-2">
+            <Users className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Private Vetted Network</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-medium tracking-tight text-white">
-            Why watching reels never changes your life.
+          <h2 className="font-display text-2xl sm:text-4xl font-bold text-white tracking-tight">
+            The 30,000 Locked-In Collective
           </h2>
-          <p className="text-[#efedfd99] text-base mt-3 max-w-[580px] mx-auto">
-            Watching short videos gives you 30 seconds of motivation. Writing forces real confrontation.
+          <p className="text-xs sm:text-sm text-[#a8c2b1] mt-2 max-w-lg mx-auto font-light leading-relaxed">
+            An uncompromising circle of high-agency individuals who value quiet execution, high taste, and deep discipline.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* The Passive Trap */}
-          <div className="p-8 rounded-2xl bg-white/[0.02] border border-red-500/20 backdrop-blur-xl flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-red-400 animate-pulse" />
-                  <h3 className="text-xl font-medium text-red-400">Passive Scrolling</h3>
-                </div>
-                <span className="px-2.5 py-1 rounded-full text-xs font-mono bg-red-500/10 text-red-300 border border-red-500/20">
-                  ~3.5 hrs / day
-                </span>
-              </div>
-
-              <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-                  <div className="text-xs font-bold uppercase tracking-wider text-red-400/80 mb-1">
-                    Fleeting Motivation
-                  </div>
-                  <p className="text-sm text-zinc-300 font-light leading-relaxed">
-                    30 seconds of artificial energy that vanishes the exact instant you swipe to the next video.
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-                  <div className="text-xs font-bold uppercase tracking-wider text-red-400/80 mb-1">
-                    Reactive Living
-                  </div>
-                  <p className="text-sm text-zinc-300 font-light leading-relaxed">
-                    One passive-aggressive comment or work message ruins your entire mood for the afternoon.
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.04]">
-                  <div className="text-xs font-bold uppercase tracking-wider text-red-400/80 mb-1">
-                    2 AM Overthinking
-                  </div>
-                  <p className="text-sm text-zinc-300 font-light leading-relaxed">
-                    Lying awake in bed replaying old conflicts, feeling guilty about unkept promises to yourself.
-                  </p>
-                </div>
-              </div>
+        {/* Community Proof Points: SIDE BY SIDE 2 COLUMNS ON MOBILE */}
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 max-w-3xl mx-auto mb-8">
+          <div className="scale-card p-4 sm:p-6 border-[#2d4d38] bg-[#16291d]">
+            <div className="w-8 h-8 rounded-lg bg-[#223d2b] border border-[#355f43] flex items-center justify-center text-emerald-400 mb-3">
+              <Briefcase className="w-4 h-4" />
             </div>
-
-            <div className="mt-8 pt-4 border-t border-white/[0.06] text-xs text-zinc-400 flex items-center justify-between">
-              <span>Result: Unconscious Reactivity</span>
-              <span className="text-red-400 font-semibold">Zero Progress</span>
-            </div>
+            <h3 className="text-xs sm:text-sm font-bold text-white">Companies Founded</h3>
+            <p className="text-[11px] sm:text-xs text-[#9eb6a6] mt-1 font-light leading-relaxed">
+              Co-founders met inside our circle and built multi-figure ventures on shared discipline.
+            </p>
           </div>
 
-          {/* The Daily Audit */}
-          <div className="p-8 rounded-2xl bg-white/[0.02] border border-[#ba9cff]/30 shadow-[0_0_40px_rgba(186,156,255,0.08)] backdrop-blur-xl flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#ba9cff] animate-pulse" />
-                  <h3 className="text-xl font-medium text-[#ba9cff]">The Daily Audit</h3>
-                </div>
-                <span className="px-2.5 py-1 rounded-full text-xs font-mono bg-[#ba9cff]/10 text-[#ba9cff] border border-[#ba9cff]/20">
-                  10 mins / day
-                </span>
-              </div>
-
-              <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-white/[0.03] border border-[#ba9cff]/20">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#ba9cff] mb-1">
-                    Written Honesty
-                  </div>
-                  <p className="text-sm text-zinc-200 font-light leading-relaxed">
-                    10 minutes of honest self-inquiry on your phone before sleep forces real confrontation with your excuses.
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-xl bg-white/[0.03] border border-[#ba9cff]/20">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#ba9cff] mb-1">
-                    The 3-Second Pause
-                  </div>
-                  <p className="text-sm text-zinc-200 font-light leading-relaxed">
-                    Complete emotional calm when baited or tested. Silence and lowered voice is true authority.
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-xl bg-white/[0.03] border border-[#ba9cff]/20">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#ba9cff] mb-1">
-                    Strategic Boundaries
-                  </div>
-                  <p className="text-sm text-zinc-200 font-light leading-relaxed">
-                    Saying no cleanly without guilt, apology, or over-explaining yourself to people.
-                  </p>
-                </div>
-              </div>
+          <div className="scale-card p-4 sm:p-6 border-[#2d4d38] bg-[#16291d]">
+            <div className="w-8 h-8 rounded-lg bg-[#223d2b] border border-[#355f43] flex items-center justify-center text-rose-300 mb-3">
+              <HeartHandshake className="w-4 h-4" />
             </div>
-
-            <div className="mt-8 pt-4 border-t border-white/[0.06] text-xs text-zinc-300 flex items-center justify-between">
-              <span>Result: Unshakeable Composure</span>
-              <span className="text-[#ba9cff] font-semibold">Self-Command</span>
-            </div>
+            <h3 className="text-xs sm:text-sm font-bold text-white">Life Partners Met</h3>
+            <p className="text-[11px] sm:text-xs text-[#9eb6a6] mt-1 font-light leading-relaxed">
+              Members have met spouses and life partners through shared values and mutual standards.
+            </p>
           </div>
         </div>
-      </section>
 
-      {/* =========================================================================
-         REFLECT EXACT PRICING SECTION
-         ========================================================================= */}
-      <section id="pricing" className="pricing">
-        <div className="text-center mb-12">
-          <div className="hero-badge">
-            <span className="hero-badge-text">Simple Lifetime Pricing</span>
+        {/* Application Card & Form */}
+        <div className="max-w-2xl mx-auto scale-card p-5 sm:p-8 border-[#30523c] bg-[#14241a] shadow-xl">
+          <div className="text-center mb-6">
+            <span className="text-[11px] uppercase tracking-wider font-semibold text-[#86bf9a]">
+              Private Discord Membership
+            </span>
+            <h3 className="text-lg sm:text-xl font-bold text-white mt-1">
+              Apply for Community Access
+            </h3>
+            <p className="text-xs text-[#9eb6a6] mt-1">
+              We review every application manually to preserve the calibre of the room.
+            </p>
           </div>
-          <h2 className="text-4xl sm:text-6xl font-medium tracking-tight text-white">
-            One payment. Lifetime access.
-          </h2>
-          <p className="text-[#efedfd99] text-base mt-3 max-w-[500px] mx-auto">
-            No subscriptions. Claim the 112-page workbook today and get credited toward the upcoming app.
-          </p>
-        </div>
 
-        <div className="pricing-plans">
-          <div className="pricing-plan">
-            <div className="p-8 sm:p-12 rounded-3xl bg-white/[0.02] border border-white/[0.1] shadow-[0_20px_70px_rgba(0,0,0,0.8)] backdrop-blur-2xl">
-              <div className="text-center">
-                <div className="text-xs uppercase tracking-widest text-[#ba9cff] font-semibold mb-2">
-                  The Self-Mastery Guide &amp; Workbook
-                </div>
-                <div className="pricing-amount">
-                  $19
-                </div>
-                <div className="text-sm text-[#efedfd99] mt-2">
-                  One-time payment • Instant access • Lifetime updates
-                </div>
-              </div>
-
-              {/* Inclusions */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-10 text-sm text-zinc-200">
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-[#ba9cff] shrink-0 mt-0.5" />
-                  <span><strong>112 Interactive Pages</strong> for iPhone, iPad &amp; Android</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-[#ba9cff] shrink-0 mt-0.5" />
-                  <span><strong>All 47 Frameworks</strong> for composure and boundaries</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-[#ba9cff] shrink-0 mt-0.5" />
-                  <span><strong>47 Ruled Daily Ledgers</strong> to audit daily conduct</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-[#ba9cff] shrink-0 mt-0.5" />
-                  <span><strong>Print-Ready PDF</strong> with generous margins for notebooks</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-[#ba9cff] shrink-0 mt-0.5" />
-                  <span><strong>Instant Download</strong> immediately after Stripe checkout</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Check className="w-4 h-4 text-[#ba9cff] shrink-0 mt-0.5" />
-                  <span><strong>Permanent Backup Link</strong> emailed to your inbox</span>
-                </div>
-              </div>
-
-              {/* Checkout Button */}
+          {appSubmitted ? (
+            <div className="text-center py-8">
+              <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto mb-3" />
+              <h4 className="text-base font-bold text-white">Application Received</h4>
+              <p className="text-xs text-[#a4bfad] mt-1.5 max-w-sm mx-auto">
+                Thank you. We review every submission manually. If approved, your private Discord invitation link will be delivered directly to your inbox.
+              </p>
               <button
-                onClick={handleTriggerCheckout}
-                className="button button-primary w-full py-4 text-base font-semibold"
+                onClick={() => setAppSubmitted(false)}
+                className="btn-secondary text-xs py-2 px-4 mt-5"
               >
-                <span>Download The Guide ($19)</span>
-                <ArrowRight className="w-4 h-4" />
-                <div className="button-border" />
+                Submit another response
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleCommunitySubmit} className="space-y-3.5">
+              {appError && (
+                <div className="p-3 rounded-lg bg-red-900/40 border border-red-500/40 text-xs text-red-200">
+                  {appError}
+                </div>
+              )}
+
+              {/* Name & Email: SIDE BY SIDE */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs font-medium text-[#c0d4c7] block mb-1">
+                    Your Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={appForm.name}
+                    onChange={(e) => setAppForm({ ...appForm, name: e.target.value })}
+                    placeholder="e.g. Marcus Vance"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#0e1912] border border-[#233a2c] text-xs sm:text-sm text-white placeholder-[#546b5c] focus:outline-none focus:border-[#528a65]"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-medium text-[#c0d4c7] block mb-1">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={appForm.email}
+                    onChange={(e) => setAppForm({ ...appForm, email: e.target.value })}
+                    placeholder="e.g. marcus@company.com"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[#0e1912] border border-[#233a2c] text-xs sm:text-sm text-white placeholder-[#546b5c] focus:outline-none focus:border-[#528a65]"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="text-xs font-medium text-[#c0d4c7] block mb-1">
+                  Instagram or Social Handle (Optional)
+                </label>
+                <input
+                  type="text"
+                  value={appForm.handle}
+                  onChange={(e) => setAppForm({ ...appForm, handle: e.target.value })}
+                  placeholder="@yourusername"
+                  className="w-full px-3 py-2.5 rounded-xl bg-[#0e1912] border border-[#233a2c] text-xs sm:text-sm text-white placeholder-[#546b5c] focus:outline-none focus:border-[#528a65]"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-medium text-[#c0d4c7] block mb-1">
+                  Why should you be granted access into this locked-in circle? *
+                </label>
+                <textarea
+                  required
+                  rows={3}
+                  value={appForm.reason}
+                  onChange={(e) => setAppForm({ ...appForm, reason: e.target.value })}
+                  placeholder="Tell us what you work on, your daily disciplines, and what standard you bring to the collective."
+                  className="w-full px-3 py-2.5 rounded-xl bg-[#0e1912] border border-[#233a2c] text-xs sm:text-sm text-white placeholder-[#546b5c] focus:outline-none focus:border-[#528a65]"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={submittingApp}
+                className="btn-primary w-full py-3 text-xs sm:text-sm font-semibold justify-center mt-2"
+              >
+                <span>{submittingApp ? "Submitting Application..." : "Submit Application for Review"}</span>
+                <Send className="w-3.5 h-3.5 ml-1" />
               </button>
 
-              {/* Founder's VIP Guarantee Note */}
-              <p className="text-xs text-[#efedfd99] text-center mt-6 leading-relaxed">
-                <strong className="text-white font-medium">Founder's Credit:</strong> Every purchase today credits your full $19 toward lifetime access to the upcoming Life Reset mobile app when registration opens.
-              </p>
-            </div>
-          </div>
+              <div className="text-center text-[10px] text-[#718c7c] pt-1">
+                Discord private invite link provided via email upon acceptance.
+              </div>
+            </form>
+          )}
         </div>
       </section>
 
       {/* =========================================================================
-         REFLECT EXACT TESTIMONIALS SLIDING MARQUEE
+         7. SECTION: GOOGLE REVIEWS WITH REAL GOOGLE LOGO & VERIFIED RATINGS
          ========================================================================= */}
-      <section id="testimonials" className="testimonials">
-        <div className="text-center mb-16 px-4">
-          <div className="hero-badge">
-            <span className="hero-badge-text">Reader Testimonials</span>
+      <section id="reviews" className="bg-[#f7f6f2] text-[#141a16] py-12 sm:py-20 border-y border-[#e2dfd4]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10">
+            {/* Real Official Google Review Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-[#dedbd0] shadow-xs mb-3">
+              {/* Google 4-Color SVG Icon */}
+              <svg className="w-4 h-4" viewBox="0 0 24 24">
+                <path
+                  fill="#4285F4"
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+                />
+                <path
+                  fill="#EA4335"
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+                />
+              </svg>
+              <span className="text-xs font-bold text-[#141a16]">Google Reviews</span>
+              <span className="text-[#a8a395]">|</span>
+              <div className="flex text-amber-500">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3 h-3 fill-current" />
+                ))}
+              </div>
+              <span className="text-xs font-bold text-[#141a16]">4.9 / 5.0</span>
+            </div>
+
+            <h2 className="font-serif text-2xl sm:text-4xl font-bold text-[#141a16]">
+              Verified Reader Feedback
+            </h2>
+            <p className="text-xs sm:text-sm text-[#54685b] mt-1.5 max-w-md mx-auto">
+              Real reflections from readers who stopped scrolling and began the daily audit.
+            </p>
+
+            <button
+              onClick={() => setShowReviewModal(true)}
+              className="mt-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#1c3024] text-white hover:bg-[#253f30] transition-colors shadow-xs"
+            >
+              <MessageSquarePlus className="w-3.5 h-3.5" />
+              <span>Submit a Review</span>
+            </button>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-medium tracking-tight text-white">
-            Loved by thinkers and builders.
-          </h2>
-          <p className="text-[#efedfd99] text-base mt-3 max-w-[500px] mx-auto">
-            From readers who stopped just watching and started doing the work.
-          </p>
 
-          <button
-            onClick={() => setShowReviewModal(true)}
-            className="button button-secondary mt-6"
-          >
-            <MessageSquarePlus className="w-4 h-4 text-[#ba9cff] mr-2" />
-            <span>Leave a Review</span>
-            <div className="button-border" />
-          </button>
-        </div>
-
-        {/* Reflect Sliding Marquee */}
-        <div className="testimonials-items">
-          <div className="testimonials-row">
-            {reviewsList.map((review) => (
-              <div key={review.id} className="testimonials-card">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#9382ff]/30 to-[#e59cff]/30 border border-[#ba9cff]/30 flex items-center justify-center font-bold text-xs text-white">
-                      {review.name.charAt(0)}
+          {/* Reviews Grid: 2 columns on tablet/desktop */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+            {reviewsList.slice(0, 6).map((review) => (
+              <div
+                key={review.id}
+                className="scale-card-light p-4 sm:p-5 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2.5">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-full bg-[#e8e6dc] text-[#1c3024] font-bold text-xs flex items-center justify-center">
+                        {review.name.charAt(0)}
+                      </div>
+                      <div>
+                        <div className="text-xs sm:text-sm font-bold text-[#141a16]">{review.name}</div>
+                        <div className="text-[11px] text-[#6b7d72]">{review.role || "Verified Reader"}</div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="text-sm font-medium text-white">{review.name}</div>
-                      <div className="text-xs text-[#efedfd99]">{review.role || "Verified Reader"}</div>
+                    <div className="flex text-amber-500">
+                      {[...Array(review.rating)].map((_, i) => (
+                        <Star key={i} className="w-3.5 h-3.5 fill-current" />
+                      ))}
                     </div>
                   </div>
-                  <div className="flex text-amber-400">
-                    {[...Array(review.rating)].map((_, i) => (
-                      <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                    ))}
-                  </div>
+
+                  {review.highlight && (
+                    <div className="text-xs font-semibold text-[#1c3024] mb-1">
+                      &ldquo;{review.highlight}&rdquo;
+                    </div>
+                  )}
+                  <p className="text-xs text-[#3b4d42] font-light leading-relaxed">
+                    &ldquo;{review.comment}&rdquo;
+                  </p>
                 </div>
 
-                {review.highlight && (
-                  <h4 className="text-sm font-semibold text-white mb-2">"{review.highlight}"</h4>
-                )}
-                <p className="text-sm text-[#efedfdb3] leading-relaxed font-light">
-                  "{review.comment}"
-                </p>
-
-                <div className="mt-4 pt-3 border-t border-white/[0.06] flex items-center justify-between text-[11px] text-[#efedfd99]">
+                <div className="mt-3 pt-2.5 border-t border-[#ece9de] flex items-center justify-between text-[10px] text-[#718579]">
                   <span>{review.date}</span>
-                  <span className="text-emerald-400 flex items-center gap-1 font-medium">
+                  <span className="text-[#2b633b] font-semibold flex items-center gap-1">
                     <CheckCircle2 className="w-3 h-3" />
                     <span>Verified Purchase</span>
                   </span>
@@ -875,92 +879,89 @@ export default function HomePage() {
 
       {/* Review Submission Modal */}
       {showReviewModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="p-6 sm:p-8 max-w-[500px] w-full bg-[#0a071e] rounded-3xl border border-white/20 relative shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
+          <div className="p-5 sm:p-7 max-w-md w-full bg-[#15251c] rounded-2xl border border-[#2e4f38] relative shadow-2xl">
             <button
               onClick={() => setShowReviewModal(false)}
-              className="absolute top-5 right-5 text-zinc-400 hover:text-white"
+              className="absolute top-4 right-4 text-[#8ea495] hover:text-white"
             >
               <X className="w-5 h-5" />
             </button>
 
             {reviewSubmitted ? (
-              <div className="text-center py-8">
-                <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto mb-3" />
-                <h3 className="text-xl font-medium text-white">Review Submitted</h3>
-                <p className="text-xs text-zinc-400 mt-1">Thank you for sharing your experience.</p>
+              <div className="text-center py-6">
+                <CheckCircle2 className="w-10 h-10 text-emerald-400 mx-auto mb-2.5" />
+                <h3 className="text-base font-bold text-white">Review Posted</h3>
+                <p className="text-xs text-[#a0b8a8] mt-1">Thank you for contributing your honest experience.</p>
               </div>
             ) : (
-              <form onSubmit={handleReviewSubmit}>
-                <h3 className="text-xl font-medium text-white mb-1">Leave a Review</h3>
-                <p className="text-xs text-zinc-400 mb-5">
-                  Share how The Self-Mastery Guide has impacted your daily conduct.
+              <form onSubmit={handleReviewSubmit} className="space-y-3">
+                <h3 className="text-base font-bold text-white">Write a Review</h3>
+                <p className="text-xs text-[#a0b8a8]">
+                  Share how The Self-Mastery Guide has impacted your composure and daily routine.
                 </p>
 
-                <div className="space-y-4">
-                  <div>
-                    <label className="text-xs font-semibold text-zinc-300 block mb-1">Your Name</label>
-                    <input
-                      type="text"
-                      required
-                      value={newReview.name}
-                      onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
-                      placeholder="e.g. Marcus V."
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/[0.1] text-sm text-white focus:outline-none focus:border-[#ba9cff]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-semibold text-zinc-300 block mb-1">Occupation / City (Optional)</label>
-                    <input
-                      type="text"
-                      value={newReview.role}
-                      onChange={(e) => setNewReview({ ...newReview, role: e.target.value })}
-                      placeholder="e.g. Software Engineer, London"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/[0.1] text-sm text-white focus:outline-none focus:border-[#ba9cff]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-semibold text-zinc-300 block mb-1">Rating</label>
-                    <div className="flex gap-2">
-                      {[1, 2, 3, 4, 5].map((num) => (
-                        <button
-                          type="button"
-                          key={num}
-                          onClick={() => setNewReview({ ...newReview, rating: num })}
-                          className={`p-2 rounded-lg ${
-                            newReview.rating >= num ? "text-amber-400" : "text-zinc-600"
-                          }`}
-                        >
-                          <Star className="w-5 h-5 fill-current" />
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="text-xs font-semibold text-zinc-300 block mb-1">Your Review</label>
-                    <textarea
-                      required
-                      rows={4}
-                      value={newReview.comment}
-                      onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
-                      placeholder="What specific framework or prompt made the biggest difference in your daily composure?"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.06] border border-white/[0.1] text-sm text-white focus:outline-none focus:border-[#ba9cff]"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={submittingReview}
-                    className="button button-primary w-full py-3 mt-2"
-                  >
-                    <span>{submittingReview ? "Submitting..." : "Post Review"}</span>
-                    <Send className="w-4 h-4 ml-1" />
-                    <div className="button-border" />
-                  </button>
+                <div>
+                  <label className="text-xs font-medium text-[#c0d4c7] block mb-1">Your Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={newReview.name}
+                    onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
+                    placeholder="e.g. Marcus Vance"
+                    className="w-full px-3 py-2 rounded-xl bg-[#0e1912] border border-[#233a2c] text-xs text-white focus:outline-none focus:border-[#528a65]"
+                  />
                 </div>
+
+                <div>
+                  <label className="text-xs font-medium text-[#c0d4c7] block mb-1">Role / City (Optional)</label>
+                  <input
+                    type="text"
+                    value={newReview.role}
+                    onChange={(e) => setNewReview({ ...newReview, role: e.target.value })}
+                    placeholder="e.g. Founder, London"
+                    className="w-full px-3 py-2 rounded-xl bg-[#0e1912] border border-[#233a2c] text-xs text-white focus:outline-none focus:border-[#528a65]"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-xs font-medium text-[#c0d4c7] block mb-1">Rating</label>
+                  <div className="flex gap-1.5">
+                    {[1, 2, 3, 4, 5].map((num) => (
+                      <button
+                        type="button"
+                        key={num}
+                        onClick={() => setNewReview({ ...newReview, rating: num })}
+                        className={`p-1.5 rounded-lg ${
+                          newReview.rating >= num ? "text-amber-400" : "text-[#394f41]"
+                        }`}
+                      >
+                        <Star className="w-4 h-4 fill-current" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-xs font-medium text-[#c0d4c7] block mb-1">Review</label>
+                  <textarea
+                    required
+                    rows={3}
+                    value={newReview.comment}
+                    onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
+                    placeholder="Which chapter or prompt made the biggest difference in your daily conduct?"
+                    className="w-full px-3 py-2 rounded-xl bg-[#0e1912] border border-[#233a2c] text-xs text-white focus:outline-none focus:border-[#528a65]"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={submittingReview}
+                  className="btn-primary w-full py-2.5 text-xs font-semibold justify-center mt-2"
+                >
+                  <span>{submittingReview ? "Submitting..." : "Publish Review"}</span>
+                  <Send className="w-3.5 h-3.5 ml-1" />
+                </button>
               </form>
             )}
           </div>
@@ -968,36 +969,111 @@ export default function HomePage() {
       )}
 
       {/* =========================================================================
-         REFLECT EXACT FAQ ACCORDION
+         8. SECTION: THE $19 LIFETIME OFFER CARD
          ========================================================================= */}
-      <section id="faq" className="relative py-24 px-4 sm:px-6 max-w-[840px] mx-auto border-t border-white/[0.08] scroll-mt-24">
-        <div className="text-center mb-16">
-          <div className="hero-badge">
-            <span className="hero-badge-text">Frequently Asked Questions</span>
+      <section id="pricing" className="py-12 sm:py-20 px-4 sm:px-6 max-w-4xl mx-auto">
+        <div className="text-center mb-8">
+          <div className="badge-pill mb-2">
+            <span>Direct Access</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-medium tracking-tight text-white">
-            Everything you need to know.
+          <h2 className="font-display text-2xl sm:text-4xl font-bold text-white tracking-tight">
+            Claim The Self-Mastery Guide
+          </h2>
+          <p className="text-xs sm:text-sm text-[#a8c2b1] mt-1.5">
+            One-time payment of $19. Lifetime updates. Fully credited forward to the upcoming app.
+          </p>
+        </div>
+
+        <div className="scale-card p-6 sm:p-10 border-[#30523c] bg-[#15261d] shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-48 h-48 bg-[#3d6849]/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="text-center pb-6 border-b border-[#233b2c]">
+            <span className="text-[11px] uppercase tracking-widest text-[#86bf9a] font-bold">
+              Immediate Digital Access
+            </span>
+            <div className="text-4xl sm:text-5xl font-extrabold text-white mt-1">
+              $19
+            </div>
+            <div className="text-xs text-[#9eb6a6] mt-1">
+              One-time payment • No recurring charges
+            </div>
+          </div>
+
+          {/* Inclusions: 2-column grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 my-8 text-xs sm:text-sm text-[#d4e3d9]">
+            <div className="flex items-start gap-2.5">
+              <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+              <span><strong>112 Interactive Pages</strong> for iPhone, iPad &amp; Android</span>
+            </div>
+            <div className="flex items-start gap-2.5">
+              <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+              <span><strong>All 47 Frameworks</strong> on composure, focus &amp; boundaries</span>
+            </div>
+            <div className="flex items-start gap-2.5">
+              <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+              <span><strong>47 Evening Audits</strong> to confront unkept promises</span>
+            </div>
+            <div className="flex items-start gap-2.5">
+              <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+              <span><strong>Print Margins Included</strong> for notebook handwriting</span>
+            </div>
+            <div className="flex items-start gap-2.5">
+              <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+              <span><strong>Instant Download</strong> immediately after Stripe checkout</span>
+            </div>
+            <div className="flex items-start gap-2.5">
+              <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+              <span><strong>Permanent Backup Link</strong> delivered straight to email</span>
+            </div>
+          </div>
+
+          <button
+            onClick={handleTriggerCheckout}
+            className="btn-primary w-full py-3.5 sm:py-4 text-sm font-bold justify-center"
+          >
+            <span>Claim The Guide Now — $19</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+
+          <p className="text-center text-[11px] text-[#86a38f] mt-4 font-light">
+            <strong className="text-white font-medium">Founder's Credit:</strong> Your $19 purchase is 100% credited toward lifetime access to the upcoming Life Reset mobile app upon release.
+          </p>
+        </div>
+      </section>
+
+      {/* =========================================================================
+         9. SECTION: FREQUENTLY ASKED QUESTIONS
+         ========================================================================= */}
+      <section id="faq" className="py-12 sm:py-16 px-4 sm:px-6 max-w-3xl mx-auto border-t border-[#233a2c]">
+        <div className="text-center mb-8">
+          <div className="badge-pill mb-2">
+            <span>Clarifications</span>
+          </div>
+          <h2 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            Frequently Asked Questions
           </h2>
         </div>
 
-        <div className="divide-y divide-white/[0.08]">
+        <div className="divide-y divide-[#233a2c]">
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="py-5 cursor-pointer group"
+              className="py-4 cursor-pointer group"
               onClick={() => setOpenFaq(openFaq === index ? null : index)}
             >
               <div className="flex items-center justify-between gap-4">
-                <h4 className="text-base sm:text-lg font-medium text-white group-hover:text-[#ba9cff] transition-colors">{faq.q}</h4>
+                <h4 className="text-sm sm:text-base font-semibold text-[#f0ede6] group-hover:text-white transition-colors">
+                  {faq.q}
+                </h4>
                 <ChevronDown
-                  className={`w-5 h-5 text-zinc-400 transition-transform duration-300 shrink-0 ${
-                    openFaq === index ? "rotate-180 text-[#ba9cff]" : ""
+                  className={`w-4 h-4 text-[#8aa694] transition-transform duration-200 shrink-0 ${
+                    openFaq === index ? "rotate-180 text-white" : ""
                   }`}
                 />
               </div>
 
               {openFaq === index && (
-                <p className="text-sm text-[#efedfdb3] mt-4 leading-relaxed font-light pt-2">
+                <p className="text-xs sm:text-sm text-[#a8c2b1] mt-2.5 leading-relaxed font-light">
                   {faq.a}
                 </p>
               )}
@@ -1007,19 +1083,23 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-         REFLECT EXACT FOOTER
+         10. FOOTER: OFFICIAL LOGO + COMMUNITY LINKS + PRIVATE ADMIN LINK
          ========================================================================= */}
-      <footer className="relative py-14 px-4 sm:px-6 border-t border-white/[0.08] text-center text-xs text-[#efedfd99]">
-        <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
-            <div className="w-6 h-6 rounded-md bg-gradient-to-tr from-[#9382ff] to-[#e59cff] flex items-center justify-center text-black font-extrabold text-[10px]">
-              R
-            </div>
-            <span className="font-semibold text-white">@ourlife.reset</span>
-            <span>• The Self-Mastery Guide &amp; Workbook</span>
+      <footer className="border-t border-[#203627] py-10 px-4 sm:px-6 text-xs text-[#8aa694]">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-2.5">
+            <Image
+              src="/logo-with-bg.png"
+              alt="Our Life Reset Logo"
+              width={26}
+              height={26}
+              className="rounded-md border border-[#2b4936]"
+            />
+            <span className="font-bold text-white">@ourlife.reset</span>
+            <span>• The Self-Mastery Manual</span>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-5 text-xs">
             <a
               href="https://instagram.com/ourlife.reset"
               target="_blank"
@@ -1031,12 +1111,13 @@ export default function HomePage() {
             <a href="/refund-policy" className="hover:text-white transition-colors">
               Refund Policy
             </a>
-            <a href="#pricing" className="text-[#ba9cff] font-medium hover:underline">
-              Download Guide ($19)
-            </a>
+            <Link href="/admin" className="text-[#86bf9a] hover:underline font-medium">
+              Founder Console
+            </Link>
           </div>
         </div>
-        <div className="mt-8 text-zinc-600 text-[11px]">
+
+        <div className="text-center text-[11px] text-[#5e7868] mt-6">
           &copy; {new Date().getFullYear()} Our Life Reset. Reset your mind. Control your life.
         </div>
       </footer>

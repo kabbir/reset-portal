@@ -1,0 +1,29 @@
+[
+  {
+    "id": "app-1",
+    "name": "Harrison Cole",
+    "email": "h.cole@nexusgrowth.io",
+    "handle": "@harrisoncole",
+    "date": "October 21, 2026",
+    "reason": "I run a B2B SaaS startup doing $40k MRR. Looking for peers who don't talk about 'grinding' on Twitter, but quietly stay locked in on daily execution and emotional composure under immense stress.",
+    "status": "approved"
+  },
+  {
+    "id": "app-2",
+    "name": "Elena Rostova",
+    "email": "elena.rostova@atelier-arch.com",
+    "handle": "@elena.arch",
+    "date": "October 20, 2026",
+    "reason": "Architect running my own studio in London. I need an uncompromising circle of high-agency thinkers who value depth, taste, and emotional discipline over cheap digital distractions.",
+    "status": "pending"
+  },
+  {
+    "id": "app-3",
+    "name": "Daniel Kim",
+    "email": "daniel.k@solacapital.com",
+    "handle": "@danielkim_ny",
+    "date": "October 19, 2026",
+    "reason": "Managing partner at a private fund. The Self-Mastery Guide completely re-anchored my daily morning routine. I want to contribute and surround myself with serious people who hold each other to the highest standard.",
+    "status": "approved"
+  }
+]

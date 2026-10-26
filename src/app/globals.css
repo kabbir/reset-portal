@@ -49,8 +49,14 @@
   font-family: var(--font-playfair), Georgia, serif;
 }
 
-/* Scale.com Inspired Button Styles */
-.scale-btn-primary {
+/* =========================================================================
+   SCALE.COM CLONED ANIMATIONS & MICRO-INTERACTIONS
+   ========================================================================= */
+
+/* Scale.com Dual-Arrow Sliding CTA Button */
+.scale-cta-btn {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -59,44 +65,164 @@
   color: #ffffff;
   font-weight: 600;
   border-radius: 9999px;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 2px 6px rgba(27, 56, 38, 0.15);
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
   border: 1px solid #142a1d;
-  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(27, 56, 38, 0.18);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.scale-btn-primary:hover {
+.scale-cta-btn:hover {
   background-color: #244b33;
-  transform: translateY(-1px) scale(0.99);
-  box-shadow: 0 6px 18px rgba(27, 56, 38, 0.22);
-}
-
-.scale-btn-primary:active {
-  transform: translateY(0) scale(0.98);
-}
-
-.scale-btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background-color: #ffffff;
-  color: #1b3826;
-  font-weight: 600;
-  border-radius: 9999px;
-  border: 1px solid #dcd8cd;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-  cursor: pointer;
-}
-
-.scale-btn-secondary:hover {
-  background-color: #f5f4ee;
-  border-color: #b8b3a4;
+  box-shadow: 0 8px 24px rgba(27, 56, 38, 0.26);
   transform: translateY(-1px);
 }
 
-/* Seamless Inputs for Concierge Application (Light Mode) */
+.scale-cta-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Sliding Background Sheen (from Scale.com FlatCta) */
+.scale-cta-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.scale-cta-btn:hover .scale-cta-sheen {
+  transform: translateX(100%);
+}
+
+/* Scale.com 200% Sliding Arrow Icon */
+.scale-arrow-track {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 200%;
+  transform: translateX(-50%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scale-cta-btn:hover .scale-arrow-track {
+  transform: translateX(0%);
+}
+
+/* Scale.com Animated Border Beam */
+@keyframes borderBeamRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.scale-border-beam {
+  position: relative;
+  border-radius: inherit;
+}
+
+.scale-border-beam::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 60deg,
+    #1b3826 120deg,
+    #34d399 180deg,
+    #1b3826 240deg,
+    transparent 300deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: borderBeamRotate 5s linear infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Scale.com Infinite Proof Marquee */
+@keyframes scaleMarquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scale-marquee {
+  display: flex;
+  width: max-content;
+  animation: scaleMarquee 25s linear infinite;
+}
+
+.animate-scale-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Floating Ambient Glow Orbs */
+@keyframes pulseGlowSlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1) translate(10px, -10px);
+  }
+}
+
+.animate-glow-orb-1 {
+  animation: pulseGlowSlow 8s ease-in-out infinite;
+}
+
+.animate-glow-orb-2 {
+  animation: pulseGlowSlow 10s ease-in-out infinite 4s;
+}
+
+/* Dynamic Rotating Header Ticker */
+@keyframes textTickerSlide {
+  0%, 15% {
+    transform: translateY(0%);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  20%, 35% {
+    transform: translateY(-20%);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  40%, 55% {
+    transform: translateY(-40%);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  60%, 75% {
+    transform: translateY(-60%);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  80%, 95% {
+    transform: translateY(-80%);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+    filter: blur(2px);
+  }
+}
+
+/* Seamless Inputs */
 .input-seamless {
   width: 100%;
   background: transparent;
@@ -115,27 +241,6 @@
 
 .input-seamless::placeholder {
   color: #929d96;
-}
-
-/* Scale.com style subtle glow */
-.scale-radial-glow {
-  background: radial-gradient(ellipse at 50% 0%, rgba(27, 56, 38, 0.06) 0%, rgba(251, 250, 246, 0) 70%);
-}
-
-/* Consecutive Step Animations */
-@keyframes scaleSlideUp {
-  0% {
-    opacity: 0;
-    transform: translateY(16px) scale(0.98);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.animate-scale-step {
-  animation: scaleSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Custom scrollbars */

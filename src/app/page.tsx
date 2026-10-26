@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   Check,
@@ -16,7 +17,8 @@ import {
   RefreshCw,
   MessageSquarePlus,
   X,
-  Play
+  ShieldCheck,
+  Zap
 } from "lucide-react";
 
 /* --- Live Stripe Checkout Link --- */
@@ -32,8 +34,35 @@ interface ReviewItem {
   comment: string;
 }
 
+const ROTATING_PILLARS = [
+  "Internal Discipline",
+  "Emotional Composure",
+  "Account Sovereignty",
+  "Viral Reel Reach",
+  "Predictable Cashflow"
+];
+
+const MARQUEE_ITEMS = [
+  "@ourlife.reset · 30,000+ Followers",
+  "Millions of Monthly Impressions",
+  "Viral Hook Pacing & Retention",
+  "47 Nightly Accountability Audits",
+  "Zero Fluff · Pure Daily Execution",
+  "100% Credited Toward Future Mobile App"
+];
+
 export default function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  /* Dynamic Rotating Header Index (Scale.com signature) */
+  const [tickerIndex, setTickerIndex] = useState<number>(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTickerIndex((prev) => (prev + 1) % ROTATING_PILLARS.length);
+    }, 2400);
+    return () => clearInterval(interval);
+  }, []);
 
   /* Interactive Yes/No Questionnaire State */
   const [currentStep, setCurrentStep] = useState<number>(0);
@@ -117,7 +146,7 @@ export default function HomePage() {
         setAllocatedTrack("creator_growth");
       }
       setCurrentStep(3);
-    }, 1000);
+    }, 1200);
   };
 
   const handleResetDiagnostic = () => {
@@ -220,9 +249,17 @@ export default function HomePage() {
   return (
     <div className="relative min-h-screen w-full max-w-full bg-[#fbfaf6] text-[#121814] font-sans overflow-x-clip selection:bg-[#1b3826] selection:text-white">
       {/* =========================================================================
+         BACKGROUND AMBIENT ANIMATIONS: SCALE.COM DRIFTING GLOW ORBS
+         ========================================================================= */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden -z-10">
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[650px] h-[400px] bg-gradient-to-b from-emerald-300/15 via-emerald-100/5 to-transparent rounded-full blur-3xl animate-glow-orb-1" />
+        <div className="absolute top-96 -left-32 w-[500px] h-[350px] bg-gradient-to-tr from-stone-200/40 to-transparent rounded-full blur-3xl animate-glow-orb-2" />
+      </div>
+
+      {/* =========================================================================
          1. TOP NAVIGATION: CLEAN, LIGHT, INSTITUTIONAL TRUST
          ========================================================================= */}
-      <header className="sticky top-0 z-50 w-full bg-[#fbfaf6]/90 backdrop-blur-md border-b border-[#e7e5dc]">
+      <header className="sticky top-0 z-50 w-full bg-[#fbfaf6]/90 backdrop-blur-md border-b border-[#e7e5dc] transition-all">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
             <Image
@@ -230,14 +267,20 @@ export default function HomePage() {
               alt="Our Life Reset Official Logo"
               width={30}
               height={30}
-              className="rounded-md border border-[#d8d5cb] shadow-xs"
+              className="rounded-md border border-[#d8d5cb] shadow-xs group-hover:scale-105 transition-transform duration-300"
               priority
             />
             <div className="flex flex-col">
               <span className="text-sm font-bold tracking-tight text-[#121814] group-hover:text-[#1b3826] transition-colors">
                 @ourlife.reset
               </span>
-              <span className="text-[10px] text-[#798a80] -mt-0.5 font-medium">Verified Diagnostic</span>
+              <div className="flex items-center gap-1.5 -mt-0.5">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-600" />
+                </span>
+                <span className="text-[10px] text-[#798a80] font-medium">Diagnostic Live</span>
+              </div>
             </div>
           </Link>
 
@@ -245,10 +288,20 @@ export default function HomePage() {
             {allocatedTrack === "self_mastery" && (
               <button
                 onClick={handleTriggerCheckout}
-                className="scale-btn-primary py-1.5 px-3.5 sm:px-4 text-xs font-semibold"
+                className="scale-cta-btn py-1.5 px-3.5 sm:px-4 text-xs font-semibold"
               >
-                <span>Get Guide — $19</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <div className="scale-cta-sheen" />
+                <span className="relative z-10">Get Guide — $19</span>
+                <div className="relative z-10 w-3.5 h-3.5 overflow-hidden">
+                  <div className="scale-arrow-track">
+                    <span className="w-1/2 flex items-center justify-center">
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                    <span className="w-1/2 flex items-center justify-center">
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  </div>
+                </div>
               </button>
             )}
 
@@ -258,7 +311,7 @@ export default function HomePage() {
                 className="inline-flex items-center gap-1.5 text-xs text-[#526359] hover:text-[#121814] transition-colors"
                 title="Restart Diagnostic"
               >
-                <RefreshCw className="w-3 h-3" />
+                <RefreshCw className="w-3 h-3 hover:rotate-180 transition-transform duration-500" />
                 <span className="hidden sm:inline">Start Over</span>
               </button>
             )}
@@ -267,11 +320,11 @@ export default function HomePage() {
       </header>
 
       {/* =========================================================================
-         2. CORE HERO: PROVEN MONTAGE VIDEO & RAPID YES/NO DIAGNOSTIC
+         2. CORE HERO: PROVEN MONTAGE VIDEO & SCALE.COM ANIMATIONS
          ========================================================================= */}
-      <main className="relative pt-6 sm:pt-12 pb-16 sm:pb-20 px-4 sm:px-6 max-w-2xl mx-auto">
-        {/* Scale.com Style Ambient Video Window Proof */}
-        <div className="mb-6 sm:mb-8 rounded-2xl overflow-hidden border border-[#e2dfd4] bg-[#f0eee6] shadow-sm relative group">
+      <main className="relative pt-6 sm:pt-10 pb-16 sm:pb-20 px-4 sm:px-6 max-w-2xl mx-auto">
+        {/* Scale.com Style Animated Border Beam Video Container */}
+        <div className="mb-6 sm:mb-8 rounded-2xl overflow-hidden border border-[#d8d4c7] bg-[#f0eee6] shadow-sm relative group scale-border-beam">
           <div className="relative aspect-16/9 w-full bg-black">
             <video
               src="/videos/creator_montage.mp4"
@@ -283,40 +336,89 @@ export default function HomePage() {
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
+            
+            {/* Live Indicator Badges */}
+            <div className="absolute top-3 left-3 flex items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-mono uppercase tracking-wide">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                <span>Creator Proof</span>
+              </span>
+            </div>
+
             <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white text-[11px] sm:text-xs">
               <div className="flex items-center gap-1.5 font-medium">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Viral Reel Pacing &amp; Creator Blueprints</span>
+                <Zap className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Viral Pacing &amp; Retention Engineering</span>
               </div>
               <span className="text-white/80 font-mono text-[10px]">@ourlife.reset · 30K+</span>
             </div>
           </div>
         </div>
 
-        {/* Title */}
+        {/* Scale.com Infinite Proof Marquee */}
+        <div className="overflow-hidden border-y border-[#e7e5dc] py-2 mb-6 sm:mb-8 bg-white/50 backdrop-blur-xs">
+          <div className="animate-scale-marquee gap-8 items-center text-[10px] font-mono uppercase tracking-widest text-[#55665c]">
+            {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, idx) => (
+              <span key={idx} className="flex items-center gap-3 shrink-0">
+                <span>{item}</span>
+                <span className="text-[#bbb8ad]">✦</span>
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Dynamic Scale.com Heading & Rotating Word Ticker */}
         <div className="text-center mb-6 sm:mb-8">
-          <h1 className="font-display text-2xl sm:text-4xl lg:text-[40px] font-bold tracking-tight text-[#121814] leading-[1.18]">
+          <h1 className="font-display text-2xl sm:text-4xl lg:text-[42px] font-bold tracking-tight text-[#121814] leading-[1.15]">
             Reset your mind. <br />
             <span className="text-[#1b3826]">Control your life.</span>
           </h1>
 
-          <p className="mt-2.5 text-xs sm:text-sm text-[#4a5950] max-w-md mx-auto font-normal leading-relaxed">
-            Answer 3 quick Yes or No questions to pinpoint your immediate bottleneck and get routed to your personal action track.
+          {/* Scale.com Signature Rotating Pillar Ticker */}
+          <div className="mt-3 flex items-center justify-center gap-2">
+            <span className="text-xs sm:text-sm text-[#5b6e62] font-normal">
+              Built for
+            </span>
+            <div className="relative h-7 overflow-hidden flex items-center justify-center min-w-[170px] sm:min-w-[190px]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={tickerIndex}
+                  initial={{ y: 20, opacity: 0, filter: "blur(4px)" }}
+                  animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                  exit={{ y: -20, opacity: 0, filter: "blur(4px)" }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="absolute inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#1b3826]/10 border border-[#1b3826]/20 text-[#1b3826] font-bold text-xs sm:text-sm tracking-wide"
+                >
+                  <span>{ROTATING_PILLARS[tickerIndex]}</span>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+
+          <p className="mt-2 text-xs sm:text-sm text-[#4a5950] max-w-md mx-auto font-normal leading-relaxed">
+            Answer 3 quick Yes or No questions to diagnose your exact leverage point and get routed to your personal action track.
           </p>
 
-          {/* Progress Indicator */}
+          {/* Progress Indicator with Animated Width */}
           {currentStep < 3 && (
             <div className="flex items-center justify-center gap-2 mt-4 sm:mt-5">
               {[0, 1, 2].map((stepIdx) => (
-                <div
+                <motion.div
                   key={stepIdx}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    stepIdx === currentStep
-                      ? "w-8 bg-[#1b3826]"
-                      : stepIdx < currentStep
-                      ? "w-4 bg-[#7a9985]"
-                      : "w-3 bg-[#e0ded6]"
-                  }`}
+                  animate={{
+                    width: stepIdx === currentStep ? 32 : stepIdx < currentStep ? 16 : 12,
+                    backgroundColor:
+                      stepIdx === currentStep
+                        ? "#1b3826"
+                        : stepIdx < currentStep
+                        ? "#7a9985"
+                        : "#e0ded6"
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="h-1.5 rounded-full"
                 />
               ))}
               <span className="text-[10px] font-mono text-[#66776e] uppercase tracking-wider ml-1.5">
@@ -327,494 +429,563 @@ export default function HomePage() {
         </div>
 
         {/* =========================================================================
-           QUESTION 1: OVERTHINKING / INTERNAL DISCIPLINE (YES / NO)
+           CONSECUTIVE YES/NO QUESTIONS WITH FRAMER-MOTION SMOOTH STEP SLIDES
            ========================================================================= */}
-        {currentStep === 0 && (
-          <div className="animate-scale-step pt-2">
-            <div className="text-center mb-5 sm:mb-6">
-              <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-[#1b3826] font-semibold">
-                Question 01
-              </span>
-              <h2 className="text-base sm:text-2xl font-bold text-[#121814] mt-1 leading-snug break-words">
-                Do you struggle with overthinking, emotional reactivity, or broken daily discipline?
-              </h2>
-              <p className="text-[11px] sm:text-xs text-[#5b6e62] mt-1.5 max-w-sm mx-auto leading-relaxed">
-                You know what you need to do, but slip into late-night analysis paralysis, hesitation, or reacting before thinking.
-              </p>
-            </div>
-
-            {/* Tactile Scale.com-style YES / NO Buttons */}
-            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 w-full max-w-md mx-auto">
-              <button
-                onClick={() => handleAnswerStep1(true)}
-                className="group relative flex flex-col items-center justify-center py-4 sm:py-6 px-2 sm:px-4 rounded-xl border-2 border-[#1b3826] bg-[#1b3826] text-white hover:bg-[#244b33] transition-all duration-200 shadow-xs active:scale-95 cursor-pointer w-full"
-              >
-                <span className="text-sm sm:text-lg font-bold tracking-wider uppercase">
-                  YES
+        <AnimatePresence mode="wait">
+          {/* QUESTION 1: OVERTHINKING / INTERNAL DISCIPLINE */}
+          {currentStep === 0 && (
+            <motion.div
+              key="step-0"
+              initial={{ opacity: 0, y: 16, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -16, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="pt-2"
+            >
+              <div className="text-center mb-5 sm:mb-6">
+                <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-[#1b3826] font-semibold">
+                  Question 01
                 </span>
-                <span className="text-[10px] sm:text-[11px] text-emerald-200/90 font-light mt-0.5 text-center leading-tight">
-                  I struggle with this
-                </span>
-              </button>
-
-              <button
-                onClick={() => handleAnswerStep1(false)}
-                className="group relative flex flex-col items-center justify-center py-4 sm:py-6 px-2 sm:px-4 rounded-xl border-2 border-[#d5d2c6] bg-white text-[#121814] hover:border-[#1b3826] hover:bg-[#faf9f5] transition-all duration-200 shadow-xs active:scale-95 cursor-pointer w-full"
-              >
-                <span className="text-sm sm:text-lg font-bold tracking-wider uppercase">
-                  NO
-                </span>
-                <span className="text-[10px] sm:text-[11px] text-[#6d7e74] font-light mt-0.5 text-center leading-tight">
-                  My mind is disciplined
-                </span>
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* =========================================================================
-           QUESTION 2: FINANCIAL STABILITY (YES / NO)
-           ========================================================================= */}
-        {currentStep === 1 && (
-          <div className="animate-scale-step pt-2">
-            <div className="text-center mb-5 sm:mb-6">
-              <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-[#1b3826] font-semibold">
-                Question 02
-              </span>
-              <h2 className="text-base sm:text-2xl font-bold text-[#121814] mt-1 leading-snug break-words">
-                Are you currently financially stable and earning consistent income?
-              </h2>
-              <p className="text-[11px] sm:text-xs text-[#5b6e62] mt-1.5 max-w-sm mx-auto leading-relaxed">
-                Your living expenses, baseline savings, and recurring cash flow are comfortable and predictable.
-              </p>
-            </div>
-
-            {/* Tactile Scale.com-style YES / NO Buttons */}
-            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 w-full max-w-md mx-auto">
-              <button
-                onClick={() => handleAnswerStep2(true)}
-                className="group relative flex flex-col items-center justify-center py-4 sm:py-6 px-2 sm:px-4 rounded-xl border-2 border-[#1b3826] bg-[#1b3826] text-white hover:bg-[#244b33] transition-all duration-200 shadow-xs active:scale-95 cursor-pointer w-full"
-              >
-                <span className="text-sm sm:text-lg font-bold tracking-wider uppercase">
-                  YES
-                </span>
-                <span className="text-[10px] sm:text-[11px] text-emerald-200/90 font-light mt-0.5 text-center leading-tight">
-                  I am financially stable
-                </span>
-              </button>
-
-              <button
-                onClick={() => handleAnswerStep2(false)}
-                className="group relative flex flex-col items-center justify-center py-4 sm:py-6 px-2 sm:px-4 rounded-xl border-2 border-[#d5d2c6] bg-white text-[#121814] hover:border-[#1b3826] hover:bg-[#faf9f5] transition-all duration-200 shadow-xs active:scale-95 cursor-pointer w-full"
-              >
-                <span className="text-sm sm:text-lg font-bold tracking-wider uppercase">
-                  NO
-                </span>
-                <span className="text-[10px] sm:text-[11px] text-[#6d7e74] font-light mt-0.5 text-center leading-tight">
-                  I need to build income
-                </span>
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* =========================================================================
-           QUESTION 3: IMMEDIATE GOAL - AUDIENCE & ONLINE INCOME (YES / NO)
-           ========================================================================= */}
-        {currentStep === 2 && !isAnalyzing && (
-          <div className="animate-scale-step pt-2">
-            <div className="text-center mb-5 sm:mb-6">
-              <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-[#1b3826] font-semibold">
-                Question 03
-              </span>
-              <h2 className="text-base sm:text-2xl font-bold text-[#121814] mt-1 leading-snug break-words">
-                Is your #1 goal right now to grow an audience and build an online income?
-              </h2>
-              <p className="text-[11px] sm:text-xs text-[#5b6e62] mt-1.5 max-w-sm mx-auto leading-relaxed">
-                You want to master viral reach, learn how to grow an account superfast, and monetize audience attention.
-              </p>
-            </div>
-
-            {/* Tactile Scale.com-style YES / NO Buttons */}
-            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 w-full max-w-md mx-auto">
-              <button
-                onClick={() => handleAnswerStep3(true)}
-                className="group relative flex flex-col items-center justify-center py-4 sm:py-6 px-2 sm:px-4 rounded-xl border-2 border-[#1b3826] bg-[#1b3826] text-white hover:bg-[#244b33] transition-all duration-200 shadow-xs active:scale-95 cursor-pointer w-full"
-              >
-                <span className="text-sm sm:text-lg font-bold tracking-wider uppercase">
-                  YES
-                </span>
-                <span className="text-[10px] sm:text-[11px] text-emerald-200/90 font-light mt-0.5 text-center leading-tight">
-                  Focus on income &amp; views
-                </span>
-              </button>
-
-              <button
-                onClick={() => handleAnswerStep3(false)}
-                className="group relative flex flex-col items-center justify-center py-4 sm:py-6 px-2 sm:px-4 rounded-xl border-2 border-[#d5d2c6] bg-white text-[#121814] hover:border-[#1b3826] hover:bg-[#faf9f5] transition-all duration-200 shadow-xs active:scale-95 cursor-pointer w-full"
-              >
-                <span className="text-sm sm:text-lg font-bold tracking-wider uppercase">
-                  NO
-                </span>
-                <span className="text-[10px] sm:text-[11px] text-[#6d7e74] font-light mt-0.5 text-center leading-tight">
-                  Focus on internal mastery
-                </span>
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* =========================================================================
-           ANALYZING STATE (Scale.com style 1.0s Pulse)
-           ========================================================================= */}
-        {isAnalyzing && (
-          <div className="py-12 text-center space-y-3 animate-scale-step">
-            <div className="w-8 h-8 border-2 border-[#1b3826] border-t-transparent rounded-full animate-spin mx-auto" />
-            <h3 className="text-sm font-bold text-[#121814]">Synthesizing Diagnostic Responses...</h3>
-            <p className="text-xs text-[#6a7d73]">Routing your answers to the highest-leverage path.</p>
-          </div>
-        )}
-
-        {/* =========================================================================
-           ALLOCATION OUTCOME A: THE SELF-MASTERY TRACK ($19 GUIDE)
-           ========================================================================= */}
-        {currentStep === 3 && allocatedTrack === "self_mastery" && (
-          <div className="space-y-6 animate-scale-step pt-1">
-            {/* Header */}
-            <div className="border-b border-[#e5e2d6] pb-4">
-              <span className="text-[11px] font-mono uppercase tracking-widest text-[#1b3826] font-bold">
-                Allocation Confirmed • Track 01
-              </span>
-              <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#121814] mt-1">
-                Internal Self-Command &amp; Composure
-              </h2>
-              <p className="text-xs sm:text-sm text-[#4a5950] mt-1.5 leading-relaxed font-normal">
-                You already have financial stability. Consuming more business noise will not cure emotional reactivity or late-night overthinking. Your highest leverage point is structured daily written self-command.
-              </p>
-            </div>
-
-            {/* Video Preview: Journaling & Digital Workbook Loop */}
-            <div className="rounded-xl overflow-hidden border border-[#e2dfd4] bg-[#f0eee6] shadow-sm relative">
-              <div className="relative aspect-16/9 w-full bg-black">
-                <video
-                  src="/videos/self_mastery_preview.mp4"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-                <div className="absolute bottom-2.5 left-3 right-3 text-white text-[11px] flex items-center justify-between">
-                  <span className="font-medium">112-Page Workbook · Read 1 Page, Write 1 Page</span>
-                  <span className="text-white/80 font-mono text-[10px]">Apple Books &amp; GoodNotes</span>
-                </div>
-              </div>
-            </div>
-
-            {/* The Guide Deliverables */}
-            <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <BookOpen className="w-4 h-4 text-[#1b3826]" />
-                <h3 className="text-base font-bold text-[#121814]">
-                  What&apos;s Inside The Self-Mastery Manual:
-                </h3>
+                <h2 className="text-base sm:text-2xl font-bold text-[#121814] mt-1 leading-snug break-words">
+                  Do you struggle with overthinking, emotional reactivity, or broken daily discipline?
+                </h2>
+                <p className="text-[11px] sm:text-xs text-[#5b6e62] mt-1.5 max-w-sm mx-auto leading-relaxed">
+                  You know what you need to do, but slip into late-night analysis paralysis, hesitation, or reacting before thinking.
+                </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-[#303d35]">
-                <div className="flex items-start gap-2">
-                  <Check className="w-3.5 h-3.5 text-[#1b3826] shrink-0 mt-0.5" />
-                  <span><strong>The 3-Second Delay:</strong> Pause and disarm disrespect with silence.</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Check className="w-3.5 h-3.5 text-[#1b3826] shrink-0 mt-0.5" />
-                  <span><strong>Evening Accountability:</strong> 3 nightly audits to inspect slipped composure.</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Check className="w-3.5 h-3.5 text-[#1b3826] shrink-0 mt-0.5" />
-                  <span><strong>47 Frameworks:</strong> Set clear personal boundaries without apology.</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <Check className="w-3.5 h-3.5 text-[#1b3826] shrink-0 mt-0.5" />
-                  <span><strong>Instant Download:</strong> Digital fillable PDF formatted for phone &amp; tablet.</span>
-                </div>
-              </div>
-
-              {/* Direct Purchase CTA */}
-              <div className="pt-3 flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#f5f4ee] p-4 rounded-xl border border-[#e5e3d7]">
-                <div>
-                  <div className="text-2xl font-extrabold text-[#121814]">
-                    $19 <span className="text-xs text-[#6a7d73] font-normal">One-time payment</span>
-                  </div>
-                  <div className="text-[11px] text-[#4a5950]">
-                    100% credited toward the upcoming Life Reset mobile app.
-                  </div>
-                </div>
-
-                <button
-                  onClick={handleTriggerCheckout}
-                  className="scale-btn-primary w-full sm:w-auto py-3 px-6 text-xs sm:text-sm font-bold"
+              {/* Tactile Scale.com-style YES / NO Buttons with Spring Physics */}
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-4 w-full max-w-md mx-auto">
+                <motion.button
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => handleAnswerStep1(true)}
+                  className="group relative flex flex-col items-center justify-center py-4 sm:py-6 px-2 sm:px-4 rounded-xl border-2 border-[#1b3826] bg-[#1b3826] text-white hover:bg-[#244b33] transition-colors shadow-sm cursor-pointer w-full overflow-hidden"
                 >
-                  <span>Claim The Guide — $19</span>
-                  <ArrowRight className="w-4 h-4 ml-1" />
-                </button>
-              </div>
+                  <div className="scale-cta-sheen" />
+                  <span className="text-sm sm:text-lg font-bold tracking-wider uppercase relative z-10">
+                    YES
+                  </span>
+                  <span className="text-[10px] sm:text-[11px] text-emerald-200/90 font-light mt-0.5 text-center leading-tight relative z-10">
+                    I struggle with this
+                  </span>
+                </motion.button>
 
-              {/* Switch Track Option */}
-              <div className="pt-3 flex items-center justify-between text-xs text-[#6a7d73]">
-                <button
-                  onClick={handleResetDiagnostic}
-                  className="hover:text-[#121814] transition-colors flex items-center gap-1"
+                <motion.button
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => handleAnswerStep1(false)}
+                  className="group relative flex flex-col items-center justify-center py-4 sm:py-6 px-2 sm:px-4 rounded-xl border-2 border-[#d5d2c6] bg-white text-[#121814] hover:border-[#1b3826] hover:bg-[#faf9f5] transition-colors shadow-sm cursor-pointer w-full overflow-hidden"
                 >
-                  <RefreshCw className="w-3 h-3" />
-                  <span>Retake Diagnostic</span>
-                </button>
+                  <div className="scale-cta-sheen" />
+                  <span className="text-sm sm:text-lg font-bold tracking-wider uppercase relative z-10">
+                    NO
+                  </span>
+                  <span className="text-[10px] sm:text-[11px] text-[#6d7e74] font-light mt-0.5 text-center leading-tight relative z-10">
+                    My mind is disciplined
+                  </span>
+                </motion.button>
+              </div>
+            </motion.div>
+          )}
 
-                <button
-                  onClick={() => setAllocatedTrack("creator_growth")}
-                  className="text-[#1b3826] font-medium hover:underline"
+          {/* QUESTION 2: FINANCIAL STABILITY */}
+          {currentStep === 1 && (
+            <motion.div
+              key="step-1"
+              initial={{ opacity: 0, y: 16, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -16, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="pt-2"
+            >
+              <div className="text-center mb-5 sm:mb-6">
+                <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-[#1b3826] font-semibold">
+                  Question 02
+                </span>
+                <h2 className="text-base sm:text-2xl font-bold text-[#121814] mt-1 leading-snug break-words">
+                  Are you currently financially stable and earning consistent income?
+                </h2>
+                <p className="text-[11px] sm:text-xs text-[#5b6e62] mt-1.5 max-w-sm mx-auto leading-relaxed">
+                  Your living expenses, baseline savings, and recurring cash flow are comfortable and predictable.
+                </p>
+              </div>
+
+              {/* Tactile Scale.com-style YES / NO Buttons with Spring Physics */}
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-4 w-full max-w-md mx-auto">
+                <motion.button
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => handleAnswerStep2(true)}
+                  className="group relative flex flex-col items-center justify-center py-4 sm:py-6 px-2 sm:px-4 rounded-xl border-2 border-[#1b3826] bg-[#1b3826] text-white hover:bg-[#244b33] transition-colors shadow-sm cursor-pointer w-full overflow-hidden"
                 >
-                  Want to grow an account and make money instead?
-                </button>
+                  <div className="scale-cta-sheen" />
+                  <span className="text-sm sm:text-lg font-bold tracking-wider uppercase relative z-10">
+                    YES
+                  </span>
+                  <span className="text-[10px] sm:text-[11px] text-emerald-200/90 font-light mt-0.5 text-center leading-tight relative z-10">
+                    I am financially stable
+                  </span>
+                </motion.button>
+
+                <motion.button
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => handleAnswerStep2(false)}
+                  className="group relative flex flex-col items-center justify-center py-4 sm:py-6 px-2 sm:px-4 rounded-xl border-2 border-[#d5d2c6] bg-white text-[#121814] hover:border-[#1b3826] hover:bg-[#faf9f5] transition-colors shadow-sm cursor-pointer w-full overflow-hidden"
+                >
+                  <div className="scale-cta-sheen" />
+                  <span className="text-sm sm:text-lg font-bold tracking-wider uppercase relative z-10">
+                    NO
+                  </span>
+                  <span className="text-[10px] sm:text-[11px] text-[#6d7e74] font-light mt-0.5 text-center leading-tight relative z-10">
+                    I need to build income
+                  </span>
+                </motion.button>
               </div>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          )}
 
-        {/* =========================================================================
-           ALLOCATION OUTCOME B: THE CREATOR & VIRAL GROWTH CIRCLE
-           ========================================================================= */}
-        {currentStep === 3 && allocatedTrack === "creator_growth" && (
-          <div className="space-y-6 animate-scale-step pt-1">
-            {/* Header */}
-            <div className="border-b border-[#e5e2d6] pb-4">
-              <span className="text-[11px] font-mono uppercase tracking-widest text-[#1b3826] font-bold">
-                Allocation Confirmed • Track 02
-              </span>
-              <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#121814] mt-1">
-                The Creator &amp; Viral Growth Circle
-              </h2>
-              <p className="text-xs sm:text-sm text-[#4a5950] mt-1.5 leading-relaxed font-normal">
-                Self-discipline without financial sovereignty leads to frustration. Your primary leverage point is mastering organic attention: growing an account superfast, getting insane views, and monetizing your reach.
-              </p>
-            </div>
-
-            {/* Creator Video Montage */}
-            <div className="rounded-xl overflow-hidden border border-[#e2dfd4] bg-[#f0eee6] shadow-sm relative">
-              <div className="relative aspect-16/9 w-full bg-black">
-                <video
-                  src="/videos/creator_montage.mp4"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-                <div className="absolute bottom-2.5 left-3 right-3 text-white text-[11px] flex items-center justify-between">
-                  <span className="font-medium">Techniques Modeled on Top Creators</span>
-                  <span className="text-white/80 font-mono text-[10px]">@ourlife.reset Blueprint</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Growth Circle Deliverables */}
-            <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-[#1b3826]" />
-                <h3 className="text-base font-bold text-[#121814]">
-                  What You Will Master Inside The Circle:
-                </h3>
+          {/* QUESTION 3: IMMEDIATE GOAL - AUDIENCE & INCOME */}
+          {currentStep === 2 && !isAnalyzing && (
+            <motion.div
+              key="step-2"
+              initial={{ opacity: 0, y: 16, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -16, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="pt-2"
+            >
+              <div className="text-center mb-5 sm:mb-6">
+                <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-[#1b3826] font-semibold">
+                  Question 03
+                </span>
+                <h2 className="text-base sm:text-2xl font-bold text-[#121814] mt-1 leading-snug break-words">
+                  Is your #1 goal right now to grow an audience and build an online income?
+                </h2>
+                <p className="text-[11px] sm:text-xs text-[#5b6e62] mt-1.5 max-w-sm mx-auto leading-relaxed">
+                  You want to master viral reach, learn how to grow an account superfast, and monetize audience attention.
+                </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-[#303d35]">
-                <div className="space-y-0.5">
-                  <div className="font-bold text-[#121814] flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#1b3826]" />
-                    <span>Viral Hook Engineering</span>
-                  </div>
-                  <p className="text-[#55665c] text-[11px]">
-                    The exact script pacing and visual cuts that retain attention and generate millions of views per reel.
-                  </p>
-                </div>
+              {/* Tactile Scale.com-style YES / NO Buttons with Spring Physics */}
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-4 w-full max-w-md mx-auto">
+                <motion.button
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => handleAnswerStep3(true)}
+                  className="group relative flex flex-col items-center justify-center py-4 sm:py-6 px-2 sm:px-4 rounded-xl border-2 border-[#1b3826] bg-[#1b3826] text-white hover:bg-[#244b33] transition-colors shadow-sm cursor-pointer w-full overflow-hidden"
+                >
+                  <div className="scale-cta-sheen" />
+                  <span className="text-sm sm:text-lg font-bold tracking-wider uppercase relative z-10">
+                    YES
+                  </span>
+                  <span className="text-[10px] sm:text-[11px] text-emerald-200/90 font-light mt-0.5 text-center leading-tight relative z-10">
+                    Focus on income &amp; views
+                  </span>
+                </motion.button>
 
-                <div className="space-y-0.5">
-                  <div className="font-bold text-[#121814] flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#1b3826]" />
-                    <span>Monetization Funnel</span>
-                  </div>
-                  <p className="text-[#55665c] text-[11px]">
-                    How to turn casual viewers into paying community members and digital guide customers automatically.
-                  </p>
-                </div>
+                <motion.button
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => handleAnswerStep3(false)}
+                  className="group relative flex flex-col items-center justify-center py-4 sm:py-6 px-2 sm:px-4 rounded-xl border-2 border-[#d5d2c6] bg-white text-[#121814] hover:border-[#1b3826] hover:bg-[#faf9f5] transition-colors shadow-sm cursor-pointer w-full overflow-hidden"
+                >
+                  <div className="scale-cta-sheen" />
+                  <span className="text-sm sm:text-lg font-bold tracking-wider uppercase relative z-10">
+                    NO
+                  </span>
+                  <span className="text-[10px] sm:text-[11px] text-[#6d7e74] font-light mt-0.5 text-center leading-tight relative z-10">
+                    Focus on internal mastery
+                  </span>
+                </motion.button>
+              </div>
+            </motion.div>
+          )}
 
-                <div className="space-y-0.5">
-                  <div className="font-bold text-[#121814] flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#1b3826]" />
-                    <span>Rapid Account Scaling</span>
-                  </div>
-                  <p className="text-[#55665c] text-[11px]">
-                    Daily posting cadence, trending audio selection, and algorithm shortcuts to build an engaged audience.
-                  </p>
-                </div>
+          {/* ANALYZING STATE (Scale.com 1.2s Pulse) */}
+          {isAnalyzing && (
+            <motion.div
+              key="analyzing"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="py-12 text-center space-y-3"
+            >
+              <div className="w-9 h-9 border-2 border-[#1b3826] border-t-transparent rounded-full animate-spin mx-auto" />
+              <h3 className="text-sm font-bold text-[#121814]">Synthesizing Diagnostic Responses...</h3>
+              <p className="text-xs text-[#6a7d73]">Routing your profile to the highest-leverage path.</p>
+            </motion.div>
+          )}
 
-                <div className="space-y-0.5">
-                  <div className="font-bold text-[#121814] flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#1b3826]" />
-                    <span>Private Discord Network</span>
+          {/* ALLOCATION OUTCOME A: THE SELF-MASTERY TRACK ($19 GUIDE) */}
+          {currentStep === 3 && allocatedTrack === "self_mastery" && (
+            <motion.div
+              key="track-01"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-6 pt-1"
+            >
+              {/* Header */}
+              <div className="border-b border-[#e5e2d6] pb-4">
+                <span className="text-[11px] font-mono uppercase tracking-widest text-[#1b3826] font-bold">
+                  Allocation Confirmed • Track 01
+                </span>
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#121814] mt-1">
+                  Internal Self-Command &amp; Composure
+                </h2>
+                <p className="text-xs sm:text-sm text-[#4a5950] mt-1.5 leading-relaxed font-normal">
+                  You already have financial stability. Consuming more business noise will not cure emotional reactivity or late-night overthinking. Your highest leverage point is structured daily written self-command.
+                </p>
+              </div>
+
+              {/* Video Preview: Journaling & Digital Workbook Loop */}
+              <div className="rounded-xl overflow-hidden border border-[#d8d4c7] bg-[#f0eee6] shadow-sm relative scale-border-beam">
+                <div className="relative aspect-16/9 w-full bg-black">
+                  <video
+                    src="/videos/self_mastery_preview.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute bottom-2.5 left-3 right-3 text-white text-[11px] flex items-center justify-between">
+                    <span className="font-medium">112-Page Workbook · Read 1 Page, Write 1 Page</span>
+                    <span className="text-white/80 font-mono text-[10px]">Apple Books &amp; GoodNotes</span>
                   </div>
-                  <p className="text-[#55665c] text-[11px]">
-                    Direct access to fellow creators and our team locked in on building online income.
-                  </p>
                 </div>
               </div>
 
-              {/* Community Application Form */}
-              <div className="pt-4 border-t border-[#e2dfd4]">
-                <div className="mb-3">
-                  <h4 className="text-sm font-bold text-[#121814]">
-                    Apply for Private Community &amp; Discord Access
-                  </h4>
-                  <p className="text-xs text-[#55665c] font-light">
-                    Access is limited to maintain high caliber. We review each application personally.
-                  </p>
+              {/* The Guide Deliverables */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <BookOpen className="w-4 h-4 text-[#1b3826]" />
+                  <h3 className="text-base font-bold text-[#121814]">
+                    What&apos;s Inside The Self-Mastery Manual:
+                  </h3>
                 </div>
 
-                {appSubmitted ? (
-                  <div className="py-6 text-center bg-[#f0eee6] rounded-xl border border-[#dedbcf]">
-                    <CheckCircle2 className="w-8 h-8 text-[#1b3826] mx-auto mb-2" />
-                    <h4 className="text-sm font-bold text-[#121814]">Application Received</h4>
-                    <p className="text-xs text-[#55665c] mt-1 max-w-sm mx-auto">
-                      Thank you. We review every creator submission manually. If accepted, your Discord invite link and growth onboarding will be sent directly to your email.
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-[#303d35]">
+                  <div className="flex items-start gap-2">
+                    <Check className="w-3.5 h-3.5 text-[#1b3826] shrink-0 mt-0.5" />
+                    <span><strong>The 3-Second Delay:</strong> Pause and disarm disrespect with silence.</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Check className="w-3.5 h-3.5 text-[#1b3826] shrink-0 mt-0.5" />
+                    <span><strong>Evening Accountability:</strong> 3 nightly audits to inspect slipped composure.</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Check className="w-3.5 h-3.5 text-[#1b3826] shrink-0 mt-0.5" />
+                    <span><strong>47 Frameworks:</strong> Set clear personal boundaries without apology.</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Check className="w-3.5 h-3.5 text-[#1b3826] shrink-0 mt-0.5" />
+                    <span><strong>Instant Download:</strong> Digital fillable PDF formatted for phone &amp; tablet.</span>
+                  </div>
+                </div>
+
+                {/* Direct Purchase CTA with Scale.com Sliding Arrow */}
+                <div className="pt-3 flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#f5f4ee] p-4 rounded-xl border border-[#e5e3d7]">
+                  <div>
+                    <div className="text-2xl font-extrabold text-[#121814]">
+                      $19 <span className="text-xs text-[#6a7d73] font-normal">One-time payment</span>
+                    </div>
+                    <div className="text-[11px] text-[#4a5950]">
+                      100% credited toward the upcoming Life Reset mobile app.
+                    </div>
+                  </div>
+
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={handleTriggerCheckout}
+                    className="scale-cta-btn w-full sm:w-auto py-3 px-6 text-xs sm:text-sm font-bold"
+                  >
+                    <div className="scale-cta-sheen" />
+                    <span className="relative z-10">Claim The Guide — $19</span>
+                    <div className="relative z-10 w-4 h-4 overflow-hidden">
+                      <div className="scale-arrow-track">
+                        <span className="w-1/2 flex items-center justify-center">
+                          <ArrowRight className="w-4 h-4" />
+                        </span>
+                        <span className="w-1/2 flex items-center justify-center">
+                          <ArrowRight className="w-4 h-4" />
+                        </span>
+                      </div>
+                    </div>
+                  </motion.button>
+                </div>
+
+                {/* Switch Track Option */}
+                <div className="pt-3 flex items-center justify-between text-xs text-[#6a7d73]">
+                  <button
+                    onClick={handleResetDiagnostic}
+                    className="hover:text-[#121814] transition-colors flex items-center gap-1 cursor-pointer"
+                  >
+                    <RefreshCw className="w-3 h-3" />
+                    <span>Retake Diagnostic</span>
+                  </button>
+
+                  <button
+                    onClick={() => setAllocatedTrack("creator_growth")}
+                    className="text-[#1b3826] font-medium hover:underline cursor-pointer"
+                  >
+                    Want to grow an account and make money instead?
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* ALLOCATION OUTCOME B: THE CREATOR & VIRAL GROWTH CIRCLE */}
+          {currentStep === 3 && allocatedTrack === "creator_growth" && (
+            <motion.div
+              key="track-02"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-6 pt-1"
+            >
+              {/* Header */}
+              <div className="border-b border-[#e5e2d6] pb-4">
+                <span className="text-[11px] font-mono uppercase tracking-widest text-[#1b3826] font-bold">
+                  Allocation Confirmed • Track 02
+                </span>
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#121814] mt-1">
+                  The Creator &amp; Viral Growth Circle
+                </h2>
+                <p className="text-xs sm:text-sm text-[#4a5950] mt-1.5 leading-relaxed font-normal">
+                  Self-discipline without financial sovereignty leads to frustration. Your primary leverage point is mastering organic attention: growing an account superfast, getting insane views, and monetizing your reach.
+                </p>
+              </div>
+
+              {/* Creator Video Montage */}
+              <div className="rounded-xl overflow-hidden border border-[#d8d4c7] bg-[#f0eee6] shadow-sm relative scale-border-beam">
+                <div className="relative aspect-16/9 w-full bg-black">
+                  <video
+                    src="/videos/creator_montage.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute bottom-2.5 left-3 right-3 text-white text-[11px] flex items-center justify-between">
+                    <span className="font-medium">Techniques Modeled on Top Creators</span>
+                    <span className="text-white/80 font-mono text-[10px]">@ourlife.reset Blueprint</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Growth Circle Deliverables */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4 text-[#1b3826]" />
+                  <h3 className="text-base font-bold text-[#121814]">
+                    What You Will Master Inside The Circle:
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-[#303d35]">
+                  <div className="space-y-0.5">
+                    <div className="font-bold text-[#121814] flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1b3826]" />
+                      <span>Viral Hook Engineering</span>
+                    </div>
+                    <p className="text-[#55665c] text-[11px]">
+                      The exact script pacing and visual cuts that retain attention and generate millions of views per reel.
                     </p>
-                    <button
-                      onClick={() => setAppSubmitted(false)}
-                      className="scale-btn-secondary text-xs py-1.5 px-4 mt-3"
-                    >
-                      Submit another application
-                    </button>
                   </div>
-                ) : (
-                  <form onSubmit={handleCommunitySubmit} className="space-y-3 bg-[#f5f4ee] p-4 rounded-xl border border-[#e5e3d7]">
-                    {appError && (
-                      <div className="p-2.5 bg-red-100/80 border border-red-300 text-xs text-red-800 rounded-md">
-                        {appError}
-                      </div>
-                    )}
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label className="text-[11px] font-mono uppercase text-[#55665c] block mb-0.5">
-                          Full Name *
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={appForm.name}
-                          onChange={(e) => setAppForm({ ...appForm, name: e.target.value })}
-                          placeholder="e.g. Alex Rivera"
-                          className="input-seamless"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="text-[11px] font-mono uppercase text-[#55665c] block mb-0.5">
-                          Email Address *
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          value={appForm.email}
-                          onChange={(e) => setAppForm({ ...appForm, email: e.target.value })}
-                          placeholder="e.g. alex@gmail.com"
-                          className="input-seamless"
-                        />
-                      </div>
+                  <div className="space-y-0.5">
+                    <div className="font-bold text-[#121814] flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1b3826]" />
+                      <span>Monetization Funnel</span>
                     </div>
+                    <p className="text-[#55665c] text-[11px]">
+                      How to turn casual viewers into paying community members and digital guide customers automatically.
+                    </p>
+                  </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label className="text-[11px] font-mono uppercase text-[#55665c] block mb-0.5">
-                          Instagram Handle *
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          value={appForm.handle}
-                          onChange={(e) => setAppForm({ ...appForm, handle: e.target.value })}
-                          placeholder="@youraccount"
-                          className="input-seamless"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="text-[11px] font-mono uppercase text-[#55665c] block mb-0.5">
-                          Current Niche / Theme
-                        </label>
-                        <input
-                          type="text"
-                          value={appForm.niche}
-                          onChange={(e) => setAppForm({ ...appForm, niche: e.target.value })}
-                          placeholder="e.g. Philosophy, Fitness, Tech, Business"
-                          className="input-seamless"
-                        />
-                      </div>
+                  <div className="space-y-0.5">
+                    <div className="font-bold text-[#121814] flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1b3826]" />
+                      <span>Rapid Account Scaling</span>
                     </div>
+                    <p className="text-[#55665c] text-[11px]">
+                      Daily posting cadence, trending audio selection, and algorithm shortcuts to build an engaged audience.
+                    </p>
+                  </div>
 
-                    <div>
-                      <label className="text-[11px] font-mono uppercase text-[#55665c] block mb-0.5">
-                        Why do you want to grow an account and build an income right now? *
-                      </label>
-                      <textarea
-                        required
-                        rows={2}
-                        value={appForm.reason}
-                        onChange={(e) => setAppForm({ ...appForm, reason: e.target.value })}
-                        placeholder="Tell us about your background, current obstacles, and commitment to executing daily."
-                        className="input-seamless resize-none"
-                      />
+                  <div className="space-y-0.5">
+                    <div className="font-bold text-[#121814] flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1b3826]" />
+                      <span>Private Discord Network</span>
                     </div>
+                    <p className="text-[#55665c] text-[11px]">
+                      Direct access to fellow creators and our team locked in on building online income.
+                    </p>
+                  </div>
+                </div>
 
-                    <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+                {/* Community Application Form */}
+                <div className="pt-4 border-t border-[#e2dfd4]">
+                  <div className="mb-3">
+                    <h4 className="text-sm font-bold text-[#121814]">
+                      Apply for Private Community &amp; Discord Access
+                    </h4>
+                    <p className="text-xs text-[#55665c] font-light">
+                      Access is limited to maintain high caliber. We review each application personally.
+                    </p>
+                  </div>
+
+                  {appSubmitted ? (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="py-6 text-center bg-[#f0eee6] rounded-xl border border-[#dedbcf]"
+                    >
+                      <CheckCircle2 className="w-8 h-8 text-[#1b3826] mx-auto mb-2" />
+                      <h4 className="text-sm font-bold text-[#121814]">Application Received</h4>
+                      <p className="text-xs text-[#55665c] mt-1 max-w-sm mx-auto">
+                        Thank you. We review every creator submission manually. If accepted, your Discord invite link and growth onboarding will be sent directly to your email.
+                      </p>
                       <button
-                        type="submit"
-                        disabled={submittingApp}
-                        className="scale-btn-primary w-full sm:w-auto py-2.5 px-6 text-xs sm:text-sm font-semibold"
+                        onClick={() => setAppSubmitted(false)}
+                        className="scale-cta-btn text-xs py-1.5 px-4 mt-3"
                       >
-                        <span>{submittingApp ? "Submitting..." : "Apply for Community Access"}</span>
-                        <Send className="w-3.5 h-3.5 ml-1" />
+                        Submit another application
                       </button>
+                    </motion.div>
+                  ) : (
+                    <form onSubmit={handleCommunitySubmit} className="space-y-3 bg-[#f5f4ee] p-4 rounded-xl border border-[#e5e3d7]">
+                      {appError && (
+                        <div className="p-2.5 bg-red-100/80 border border-red-300 text-xs text-red-800 rounded-md">
+                          {appError}
+                        </div>
+                      )}
 
-                      <span className="text-[10px] text-[#6d7e74]">
-                        Manual review • Discord invite sent to email upon approval.
-                      </span>
-                    </div>
-                  </form>
-                )}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className="text-[11px] font-mono uppercase text-[#55665c] block mb-0.5">
+                            Full Name *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={appForm.name}
+                            onChange={(e) => setAppForm({ ...appForm, name: e.target.value })}
+                            placeholder="e.g. Alex Rivera"
+                            className="input-seamless"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="text-[11px] font-mono uppercase text-[#55665c] block mb-0.5">
+                            Email Address *
+                          </label>
+                          <input
+                            type="email"
+                            required
+                            value={appForm.email}
+                            onChange={(e) => setAppForm({ ...appForm, email: e.target.value })}
+                            placeholder="e.g. alex@gmail.com"
+                            className="input-seamless"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className="text-[11px] font-mono uppercase text-[#55665c] block mb-0.5">
+                            Instagram Handle *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={appForm.handle}
+                            onChange={(e) => setAppForm({ ...appForm, handle: e.target.value })}
+                            placeholder="@youraccount"
+                            className="input-seamless"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="text-[11px] font-mono uppercase text-[#55665c] block mb-0.5">
+                            Current Niche / Theme
+                          </label>
+                          <input
+                            type="text"
+                            value={appForm.niche}
+                            onChange={(e) => setAppForm({ ...appForm, niche: e.target.value })}
+                            placeholder="e.g. Philosophy, Fitness, Tech, Business"
+                            className="input-seamless"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-mono uppercase text-[#55665c] block mb-0.5">
+                          Why do you want to grow an account and build an income right now? *
+                        </label>
+                        <textarea
+                          required
+                          rows={2}
+                          value={appForm.reason}
+                          onChange={(e) => setAppForm({ ...appForm, reason: e.target.value })}
+                          placeholder="Tell us about your background, current obstacles, and commitment to executing daily."
+                          className="input-seamless resize-none"
+                        />
+                      </div>
+
+                      <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+                        <motion.button
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          type="submit"
+                          disabled={submittingApp}
+                          className="scale-cta-btn w-full sm:w-auto py-2.5 px-6 text-xs sm:text-sm font-semibold"
+                        >
+                          <div className="scale-cta-sheen" />
+                          <span className="relative z-10">{submittingApp ? "Submitting..." : "Apply for Community Access"}</span>
+                          <Send className="w-3.5 h-3.5 ml-1 relative z-10" />
+                        </motion.button>
+
+                        <span className="text-[10px] text-[#6d7e74]">
+                          Manual review • Discord invite sent to email upon approval.
+                        </span>
+                      </div>
+                    </form>
+                  )}
+                </div>
+
+                {/* Switch Track Option */}
+                <div className="pt-3 flex items-center justify-between text-xs text-[#6a7d73]">
+                  <button
+                    onClick={handleResetDiagnostic}
+                    className="hover:text-[#121814] transition-colors flex items-center gap-1 cursor-pointer"
+                  >
+                    <RefreshCw className="w-3 h-3" />
+                    <span>Retake Diagnostic</span>
+                  </button>
+
+                  <button
+                    onClick={() => setAllocatedTrack("self_mastery")}
+                    className="text-[#1b3826] font-medium hover:underline cursor-pointer"
+                  >
+                    Already financially stable? View the $19 Guide
+                  </button>
+                </div>
               </div>
-
-              {/* Switch Track Option */}
-              <div className="pt-3 flex items-center justify-between text-xs text-[#6a7d73]">
-                <button
-                  onClick={handleResetDiagnostic}
-                  className="hover:text-[#121814] transition-colors flex items-center gap-1"
-                >
-                  <RefreshCw className="w-3 h-3" />
-                  <span>Retake Diagnostic</span>
-                </button>
-
-                <button
-                  onClick={() => setAllocatedTrack("self_mastery")}
-                  className="text-[#1b3826] font-medium hover:underline"
-                >
-                  Already financially stable? View the $19 Guide
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
 
       {/* =========================================================================
@@ -855,7 +1026,7 @@ export default function HomePage() {
 
             <button
               onClick={() => setShowReviewModal(true)}
-              className="text-xs font-semibold text-[#1b3826] hover:underline flex items-center gap-1 self-start sm:self-auto"
+              className="text-xs font-semibold text-[#1b3826] hover:underline flex items-center gap-1 self-start sm:self-auto cursor-pointer"
             >
               <MessageSquarePlus className="w-3.5 h-3.5" />
               <span>Leave a Review</span>
@@ -892,7 +1063,7 @@ export default function HomePage() {
           <div className="p-6 sm:p-7 max-w-md w-full bg-white border border-[#dedbcf] rounded-2xl relative shadow-xl">
             <button
               onClick={() => setShowReviewModal(false)}
-              className="absolute top-4 right-4 text-[#798a80] hover:text-[#121814]"
+              className="absolute top-4 right-4 text-[#798a80] hover:text-[#121814] cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -949,7 +1120,7 @@ export default function HomePage() {
                         type="button"
                         key={star}
                         onClick={() => setNewReview({ ...newReview, rating: star })}
-                        className="p-1 focus:outline-none"
+                        className="p-1 focus:outline-none cursor-pointer"
                       >
                         <Star
                           className={`w-4 h-4 ${
@@ -976,13 +1147,16 @@ export default function HomePage() {
                 </div>
 
                 <div className="pt-2">
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     type="submit"
                     disabled={submittingReview}
-                    className="scale-btn-primary w-full py-2.5 text-xs font-semibold"
+                    className="scale-cta-btn w-full py-2.5 text-xs font-semibold"
                   >
-                    <span>{submittingReview ? "Submitting..." : "Publish Review"}</span>
-                  </button>
+                    <div className="scale-cta-sheen" />
+                    <span className="relative z-10">{submittingReview ? "Submitting..." : "Publish Review"}</span>
+                  </motion.button>
                 </div>
               </form>
             )}
@@ -1003,7 +1177,7 @@ export default function HomePage() {
             <div key={i} className="py-4">
               <button
                 onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                className="w-full flex items-center justify-between text-left gap-4 group"
+                className="w-full flex items-center justify-between text-left gap-4 group cursor-pointer"
               >
                 <span className="text-xs sm:text-sm font-semibold text-[#121814] group-hover:text-[#1b3826] transition-colors">
                   {faq.q}
@@ -1015,9 +1189,14 @@ export default function HomePage() {
                 />
               </button>
               {openFaq === i && (
-                <p className="mt-2 text-xs sm:text-sm text-[#4a5950] font-normal leading-relaxed pr-6">
+                <motion.p
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  transition={{ duration: 0.2 }}
+                  className="mt-2 text-xs sm:text-sm text-[#4a5950] font-normal leading-relaxed pr-6"
+                >
                   {faq.a}
-                </p>
+                </motion.p>
               )}
             </div>
           ))}

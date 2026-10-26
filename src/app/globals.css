@@ -2,21 +2,17 @@
 
 @layer base {
   :root {
-    --olive-950: #0c1510;
-    --olive-900: #111d15;
-    --olive-850: #15241b;
-    --olive-800: #1b2e22;
-    --olive-700: #233b2c;
-    --olive-600: #304e3b;
-    --sage-500: #577b64;
-    --sage-400: #7a9c86;
-    --sage-300: #a2c1ad;
-    --cream-50: #faf9f5;
-    --cream-100: #f5f4ee;
-    --cream-200: #eae8dd;
-    --charcoal-900: #141a16;
-    --charcoal-800: #1f2722;
-    --charcoal-700: #2f3a33;
+    --bg-page: #fbfaf6;
+    --bg-surface: #ffffff;
+    --bg-subtle: #f5f4ee;
+    --border-light: #e6e4dc;
+    --border-subtle: #eceae3;
+    --text-primary: #121814;
+    --text-secondary: #4a5950;
+    --text-muted: #798a80;
+    --brand-evergreen: #1b3826;
+    --brand-evergreen-hover: #244b33;
+    --brand-emerald: #2e7d4a;
   }
 
   html {
@@ -24,12 +20,12 @@
     overflow-x: clip;
     max-width: 100%;
     width: 100%;
-    background-color: #111d15;
+    background-color: var(--bg-page);
   }
 
   body {
-    background-color: #111d15;
-    color: #f7f6f2;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
     font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     overflow-x: clip;
     max-width: 100%;
@@ -39,7 +35,7 @@
   }
 
   ::selection {
-    background: #365741;
+    background: #1b3826;
     color: #ffffff;
   }
 }
@@ -53,75 +49,93 @@
   font-family: var(--font-playfair), Georgia, serif;
 }
 
-/* Elegant Seamless Buttons */
-.btn-primary {
+/* Scale.com Inspired Button Styles */
+.scale-btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background-color: #f5f4ee;
-  color: #111d15;
+  background-color: #1b3826;
+  color: #ffffff;
   font-weight: 600;
   border-radius: 9999px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 6px rgba(27, 56, 38, 0.15);
+  border: 1px solid #142a1d;
+  cursor: pointer;
 }
 
-.btn-primary:hover {
-  background-color: #ffffff;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+.scale-btn-primary:hover {
+  background-color: #244b33;
+  transform: translateY(-1px) scale(0.99);
+  box-shadow: 0 6px 18px rgba(27, 56, 38, 0.22);
 }
 
-.btn-primary:active {
-  transform: translateY(0);
+.scale-btn-primary:active {
+  transform: translateY(0) scale(0.98);
 }
 
-.btn-secondary {
+.scale-btn-secondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.05);
-  color: #f5f4ee;
-  font-weight: 500;
+  background-color: #ffffff;
+  color: #1b3826;
+  font-weight: 600;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid #dcd8cd;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  backdrop-filter: blur(8px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
 }
 
-.btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.35);
-  color: #ffffff;
+.scale-btn-secondary:hover {
+  background-color: #f5f4ee;
+  border-color: #b8b3a4;
+  transform: translateY(-1px);
 }
 
-/* Seamless Inputs for Concierge Application */
+/* Seamless Inputs for Concierge Application (Light Mode) */
 .input-seamless {
   width: 100%;
   background: transparent;
   border: none;
-  border-bottom: 1px solid #284433;
+  border-bottom: 1.5px solid #d8d5cb;
   padding: 0.75rem 0;
-  font-size: 0.875rem;
-  color: #ffffff;
+  font-size: 0.925rem;
+  color: #121814;
   outline: none;
   transition: border-color 0.2s ease;
 }
 
 .input-seamless:focus {
-  border-color: #8bb397;
+  border-color: #1b3826;
 }
 
 .input-seamless::placeholder {
-  color: #4f6858;
+  color: #929d96;
 }
 
-/* Glow & Ambient Backgrounds */
-.radial-glow-olive {
-  background: radial-gradient(circle at 50% 20%, rgba(68, 107, 82, 0.18) 0%, rgba(17, 29, 21, 0) 65%);
+/* Scale.com style subtle glow */
+.scale-radial-glow {
+  background: radial-gradient(ellipse at 50% 0%, rgba(27, 56, 38, 0.06) 0%, rgba(251, 250, 246, 0) 70%);
+}
+
+/* Consecutive Step Animations */
+@keyframes scaleSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-scale-step {
+  animation: scaleSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Custom scrollbars */
@@ -131,14 +145,14 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #111d15;
+  background: #fbfaf6;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #233b2c;
+  background: #d6d3c8;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #365842;
+  background: #b5b0a3;
 }

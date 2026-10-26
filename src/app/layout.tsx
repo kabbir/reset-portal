@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Cinzel, Playfair_Display } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -20,6 +20,12 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
   weight: ["400", "600", "700", "900"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ourlifereset.com"),
@@ -44,7 +50,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${cinzel.variable} ${playfair.variable} overflow-x-hidden w-full max-w-full`}
     >
-      <body className="bg-[#111d15] text-[#f7f6f2] font-sans antialiased selection:bg-[#34533e] selection:text-white overflow-x-hidden w-full max-w-full">
+      <body className="bg-[#fbfaf6] text-[#121814] font-sans antialiased selection:bg-[#1b3826] selection:text-white overflow-x-hidden w-full max-w-full">
         {children}
         <Analytics />
         <SpeedInsights />
@@ -52,4 +58,3 @@ export default function RootLayout({
     </html>
   );
 }
-

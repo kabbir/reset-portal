@@ -307,19 +307,20 @@ export default function HomePage() {
           </nav>
 
           {/* Header Action Buttons */}
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
             <button
               onClick={handleTriggerCheckout}
-              className="btn-primary py-1.5 sm:py-2 px-3.5 sm:px-4 text-xs font-semibold"
+              className="btn-primary py-1.5 sm:py-2 px-3 sm:px-4 text-xs font-semibold"
             >
-              <span>Get Guide — $19</span>
+              <span className="hidden sm:inline">Get Guide — $19</span>
+              <span className="sm:hidden">Get Guide</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
 
             {/* Mobile Hamburger Toggle */}
             <button
               type="button"
-              className="md:hidden p-2 text-[#a7c2b0] hover:text-white transition-colors"
+              className="md:hidden p-1.5 text-[#a7c2b0] hover:text-white transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle Navigation Menu"
             >
@@ -400,23 +401,23 @@ export default function HomePage() {
       {/* =========================================================================
          2. HERO: BOLD, ELEGANT, SEAMLESS • ZERO TAGS • ZERO BOXES
          ========================================================================= */}
-      <section className="relative pt-12 sm:pt-20 pb-12 sm:pb-20 px-4 sm:px-6 max-w-5xl mx-auto text-center radial-glow-olive">
+      <section className="relative pt-10 sm:pt-20 pb-10 sm:pb-20 px-4 sm:px-6 max-w-5xl mx-auto text-center radial-glow-olive">
         {/* Headline: Bold Editorial Display, zero tags above it */}
-        <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white max-w-4xl mx-auto leading-[1.08]">
+        <h1 className="font-display text-[29px] sm:text-5xl lg:text-7xl font-bold tracking-tight text-white max-w-4xl mx-auto leading-[1.12]">
           Reset your mind. <br />
           <span className="text-[#d8ebd9]">Control your life.</span>
         </h1>
 
         {/* Subtitle: Direct, human, high-agency */}
-        <p className="mt-4 sm:mt-6 text-sm sm:text-base text-[#bfd4c6] max-w-xl mx-auto font-light leading-relaxed">
+        <p className="mt-3.5 sm:mt-6 text-xs sm:text-base text-[#bfd4c6] max-w-lg mx-auto font-light leading-relaxed">
           A 112-page manual to eliminate overthinking, master emotional composure, and rebuild daily discipline. Read 1 page in the morning, write 1 page at night.
         </p>
 
         {/* Hero Actions: SIDE-BY-SIDE ON MOBILE */}
-        <div className="mt-7 sm:mt-9 flex flex-row items-center justify-center gap-3 w-full max-w-sm mx-auto">
+        <div className="mt-6 sm:mt-9 flex flex-row items-center justify-center gap-2.5 sm:gap-3 w-full max-w-xs sm:max-w-sm mx-auto">
           <button
             onClick={handleTriggerCheckout}
-            className="btn-primary flex-1 py-3 px-4 text-xs sm:text-sm font-semibold truncate"
+            className="btn-primary flex-1 py-3 px-3 sm:px-4 text-xs sm:text-sm font-semibold truncate"
           >
             <span>Claim Guide — $19</span>
             <ArrowRight className="w-3.5 h-3.5 shrink-0" />
@@ -424,7 +425,7 @@ export default function HomePage() {
 
           <a
             href="#spreads"
-            className="btn-secondary flex-1 py-3 px-3.5 text-xs sm:text-sm font-medium truncate"
+            className="btn-secondary flex-1 py-3 px-3 sm:px-3.5 text-xs sm:text-sm font-medium truncate"
           >
             <Eye className="w-3.5 h-3.5 text-[#a4c9b0] shrink-0" />
             <span>Look Inside</span>
@@ -432,23 +433,21 @@ export default function HomePage() {
         </div>
 
         {/* Seamless Typographic Proof Strip: ZERO BOXES */}
-        <div className="flex items-center justify-center gap-4 sm:gap-10 mt-10 max-w-md mx-auto pt-6 border-t border-[#233a2c]/60">
-          <div className="text-center flex-1">
-            <div className="text-sm sm:text-base font-bold text-white tracking-tight">30,000+</div>
-            <div className="text-[10px] sm:text-xs text-[#8ca896] uppercase tracking-wider mt-0.5">Community</div>
+        <div className="grid grid-cols-3 divide-x divide-[#233a2c]/80 mt-8 max-w-xs sm:max-w-md mx-auto pt-5 border-t border-[#233a2c]/60">
+          <div className="text-center px-1 sm:px-3">
+            <div className="text-xs sm:text-base font-bold text-white tracking-tight">30,000+</div>
+            <div className="text-[9px] sm:text-xs text-[#8ca896] uppercase tracking-wider mt-0.5">Community</div>
           </div>
-          <div className="h-6 w-[1px] bg-[#233a2c]" />
-          <div className="text-center flex-1">
-            <div className="text-sm sm:text-base font-bold text-amber-300 flex items-center justify-center gap-1 tracking-tight">
+          <div className="text-center px-1 sm:px-3">
+            <div className="text-xs sm:text-base font-bold text-amber-300 flex items-center justify-center gap-1 tracking-tight">
               <Star className="w-3 h-3 fill-amber-300" />
               <span>4.9</span>
             </div>
-            <div className="text-[10px] sm:text-xs text-[#8ca896] uppercase tracking-wider mt-0.5">Google Reviews</div>
+            <div className="text-[9px] sm:text-xs text-[#8ca896] uppercase tracking-wider mt-0.5">Google</div>
           </div>
-          <div className="h-6 w-[1px] bg-[#233a2c]" />
-          <div className="text-center flex-1">
-            <div className="text-sm sm:text-base font-bold text-white tracking-tight">112 Pages</div>
-            <div className="text-[10px] sm:text-xs text-[#8ca896] uppercase tracking-wider mt-0.5">Interactive PDF</div>
+          <div className="text-center px-1 sm:px-3">
+            <div className="text-xs sm:text-base font-bold text-white tracking-tight">112 Pages</div>
+            <div className="text-[9px] sm:text-xs text-[#8ca896] uppercase tracking-wider mt-0.5">PDF Guide</div>
           </div>
         </div>
 

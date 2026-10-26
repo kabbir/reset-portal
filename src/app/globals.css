@@ -53,7 +53,7 @@
   font-family: var(--font-playfair), Georgia, serif;
 }
 
-/* Scale.com Style Crisp Buttons */
+/* Elegant Seamless Buttons */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -64,14 +64,14 @@
   font-weight: 600;
   border-radius: 9999px;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 20px rgba(245, 244, 238, 0.15);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 .btn-primary:hover {
   background-color: #ffffff;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 0 25px rgba(245, 244, 238, 0.25);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
 }
 
 .btn-primary:active {
@@ -87,84 +87,41 @@
   color: #f5f4ee;
   font-weight: 500;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   backdrop-filter: blur(8px);
 }
 
 .btn-secondary:hover {
   background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.35);
   color: #ffffff;
 }
 
-.btn-olive {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background-color: #233b2c;
-  color: #f7f6f2;
-  font-weight: 600;
-  border-radius: 9999px;
-  border: 1px solid #365842;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn-olive:hover {
-  background-color: #2b4937;
-  border-color: #487558;
+/* Seamless Inputs for Concierge Application */
+.input-seamless {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #284433;
+  padding: 0.75rem 0;
+  font-size: 0.875rem;
   color: #ffffff;
+  outline: none;
+  transition: border-color 0.2s ease;
 }
 
-/* Scale.com Style Pill Badges */
-.badge-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.85rem;
-  border-radius: 9999px;
-  background: rgba(35, 59, 44, 0.6);
-  border: 1px solid rgba(122, 156, 134, 0.3);
-  color: #d6e4da;
-  font-size: 0.75rem;
-  font-weight: 500;
-  backdrop-filter: blur(8px);
+.input-seamless:focus {
+  border-color: #8bb397;
+}
+
+.input-seamless::placeholder {
+  color: #4f6858;
 }
 
 /* Glow & Ambient Backgrounds */
 .radial-glow-olive {
-  background: radial-gradient(circle at 50% 25%, rgba(68, 107, 82, 0.2) 0%, rgba(17, 29, 21, 0) 65%);
-}
-
-.radial-glow-cream {
-  background: radial-gradient(circle at 50% 30%, rgba(245, 244, 238, 0.08) 0%, rgba(17, 29, 21, 0) 70%);
-}
-
-/* Scale-inspired crisp cards */
-.scale-card {
-  background: #15241b;
-  border: 1px solid #243b2c;
-  border-radius: 1rem;
-  transition: all 0.2s ease;
-}
-
-.scale-card:hover {
-  border-color: #385b43;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-.scale-card-light {
-  background: #ffffff;
-  border: 1px solid #e5e3d8;
-  border-radius: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease;
-}
-
-.scale-card-light:hover {
-  border-color: #c9c5b5;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  background: radial-gradient(circle at 50% 20%, rgba(68, 107, 82, 0.18) 0%, rgba(17, 29, 21, 0) 65%);
 }
 
 /* Custom scrollbars */

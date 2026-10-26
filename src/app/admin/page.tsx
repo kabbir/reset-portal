@@ -23,6 +23,7 @@ interface Application {
   name: string;
   email: string;
   handle?: string;
+  track?: string;
   date: string;
   reason: string;
   status: "pending" | "approved" | "rejected";
@@ -242,11 +243,14 @@ export default function AdminPage() {
                         {app.name.charAt(0)}
                       </div>
                       <div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
                           <h3 className="text-base font-bold text-white">{app.name}</h3>
                           {app.handle && (
                             <span className="text-xs text-[#7eab8c] font-mono">{app.handle}</span>
                           )}
+                          <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-[#1e3425] text-emerald-400 border border-[#2d4d37]">
+                            {app.track === "creator_community" ? "Creator Growth Circle" : "Self-Mastery"}
+                          </span>
                         </div>
                         <div className="flex items-center gap-2 text-xs text-[#9eb6a6] mt-0.5">
                           <Mail className="w-3.5 h-3.5" />

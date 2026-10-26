@@ -35,7 +35,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, handle, reason } = body;
+    const { name, email, handle, reason, track } = body;
 
     if (!name || typeof name !== "string" || !email || typeof email !== "string" || !reason || typeof reason !== "string") {
       return NextResponse.json(
@@ -56,6 +56,7 @@ export async function POST(request: NextRequest) {
       name: name.trim(),
       email: email.trim().toLowerCase(),
       handle: handle ? handle.trim() : "",
+      track: (track && typeof track === "string") ? track.trim() : "creator_community",
       date: formattedDate,
       reason: reason.trim(),
       status: "pending"

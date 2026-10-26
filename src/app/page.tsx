@@ -7,22 +7,16 @@ import {
   ArrowRight,
   Check,
   Star,
-  Eye,
   ChevronDown,
-  MessageSquarePlus,
   Send,
-  X,
   CheckCircle2,
   BookOpen,
-  Clock,
-  Shield,
-  Smartphone,
-  Feather,
-  Zap,
-  Lock,
-  Layers,
-  HeartHandshake,
-  Briefcase
+  Sparkles,
+  TrendingUp,
+  Eye,
+  RefreshCw,
+  MessageSquarePlus,
+  X
 } from "lucide-react";
 
 /* --- Live Stripe Checkout Link --- */
@@ -40,10 +34,31 @@ interface ReviewItem {
 
 export default function HomePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-  const [activeSpreadTab, setActiveSpreadTab] = useState<number>(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  /* Review Modal State */
+  /* Interactive Questionnaire State */
+  const [currentStep, setCurrentStep] = useState<number>(0);
+  const [answers, setAnswers] = useState<{
+    primaryFocus?: string;
+    financialStanding?: string;
+    executionStyle?: string;
+  }>({});
+  const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
+  const [allocatedTrack, setAllocatedTrack] = useState<"self_mastery" | "creator_growth" | null>(null);
+
+  /* Community Application Form State */
+  const [appForm, setAppForm] = useState({
+    name: "",
+    email: "",
+    handle: "",
+    niche: "",
+    reason: ""
+  });
+  const [submittingApp, setSubmittingApp] = useState<boolean>(false);
+  const [appSubmitted, setAppSubmitted] = useState<boolean>(false);
+  const [appError, setAppError] = useState<string | null>(null);
+
+  /* Reviews Modal State */
   const [showReviewModal, setShowReviewModal] = useState<boolean>(false);
   const [reviewSubmitted, setReviewSubmitted] = useState<boolean>(false);
   const [submittingReview, setSubmittingReview] = useState<boolean>(false);
@@ -54,17 +69,6 @@ export default function HomePage() {
     rating: 5,
     comment: ""
   });
-
-  /* Community Application State */
-  const [appForm, setAppForm] = useState({
-    name: "",
-    email: "",
-    handle: "",
-    reason: ""
-  });
-  const [submittingApp, setSubmittingApp] = useState<boolean>(false);
-  const [appSubmitted, setAppSubmitted] = useState<boolean>(false);
-  const [appError, setAppError] = useState<string | null>(null);
 
   /* Fetch live reviews on mount */
   useEffect(() => {
@@ -84,6 +88,85 @@ export default function HomePage() {
 
   const handleTriggerCheckout = () => {
     window.location.href = STRIPE_CHECKOUT_URL;
+  };
+
+  /* Step 1 Choice */
+  const handleAnswerStep1 = (val: string) => {
+    setAnswers((prev) => ({ ...prev, primaryFocus: val }));
+    setCurrentStep(1);
+  };
+
+  /* Step 2 Choice (Core Financial Fork) */
+  const handleAnswerStep2 = (val: string) => {
+    setAnswers((prev) => ({ ...prev, financialStanding: val }));
+    setCurrentStep(2);
+  };
+
+  /* Step 3 Choice (Determines Final Allocation) */
+  const handleAnswerStep3 = (val: string) => {
+    const updated = { ...answers, executionStyle: val };
+    setAnswers(updated);
+    setIsAnalyzing(true);
+
+    setTimeout(() => {
+      setIsAnalyzing(false);
+      // If financially not stable or focused on making money -> Creator Growth Community
+      if (
+        updated.financialStanding === "need_income" ||
+        updated.primaryFocus === "build_income" ||
+        val === "creator_growth"
+      ) {
+        setAllocatedTrack("creator_growth");
+      } else {
+        setAllocatedTrack("self_mastery");
+      }
+      setCurrentStep(3);
+    }, 1100);
+  };
+
+  const handleResetDiagnostic = () => {
+    setCurrentStep(0);
+    setAnswers({});
+    setAllocatedTrack(null);
+    setAppSubmitted(false);
+  };
+
+  const handleCommunitySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!appForm.name.trim() || !appForm.email.trim() || !appForm.reason.trim()) {
+      setAppError("Please fill out all required fields.");
+      return;
+    }
+
+    setSubmittingApp(true);
+    setAppError(null);
+    try {
+      const combinedReason = `[Niche/Account: ${appForm.niche || "Not specified"}] ${appForm.reason}`;
+      const res = await fetch("/api/apply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: appForm.name,
+          email: appForm.email,
+          handle: appForm.handle,
+          reason: combinedReason,
+          track: "creator_community"
+        })
+      });
+
+      if (res.ok) {
+        setAppSubmitted(true);
+        setAppForm({ name: "", email: "", handle: "", niche: "", reason: "" });
+      } else {
+        const err = await res.json();
+        setAppError(err.error || "Submission failed. Please try again.");
+      }
+    } catch (err) {
+      console.error("Application error:", err);
+      setAppError("Network error. Please try again.");
+    } finally {
+      setSubmittingApp(false);
+    }
   };
 
   const handleReviewSubmit = async (e: React.FormEvent) => {
@@ -115,173 +198,33 @@ export default function HomePage() {
     }
   };
 
-  const handleCommunitySubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!appForm.name.trim() || !appForm.email.trim() || !appForm.reason.trim()) {
-      setAppError("Please complete all required fields.");
-      return;
-    }
-
-    setSubmittingApp(true);
-    setAppError(null);
-    try {
-      const res = await fetch("/api/apply", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(appForm)
-      });
-
-      if (res.ok) {
-        setAppSubmitted(true);
-        setAppForm({ name: "", email: "", handle: "", reason: "" });
-      } else {
-        const err = await res.json();
-        setAppError(err.error || "Submission failed. Please try again.");
-      }
-    } catch (err) {
-      console.error("Application error:", err);
-      setAppError("Network error. Please try again.");
-    } finally {
-      setSubmittingApp(false);
-    }
-  };
-
-  /* Interactive PDF Spreads Data */
-  const spreads = [
-    {
-      num: "01",
-      title: "The Reset Principle",
-      image: "/manifesto-spread-preview.png",
-      description:
-        "Why short-form motivation leaves you empty, and how 10 minutes of daily written inquiry builds unshakable emotional composure.",
-      points: [
-        "Passive motivation vs. written confrontation",
-        "The 4 quiet laws of self-command",
-        "Building composure without broadcasting it"
-      ]
-    },
-    {
-      num: "02",
-      title: "Strategic Restraint",
-      image: "/greene-spread-preview.png",
-      description:
-        "Field rules for remaining quiet when tested. Learn why pausing and lowering your voice disarms disrespect every time.",
-      points: [
-        "The 3-second delay before reacting to disrespect",
-        "Saying no cleanly without guilt or over-explaining",
-        "The daily ledger to audit slipped composure"
-      ]
-    },
-    {
-      num: "03",
-      title: "Evening Audit",
-      image: "/watts-spread-preview.png",
-      description:
-        "Every evening before sleep, answer 3 honest inquiries to hold yourself accountable for your focus, boundaries, and reactions.",
-      points: [
-        "Confront excuses before closing your eyes",
-        "Pinpoint the exact trigger that derailed your attention",
-        "Formatted for mobile typing or handwriting"
-      ]
-    },
-    {
-      num: "04",
-      title: "The Daily Ledger",
-      image: "/book-spread-preview.png",
-      description:
-        "A 2-page daily checkpoint: read 1 page of principles in the morning, complete 1 page of honest audit before sleep.",
-      points: [
-        "10 minutes daily: 3 mins reading, 7 mins writing",
-        "Fillable interactive fields on iOS & Android",
-        "Print-ready margins for your desk journal"
-      ]
-    }
-  ];
-
-  /* 8 Core Principles: Seamless Editorial Layout */
-  const corePrinciples = [
-    {
-      num: "01",
-      icon: BookOpen,
-      title: "Read 1, Write 1",
-      description: "A two-page daily checkpoint. 3 minutes on the law, 7 minutes on the audit."
-    },
-    {
-      num: "02",
-      icon: Clock,
-      title: "The 3-Second Delay",
-      description: "Field rule to pause before replying. Silence is real authority."
-    },
-    {
-      num: "03",
-      icon: Feather,
-      title: "Evening Audit",
-      description: "3 honest questions every night to audit where composure slipped."
-    },
-    {
-      num: "04",
-      icon: Smartphone,
-      title: "Mobile Ready",
-      description: "Native in Apple Books, Files, and GoodNotes with interactive fillable fields."
-    },
-    {
-      num: "05",
-      icon: Layers,
-      title: "Physical Margins",
-      description: "Generous notebook margins if you prefer pen and paper on your desk."
-    },
-    {
-      num: "06",
-      icon: Shield,
-      title: "Quiet Boundaries",
-      description: "Say no cleanly without guilt, apology, or over-explaining."
-    },
-    {
-      num: "07",
-      icon: Zap,
-      title: "Kill Reactivity",
-      description: "Never lose your peace over an offhand message or comment."
-    },
-    {
-      num: "08",
-      icon: Lock,
-      title: "47 Kept Promises",
-      description: "47 consecutive days of verified self-mastery written down."
-    }
-  ];
-
   /* FAQs */
   const faqs = [
     {
-      q: "I already consume philosophy online. How is this different?",
-      a: "Watching videos gives you an intellectual high for thirty seconds, but your composure still dissolves the moment someone baits you. Every single chapter pairs a concise law on the left with an honest written audit on the right. You don't just read about calmness; you document who tested you, why your ego reacted, and what you will do differently next time."
+      q: "Why do I need to take the 3-question diagnostic?",
+      a: "Because self-mastery is contextual. If you are already financially stable, consuming more business advice won't fix your emotional reactivity or lack of peace—you need internal discipline and written audits. Conversely, if you lack income, quiet reflection alone won't pay your bills—you need to build high-income leverage, master viral reach, and monetize audience attention."
     },
     {
-      q: "How much time does this take each day?",
-      a: "Ten minutes. This is deliberately not a 400-page academic tome. You spend three minutes reading the principle in the morning, and seven minutes completing the audit prompt before sleep. Doing that daily creates permanent behavioral shifts."
+      q: "What is inside The Self-Mastery Guide ($19)?",
+      a: "A 112-page interactive manual custom-built for iPhone, iPad, and notebook use. It pairs 47 psychological frameworks on emotional composure, boundaries, and focus with facing evening audit ledgers to hold yourself accountable before you sleep."
     },
     {
-      q: "Can I use this on my phone or do I have to print it?",
-      a: "Both. It is custom-formatted for mobile screens with interactive fillable text fields in Apple Books, Files, and GoodNotes. If you prefer handwriting, it includes clean margins for printing or copying into your journal."
+      q: "What is the Creator & Growth Circle community?",
+      a: "A private, invite-only community where our team personally teaches you the exact blueprint @ourlife.reset used to gain 30,000+ followers and millions of monthly impressions. We break down viral hook formulas, algorithm pacing, and how to convert viral views into digital product and community revenue."
     },
     {
-      q: "What is the 30,000 Locked-In Collective?",
-      a: "It is our private vetted circle of high-agency individuals who practice daily self-mastery. Members share high standards for business, health, and character. People have met co-founders and launched businesses inside, and long-term life partners have met through our shared principles. Access to the Discord is granted upon application review."
-    },
-    {
-      q: "What happens immediately after Stripe checkout?",
-      a: "The moment payment completes, you are redirected immediately to a one-tap download portal. You will also receive an instant email backup with permanent lifetime access."
+      q: "How does the Instagram DM automation work with the keyword START?",
+      a: "When you comment 'START' on our Instagram reels, our automated system instantly DMs you the direct diagnostic link to this assessment. You complete the 3 questions and receive your allocated track immediately."
     }
   ];
 
   return (
     <div className="relative min-h-screen w-full max-w-full bg-[#111d15] text-[#f7f6f2] font-sans overflow-x-clip selection:bg-[#34533e] selection:text-white">
       {/* =========================================================================
-         1. HEADER: OFFICIAL LOGO + SEAMLESS BORDERLESS DESIGN
+         1. TOP NAVIGATION: CLEAN, OFFICIAL LOGO, SEAMLESS
          ========================================================================= */}
       <header className="sticky top-0 z-50 w-full bg-[#111d15]/95 backdrop-blur-md border-b border-[#22382b]/70">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
-          {/* Official Logo + Name */}
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
             <Image
               src="/logo-with-bg.png"
@@ -296,541 +239,593 @@ export default function HomePage() {
             </span>
           </Link>
 
-          {/* Desktop Scale-Style Nav */}
-          <nav className="hidden md:flex items-center gap-8 text-xs uppercase tracking-widest font-medium text-[#9eb6a6]">
-            <a href="#system" className="hover:text-white transition-colors">The System</a>
-            <a href="#spreads" className="hover:text-white transition-colors">Inside Pages</a>
-            <a href="#community" className="hover:text-white transition-colors">30k Collective</a>
-            <a href="#reviews" className="hover:text-white transition-colors">Reviews</a>
-            <a href="#pricing" className="hover:text-white transition-colors">Access</a>
-            <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
-          </nav>
+          <div className="flex items-center gap-3">
+            {allocatedTrack === "self_mastery" && (
+              <button
+                onClick={handleTriggerCheckout}
+                className="btn-primary py-1.5 px-3 sm:px-4 text-xs font-semibold"
+              >
+                <span>Get Guide — $19</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            )}
 
-          {/* Header Action Buttons */}
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handleTriggerCheckout}
-              className="btn-primary py-1.5 sm:py-2 px-3 sm:px-4 text-xs font-semibold"
-            >
-              <span className="hidden sm:inline">Get Guide — $19</span>
-              <span className="sm:hidden">Get Guide</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-
-            {/* Mobile Hamburger Toggle */}
-            <button
-              type="button"
-              className="md:hidden p-1.5 text-[#a7c2b0] hover:text-white transition-colors"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle Navigation Menu"
-            >
-              {mobileMenuOpen ? (
-                <X className="w-5 h-5 text-white" />
-              ) : (
-                <div className="w-5 h-4 flex flex-col justify-between">
-                  <span className="w-full h-0.5 bg-current rounded-full" />
-                  <span className="w-full h-0.5 bg-current rounded-full" />
-                  <span className="w-full h-0.5 bg-current rounded-full" />
-                </div>
-              )}
-            </button>
+            {currentStep > 0 && (
+              <button
+                onClick={handleResetDiagnostic}
+                className="inline-flex items-center gap-1.5 text-xs text-[#8ca896] hover:text-white transition-colors"
+                title="Restart Diagnostic"
+              >
+                <RefreshCw className="w-3 h-3" />
+                <span className="hidden sm:inline">Restart</span>
+              </button>
+            )}
           </div>
         </div>
+      </header>
 
-        {/* Mobile Slide Drawer */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-[#142319] border-b border-[#233b2c] px-4 py-4 space-y-3">
-            <a
-              href="#system"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-sm font-medium text-[#d0e0d5] hover:text-white py-1.5 border-b border-[#1c3023]"
-            >
-              The 8-Rule System
-            </a>
-            <a
-              href="#spreads"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-sm font-medium text-[#d0e0d5] hover:text-white py-1.5 border-b border-[#1c3023]"
-            >
-              Inside The Pages
-            </a>
-            <a
-              href="#community"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-sm font-medium text-[#d0e0d5] hover:text-white py-1.5 border-b border-[#1c3023]"
-            >
-              30,000 Member Community
-            </a>
-            <a
-              href="#reviews"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-sm font-medium text-[#d0e0d5] hover:text-white py-1.5 border-b border-[#1c3023]"
-            >
-              Google Reviews (4.9 ★)
-            </a>
-            <a
-              href="#pricing"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-sm font-medium text-[#d0e0d5] hover:text-white py-1.5 border-b border-[#1c3023]"
-            >
-              Claim Access ($19)
-            </a>
-            <a
-              href="#faq"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-sm font-medium text-[#d0e0d5] hover:text-white py-1.5 border-b border-[#1c3023]"
-            >
-              FAQ
-            </a>
-            <div className="pt-2">
+      {/* =========================================================================
+         2. CORE REVAMP: THE INTERACTIVE DIAGNOSTIC (ABOVE THE FOLD)
+         ========================================================================= */}
+      <main className="relative pt-8 sm:pt-16 pb-16 sm:pb-24 px-4 sm:px-6 max-w-3xl mx-auto">
+        {/* Title & Status */}
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white max-w-2xl mx-auto leading-[1.12]">
+            Reset your mind. <br />
+            <span className="text-[#d8ebd9]">Control your life.</span>
+          </h1>
+
+          <p className="mt-3.5 sm:mt-5 text-xs sm:text-sm text-[#bfd4c6] max-w-md mx-auto font-light leading-relaxed">
+            Answer 3 quick questions to diagnose your exact leverage point and get routed to your personal action track.
+          </p>
+
+          {/* Progress Indicator */}
+          {currentStep < 3 && (
+            <div className="flex items-center justify-center gap-2 mt-6">
+              {[0, 1, 2].map((stepIdx) => (
+                <div
+                  key={stepIdx}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    stepIdx === currentStep
+                      ? "w-8 bg-[#86bf9a]"
+                      : stepIdx < currentStep
+                      ? "w-4 bg-[#345941]"
+                      : "w-3 bg-[#1e3425]"
+                  }`}
+                />
+              ))}
+              <span className="text-[10px] font-mono text-[#8ca896] uppercase ml-2">
+                Step {currentStep + 1} of 3
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* =========================================================================
+           QUESTION 1: PRIMARY BOTTLENECK
+           ========================================================================= */}
+        {currentStep === 0 && (
+          <div className="space-y-4 animate-in fade-in duration-300">
+            <div className="text-center mb-6 px-2">
+              <span className="text-[11px] font-mono uppercase tracking-widest text-[#86bf9a]">
+                Question 01
+              </span>
+              <h2 className="text-base sm:text-xl font-bold text-white mt-1 leading-snug max-w-md mx-auto">
+                Where is your attention most divided right now?
+              </h2>
+            </div>
+
+            <div className="space-y-2.5">
               <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  handleTriggerCheckout();
-                }}
-                className="btn-primary w-full py-2.5 text-xs font-semibold justify-center"
+                onClick={() => handleAnswerStep1("mental_mastery")}
+                className="w-full text-left p-3.5 sm:p-5 rounded-none border-b border-[#284433] hover:border-[#86bf9a] hover:bg-[#15251b] transition-all group flex items-start justify-between gap-3"
               >
-                <span>Download Guide — $19</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <div>
+                  <div className="text-sm sm:text-base font-bold text-white group-hover:text-[#d3ebd9]">
+                    Internal Chaos &amp; Overthinking
+                  </div>
+                  <div className="text-xs text-[#9eb6a6] font-light mt-1 leading-relaxed">
+                    I struggle with emotional reactivity, staying consistent with daily discipline, and breaking promises to myself.
+                  </div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-[#63876e] group-hover:text-white shrink-0 mt-1 transition-transform group-hover:translate-x-1" />
+              </button>
+
+              <button
+                onClick={() => handleAnswerStep1("build_income")}
+                className="w-full text-left p-3.5 sm:p-5 rounded-none border-b border-[#284433] hover:border-[#86bf9a] hover:bg-[#15251b] transition-all group flex items-start justify-between gap-3"
+              >
+                <div>
+                  <div className="text-sm sm:text-base font-bold text-white group-hover:text-[#d3ebd9]">
+                    Financial Freedom &amp; Income Growth
+                  </div>
+                  <div className="text-xs text-[#9eb6a6] font-light mt-1 leading-relaxed">
+                    I want to build cashflow, grow an audience fast, and learn how to generate income online through high-reach content.
+                  </div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-[#63876e] group-hover:text-white shrink-0 mt-1 transition-transform group-hover:translate-x-1" />
               </button>
             </div>
           </div>
         )}
-      </header>
 
-      {/* =========================================================================
-         2. HERO: BOLD, ELEGANT, SEAMLESS • ZERO TAGS • ZERO BOXES
-         ========================================================================= */}
-      <section className="relative pt-10 sm:pt-20 pb-10 sm:pb-20 px-4 sm:px-6 max-w-5xl mx-auto text-center radial-glow-olive">
-        {/* Headline: Bold Editorial Display, zero tags above it */}
-        <h1 className="font-display text-[29px] sm:text-5xl lg:text-7xl font-bold tracking-tight text-white max-w-4xl mx-auto leading-[1.12]">
-          Reset your mind. <br />
-          <span className="text-[#d8ebd9]">Control your life.</span>
-        </h1>
-
-        {/* Subtitle: Direct, human, high-agency */}
-        <p className="mt-3.5 sm:mt-6 text-xs sm:text-base text-[#bfd4c6] max-w-lg mx-auto font-light leading-relaxed">
-          A 112-page manual to eliminate overthinking, master emotional composure, and rebuild daily discipline. Read 1 page in the morning, write 1 page at night.
-        </p>
-
-        {/* Hero Actions: SIDE-BY-SIDE ON MOBILE */}
-        <div className="mt-6 sm:mt-9 flex flex-row items-center justify-center gap-2.5 sm:gap-3 w-full max-w-xs sm:max-w-sm mx-auto">
-          <button
-            onClick={handleTriggerCheckout}
-            className="btn-primary flex-1 py-3 px-3 sm:px-4 text-xs sm:text-sm font-semibold truncate"
-          >
-            <span>Claim Guide — $19</span>
-            <ArrowRight className="w-3.5 h-3.5 shrink-0" />
-          </button>
-
-          <a
-            href="#spreads"
-            className="btn-secondary flex-1 py-3 px-3 sm:px-3.5 text-xs sm:text-sm font-medium truncate"
-          >
-            <Eye className="w-3.5 h-3.5 text-[#a4c9b0] shrink-0" />
-            <span>Look Inside</span>
-          </a>
-        </div>
-
-        {/* Seamless Typographic Proof Strip: ZERO BOXES */}
-        <div className="grid grid-cols-3 divide-x divide-[#233a2c]/80 mt-8 max-w-xs sm:max-w-md mx-auto pt-5 border-t border-[#233a2c]/60">
-          <div className="text-center px-1 sm:px-3">
-            <div className="text-xs sm:text-base font-bold text-white tracking-tight">30,000+</div>
-            <div className="text-[9px] sm:text-xs text-[#8ca896] uppercase tracking-wider mt-0.5">Community</div>
-          </div>
-          <div className="text-center px-1 sm:px-3">
-            <div className="text-xs sm:text-base font-bold text-amber-300 flex items-center justify-center gap-1 tracking-tight">
-              <Star className="w-3 h-3 fill-amber-300" />
-              <span>4.9</span>
-            </div>
-            <div className="text-[9px] sm:text-xs text-[#8ca896] uppercase tracking-wider mt-0.5">Google</div>
-          </div>
-          <div className="text-center px-1 sm:px-3">
-            <div className="text-xs sm:text-base font-bold text-white tracking-tight">112 Pages</div>
-            <div className="text-[9px] sm:text-xs text-[#8ca896] uppercase tracking-wider mt-0.5">PDF Guide</div>
-          </div>
-        </div>
-
-        {/* Hero Mockup Preview: Sits cleanly on the canvas */}
-        <div className="mt-10 sm:mt-14 relative max-w-3xl mx-auto border-t border-b border-[#2c4737]/70 py-4 sm:py-6">
-          <Image
-            src="/hero-mockup-luxury.jpg"
-            alt="The Self-Mastery Guide open on iPad and iPhone"
-            width={1200}
-            height={675}
-            className="w-full h-auto object-cover"
-            priority
-          />
-          <div className="mt-3 flex items-center justify-between text-[11px] text-[#9eb6a6] font-light">
-            <span>Daily Ledger • Section 3 Written Audit</span>
-            <span className="text-emerald-400 font-medium">Apple Books, Files &amp; GoodNotes Ready</span>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-         3. SECTION: CONTRASTING WARM CREAM PROOF STRIP (SEAMLESS, NO BOXES)
-         ========================================================================= */}
-      <section className="bg-[#f7f6f2] text-[#141a16] py-10 sm:py-14 border-y border-[#e2dfd4]">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div>
-              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#141a16]">
-                The standard for high-agency minds.
+        {/* =========================================================================
+           QUESTION 2: FINANCIAL STANDING (THE KEY FORK)
+           ========================================================================= */}
+        {currentStep === 1 && (
+          <div className="space-y-4 animate-in fade-in duration-300">
+            <div className="text-center mb-6 px-2">
+              <span className="text-[11px] font-mono uppercase tracking-widest text-[#86bf9a]">
+                Question 02
+              </span>
+              <h2 className="text-base sm:text-xl font-bold text-white mt-1 leading-snug max-w-md mx-auto">
+                What is your honest financial standing today?
               </h2>
-              <p className="text-xs sm:text-sm text-[#4d5f53] mt-1 font-light max-w-md">
-                An uncompromising daily discipline manual for emotional composure, clear thinking, and zero excuses.
-              </p>
             </div>
 
-            {/* Seamless Typographic Metrics: ZERO BOXES */}
-            <div className="grid grid-cols-3 gap-6 w-full md:w-auto pt-4 md:pt-0 border-t md:border-t-0 md:border-l border-[#dcd8cb] md:pl-8">
-              <div>
-                <div className="text-sm font-bold text-[#1d3023]">Instant Access</div>
-                <div className="text-xs text-[#5e6f63] mt-0.5">1-Tap Direct Link</div>
-              </div>
-              <div>
-                <div className="text-sm font-bold text-[#1d3023]">Lifetime Updates</div>
-                <div className="text-xs text-[#5e6f63] mt-0.5">No Subscriptions</div>
-              </div>
-              <div>
-                <div className="text-sm font-bold text-[#1d3023]">Founder Credit</div>
-                <div className="text-xs text-[#5e6f63] mt-0.5">$19 Credited to App</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-         4. SECTION: THE SYSTEM (8 RULES) • SEAMLESS EDITORIAL GRID • ZERO BOXES
-         ========================================================================= */}
-      <section id="system" className="py-14 sm:py-24 px-4 sm:px-6 max-w-5xl mx-auto">
-        <div className="mb-10 sm:mb-14">
-          <h2 className="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">
-            Built for how you actually live.
-          </h2>
-          <p className="text-sm text-[#a8c2b1] mt-2 font-light max-w-md">
-            A frictionless routine designed to build quiet self-command without overwhelming your calendar.
-          </p>
-        </div>
-
-        {/* SEAMLESS EDITORIAL GRID: 2 COLUMNS ON MOBILE, 4 ON DESKTOP, ZERO BOXES */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 sm:gap-x-10 gap-y-10 border-t border-[#233a2c]/80 pt-8">
-          {corePrinciples.map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <div key={idx} className="space-y-2">
-                <div className="flex items-center justify-between text-xs font-mono text-[#6c8f77] pb-1 border-b border-[#233a2c]/60">
-                  <span>{item.num}</span>
-                  <Icon className="w-3.5 h-3.5 text-[#86bf9a]" />
-                </div>
-                <h3 className="text-sm sm:text-base font-bold text-white leading-tight">
-                  {item.title}
-                </h3>
-                <p className="text-xs text-[#9eb6a6] font-light leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* =========================================================================
-         5. SECTION: LOOK INSIDE THE PAGES (SEAMLESS EDITORIAL PRESENTATION)
-         ========================================================================= */}
-      <section id="spreads" className="bg-[#faf9f5] text-[#141a16] py-14 sm:py-24 border-y border-[#e2dfd4]">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="mb-8">
-            <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#141a16]">
-              Look inside the pages.
-            </h2>
-            <p className="text-xs sm:text-sm text-[#54685b] mt-2 max-w-lg font-light">
-              Every chapter pairs a psychological law on the left with an honest written audit on the right.
-            </p>
-
-            {/* Clean Underline Text Tabs: ZERO PILLS OR BOXES */}
-            <div className="flex flex-wrap gap-x-6 gap-y-2 mt-6 pt-4 border-t border-[#e2dfd4]">
-              {spreads.map((spread, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setActiveSpreadTab(idx)}
-                  className={`pb-1 text-xs sm:text-sm font-semibold transition-all border-b-2 ${
-                    activeSpreadTab === idx
-                      ? "border-[#1c3024] text-[#141a16]"
-                      : "border-transparent text-[#7e8f83] hover:text-[#141a16]"
-                  }`}
-                >
-                  <span>{spread.num} / {spread.title}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Active Spread Container: Sits gracefully without card box */}
-          <div className="max-w-4xl mx-auto border-t border-b border-[#e2dfd4] py-6">
-            <div className="relative overflow-hidden border border-[#e2dfd4] bg-[#f5f4ee]">
-              <Image
-                src={spreads[activeSpreadTab].image}
-                alt={spreads[activeSpreadTab].title}
-                width={1200}
-                height={800}
-                className="w-full h-auto object-contain"
-              />
-            </div>
-
-            {/* Seamless Description & Points: ZERO BOXES */}
-            <div className="mt-6 pt-4 border-t border-[#e2dfd4] flex flex-col md:flex-row md:items-start justify-between gap-6">
-              <div className="md:max-w-md">
-                <h3 className="text-base sm:text-lg font-bold text-[#141a16]">
-                  {spreads[activeSpreadTab].title}
-                </h3>
-                <p className="text-xs sm:text-sm text-[#4b5c51] font-light leading-relaxed mt-1">
-                  {spreads[activeSpreadTab].description}
-                </p>
-              </div>
-
-              <div className="space-y-1.5 md:min-w-[280px]">
-                {spreads[activeSpreadTab].points.map((pt, pIdx) => (
-                  <div key={pIdx} className="flex items-start gap-2 text-xs text-[#2b3a30]">
-                    <Check className="w-3.5 h-3.5 text-[#3d6849] shrink-0 mt-0.5" />
-                    <span className="leading-tight">{pt}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-         6. SECTION: THE 30,000 LOCKED-IN COLLECTIVE (SEAMLESS COMMUNITY APPLICATION)
-         ========================================================================= */}
-      <section id="community" className="py-14 sm:py-24 px-4 sm:px-6 max-w-4xl mx-auto">
-        <div className="mb-10">
-          <h2 className="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">
-            The 30,000 Locked-In Collective.
-          </h2>
-          <p className="text-xs sm:text-sm text-[#a8c2b1] mt-2 max-w-lg font-light leading-relaxed">
-            An uncompromising circle of high-agency individuals who value quiet execution, high taste, and deep discipline.
-          </p>
-        </div>
-
-        {/* Community Proof Statements: ZERO BOXES */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 py-8 border-y border-[#233a2c]/70 mb-10">
-          <div className="space-y-1.5">
-            <div className="flex items-center gap-2 text-emerald-400 text-xs font-mono uppercase tracking-widest">
-              <Briefcase className="w-3.5 h-3.5" />
-              <span>Ventures &amp; Co-Founders</span>
-            </div>
-            <h3 className="text-base sm:text-lg font-bold text-white">Companies Built Inside</h3>
-            <p className="text-xs sm:text-sm text-[#9eb6a6] font-light leading-relaxed">
-              Co-founders met inside our private network and launched multi-figure companies founded on shared discipline.
-            </p>
-          </div>
-
-          <div className="space-y-1.5">
-            <div className="flex items-center gap-2 text-rose-300 text-xs font-mono uppercase tracking-widest">
-              <HeartHandshake className="w-3.5 h-3.5" />
-              <span>Spouses &amp; Life Partners</span>
-            </div>
-            <h3 className="text-base sm:text-lg font-bold text-white">Partnerships Formed</h3>
-            <p className="text-xs sm:text-sm text-[#9eb6a6] font-light leading-relaxed">
-              Members have met spouses and life partners through aligned values and mutual emotional composure.
-            </p>
-          </div>
-        </div>
-
-        {/* Seamless Luxury Application Form: ZERO BOXES, UNDERLINE INPUTS */}
-        <div className="max-w-2xl mx-auto pt-4">
-          <div className="mb-6">
-            <h3 className="text-lg sm:text-xl font-bold text-white">
-              Apply for Private Discord Access
-            </h3>
-            <p className="text-xs text-[#9eb6a6] mt-1 font-light">
-              We review every application manually to preserve the calibre of the room.
-            </p>
-          </div>
-
-          {appSubmitted ? (
-            <div className="py-8 text-center border-t border-b border-[#233a2c]">
-              <CheckCircle2 className="w-10 h-10 text-emerald-400 mx-auto mb-2.5" />
-              <h4 className="text-base font-bold text-white">Application Received</h4>
-              <p className="text-xs text-[#a4bfad] mt-1 max-w-sm mx-auto font-light">
-                Thank you. We review every submission manually. If approved, your private Discord invitation link will be delivered directly to your email.
-              </p>
+            <div className="space-y-2.5">
               <button
-                onClick={() => setAppSubmitted(false)}
-                className="btn-secondary text-xs py-2 px-4 mt-4"
+                onClick={() => handleAnswerStep2("stable")}
+                className="w-full text-left p-3.5 sm:p-5 rounded-none border-b border-[#284433] hover:border-[#86bf9a] hover:bg-[#15251b] transition-all group flex items-start justify-between gap-3"
               >
-                Submit another response
+                <div>
+                  <div className="text-sm sm:text-base font-bold text-white group-hover:text-[#d3ebd9]">
+                    I am already financially stable / comfortable
+                  </div>
+                  <div className="text-xs text-[#9eb6a6] font-light mt-1 leading-relaxed">
+                    My finances are fine. My real problem is mental clarity, stopping 2 AM overthinking, and building quiet self-mastery.
+                  </div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-[#63876e] group-hover:text-white shrink-0 mt-1 transition-transform group-hover:translate-x-1" />
+              </button>
+
+              <button
+                onClick={() => handleAnswerStep2("need_income")}
+                className="w-full text-left p-3.5 sm:p-5 rounded-none border-b border-[#284433] hover:border-[#86bf9a] hover:bg-[#15251b] transition-all group flex items-start justify-between gap-3"
+              >
+                <div>
+                  <div className="text-sm sm:text-base font-bold text-white group-hover:text-[#d3ebd9]">
+                    I am not financially stable yet / I want to make money
+                  </div>
+                  <div className="text-xs text-[#9eb6a6] font-light mt-1 leading-relaxed">
+                    I need to generate income. I want to learn how to grow an account, gain massive views, and monetize my attention.
+                  </div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-[#63876e] group-hover:text-white shrink-0 mt-1 transition-transform group-hover:translate-x-1" />
               </button>
             </div>
-          ) : (
-            <form onSubmit={handleCommunitySubmit} className="space-y-5">
-              {appError && (
-                <div className="p-3 bg-red-950/50 border border-red-500/30 text-xs text-red-200">
-                  {appError}
-                </div>
-              )}
+          </div>
+        )}
 
-              {/* Name & Email: Seamless Underlines */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="text-xs font-mono uppercase tracking-wider text-[#9eb6a6] block mb-1">
-                    Your Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={appForm.name}
-                    onChange={(e) => setAppForm({ ...appForm, name: e.target.value })}
-                    placeholder="e.g. Marcus Vance"
-                    className="input-seamless"
-                  />
-                </div>
+        {/* =========================================================================
+           QUESTION 3: 90-DAY EXECUTION PREFERENCE
+           ========================================================================= */}
+        {currentStep === 2 && !isAnalyzing && (
+          <div className="space-y-4 animate-in fade-in duration-300">
+            <div className="text-center mb-6 px-2">
+              <span className="text-[11px] font-mono uppercase tracking-widest text-[#86bf9a]">
+                Question 03
+              </span>
+              <h2 className="text-base sm:text-xl font-bold text-white mt-1 leading-snug max-w-md mx-auto">
+                How do you want to execute over the next 90 days?
+              </h2>
+            </div>
 
+            <div className="space-y-2.5">
+              <button
+                onClick={() => handleAnswerStep3("self_mastery")}
+                className="w-full text-left p-3.5 sm:p-5 rounded-none border-b border-[#284433] hover:border-[#86bf9a] hover:bg-[#15251b] transition-all group flex items-start justify-between gap-3"
+              >
                 <div>
-                  <label className="text-xs font-mono uppercase tracking-wider text-[#9eb6a6] block mb-1">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={appForm.email}
-                    onChange={(e) => setAppForm({ ...appForm, email: e.target.value })}
-                    placeholder="e.g. marcus@company.com"
-                    className="input-seamless"
-                  />
+                  <div className="text-sm sm:text-base font-bold text-white group-hover:text-[#d3ebd9]">
+                    10 Minutes Daily of Quiet Written Audit &amp; Frameworks
+                  </div>
+                  <div className="text-xs text-[#9eb6a6] font-light mt-1 leading-relaxed">
+                    Read 1 page of principles every morning, complete 1 page of honest self-inquiry before sleep on my phone or notebook.
+                  </div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-[#63876e] group-hover:text-white shrink-0 mt-1 transition-transform group-hover:translate-x-1" />
+              </button>
+
+              <button
+                onClick={() => handleAnswerStep3("creator_growth")}
+                className="w-full text-left p-3.5 sm:p-5 rounded-none border-b border-[#284433] hover:border-[#86bf9a] hover:bg-[#15251b] transition-all group flex items-start justify-between gap-3"
+              >
+                <div>
+                  <div className="text-sm sm:text-base font-bold text-white group-hover:text-[#d3ebd9]">
+                    Mentorship &amp; Private Community for Viral Account Growth
+                  </div>
+                  <div className="text-xs text-[#9eb6a6] font-light mt-1 leading-relaxed">
+                    Learn the exact hooks, posting cadence, and algorithm strategies to get millions of views and make money from content.
+                  </div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-[#63876e] group-hover:text-white shrink-0 mt-1 transition-transform group-hover:translate-x-1" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* =========================================================================
+           ANALYZING STATE (1.1s PULSE)
+           ========================================================================= */}
+        {isAnalyzing && (
+          <div className="py-16 text-center space-y-4 animate-pulse">
+            <div className="w-10 h-10 border-2 border-[#86bf9a] border-t-transparent rounded-full animate-spin mx-auto" />
+            <h3 className="text-base font-bold text-white">Analyzing Diagnostic Answers...</h3>
+            <p className="text-xs text-[#8ca896]">Mapping your profile to the highest-leverage allocation.</p>
+          </div>
+        )}
+
+        {/* =========================================================================
+           ALLOCATION OUTCOME A: THE SELF-MASTERY TRACK ($19 GUIDE)
+           ========================================================================= */}
+        {currentStep === 3 && allocatedTrack === "self_mastery" && (
+          <div className="space-y-8 animate-in fade-in duration-500 pt-2">
+            {/* Allocation Header */}
+            <div className="border-b border-[#243b2c] pb-6">
+              <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">
+                Allocation Confirmed • Track 01
+              </span>
+              <h2 className="font-display text-2xl sm:text-4xl font-bold text-white mt-1">
+                Internal Self-Command &amp; Composure
+              </h2>
+              <p className="text-xs sm:text-sm text-[#bfd4c6] mt-2 font-light leading-relaxed">
+                You already possess financial stability. Chasing more noise will not solve 2 AM overthinking or emotional reactivity under stress. Your highest leverage point is daily written self-command.
+              </p>
+            </div>
+
+            {/* The Guide Deliverables: Seamless Editorial Presentation */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-[#86bf9a]" />
+                <h3 className="text-base sm:text-lg font-bold text-white">
+                  The 112-Page Self-Mastery Guide &amp; Workbook
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm text-[#d0e0d5]">
+                <div className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span><strong>The 3-Second Delay:</strong> Field rules to pause and disarm disrespect with silence.</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span><strong>Evening Accountability:</strong> 3 nightly questions to audit slipped composure.</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span><strong>47 Frameworks:</strong> Clear boundary setting without guilt or apology.</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span><strong>Mobile &amp; iPad Ready:</strong> Native fillable fields in Apple Books &amp; GoodNotes.</span>
                 </div>
               </div>
 
-              <div>
-                <label className="text-xs font-mono uppercase tracking-wider text-[#9eb6a6] block mb-1">
-                  Instagram or Social Handle (Optional)
-                </label>
-                <input
-                  type="text"
-                  value={appForm.handle}
-                  onChange={(e) => setAppForm({ ...appForm, handle: e.target.value })}
-                  placeholder="@yourusername"
-                  className="input-seamless"
+              {/* Product Preview Mockup */}
+              <div className="border-t border-b border-[#233a2c] py-4 my-4">
+                <Image
+                  src="/hero-mockup-luxury.jpg"
+                  alt="The Self-Mastery Guide on iPad"
+                  width={900}
+                  height={500}
+                  className="w-full h-auto object-cover"
                 />
               </div>
 
-              <div>
-                <label className="text-xs font-mono uppercase tracking-wider text-[#9eb6a6] block mb-1">
-                  Why should you be granted access into this locked-in circle? *
-                </label>
-                <textarea
-                  required
-                  rows={3}
-                  value={appForm.reason}
-                  onChange={(e) => setAppForm({ ...appForm, reason: e.target.value })}
-                  placeholder="Tell us what you work on, your daily disciplines, and what standard you bring to the collective."
-                  className="input-seamless resize-none"
-                />
-              </div>
+              {/* Direct Purchase CTA */}
+              <div className="pt-2 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                  <div className="text-2xl sm:text-3xl font-extrabold text-white">$19 <span className="text-xs text-[#8ca896] font-normal font-sans">One-time payment</span></div>
+                  <div className="text-[11px] text-[#86a38f] mt-0.5">100% credited toward the upcoming Life Reset mobile app</div>
+                </div>
 
-              <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <button
-                  type="submit"
-                  disabled={submittingApp}
-                  className="btn-primary w-full sm:w-auto py-3 px-8 text-xs sm:text-sm font-semibold justify-center"
+                  onClick={handleTriggerCheckout}
+                  className="btn-primary w-full sm:w-auto py-3.5 px-8 text-sm font-bold justify-center"
                 >
-                  <span>{submittingApp ? "Submitting..." : "Submit Application for Review"}</span>
-                  <Send className="w-3.5 h-3.5 ml-1" />
+                  <span>Claim The Guide — $19</span>
+                  <ArrowRight className="w-4 h-4 ml-1" />
                 </button>
-                <span className="text-[11px] text-[#718c7c] font-light">
-                  Discord link provided via email upon acceptance.
-                </span>
               </div>
-            </form>
-          )}
-        </div>
-      </section>
+
+              {/* Switch Track Option */}
+              <div className="pt-6 border-t border-[#233a2c]/60 flex items-center justify-between text-xs text-[#8ca896]">
+                <button
+                  onClick={handleResetDiagnostic}
+                  className="hover:text-white transition-colors flex items-center gap-1"
+                >
+                  <RefreshCw className="w-3 h-3" />
+                  <span>Retake Diagnostic</span>
+                </button>
+
+                <button
+                  onClick={() => setAllocatedTrack("creator_growth")}
+                  className="text-[#86bf9a] hover:underline"
+                >
+                  Looking to make money &amp; grow an account instead?
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* =========================================================================
+           ALLOCATION OUTCOME B: THE CREATOR & VIRAL GROWTH CIRCLE (PRIVATE COMMUNITY)
+           ========================================================================= */}
+        {currentStep === 3 && allocatedTrack === "creator_growth" && (
+          <div className="space-y-8 animate-in fade-in duration-500 pt-2">
+            {/* Allocation Header */}
+            <div className="border-b border-[#243b2c] pb-6">
+              <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">
+                Allocation Confirmed • Track 02
+              </span>
+              <h2 className="font-display text-2xl sm:text-4xl font-bold text-white mt-1">
+                The Creator &amp; Viral Growth Circle
+              </h2>
+              <p className="text-xs sm:text-sm text-[#bfd4c6] mt-2 font-light leading-relaxed">
+                Self-discipline without financial sovereignty creates burnout. Your immediate priority is mastering organic attention: growing an account superfast, getting insane views, and monetizing your reach.
+              </p>
+            </div>
+
+            {/* The Growth Blueprint Highlights */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <TrendingUp className="w-4 h-4 text-emerald-400" />
+                <h3 className="text-base sm:text-lg font-bold text-white">
+                  Learn How @ourlife.reset Scaled to 30,000+ Followers &amp; Millions of Views
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm text-[#d0e0d5]">
+                <div className="space-y-1">
+                  <div className="font-bold text-white flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    <span>Viral Hook Engineering</span>
+                  </div>
+                  <p className="text-[#9eb6a6] font-light leading-relaxed text-xs">
+                    The exact script structures and pacing that stop the scroll and generate millions of views per reel.
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="font-bold text-white flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    <span>Monetization Blueprint</span>
+                  </div>
+                  <p className="text-[#9eb6a6] font-light leading-relaxed text-xs">
+                    How to turn passive viewers into paying customers for digital guides, products, and communities.
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="font-bold text-white flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    <span>Superfast Account Growth</span>
+                  </div>
+                  <p className="text-[#9eb6a6] font-light leading-relaxed text-xs">
+                    Daily posting cadence, audio selection, and algorithm shortcuts to build a loyal following in weeks.
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <div className="font-bold text-white flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                    <span>Private Discord Network</span>
+                  </div>
+                  <p className="text-[#9eb6a6] font-light leading-relaxed text-xs">
+                    Direct access to a vetted circle of creators and founders completely locked in on daily execution.
+                  </p>
+                </div>
+              </div>
+
+              {/* Seamless Membership Application Form */}
+              <div className="pt-6 border-t border-[#233a2c]">
+                <div className="mb-4">
+                  <h4 className="text-base font-bold text-white">
+                    Apply for Private Community &amp; Discord Access
+                  </h4>
+                  <p className="text-xs text-[#9eb6a6] font-light mt-0.5">
+                    Access is limited to maintain high quality. We review every application manually.
+                  </p>
+                </div>
+
+                {appSubmitted ? (
+                  <div className="py-8 text-center border-t border-b border-[#233a2c]">
+                    <CheckCircle2 className="w-10 h-10 text-emerald-400 mx-auto mb-2.5" />
+                    <h4 className="text-base font-bold text-white">Application Received</h4>
+                    <p className="text-xs text-[#a4bfad] mt-1 max-w-sm mx-auto font-light">
+                      Thank you. We review every creator submission manually. If accepted, your Discord invite link and growth onboarding will be sent directly to your email.
+                    </p>
+                    <button
+                      onClick={() => setAppSubmitted(false)}
+                      className="btn-secondary text-xs py-2 px-4 mt-4"
+                    >
+                      Submit another application
+                    </button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleCommunitySubmit} className="space-y-4">
+                    {appError && (
+                      <div className="p-3 bg-red-950/50 border border-red-500/30 text-xs text-red-200">
+                        {appError}
+                      </div>
+                    )}
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs font-mono uppercase text-[#9eb6a6] block mb-1">
+                          Full Name *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={appForm.name}
+                          onChange={(e) => setAppForm({ ...appForm, name: e.target.value })}
+                          placeholder="e.g. Alex Rivera"
+                          className="input-seamless"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-mono uppercase text-[#9eb6a6] block mb-1">
+                          Email Address *
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={appForm.email}
+                          onChange={(e) => setAppForm({ ...appForm, email: e.target.value })}
+                          placeholder="e.g. alex@gmail.com"
+                          className="input-seamless"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs font-mono uppercase text-[#9eb6a6] block mb-1">
+                          Instagram Handle *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={appForm.handle}
+                          onChange={(e) => setAppForm({ ...appForm, handle: e.target.value })}
+                          placeholder="@youraccount"
+                          className="input-seamless"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-mono uppercase text-[#9eb6a6] block mb-1">
+                          Current Niche / Theme
+                        </label>
+                        <input
+                          type="text"
+                          value={appForm.niche}
+                          onChange={(e) => setAppForm({ ...appForm, niche: e.target.value })}
+                          placeholder="e.g. Philosophy, Fitness, Tech, Finance"
+                          className="input-seamless"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="text-xs font-mono uppercase text-[#9eb6a6] block mb-1">
+                        Why do you want to grow an account and build an income right now? *
+                      </label>
+                      <textarea
+                        required
+                        rows={3}
+                        value={appForm.reason}
+                        onChange={(e) => setAppForm({ ...appForm, reason: e.target.value })}
+                        placeholder="Tell us about your background, your target goals, and your commitment to executing daily."
+                        className="input-seamless resize-none"
+                      />
+                    </div>
+
+                    <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+                      <button
+                        type="submit"
+                        disabled={submittingApp}
+                        className="btn-primary w-full sm:w-auto py-3 px-8 text-xs sm:text-sm font-semibold justify-center"
+                      >
+                        <span>{submittingApp ? "Submitting Application..." : "Apply for Community Access"}</span>
+                        <Send className="w-3.5 h-3.5 ml-1" />
+                      </button>
+
+                      <span className="text-[11px] text-[#718c7c] font-light">
+                        Manual review • Discord link sent via email upon approval.
+                      </span>
+                    </div>
+                  </form>
+                )}
+              </div>
+
+              {/* Switch Track Option */}
+              <div className="pt-6 border-t border-[#233a2c]/60 flex items-center justify-between text-xs text-[#8ca896]">
+                <button
+                  onClick={handleResetDiagnostic}
+                  className="hover:text-white transition-colors flex items-center gap-1"
+                >
+                  <RefreshCw className="w-3 h-3" />
+                  <span>Retake Diagnostic</span>
+                </button>
+
+                <button
+                  onClick={() => setAllocatedTrack("self_mastery")}
+                  className="text-[#86bf9a] hover:underline"
+                >
+                  Already financially stable? View the $19 Guide
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </main>
 
       {/* =========================================================================
-         7. SECTION: GOOGLE REVIEWS (SEAMLESS EDITORIAL QUOTES • ZERO BOXES)
+         3. CONCISE SOCIAL PROOF & GOOGLE REVIEWS (SEAMLESS, NO BOXES)
          ========================================================================= */}
-      <section id="reviews" className="bg-[#f7f6f2] text-[#141a16] py-14 sm:py-24 border-y border-[#e2dfd4]">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 pb-6 border-b border-[#e2dfd4]">
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                {/* Official Google 4-Color Logo */}
-                <svg className="w-4 h-4" viewBox="0 0 24 24">
-                  <path
-                    fill="#4285F4"
-                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                  />
-                  <path
-                    fill="#34A853"
-                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                  />
-                  <path
-                    fill="#FBBC05"
-                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
-                  />
-                  <path
-                    fill="#EA4335"
-                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
-                  />
-                </svg>
-                <span className="text-xs font-bold text-[#141a16] tracking-wide">Google Reviews</span>
-                <span className="text-[#a8a395]">·</span>
-                <div className="flex text-amber-500">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-3 h-3 fill-current" />
-                  ))}
-                </div>
-                <span className="text-xs font-bold text-[#141a16]">4.9 / 5.0</span>
+      <section className="bg-[#f7f6f2] text-[#141a16] py-12 sm:py-16 border-y border-[#e2dfd4]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-4 border-b border-[#e2dfd4]">
+            <div className="flex items-center gap-2.5">
+              {/* Google 4-Color SVG Icon */}
+              <svg className="w-4 h-4" viewBox="0 0 24 24">
+                <path
+                  fill="#4285F4"
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+                />
+                <path
+                  fill="#EA4335"
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+                />
+              </svg>
+              <span className="text-xs font-bold text-[#141a16]">Google Reviews</span>
+              <span className="text-[#a8a395]">·</span>
+              <div className="flex text-amber-500">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3 h-3 fill-current" />
+                ))}
               </div>
-              <h2 className="font-serif text-2xl sm:text-4xl font-bold text-[#141a16]">
-                Verified Reader Reflections
-              </h2>
+              <span className="text-xs font-bold text-[#141a16]">4.9 / 5.0</span>
             </div>
 
             <button
               onClick={() => setShowReviewModal(true)}
-              className="self-start sm:self-auto inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-[#1c3024] text-white hover:bg-[#253f30] rounded-full transition-colors"
+              className="text-xs font-semibold text-[#203627] hover:underline flex items-center gap-1 self-start sm:self-auto"
             >
               <MessageSquarePlus className="w-3.5 h-3.5" />
-              <span>Submit a Review</span>
+              <span>Leave a Review</span>
             </button>
           </div>
 
-          {/* Seamless Editorial Review Quotes: ZERO BOXES */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-            {reviewsList.slice(0, 6).map((review) => (
-              <div key={review.id} className="space-y-2 pb-6 border-b border-[#e2dfd4]">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs sm:text-sm font-bold text-[#141a16]">{review.name}</span>
-                    <span className="text-xs text-[#6b7d72]">· {review.role || "Verified Reader"}</span>
-                  </div>
-                  <div className="flex text-amber-500">
-                    {[...Array(review.rating)].map((_, i) => (
-                      <Star key={i} className="w-3 h-3 fill-current" />
-                    ))}
-                  </div>
+          {/* 4 Clean Editorial Quotes: ZERO BOXES */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {reviewsList.slice(0, 4).map((review) => (
+              <div key={review.id} className="space-y-1.5 pb-4 border-b border-[#e5e3d7]">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-bold text-[#141a16]">{review.name}</span>
+                  <span className="text-[#6b7d72]">{review.role || "Verified Reader"}</span>
                 </div>
-
-                {review.highlight && (
-                  <div className="text-xs font-bold text-[#1c3024]">
-                    &ldquo;{review.highlight}&rdquo;
-                  </div>
-                )}
                 <p className="text-xs sm:text-sm text-[#3b4d42] font-light leading-relaxed">
                   &ldquo;{review.comment}&rdquo;
                 </p>
-
-                <div className="pt-1 flex items-center justify-between text-[11px] text-[#718579]">
+                <div className="text-[10px] text-[#718579] flex items-center justify-between pt-1">
                   <span>{review.date}</span>
                   <span className="text-[#2b633b] font-medium flex items-center gap-1">
                     <CheckCircle2 className="w-3 h-3" />
-                    <span>Verified Purchase</span>
+                    <span>Verified</span>
                   </span>
                 </div>
               </div>
@@ -839,7 +834,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Review Submission Modal (Clean Minimal Backdrop) */}
+      {/* Review Submission Modal */}
       {showReviewModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
           <div className="p-6 sm:p-8 max-w-md w-full bg-[#15251c] border border-[#2e4f38] relative shadow-2xl">
@@ -853,16 +848,12 @@ export default function HomePage() {
             {reviewSubmitted ? (
               <div className="text-center py-6">
                 <CheckCircle2 className="w-10 h-10 text-emerald-400 mx-auto mb-2.5" />
-                <h3 className="text-base font-bold text-white">Review Posted</h3>
-                <p className="text-xs text-[#a0b8a8] mt-1">Thank you for contributing your honest experience.</p>
+                <h3 className="text-base font-bold text-white">Review Submitted</h3>
+                <p className="text-xs text-[#a0b8a8] mt-1">Thank you for sharing your experience.</p>
               </div>
             ) : (
               <form onSubmit={handleReviewSubmit} className="space-y-4">
-                <h3 className="text-base font-bold text-white">Write a Review</h3>
-                <p className="text-xs text-[#a0b8a8] font-light">
-                  Share how The Self-Mastery Guide has impacted your composure and daily routine.
-                </p>
-
+                <h3 className="text-base font-bold text-white">Leave a Review</h3>
                 <div>
                   <label className="text-xs font-mono uppercase text-[#9eb6a6] block mb-1">Your Name</label>
                   <input
@@ -874,7 +865,6 @@ export default function HomePage() {
                     className="input-seamless"
                   />
                 </div>
-
                 <div>
                   <label className="text-xs font-mono uppercase text-[#9eb6a6] block mb-1">Role / City (Optional)</label>
                   <input
@@ -885,25 +875,6 @@ export default function HomePage() {
                     className="input-seamless"
                   />
                 </div>
-
-                <div>
-                  <label className="text-xs font-mono uppercase text-[#9eb6a6] block mb-1">Rating</label>
-                  <div className="flex gap-1.5 pt-1">
-                    {[1, 2, 3, 4, 5].map((num) => (
-                      <button
-                        type="button"
-                        key={num}
-                        onClick={() => setNewReview({ ...newReview, rating: num })}
-                        className={`p-1 ${
-                          newReview.rating >= num ? "text-amber-400" : "text-[#394f41]"
-                        }`}
-                      >
-                        <Star className="w-4 h-4 fill-current" />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
                 <div>
                   <label className="text-xs font-mono uppercase text-[#9eb6a6] block mb-1">Review</label>
                   <textarea
@@ -911,17 +882,16 @@ export default function HomePage() {
                     rows={3}
                     value={newReview.comment}
                     onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
-                    placeholder="Which chapter or prompt made the biggest difference in your daily conduct?"
+                    placeholder="What specific framework or insight changed your daily conduct?"
                     className="input-seamless resize-none"
                   />
                 </div>
-
                 <button
                   type="submit"
                   disabled={submittingReview}
                   className="btn-primary w-full py-2.5 text-xs font-semibold justify-center mt-2"
                 >
-                  <span>{submittingReview ? "Submitting..." : "Publish Review"}</span>
+                  <span>{submittingReview ? "Submitting..." : "Submit Review"}</span>
                   <Send className="w-3.5 h-3.5 ml-1" />
                 </button>
               </form>
@@ -931,65 +901,10 @@ export default function HomePage() {
       )}
 
       {/* =========================================================================
-         8. SECTION: BOLD SEAMLESS $19 OFFER (ZERO BOXES)
+         4. CONCISE FAQ SECTION (SEAMLESS ACCORDION)
          ========================================================================= */}
-      <section id="pricing" className="py-16 sm:py-28 px-4 sm:px-6 max-w-4xl mx-auto text-center border-t border-[#233a2c]/70">
-        <h2 className="font-display text-3xl sm:text-6xl font-bold text-white tracking-tight">
-          One payment. Lifetime access.
-        </h2>
-        <div className="text-5xl sm:text-7xl font-extrabold text-white my-4">
-          $19
-        </div>
-        <p className="text-xs sm:text-sm text-[#9eb6a6] max-w-md mx-auto font-light leading-relaxed">
-          One-time payment. Immediate digital access. Your $19 purchase is 100% credited toward the upcoming Life Reset mobile app.
-        </p>
-
-        {/* Seamless Deliverables: ZERO BOXES */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3.5 gap-x-10 max-w-2xl mx-auto text-left py-8 border-y border-[#233a2c]/70 my-8 text-xs sm:text-sm text-[#d4e3d9]">
-          <div className="flex items-start gap-2.5">
-            <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-            <span><strong>112 Interactive Pages</strong> for iPhone, iPad &amp; Android</span>
-          </div>
-          <div className="flex items-start gap-2.5">
-            <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-            <span><strong>All 47 Frameworks</strong> on composure, focus &amp; boundaries</span>
-          </div>
-          <div className="flex items-start gap-2.5">
-            <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-            <span><strong>47 Evening Audits</strong> to confront unkept promises</span>
-          </div>
-          <div className="flex items-start gap-2.5">
-            <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-            <span><strong>Print Margins Included</strong> for notebook handwriting</span>
-          </div>
-          <div className="flex items-start gap-2.5">
-            <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-            <span><strong>Instant Download</strong> immediately after Stripe checkout</span>
-          </div>
-          <div className="flex items-start gap-2.5">
-            <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-            <span><strong>Permanent Backup Link</strong> delivered straight to email</span>
-          </div>
-        </div>
-
-        <button
-          onClick={handleTriggerCheckout}
-          className="btn-primary py-4 px-10 text-sm sm:text-base font-bold shadow-lg"
-        >
-          <span>Claim The Guide Now — $19</span>
-          <ArrowRight className="w-4 h-4 ml-1" />
-        </button>
-
-        <p className="text-center text-[11px] text-[#86a38f] mt-4 font-light max-w-sm mx-auto">
-          <strong className="text-white font-medium">Founder's Credit:</strong> Full $19 credited toward VIP lifetime registration for the upcoming app.
-        </p>
-      </section>
-
-      {/* =========================================================================
-         9. SECTION: FREQUENTLY ASKED QUESTIONS (SEAMLESS ACCORDION)
-         ========================================================================= */}
-      <section id="faq" className="py-14 sm:py-20 px-4 sm:px-6 max-w-3xl mx-auto border-t border-[#233a2c]/70">
-        <h2 className="font-display text-2xl sm:text-4xl font-bold text-white tracking-tight mb-8">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 max-w-3xl mx-auto border-t border-[#233a2c]/70">
+        <h2 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight mb-6">
           Frequently Asked Questions
         </h2>
 
@@ -1022,16 +937,16 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-         10. FOOTER: SEAMLESS MINIMAL FOOTER
+         5. SEAMLESS MINIMAL FOOTER
          ========================================================================= */}
-      <footer className="border-t border-[#203627] py-10 px-4 sm:px-6 text-xs text-[#8aa694]">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+      <footer className="border-t border-[#203627] py-8 px-4 sm:px-6 text-xs text-[#8aa694]">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
             <Image
               src="/logo-with-bg.png"
               alt="Our Life Reset Logo"
-              width={26}
-              height={26}
+              width={24}
+              height={24}
               className="rounded-md border border-[#2b4936]"
             />
             <span className="font-bold text-white">@ourlife.reset</span>
@@ -1046,16 +961,13 @@ export default function HomePage() {
             >
               Instagram
             </a>
-            <a href="/refund-policy" className="hover:text-white transition-colors">
-              Refund Policy
-            </a>
             <Link href="/admin" className="text-[#86bf9a] hover:underline font-medium">
               Founder Console
             </Link>
           </div>
         </div>
 
-        <div className="text-center text-[11px] text-[#5e7868] mt-6">
+        <div className="text-center text-[10px] text-[#5e7868] mt-4">
           &copy; {new Date().getFullYear()} Our Life Reset. Reset your mind. Control your life.
         </div>
       </footer>

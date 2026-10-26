@@ -6,10 +6,8 @@ import Link from "next/link";
 import {
   ArrowRight,
   Check,
-  Star,
   ChevronDown,
   Users,
-  Sparkles,
   Zap,
   TrendingUp,
   Cpu,
@@ -19,7 +17,6 @@ import {
   CheckCircle2,
   Lock,
   MessageCircle,
-  HelpCircle,
   Clock
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -76,80 +73,81 @@ export default function DiscordLandingPage() {
     }
   };
 
+  /* Curriculum Modules - High-Level Value without giving away the proprietary secret sauce */
   const modules = [
     {
       num: "01",
-      title: "The 0-30k Algorithmic Foundation",
-      tagline: "High-Contrast Visual Canvas & Retention",
-      desc: "Why ordinary reels stall at 200 views while high-retention formats get pushed to millions. We break down the exact 4K vertical canvas geometry (2160 × 3840 px, pure solid black `#000000`, Times New Roman 137pt) and subtle contemplative sound design that keeps viewers watching across multiple loops.",
+      title: "The 0 to 30k Distribution Blueprint",
+      tagline: "Algorithmic Pacing & Visual Authority",
+      desc: "Why 99% of creator reels stall at low views while high-authority pages capture millions of impressions. You will master the exact visual formatting, typography balance, and subtle audio pacing that triggers algorithmic distribution without needing expensive cameras or complex editing.",
       highlights: [
-        "The 8.2-second retention sweet spot that triggers the algorithm",
-        "Pacing, margin symmetry, and line wrapping psychology",
-        "Audio mixing: subtle background contemplation vs. noisy tracks"
+        "The retention pacing architecture that keeps viewers hooked through multiple loops",
+        "Visual hierarchy: formatting text and contrast for immediate authority",
+        "Audio selection: subtle soundscapes that stop the scroll"
       ]
     },
     {
       num: "02",
-      title: "Viral Hook & Repost Psychology",
-      tagline: "The 'Smart & Deep' Share Engine",
-      desc: "People don't share quotes to support your page; they share them to tell their own followers: 'I am smart, observant, and I think about deep things.' We teach you how to pick quotes from Machiavelli, Seneca, Greene, Marks, and de Retz that provoke massive story reposts.",
+      title: "The Viral Repost Psychology Engine",
+      tagline: "The Subconscious Story Share Trigger",
+      desc: "Followers do not repost content to promote your page; they repost to signal something about their own identity. Learn the psychological triggers that compel viewers to share your reels to their personal stories, driving thousands of warm organic followers daily.",
       highlights: [
-        "The 4-paragraph 160–190 word caption blueprint",
-        "How to write biographical intros that establish instant authority",
-        "Hashtag selection for high-intent algorithmic targeting"
+        "The identity-signaling framework behind high-share content",
+        "Curating high-authority thoughts that provoke deep agreement",
+        "Structuring captions that maximize saves, shares, and algorithmic reach"
       ]
     },
     {
       num: "03",
-      title: "100% Automated Batch Production",
-      tagline: "Render & Schedule 30 Reels in 10 Minutes",
-      desc: "Stop spending 3 hours in CapCut every single day. We give you our exact Python toolchain, FFmpeg rendering scripts, GitHub raw media CDN workflow, and Buffer API automation to render and schedule an entire month of reels in a single command.",
+      title: "Automated Batch Production Systems",
+      tagline: "Create A Month of Content in Minutes",
+      desc: "Stop spending hours manually editing one clip at a time. We share our private automated workflow that allows our team to generate, format, and queue weeks of high-definition content in a single afternoon so you can focus purely on strategy.",
       highlights: [
-        "Ready-to-run Python rendering scripts for Mac & Windows",
-        "Automated GitHub CDN video hosting & Buffer API integration",
-        "Zero manual editing: terminal-based multi-platform queueing"
+        "The complete automated creation workflow walkthrough",
+        "Batch formatting systems for frictionless consistency",
+        "Multi-platform queueing without daily creative burnout"
       ]
     },
     {
       num: "04",
-      title: "DM Automation & Monetization Funnels",
-      tagline: "Turn Viral Views into Predictable Cashflow",
-      desc: "Views without conversion are useless vanity. Learn how to connect reel comments (like 'START' or 'KEY') to automated ManyChat sequences, delivering digital guides and community invites into thousands of inboxes with 40%+ open rates.",
+      title: "DM Automation & Cashflow Systems",
+      tagline: "Turn Views into Predictable Revenue",
+      desc: "Views without conversion are useless vanity. Master the frictionless DM automation funnels that convert reel comments and story interactions into qualified buyers for digital products, consultations, and private communities.",
       highlights: [
-        "High-converting DM automation trigger setup",
-        "Digital product pricing and frictionless Stripe checkout setup",
-        "Converting faceless audience trust into sustainable income"
+        "Setting up automated keyword DM triggers with high open rates",
+        "Frictionless checkout integration and offer presentation",
+        "Converting passive scrollers into long-term community members"
       ]
     },
     {
       num: "05",
       title: "The Private Discord Mastermind",
-      tagline: "Weekly Account Audits & Viral Script Vault",
-      desc: "You never build alone. Inside the Discord, Kabbir conducts bi-weekly live teardowns of member accounts, analyzes why your reels are capping, and provides access to our proprietary 500+ viral quote swipe file.",
+      tagline: "Direct Feedback, Weekly Audits & Private Vault",
+      desc: "Get direct access to Kabbir and a room of serious creators. Submit your page for bi-weekly live teardowns, diagnose your view caps, and unlock our private vault of high-performing quotes and frameworks.",
       highlights: [
-        "Direct feedback and pacing audits from Kabbir",
-        "Curated 500+ viral quotes vault with pre-written historical context",
-        "Private networking with serious faceless and personal brand operators"
+        "Personal account audits and script feedback directly with Kabbir",
+        "Access to our private 500+ viral quote swipe vault",
+        "Private networking with operators scaling to 10k–100k+ followers"
       ]
     }
   ];
 
   const faqs = [
     {
-      q: "Do I need video editing or coding experience?",
-      a: "No. The entire system is built so that anyone can run our automated scripts or follow our step-by-step templates. You don't need Premiere, After Effects, or advanced video skills."
+      q: "Do I need prior video editing experience?",
+      a: "No. The entire system is designed so that anyone can follow our step-by-step blueprints and automated frameworks. You don't need complex software or high-end gear."
     },
     {
       q: "Do I have to show my face on camera?",
-      a: "Not at all. @ourlife.reset was built to 30,000+ followers and millions of monthly impressions completely faceless. We teach you both faceless authority and personal brand scaling."
+      a: "Not at all. OurLife.Reset was grown to over 30,000 followers and millions of monthly impressions completely faceless. We teach both faceless authority and personal brand scaling."
     },
     {
-      q: "What is inside the Discord once I join?",
-      a: "You get immediate access to all 5 module walkthroughs, our Python rendering scripts, the 500+ quote swipe file, private channels for feedback and account audits with Kabbir, and daily creator mastermind chats."
+      q: "What happens after I join the Discord?",
+      a: "You get immediate access to all 5 module breakdowns, our private swipe files, dedicated channels for feedback and account audits with Kabbir, and daily discussions with fellow operators."
     },
     {
-      q: "How many members are accepted into the cohort?",
-      a: "To ensure Kabbir can personally audit every member's page and review their scripts, cohort enrollment is strictly capped."
+      q: "Can I cancel my membership at any time?",
+      a: "Yes. There are zero contracts or commitments. You can cancel your membership anytime with one click directly inside your billing portal."
     }
   ];
 
@@ -165,15 +163,9 @@ export default function DiscordLandingPage() {
       <Navbar activePage="discord" />
 
       {/* =========================================================================
-         1. HERO SECTION: 0 TO 30K CREATOR BLUEPRINT
+         1. HERO SECTION: 0 TO 30K CREATOR BLUEPRINT (NO TAGS AS REQUESTED)
          ========================================================================= */}
-      <section className="relative pt-12 sm:pt-20 pb-16 px-4 sm:px-6 max-w-4xl mx-auto text-center">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 rounded-full bg-[#ece9df] border border-[#dedad0] text-[11px] sm:text-xs font-semibold text-[#1b3826] mb-6 max-w-full">
-          <Users className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
-          <span className="truncate">Private Creator Mastermind · Limited Access</span>
-        </div>
-
+      <section className="relative pt-16 sm:pt-24 pb-16 px-4 sm:px-6 max-w-4xl mx-auto text-center">
         {/* Main Headline */}
         <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#121814] leading-[1.15] mb-6">
           Grow from 0 to 30k.{" "}
@@ -184,7 +176,7 @@ export default function DiscordLandingPage() {
 
         {/* Subhead */}
         <p className="text-base sm:text-xl text-[#4a5950] max-w-2xl mx-auto font-normal leading-relaxed mb-8">
-          The exact viral hook formulas, 4K rendering automations, audience psychology, and DM funnels behind @ourlife.reset. Everything you need to scale a high-leverage brand from 0 to 30,000+ followers.
+          The exact viral hook formulas, automated batch systems, audience psychology, and monetization funnels behind OurLife.Reset. Everything you need to scale a high-leverage brand from 0 to 30,000+ followers.
         </p>
 
         {/* Action Buttons */}
@@ -194,7 +186,7 @@ export default function DiscordLandingPage() {
             className="scale-cta-btn py-3.5 px-8 text-base font-semibold w-full sm:w-auto shadow-lg shadow-[#1b3826]/15 hover:shadow-xl hover:shadow-[#1b3826]/25 transition-all"
           >
             <div className="scale-cta-sheen" />
-            <span className="relative z-10">Join Private Discord</span>
+            <span className="relative z-10">Join Private Discord — $29</span>
             <div className="relative z-10 w-4 h-4 overflow-hidden">
               <div className="scale-arrow-track">
                 <span className="w-1/2 flex items-center justify-center">
@@ -238,18 +230,15 @@ export default function DiscordLandingPage() {
       </section>
 
       {/* =========================================================================
-         2. CREATOR VIDEO MONTAGE (THE ENGINE IN ACTION)
+         2. CREATOR VIDEO MONTAGE
          ========================================================================= */}
       <section className="relative py-12 px-4 sm:px-6 max-w-4xl mx-auto">
         <div className="text-center mb-8">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#798a80]">
-            The Production Machine
-          </span>
-          <h2 className="text-2xl sm:text-4xl font-bold text-[#121814] tracking-tight mt-1">
+          <h2 className="text-2xl sm:text-4xl font-bold text-[#121814] tracking-tight">
             How We Build & Scale Daily
           </h2>
           <p className="text-sm sm:text-base text-[#4a5950] max-w-xl mx-auto mt-2">
-            A look inside our 4K video rendering scripts, terminal batching, and automated Buffer scheduling.
+            A glimpse into our production timeline, automated consistency, and audience retention metrics.
           </p>
         </div>
 
@@ -270,18 +259,15 @@ export default function DiscordLandingPage() {
       </section>
 
       {/* =========================================================================
-         3. CURRICULUM MODULES (THE OUTSIDE COVER)
+         3. CURRICULUM MODULES (NO SECRETS REVEALED - OUTSIDE COVER VALUE)
          ========================================================================= */}
       <section id="curriculum" className="relative py-16 px-4 sm:px-6 max-w-4xl mx-auto border-t border-[#e7e5dc]">
         <div className="text-center mb-12">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#798a80]">
-            Comprehensive Curriculum
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-bold text-[#121814] tracking-tight mt-1">
+          <h2 className="text-3xl sm:text-5xl font-bold text-[#121814] tracking-tight">
             What You Learn Inside The Discord
           </h2>
           <p className="text-sm sm:text-base text-[#4a5950] max-w-xl mx-auto mt-2">
-            No vague high-level theory. Every module is a tactical blueprint with raw scripts, templates, and frameworks.
+            No vague high-level theory. Every module is a tactical blueprint with practical templates and frameworks.
           </p>
         </div>
 
@@ -310,7 +296,7 @@ export default function DiscordLandingPage() {
               <div className="bg-[#fcfbf9] rounded-xl p-4 border border-[#eceae3]">
                 <div className="text-xs font-mono uppercase font-bold text-[#121814] mb-2.5 flex items-center gap-1.5">
                   <Zap className="w-3.5 h-3.5 text-emerald-700" />
-                  <span>Key Takeaways:</span>
+                  <span>Key Competencies:</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {mod.highlights.map((h, i) => (
@@ -327,70 +313,64 @@ export default function DiscordLandingPage() {
       </section>
 
       {/* =========================================================================
-         4. ENROLLMENT & APPLICATION (THE COVER CONVERSION)
+         4. ENROLLMENT & APPLICATION ($29 PRICING AS REQUESTED)
          ========================================================================= */}
       <section id="enroll" className="relative py-16 px-4 sm:px-6 max-w-4xl mx-auto border-t border-[#e7e5dc]">
         <div className="text-center mb-10">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#798a80]">
-            Cohort Admission
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-bold text-[#121814] tracking-tight mt-1">
+          <h2 className="text-3xl sm:text-5xl font-bold text-[#121814] tracking-tight">
             Join The Private Discord
           </h2>
           <p className="text-sm sm:text-base text-[#4a5950] max-w-xl mx-auto mt-2">
-            Direct access to Kabbir, live weekly account audits, our 500+ viral swipe file, and automated batch rendering scripts.
+            Direct access to Kabbir, live weekly account audits, our private viral swipe file, and automated batch frameworks.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-          {/* Left: What's Included Card */}
+          {/* Left: What's Included Card - $29 Price */}
           <div className="bg-[#1b3826] text-white rounded-2xl p-6 sm:p-8 shadow-xl">
-            <span className="text-xs font-mono uppercase tracking-wider text-emerald-300">
-              Founding Creator Pass
-            </span>
-            <h3 className="text-2xl font-bold tracking-tight mt-1 mb-2 font-editorial">
-              The 0-30k Mastermind Access
+            <h3 className="text-2xl font-bold tracking-tight mb-2 font-editorial">
+              The 0 to 30k Mastermind Access
             </h3>
             <p className="text-xs text-emerald-100/80 mb-6 leading-relaxed">
-              Full private Discord access, complete 5-module curriculum, ready-to-run Python rendering scripts, and weekly live account breakdowns.
+              Full private Discord server access, complete 5-module curriculum, batch automation workflows, and weekly live account breakdowns.
             </p>
 
             <div className="space-y-3 pt-4 border-t border-emerald-800/80 mb-8">
               <div className="flex items-center gap-2.5 text-xs text-emerald-100">
                 <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Private Discord server channels with Kabbir</span>
+                <span>Private Discord channels with direct access to Kabbir</span>
               </div>
               <div className="flex items-center gap-2.5 text-xs text-emerald-100">
                 <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>All 5 tactical modules from 0 to 30k</span>
+                <span>All 5 tactical creator modules from 0 to 30k</span>
               </div>
               <div className="flex items-center gap-2.5 text-xs text-emerald-100">
                 <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Our Python & FFmpeg automated batch render scripts</span>
+                <span>Our complete automated batch production workflows</span>
               </div>
               <div className="flex items-center gap-2.5 text-xs text-emerald-100">
                 <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Curated 500+ viral quotes swipe file</span>
+                <span>Curated 500+ viral quote and hook swipe vault</span>
               </div>
               <div className="flex items-center gap-2.5 text-xs text-emerald-100">
                 <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Bi-weekly live account audits & hook teardowns</span>
+                <span>Bi-weekly live account audits & script teardowns</span>
               </div>
               <div className="flex items-center gap-2.5 text-xs text-emerald-100">
                 <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>ManyChat DM automation templates (comment START)</span>
+                <span>DM automation templates that turn comments into sales</span>
               </div>
             </div>
 
-            <div className="bg-emerald-950/60 rounded-xl p-4 border border-emerald-800 text-center">
+            <div className="bg-emerald-950/60 rounded-xl p-5 border border-emerald-800 text-center">
               <div className="text-xs font-mono text-emerald-300 uppercase tracking-wider mb-1">
-                Founding Member Access
+                Discord Community Entry
               </div>
-              <div className="text-3xl font-bold font-mono text-white mb-2">
-                $49 <span className="text-xs font-sans text-emerald-200 font-normal">/ month</span>
+              <div className="text-4xl font-bold font-mono text-white mb-2">
+                $29 <span className="text-xs font-sans text-emerald-200 font-normal">/ month</span>
               </div>
               <p className="text-[11px] text-emerald-200/70">
-                Cancel anytime. 100% money-back guarantee if you don&apos;t gain clarity in 14 days.
+                Cancel anytime in one click. No hidden fees or contracts.
               </p>
             </div>
           </div>
@@ -488,7 +468,7 @@ export default function DiscordLandingPage() {
                 >
                   <div className="scale-cta-sheen" />
                   <span className="relative z-10">
-                    {submitting ? "Submitting..." : "Apply For Discord Entry"}
+                    {submitting ? "Submitting..." : "Apply For Discord Entry — $29"}
                   </span>
                   <ArrowRight className="w-4 h-4 relative z-10" />
                 </button>
@@ -503,10 +483,7 @@ export default function DiscordLandingPage() {
          ========================================================================= */}
       <section className="relative py-16 px-4 sm:px-6 max-w-3xl mx-auto border-t border-[#e7e5dc]">
         <div className="text-center mb-8">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#798a80]">
-            Questions & Details
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#121814] tracking-tight mt-1">
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#121814] tracking-tight">
             Creator Discord FAQ
           </h2>
         </div>
@@ -544,7 +521,7 @@ export default function DiscordLandingPage() {
       <footer className="w-full border-t border-[#e7e5dc] py-8 px-4 sm:px-6 text-center text-xs text-[#798a80] bg-[#fbfaf6]">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-[#121814]">@ourlife.reset</span>
+            <span className="font-bold text-[#121814]">OurLife.Reset</span>
             <span>·</span>
             <span>Creator Academy & Discord Mastermind</span>
           </div>

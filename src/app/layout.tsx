@@ -29,14 +29,14 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ourlifereset.com"),
-  title: "Reset your mind. Control your life. | @ourlife.reset",
+  title: "Reset your mind. Control your life. | OurLife.Reset",
   description:
-    "A 112-page guided manual to stop overthinking, master emotional composure, and rebuild daily discipline. Read 1 page, write 1 page. By @ourlife.reset.",
+    "A 112-page guided manual to stop overthinking, master emotional composure, and rebuild daily discipline. Read 1 page, write 1 page. By OurLife.Reset.",
   openGraph: {
-    title: "Reset your mind. Control your life. — @ourlife.reset",
+    title: "Reset your mind. Control your life. — OurLife.Reset",
     description:
       "A 112-page guided manual to stop overthinking, master emotional composure, and rebuild daily discipline.",
-    images: ["/hero-mockup-luxury.jpg"],
+    images: ["/ipad-preview.png"],
   },
 };
 

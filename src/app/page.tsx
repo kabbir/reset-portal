@@ -3,24 +3,19 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import {
   ArrowRight,
   Check,
   Star,
   ChevronDown,
   BookOpen,
-  Sparkles,
   ShieldCheck,
   Zap,
   MessageSquarePlus,
   X,
-  Send,
   Smartphone,
-  Eye,
-  Lock,
-  Layers,
-  ArrowUpRight
+  CheckCircle2,
+  Lock
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 
@@ -45,55 +40,9 @@ const ROTATING_PILLARS = [
   "Mental Sovereignty"
 ];
 
-const GUIDE_SNIPPETS = [
-  {
-    chapter: "Chapter 01",
-    tagline: "Emotional Control & Somatic Arrest",
-    title: "The Anatomy of Reactivity & The 10-Second Space",
-    quote: "“Between stimulus and response there is a space. In that space lies our power to choose our response.”",
-    author: "Epictetus / Frankl",
-    excerpt:
-      "Almost every catastrophic disaster in human relationships and strategic decision-making begins with an impulse you failed to arrest. When provocation enters the room, your nervous system is flooded with biochemical heat. Your jaw hardens, respiration grows shallow, and a primitive voice demands that you react immediately to defend your ego. In that single, unthinking fraction of a second, you surrender your freedom completely.\n\nSelf-control begins with the deliberate, muscular widening of the gap between what hits your senses and what your body does next. When sharp provocation strikes, a disciplined mind constructs an impenetrable sanctuary of ten full seconds.",
-    disciplines: [
-      "The Somatic Freeze: Forcibly drop your shoulders, unclench your molars, and detach your tongue from the roof of your mouth the instant you sense tension.",
-      "The Diagnostic Pause: Never treat an attack as an objective measure of your worth; treat it as an unvarnished autobiography of the attacker's inner decay.",
-      "The Monosyllabic Deflection: Wait three slow heartbeats before responding, lower your vocal pitch, and reply using the fewest words possible."
-    ]
-  },
-  {
-    chapter: "Chapter 02",
-    tagline: "Impulse Mastery & The Fire Within",
-    title: "Conquering Anger & The Psychology of Restraint",
-    quote: "“Anger is a temporary madness. No plague has cost the human race more blood and ruined destinies than uncontrolled rage.”",
-    author: "Seneca, De Ira",
-    excerpt:
-      "Seneca observed that rage is the only human affliction that burns down the entire palace in order to catch a single mouse. When anger seizes command, human reason is not merely seated in the passenger seat; it is violently ejected from the carriage. Men say words they can never retract, incinerate alliances built over decades, and execute catastrophic maneuvers based on a biochemical tempest that would have dissolved in twenty minutes.\n\nAnger is never an exhibition of strength; it is undeniable proof of inner fragility. True authority is icy, measured, and terrifyingly deliberate.",
-    disciplines: [
-      "The 24-Hour Quarantine: Enforce an ironclad ban against sending confrontational messages, signing contracts, or making final ultimatums while indignant.",
-      "Downward Cadence Modulation: Cut your speech rate in half and drop your volume below that of the room to suffocate rage at the physiological root.",
-      "The Premeditated Absolution: Mentally rehearse at dawn that you will encounter the insolent and ungrateful. Treat them as natural elements of the landscape."
-    ]
-  },
-  {
-    chapter: "Chapter 03",
-    tagline: "Depth Psychology & Self-Honesty",
-    title: "The Unconscious Mind & Integrating The Shadow",
-    quote: "“Until you make the unconscious conscious, it will direct your life and you will call it fate.”",
-    author: "Carl Jung",
-    excerpt:
-      "Most people operate under the comforting delusion that they are gentle, harmless, and thoroughly decent individuals who simply suffer from terrible luck. But harmlessness is not morality. A creature that is toothless and clawless is peaceful only because it has no other choice.\n\nAuthentic virtue belongs exclusively to the formidable individual who knows his destructive capacities, understands his capacity for ruin, and yet chooses through disciplined, conscious will to keep those weapons leashed in unwavering service of the noble.",
-    disciplines: [
-      "The Disgust Inversion Audit: List what revolts you in others; find where you secretly exhibit that exact same vanity, selfishness, or cowardice.",
-      "Controlled Formidability: Cultivate physical strength, assertiveness, and the willingness to say an absolute 'no'. Make kindness a choice, not a symptom of fear.",
-      "Radical Self-Honesty: Dismantle your excuses in private before circumstances expose them in public."
-    ]
-  }
-];
-
 export default function GuideLandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [tickerIndex, setTickerIndex] = useState<number>(0);
-  const [activeSnippet, setActiveSnippet] = useState<number>(0);
 
   /* Reviews Modal State */
   const [showReviewModal, setShowReviewModal] = useState<boolean>(false);
@@ -163,11 +112,11 @@ export default function GuideLandingPage() {
   const faqs = [
     {
       q: "What format does The Guide come in?",
-      a: "The Self-Mastery Guide is delivered as an ultra-high resolution 112-page PDF. It is custom-formatted for iPad, iPhone, Kindle, desktop, and physical print. As soon as checkout completes, you receive immediate lifetime access."
+      a: "The Self-Mastery Guide is delivered as an ultra-high resolution 112-page publication. It is custom-formatted for iPad, iPhone, Kindle, desktop, and physical print. As soon as checkout completes, you receive immediate lifetime access."
     },
     {
       q: "How does the daily ritual work?",
-      a: "The structure is simple: Read 1 Page, Write 1 Page. Each morning, read one rigorous psychological framework on emotional control, restraint, or focus. Each evening before sleep, complete the paired accountability prompt to audit your conduct."
+      a: "The framework is simple: Read 1 Page, Write 1 Page. Each morning, read one rigorous psychological framework on emotional control, restraint, or focus. Each evening before sleep, complete the paired accountability prompt to audit your conduct."
     },
     {
       q: "Is there any generic motivational fluff?",
@@ -175,7 +124,7 @@ export default function GuideLandingPage() {
     },
     {
       q: "What is your refund policy?",
-      a: "If you read the guide and complete the nightly audits for 14 days and do not feel significantly more composed, focused, and disciplined, email us at support@ourlifereset.com for an immediate, no-questions-asked refund."
+      a: "Due to the immediate digital delivery format of The Guide, all sales are final. If you encounter any technical difficulty downloading, opening, or reading your file, our team guarantees immediate replacement and 100% technical support."
     }
   ];
 
@@ -191,19 +140,13 @@ export default function GuideLandingPage() {
       <Navbar activePage="guide" />
 
       {/* =========================================================================
-         1. HERO SECTION: BOLD, ELEGANT, SEAMLESS
+         1. HERO SECTION: BOLD, ELEGANT, SEAMLESS (NO TAGS AS REQUESTED)
          ========================================================================= */}
-      <section className="relative pt-12 sm:pt-20 pb-16 px-4 sm:px-6 max-w-4xl mx-auto text-center">
-        {/* Editorial Subtitle Pill */}
-        <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 rounded-full bg-[#ece9df] border border-[#dedad0] text-[11px] sm:text-xs font-semibold text-[#1b3826] mb-6 max-w-full">
-          <Sparkles className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
-          <span className="truncate">112 Pages · 47 Frameworks · Nightly Audits</span>
-        </div>
-
+      <section className="relative pt-16 sm:pt-24 pb-16 px-4 sm:px-6 max-w-4xl mx-auto text-center">
         {/* Dynamic Rotating Headline */}
-        <h1 className="text-3xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#121814] leading-[1.12] mb-6">
+        <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#121814] leading-[1.1] mb-6">
           Built for{" "}
-          <span className="block text-[#1b3826] font-editorial italic mt-1 transition-all duration-300">
+          <span className="block text-[#1b3826] font-editorial italic mt-1 sm:mt-2 transition-all duration-300">
             {ROTATING_PILLARS[tickerIndex]}
           </span>
         </h1>
@@ -232,17 +175,9 @@ export default function GuideLandingPage() {
               </div>
             </div>
           </a>
-
-          <a
-            href="#snippets"
-            className="py-3 px-6 text-sm font-semibold text-[#4a5950] hover:text-[#121814] transition-colors flex items-center gap-1.5"
-          >
-            <span>Read Real Excerpts</span>
-            <ChevronDown className="w-4 h-4 text-[#798a80]" />
-          </a>
         </div>
 
-        {/* Trust Badges */}
+        {/* Trust Badges - Restored Strict Decided Policy */}
         <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs text-[#798a80] font-medium pt-4 border-t border-[#e7e5dc]/60">
           <div className="flex items-center gap-1.5">
             <Check className="w-4 h-4 text-emerald-700" />
@@ -254,20 +189,17 @@ export default function GuideLandingPage() {
           </div>
           <div className="flex items-center gap-1.5">
             <ShieldCheck className="w-4 h-4 text-emerald-700" />
-            <span>14-Day Money-Back Guarantee</span>
+            <span>Immediate Technical Support</span>
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-         2. THE IPAD MOCKUP SECTION (MANDATORY USER ASSET)
+         2. THE IPAD MOCKUP SECTION (MANDATORY USER ASSET - NO TAGS)
          ========================================================================= */}
       <section className="relative py-12 px-4 sm:px-6 max-w-4xl mx-auto">
         <div className="text-center mb-8">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#798a80]">
-            The Reading & Reflection Canvas
-          </span>
-          <h2 className="text-2xl sm:text-4xl font-bold text-[#121814] tracking-tight mt-1">
+          <h2 className="text-3xl sm:text-5xl font-bold text-[#121814] tracking-tight">
             Read 1 Page. Write 1 Page.
           </h2>
           <p className="text-sm sm:text-base text-[#4a5950] max-w-xl mx-auto mt-2">
@@ -290,24 +222,24 @@ export default function GuideLandingPage() {
           </div>
         </div>
 
-        {/* Protocol Highlights */}
+        {/* Protocol Steps */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto mt-12 pt-8 border-t border-[#e7e5dc]">
           <div>
-            <div className="text-xs font-mono text-emerald-800 font-bold mb-1">STEP 01 · MORNING</div>
+            <div className="text-xs font-mono text-emerald-800 font-bold mb-1">01 · MORNING</div>
             <h3 className="text-base font-bold text-[#121814] mb-1">Cognitive Grounding</h3>
             <p className="text-xs text-[#4a5950] leading-relaxed">
               Read one focused chapter analyzing human nature, impulse arrest, or strategic boundaries before stepping into the noise of the day.
             </p>
           </div>
           <div>
-            <div className="text-xs font-mono text-emerald-800 font-bold mb-1">STEP 02 · DAYTIME</div>
+            <div className="text-xs font-mono text-emerald-800 font-bold mb-1">02 · DAYTIME</div>
             <h3 className="text-base font-bold text-[#121814] mb-1">Live Application</h3>
             <p className="text-xs text-[#4a5950] leading-relaxed">
-              Practice the three specific protocols (e.g., the 10-Second Space or Somatic Freeze) during real pressure points and confrontations.
+              Practice specific emotional composure protocols during real pressure points and interpersonal friction.
             </p>
           </div>
           <div>
-            <div className="text-xs font-mono text-emerald-800 font-bold mb-1">STEP 03 · NIGHT</div>
+            <div className="text-xs font-mono text-emerald-800 font-bold mb-1">03 · NIGHT</div>
             <h3 className="text-base font-bold text-[#121814] mb-1">Accountability Audit</h3>
             <p className="text-xs text-[#4a5950] leading-relaxed">
               Answer the unvarnished evening prompt directly on your iPad, notebook, or phone. Never go to sleep without auditing where your ego slipped.
@@ -317,103 +249,11 @@ export default function GuideLandingPage() {
       </section>
 
       {/* =========================================================================
-         3. SNIPPETS FROM THE GUIDE (MANDATORY USER REQUIREMENT)
+         3. VIDEO EXPERIENCE SECTION
          ========================================================================= */}
-      <section id="snippets" className="relative py-16 px-4 sm:px-6 max-w-4xl mx-auto border-t border-[#e7e5dc]">
-        <div className="text-center mb-10">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#798a80]">
-            Inside The 112 Pages
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-bold text-[#121814] tracking-tight mt-1">
-            Real Excerpts from The Guide
-          </h2>
-          <p className="text-sm sm:text-base text-[#4a5950] max-w-xl mx-auto mt-2">
-            No empty motivational clichés. Every chapter is dense, clinical, and focused on practical emotional mastery.
-          </p>
-        </div>
-
-        {/* Snippet Tabs */}
-        <div className="flex items-center justify-center gap-2 mb-8 flex-wrap">
-          {GUIDE_SNIPPETS.map((snip, idx) => (
-            <button
-              key={snip.chapter}
-              onClick={() => setActiveSnippet(idx)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
-                activeSnippet === idx
-                  ? "bg-[#1b3826] text-white shadow-xs"
-                  : "bg-[#ece9df] text-[#4a5950] hover:text-[#121814]"
-              }`}
-            >
-              {snip.chapter}: {snip.tagline}
-            </button>
-          ))}
-        </div>
-
-        {/* Active Snippet Display */}
-        <div className="bg-[#ffffff] rounded-2xl border border-[#dedad0] p-6 sm:p-10 shadow-sm transition-all duration-300">
-          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 pb-4 mb-6 border-b border-[#eceae3]">
-            <div>
-              <span className="text-xs font-mono font-bold text-emerald-800 uppercase tracking-widest">
-                {GUIDE_SNIPPETS[activeSnippet].chapter} · {GUIDE_SNIPPETS[activeSnippet].tagline}
-              </span>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#121814] mt-1 font-editorial">
-                {GUIDE_SNIPPETS[activeSnippet].title}
-              </h3>
-            </div>
-            <span className="text-xs text-[#798a80] font-mono shrink-0">
-              {GUIDE_SNIPPETS[activeSnippet].author}
-            </span>
-          </div>
-
-          {/* Quote Banner */}
-          <blockquote className="italic font-serif text-base sm:text-lg text-[#1b3826] bg-[#f7f6f1] p-4 rounded-xl border-l-4 border-emerald-800 mb-6">
-            {GUIDE_SNIPPETS[activeSnippet].quote}
-          </blockquote>
-
-          {/* Excerpt Body */}
-          <div className="prose prose-stone max-w-none text-sm sm:text-base text-[#2e3b33] leading-relaxed space-y-4 mb-8 whitespace-pre-line font-sans">
-            {GUIDE_SNIPPETS[activeSnippet].excerpt}
-          </div>
-
-          {/* Action Protocols */}
-          <div className="bg-[#fcfbf9] rounded-xl p-5 border border-[#eceae3]">
-            <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#121814] mb-3 flex items-center gap-2">
-              <Zap className="w-3.5 h-3.5 text-emerald-700" />
-              <span>Three Action Protocols from this Chapter:</span>
-            </h4>
-            <ul className="space-y-2.5">
-              {GUIDE_SNIPPETS[activeSnippet].disciplines.map((d, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#4a5950] leading-snug">
-                  <Check className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
-                  <span>{d}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* CTA Banner under Snippets */}
-        <div className="mt-8 text-center">
-          <a
-            href={STRIPE_CHECKOUT_URL}
-            className="scale-cta-btn py-3 px-6 text-sm font-semibold inline-flex items-center gap-2"
-          >
-            <div className="scale-cta-sheen" />
-            <span className="relative z-10">Get All 47 Chapters & Audits — $19</span>
-            <ArrowRight className="w-4 h-4 relative z-10" />
-          </a>
-        </div>
-      </section>
-
-      {/* =========================================================================
-         4. VIDEO EXPERIENCE SECTION
-         ========================================================================= */}
-      <section className="relative py-12 px-4 sm:px-6 max-w-4xl mx-auto border-t border-[#e7e5dc]">
+      <section className="relative py-14 px-4 sm:px-6 max-w-4xl mx-auto border-t border-[#e7e5dc]">
         <div className="text-center mb-8">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#798a80]">
-            Digital Format & Experience
-          </span>
-          <h2 className="text-2xl sm:text-4xl font-bold text-[#121814] tracking-tight mt-1">
+          <h2 className="text-2xl sm:text-4xl font-bold text-[#121814] tracking-tight">
             Designed for Quiet Evening Study
           </h2>
           <p className="text-sm sm:text-base text-[#4a5950] max-w-xl mx-auto mt-2">
@@ -438,7 +278,7 @@ export default function GuideLandingPage() {
       </section>
 
       {/* =========================================================================
-         5. REVIEWS & TESTIMONIALS (GOOGLE REVIEW STYLING)
+         4. REVIEWS & TESTIMONIALS (GOOGLE REVIEW STYLING)
          ========================================================================= */}
       <section className="relative py-16 px-4 sm:px-6 max-w-4xl mx-auto border-t border-[#e7e5dc]">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-10">
@@ -495,14 +335,11 @@ export default function GuideLandingPage() {
       </section>
 
       {/* =========================================================================
-         6. FAQS
+         5. FAQS
          ========================================================================= */}
       <section className="relative py-16 px-4 sm:px-6 max-w-3xl mx-auto border-t border-[#e7e5dc]">
         <div className="text-center mb-8">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#798a80]">
-            Common Questions
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#121814] tracking-tight mt-1">
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#121814] tracking-tight">
             Frequently Asked Questions
           </h2>
         </div>
@@ -535,14 +372,11 @@ export default function GuideLandingPage() {
       </section>
 
       {/* =========================================================================
-         7. FINAL BOTTOM CTA BANNER
+         6. FINAL BOTTOM CTA BANNER (NO TAGS)
          ========================================================================= */}
       <section className="relative py-16 px-4 sm:px-6 bg-[#1b3826] text-white text-center">
         <div className="max-w-2xl mx-auto">
-          <span className="text-xs font-mono uppercase tracking-widest text-emerald-300">
-            One-Time Access · Instant Download
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mt-2 mb-4 font-editorial">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 font-editorial">
             Take Command of Your Mind Today.
           </h2>
           <p className="text-sm text-emerald-100/80 mb-8 max-w-lg mx-auto">
@@ -560,20 +394,20 @@ export default function GuideLandingPage() {
           <div className="flex items-center justify-center gap-6 text-xs text-emerald-200/60 mt-6 font-mono">
             <span>Secure Stripe Checkout</span>
             <span>·</span>
-            <span>14-Day Guarantee</span>
+            <span>Immediate Digital Delivery</span>
             <span>·</span>
-            <span>Instant PDF Access</span>
+            <span>Lifetime Access</span>
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-         8. FOOTER
+         7. FOOTER
          ========================================================================= */}
       <footer className="w-full border-t border-[#e7e5dc] py-8 px-4 sm:px-6 text-center text-xs text-[#798a80] bg-[#fbfaf6]">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-[#121814]">@ourlife.reset</span>
+            <span className="font-bold text-[#121814]">OurLife.Reset</span>
             <span>·</span>
             <span>Reset your mind. Control your life.</span>
           </div>

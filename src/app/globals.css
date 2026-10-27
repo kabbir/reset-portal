@@ -1,5 +1,48 @@
 @import "tailwindcss";
 
+/* =========================================================================
+   ROLLS-ROYCE OFFICIAL TYPOGRAPHY: RIVIERA NIGHTS
+   ========================================================================= */
+@font-face {
+  font-family: 'Riviera Nights';
+  src: url('/fonts/riviera-nights/RivieraNights-Ultralight.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Riviera Nights';
+  src: url('/fonts/riviera-nights/RivieraNights-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Riviera Nights';
+  src: url('/fonts/riviera-nights/RivieraNights-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Riviera Nights';
+  src: url('/fonts/riviera-nights/RivieraNights-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Riviera Nights';
+  src: url('/fonts/riviera-nights/RivieraNights-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --bg-page: #fbfaf6;
@@ -47,6 +90,45 @@
 
 .font-editorial {
   font-family: var(--font-playfair), Georgia, serif;
+}
+
+/* Rolls-Royce Luxury Typography (Riviera Nights) */
+.font-riviera,
+.font-luxury {
+  font-family: var(--font-riviera), "Riviera Nights", -apple-system, sans-serif;
+}
+
+/* Rolls-Royce Razor Dividers & 0px Sharp Architecture */
+.rr-divider-y {
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.rr-divider-x {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Rolls-Royce Editorial Hover Transition */
+.rr-image-zoom {
+  overflow: hidden;
+}
+
+.rr-image-zoom img,
+.rr-image-zoom video {
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+
+.rr-image-zoom:hover img,
+.rr-image-zoom:hover video {
+  transform: scale(1.03);
+}
+
+/* Rolls-Royce Sharp Button */
+.rr-btn {
+  border-radius: 0px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-family: var(--font-riviera), "Riviera Nights", sans-serif;
+  transition: all 0.4s ease;
 }
 
 /* =========================================================================

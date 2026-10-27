@@ -15,143 +15,137 @@ export default function Navbar({ activePage }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#fbfaf6]/95 backdrop-blur-md border-b border-[#e7e5dc] transition-all">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
-        {/* Brand / Logo - Way Bigger as requested */}
+    <header
+      className={`sticky top-0 z-50 w-full backdrop-blur-md transition-colors duration-500 ${
+        activePage === "discord"
+          ? "bg-[#0b0b0b]/95 border-b border-white/15 text-white"
+          : "bg-[#fbfaf6]/95 border-b border-black/15 text-[#121814]"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 h-18 sm:h-20 flex items-center justify-between">
+        {/* Brand / Logo */}
         <Link href="/" className="flex items-center gap-3.5 shrink-0 group">
           <Image
             src="/logo-with-bg.png"
             alt="OurLife.Reset Official Logo"
-            width={52}
-            height={52}
-            className="rounded-xl border border-[#d0cdc2] shadow-sm group-hover:scale-105 transition-transform duration-300 w-11 h-11 sm:w-[52px] sm:h-[52px]"
+            width={44}
+            height={44}
+            className="w-9 h-9 sm:w-11 sm:h-11 rounded-none border border-current opacity-90 group-hover:opacity-100 transition-opacity"
             priority
           />
           <div className="flex flex-col">
-            <span className="text-base sm:text-lg font-bold tracking-tight text-[#121814] group-hover:text-[#1b3826] transition-colors leading-tight">
+            <span className="font-riviera text-xs sm:text-sm uppercase tracking-[0.28em] font-medium leading-tight">
               OurLife.Reset
             </span>
-            <div className="flex items-center gap-1.5 mt-0.5">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600" />
-              </span>
-              <span className="text-[11px] text-[#798a80] font-medium tracking-wide">
-                {activePage === "guide" ? "The Guide · Instant Access" : "Creator Discord · Enrolling"}
-              </span>
-            </div>
+            <span
+              className={`text-[10px] uppercase tracking-[0.2em] font-light mt-0.5 ${
+                activePage === "discord" ? "text-white/50" : "text-black/50"
+              }`}
+            >
+              {activePage === "guide" ? "The Archival Manual" : "Creator Mastermind"}
+            </span>
           </div>
         </Link>
 
-        {/* Desktop Navigation Switcher */}
-        <nav className="hidden md:flex items-center gap-1 bg-[#ece9e0]/60 p-1.5 rounded-full border border-[#dedad0]">
+        {/* Desktop Navigation Switcher - Minimalist Editorial */}
+        <nav className="hidden md:flex items-center gap-8">
           <Link
             href="/"
-            className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all ${
+            className={`font-riviera text-xs uppercase tracking-[0.25em] transition-all duration-300 py-1 border-b ${
               activePage === "guide"
-                ? "bg-[#1b3826] text-white shadow-xs"
-                : "text-[#4a5950] hover:text-[#121814] hover:bg-[#dedad0]/50"
+                ? "border-current opacity-100 font-medium"
+                : "border-transparent opacity-50 hover:opacity-100 font-light"
             }`}
           >
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>The Guide ($19)</span>
+            The Guide ($19)
           </Link>
+          <span className={`text-xs ${activePage === "discord" ? "text-white/20" : "text-black/20"}`}>/</span>
           <Link
             href="/discord"
-            className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all ${
+            className={`font-riviera text-xs uppercase tracking-[0.25em] transition-all duration-300 py-1 border-b ${
               activePage === "discord"
-                ? "bg-[#1b3826] text-white shadow-xs"
-                : "text-[#4a5950] hover:text-[#121814] hover:bg-[#dedad0]/50"
+                ? "border-current opacity-100 font-medium"
+                : "border-transparent opacity-50 hover:opacity-100 font-light"
             }`}
           >
-            <Users className="w-3.5 h-3.5" />
-            <span>Creator Discord ($29)</span>
+            Creator Discord ($29)
           </Link>
         </nav>
 
         {/* Action Button & Mobile Menu Toggle */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-4">
           {activePage === "guide" ? (
             <a
               href={STRIPE_CHECKOUT_URL}
-              className="scale-cta-btn py-2 px-4 sm:px-5 text-xs font-semibold"
+              className="rr-btn hidden sm:inline-flex items-center gap-2 px-6 py-2.5 text-xs font-medium border border-[#121814] text-[#121814] hover:bg-[#121814] hover:text-white"
             >
-              <div className="scale-cta-sheen" />
-              <span className="relative z-10">Get Guide — $19</span>
-              <div className="relative z-10 w-3.5 h-3.5 overflow-hidden">
-                <div className="scale-arrow-track">
-                  <span className="w-1/2 flex items-center justify-center">
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                  <span className="w-1/2 flex items-center justify-center">
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                </div>
-              </div>
+              <span>Acquire Guide — $19</span>
             </a>
           ) : (
             <a
               href="#enroll"
-              className="scale-cta-btn py-2 px-4 sm:px-5 text-xs font-semibold"
+              className="rr-btn hidden sm:inline-flex items-center gap-2 px-6 py-2.5 text-xs font-medium border border-white text-white hover:bg-white hover:text-black"
             >
-              <div className="scale-cta-sheen" />
-              <span className="relative z-10">Join Discord — $29</span>
-              <div className="relative z-10 w-3.5 h-3.5 overflow-hidden">
-                <div className="scale-arrow-track">
-                  <span className="w-1/2 flex items-center justify-center">
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                  <span className="w-1/2 flex items-center justify-center">
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                </div>
-              </div>
+              <span>Join Discord — $29</span>
             </a>
           )}
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-[#4a5950] hover:text-[#121814] hover:bg-[#eceae3] transition-colors"
+            className="md:hidden p-2 text-current opacity-70 hover:opacity-100 transition-opacity"
             aria-label="Toggle Navigation"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-[#e7e5dc] bg-[#fbfaf6] px-4 py-3 space-y-2">
+        <div
+          className={`md:hidden border-t px-6 py-6 space-y-4 ${
+            activePage === "discord"
+              ? "bg-[#0b0b0b] border-white/15 text-white"
+              : "bg-[#fbfaf6] border-black/15 text-[#121814]"
+          }`}
+        >
           <Link
             href="/"
             onClick={() => setMobileMenuOpen(false)}
-            className={`flex items-center justify-between px-3.5 py-3 rounded-xl text-sm font-semibold transition-all ${
+            className={`block font-riviera text-xs uppercase tracking-[0.25em] py-2 border-b ${
               activePage === "guide"
-                ? "bg-[#1b3826] text-white"
-                : "text-[#121814] bg-[#f4f2ea]"
+                ? "border-current opacity-100 font-medium"
+                : "border-transparent opacity-60 hover:opacity-100 font-light"
             }`}
           >
-            <div className="flex items-center gap-2.5">
-              <BookOpen className="w-4 h-4" />
-              <span>The Self-Mastery Guide ($19)</span>
-            </div>
+            The Self-Mastery Guide ($19)
           </Link>
 
           <Link
             href="/discord"
             onClick={() => setMobileMenuOpen(false)}
-            className={`flex items-center justify-between px-3.5 py-3 rounded-xl text-sm font-semibold transition-all ${
+            className={`block font-riviera text-xs uppercase tracking-[0.25em] py-2 border-b ${
               activePage === "discord"
-                ? "bg-[#1b3826] text-white"
-                : "text-[#121814] bg-[#f4f2ea]"
+                ? "border-current opacity-100 font-medium"
+                : "border-transparent opacity-60 hover:opacity-100 font-light"
             }`}
           >
-            <div className="flex items-center gap-2.5">
-              <Users className="w-4 h-4" />
-              <span>Creator Discord ($29)</span>
-            </div>
+            Creator Discord ($29)
           </Link>
+
+          <div className="pt-2">
+            <a
+              href={activePage === "guide" ? STRIPE_CHECKOUT_URL : "#enroll"}
+              className={`rr-btn block w-full py-3 text-center text-xs font-medium border ${
+                activePage === "discord"
+                  ? "border-white text-white hover:bg-white hover:text-black"
+                  : "border-[#121814] text-[#121814] hover:bg-[#121814] hover:text-white"
+              }`}
+            >
+              {activePage === "guide" ? "Acquire Guide — $19" : "Join Discord — $29"}
+            </a>
+          </div>
         </div>
       )}
     </header>

@@ -5,17 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
-  Check,
   Star,
   ChevronDown,
-  BookOpen,
-  ShieldCheck,
-  Zap,
-  MessageSquarePlus,
-  X,
-  Smartphone,
-  CheckCircle2,
-  Lock
+  X
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 
@@ -33,11 +25,11 @@ interface ReviewItem {
 }
 
 const ROTATING_PILLARS = [
-  "Internal Composure",
-  "Emotional Restraint",
-  "Radical Discipline",
-  "Unadvertised Competence",
-  "Mental Sovereignty"
+  "INTERNAL COMPOSURE",
+  "EMOTIONAL RESTRAINT",
+  "RADICAL DISCIPLINE",
+  "UNADVERTISED COMPETENCE",
+  "MENTAL SOVEREIGNTY"
 ];
 
 export default function GuideLandingPage() {
@@ -60,7 +52,7 @@ export default function GuideLandingPage() {
   useEffect(() => {
     const interval = setInterval(() => {
       setTickerIndex((prev) => (prev + 1) % ROTATING_PILLARS.length);
-    }, 2400);
+    }, 2600);
     return () => clearInterval(interval);
   }, []);
 
@@ -111,102 +103,94 @@ export default function GuideLandingPage() {
 
   const faqs = [
     {
-      q: "What format does The Guide come in?",
-      a: "The Self-Mastery Guide is delivered as an ultra-high resolution 112-page publication. It is custom-formatted for iPad, iPhone, Kindle, desktop, and physical print. As soon as checkout completes, you receive immediate lifetime access."
+      q: "WHAT FORMAT DOES THE GUIDE COME IN?",
+      a: "The Self-Mastery Guide is delivered as an ultra-high resolution 112-page archival digital publication. It is formatted specifically for iPad, iPhone, Kindle, desktop, and physical print. As soon as checkout completes, you receive immediate lifetime access with universal PDF delivery."
     },
     {
-      q: "How does the daily ritual work?",
-      a: "The framework is simple: Read 1 Page, Write 1 Page. Each morning, read one rigorous psychological framework on emotional control, restraint, or focus. Each evening before sleep, complete the paired accountability prompt to audit your conduct."
+      q: "HOW DOES THE DAILY RITUAL OPERATE?",
+      a: "The protocol is non-negotiable: Read 1 Page, Write 1 Page. Each morning, read one rigorous psychological framework on composure, emotional restraint, or strategic boundaries. Each evening before sleep, complete the paired accountability prompt to audit your conduct."
     },
     {
-      q: "Is there any generic motivational fluff?",
-      a: "Zero. Every page is dense, unvarnished, and grounded in Stoic philosophy, depth psychology, and operational discipline. No academic jargon or empty clichés."
+      q: "IS THERE ANY MOTIVATIONAL FLUFF OR CLICHÉS?",
+      a: "Zero. Every page is dense, unvarnished, and grounded in Stoic philosophy, depth psychology, and operational discipline. No academic filler, no empty slogans, and no generic advice."
     },
     {
-      q: "What is your refund policy?",
-      a: "Due to the immediate digital delivery format of The Guide, all sales are final. If you encounter any technical difficulty downloading, opening, or reading your file, our team guarantees immediate replacement and 100% technical support."
+      q: "WHAT IS THE REFUND AND ACCESS POLICY?",
+      a: "Due to the immediate digital delivery of The Guide, all sales are final. If you encounter any technical difficulty downloading, opening, or viewing your publication on any device, our team provides 100% replacement and technical support guaranteed."
     }
   ];
 
   return (
-    <div className="relative min-h-screen w-full max-w-full bg-[#fbfaf6] text-[#121814] font-sans overflow-x-clip selection:bg-[#1b3826] selection:text-white">
-      {/* Background Ambient Glows */}
-      <div className="pointer-events-none fixed inset-0 overflow-hidden -z-10">
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[650px] h-[400px] bg-gradient-to-b from-emerald-300/15 via-emerald-100/5 to-transparent rounded-full blur-3xl animate-glow-orb-1" />
-        <div className="absolute top-96 -left-32 w-[500px] h-[350px] bg-gradient-to-tr from-stone-200/40 to-transparent rounded-full blur-3xl animate-glow-orb-2" />
-      </div>
-
+    <div className="relative min-h-screen w-full max-w-full bg-[#fbfaf6] text-[#121814] font-riviera overflow-x-clip selection:bg-[#121814] selection:text-white">
       {/* Top Navigation */}
       <Navbar activePage="guide" />
 
       {/* =========================================================================
-         INTEGRATED HERO & PRODUCT PRESENTATION: BUILT FOR + READ 1 PAGE, WRITE 1 PAGE
+         1. HERO SECTION: BESPOKE EDITORIAL ARCHITECTURE
          ========================================================================= */}
-      <section className="relative pt-10 sm:pt-16 pb-16 px-4 sm:px-6 max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <section className="relative pt-12 sm:pt-20 pb-16 px-4 sm:px-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
-          {/* Left Column: Built For + The Daily Ritual */}
-          <div className="lg:col-span-7 flex flex-col justify-center text-left">
+          {/* Left Column: Built For + The Daily Protocol */}
+          <div className="lg:col-span-7 flex flex-col justify-start text-left">
+            <span className="text-[11px] uppercase tracking-[0.35em] text-black/50 font-medium mb-3">
+              The Archival Manual • 112 Pages
+            </span>
+
             {/* Dynamic Rotating Headline */}
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#121814] leading-[1.1] mb-5">
-              Built for{" "}
-              <span className="block text-[#1b3826] font-editorial italic mt-1 sm:mt-2 transition-all duration-300">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-light tracking-[0.14em] text-[#121814] uppercase leading-[1.12] mb-6">
+              Built for
+              <span className="block font-medium tracking-[0.16em] text-black mt-1 sm:mt-2 transition-all duration-300">
                 {ROTATING_PILLARS[tickerIndex]}
               </span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-lg text-[#4a5950] font-normal leading-relaxed mb-8 max-w-xl">
-              A 112-page guided manual of 47 practical psychological frameworks and nightly self-audits. Built for driven people who demand real mental discipline in their daily life.
+            <p className="text-sm sm:text-base text-black/70 font-light leading-relaxed mb-10 max-w-xl tracking-[0.02em]">
+              A 112-page guided manual of 47 practical psychological frameworks and nightly self-audits. Built for driven individuals who demand real composure and mental discipline in daily life.
             </p>
 
-            {/* Integrated Protocol Card: Read 1 Page. Write 1 Page. */}
-            <div className="bg-white rounded-2xl border border-[#dedad0] p-6 sm:p-7 shadow-xs">
-              <div className="flex items-center gap-2.5 mb-2">
-                <BookOpen className="w-5 h-5 text-emerald-800" />
-                <h2 className="text-xl sm:text-2xl font-bold text-[#121814] tracking-tight">
+            {/* Daily Protocol: Read 1 Page. Write 1 Page. (Flat Architectural Layout, Zero Boxes) */}
+            <div className="border-t border-black/15 pt-8 mt-2">
+              <div className="flex items-baseline justify-between mb-3">
+                <h2 className="text-sm sm:text-base font-medium text-[#121814] uppercase tracking-[0.24em]">
                   Read 1 Page. Write 1 Page.
                 </h2>
+                <span className="text-[10px] uppercase tracking-[0.25em] text-black/40">
+                  Daily Protocol
+                </span>
               </div>
-              <p className="text-xs sm:text-sm text-[#4a5950] mb-6 leading-relaxed">
-                A simple, non-negotiable daily ritual designed to reset your focus and keep your emotions in check:
+              <p className="text-xs sm:text-sm text-black/60 font-light leading-relaxed mb-8 tracking-[0.01em]">
+                A non-negotiable daily ritual designed to reset your focus and audit your conduct:
               </p>
 
-              <div className="space-y-4">
-                <div className="flex items-start gap-3.5">
-                  <div className="w-7 h-7 rounded-full bg-[#1b3826] text-white flex items-center justify-center text-xs font-sans font-bold shrink-0 mt-0.5 shadow-2xs">
-                    01
+              {/* 3 Steps in Razor Architectural Grid */}
+              <div className="space-y-6">
+                <div className="border-l border-black/20 pl-4">
+                  <div className="text-[11px] uppercase tracking-[0.25em] font-medium text-black/50 mb-1">
+                    01 • Morning / Read 1 Page
                   </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-[#121814] font-sans">Morning: Read 1 Page</h3>
-                    <p className="text-xs text-[#4a5950] leading-relaxed mt-0.5 font-sans">
-                      Start your day with one clear mental framework on emotional composure, impulse control, or strategic boundaries before the world&apos;s noise reaches you.
-                    </p>
-                  </div>
+                  <p className="text-xs sm:text-sm text-black/75 font-light leading-relaxed tracking-[0.01em]">
+                    Start your day with one clear mental framework on emotional composure, impulse control, or strategic boundaries before the world&apos;s noise reaches you.
+                  </p>
                 </div>
 
-                <div className="flex items-start gap-3.5">
-                  <div className="w-7 h-7 rounded-full bg-[#1b3826] text-white flex items-center justify-center text-xs font-sans font-bold shrink-0 mt-0.5 shadow-2xs">
-                    02
+                <div className="border-l border-black/20 pl-4">
+                  <div className="text-[11px] uppercase tracking-[0.25em] font-medium text-black/50 mb-1">
+                    02 • Daytime / Live Application
                   </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-[#121814] font-sans">Daytime: Live Application</h3>
-                    <p className="text-xs text-[#4a5950] leading-relaxed mt-0.5 font-sans">
-                      Put the lesson into practice during high-pressure conversations, difficult moments, and everyday friction.
-                    </p>
-                  </div>
+                  <p className="text-xs sm:text-sm text-black/75 font-light leading-relaxed tracking-[0.01em]">
+                    Put the lesson into practice during high-pressure conversations, difficult moments, and everyday friction.
+                  </p>
                 </div>
 
-                <div className="flex items-start gap-3.5">
-                  <div className="w-7 h-7 rounded-full bg-[#1b3826] text-white flex items-center justify-center text-xs font-sans font-bold shrink-0 mt-0.5 shadow-2xs">
-                    03
+                <div className="border-l border-black/20 pl-4">
+                  <div className="text-[11px] uppercase tracking-[0.25em] font-medium text-black/50 mb-1">
+                    03 • Night / Write 1 Page
                   </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-[#121814] font-sans">Night: Write 1 Page</h3>
-                    <p className="text-xs text-[#4a5950] leading-relaxed mt-0.5 font-sans">
-                      Answer the paired evening accountability prompt directly on your iPad, phone, or notebook. Never close your eyes without an honest audit of where your ego slipped.
-                    </p>
-                  </div>
+                  <p className="text-xs sm:text-sm text-black/75 font-light leading-relaxed tracking-[0.01em]">
+                    Answer the paired evening accountability prompt directly on your iPad, phone, or notebook. Never close your eyes without an honest audit of where your ego slipped.
+                  </p>
                 </div>
               </div>
             </div>
@@ -214,10 +198,9 @@ export default function GuideLandingPage() {
 
           {/* Right Column: iPad Mockup + Strategic CTA Placement (Below the image) */}
           <div className="lg:col-span-5 flex flex-col items-center">
-            {/* iPad Preview Container with Scale Border Beam */}
-            <div className="relative w-full max-w-md mx-auto rounded-3xl overflow-hidden border border-[#d8d5cb] bg-white shadow-2xl p-2.5 sm:p-3 transition-transform hover:scale-[1.01] duration-500">
-              <div className="scale-border-beam" />
-              <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-black">
+            {/* iPad Preview Container - Zero Curve, Razor 1px Border, Slow Zoom */}
+            <div className="relative w-full max-w-md mx-auto border border-black/15 bg-black p-0 rounded-none overflow-hidden rr-image-zoom">
+              <div className="relative aspect-[4/5] bg-black">
                 <Image
                   src="/ipad-preview.png"
                   alt="The Self-Mastery Guide on iPad"
@@ -233,36 +216,18 @@ export default function GuideLandingPage() {
             <div className="w-full max-w-md mt-6 text-center">
               <a
                 href={STRIPE_CHECKOUT_URL}
-                className="scale-cta-btn py-4 px-8 text-base font-semibold w-full shadow-lg shadow-[#1b3826]/15 hover:shadow-xl hover:shadow-[#1b3826]/25 transition-all flex items-center justify-center gap-3"
+                className="rr-btn block w-full py-4 text-xs font-medium border border-[#121814] bg-[#121814] text-white hover:bg-transparent hover:text-[#121814] transition-all rounded-none"
               >
-                <div className="scale-cta-sheen" />
-                <span className="relative z-10">Get The Guide — $19</span>
-                <div className="relative z-10 w-4 h-4 overflow-hidden">
-                  <div className="scale-arrow-track">
-                    <span className="w-1/2 flex items-center justify-center">
-                      <ArrowRight className="w-4 h-4" />
-                    </span>
-                    <span className="w-1/2 flex items-center justify-center">
-                      <ArrowRight className="w-4 h-4" />
-                    </span>
-                  </div>
-                </div>
+                Acquire The Guide — $19
               </a>
 
               {/* Trust Badges directly underneath the CTA */}
-              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-[11px] text-[#798a80] font-medium mt-4 pt-3 border-t border-[#e7e5dc]">
-                <div className="flex items-center gap-1.5">
-                  <Check className="w-3.5 h-3.5 text-emerald-700" />
-                  <span>Instant Digital Download</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <Smartphone className="w-3.5 h-3.5 text-emerald-700" />
-                  <span>iPad, iPhone & Print</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-700" />
-                  <span>100% Technical Support</span>
-                </div>
+              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-[10px] text-black/50 uppercase tracking-[0.2em] font-medium mt-4 pt-3 border-t border-black/15">
+                <span>Instant Download</span>
+                <span>/</span>
+                <span>iPad, iPhone & Print</span>
+                <span>/</span>
+                <span>100% Technical Support</span>
               </div>
             </div>
 
@@ -271,54 +236,116 @@ export default function GuideLandingPage() {
       </section>
 
       {/* =========================================================================
-         4. REVIEWS & TESTIMONIALS (GOOGLE REVIEW STYLING)
+         2. ROLLS-ROYCE 3-COLUMN CURRICULUM ARCHITECTURE
+         (Modeled after Rolls-Royce "Explore Further / Continue Your Journey")
          ========================================================================= */}
-      <section className="relative py-16 px-4 sm:px-6 max-w-4xl mx-auto border-t border-[#e7e5dc]">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-10">
+      <section className="relative py-20 px-4 sm:px-8 max-w-7xl mx-auto border-t border-black/15">
+        <div className="text-center mb-14">
+          <h2 className="text-2xl sm:text-4xl font-light uppercase tracking-[0.22em] text-[#121814] mb-2">
+            The Archival Pillars
+          </h2>
+          <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-black/50 font-light">
+            47 Practical Frameworks For Self-Mastery
+          </p>
+        </div>
+
+        {/* 3-Column Razor-Divider Grid (Exact Rolls-Royce Architecture) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 border-t border-b border-black/15 divide-y md:divide-y-0 md:divide-x divide-black/15">
+          {/* Pillar 01 */}
+          <div className="py-8 md:py-10 md:px-8 first:pl-0 last:pr-0">
+            <span className="text-[10px] uppercase tracking-[0.35em] text-black/40 block mb-3 font-medium">
+              Pillar 01 • 16 Frameworks
+            </span>
+            <h3 className="text-lg sm:text-xl font-medium uppercase tracking-[0.18em] text-[#121814] mb-3">
+              Radical Discipline
+            </h3>
+            <p className="text-xs sm:text-sm text-black/65 font-light leading-relaxed tracking-[0.01em]">
+              Operational disciplines on impulse control, morning mental conditioning, and non-negotiable daily standards that insulate your mind from distraction.
+            </p>
+          </div>
+
+          {/* Pillar 02 */}
+          <div className="py-8 md:py-10 md:px-8">
+            <span className="text-[10px] uppercase tracking-[0.35em] text-black/40 block mb-3 font-medium">
+              Pillar 02 • 16 Frameworks
+            </span>
+            <h3 className="text-lg sm:text-xl font-medium uppercase tracking-[0.18em] text-[#121814] mb-3">
+              Emotional Restraint
+            </h3>
+            <p className="text-xs sm:text-sm text-black/65 font-light leading-relaxed tracking-[0.01em]">
+              Tactical protocols on defusing external provocations, eliminating reactive anger, and mastering psychological silence during high-friction interactions.
+            </p>
+          </div>
+
+          {/* Pillar 03 */}
+          <div className="py-8 md:py-10 md:px-8 first:pl-0 last:pr-0">
+            <span className="text-[10px] uppercase tracking-[0.35em] text-black/40 block mb-3 font-medium">
+              Pillar 03 • 15 Audits
+            </span>
+            <h3 className="text-lg sm:text-xl font-medium uppercase tracking-[0.18em] text-[#121814] mb-3">
+              Nightly Audit
+            </h3>
+            <p className="text-xs sm:text-sm text-black/65 font-light leading-relaxed tracking-[0.01em]">
+              Accountability frameworks and structured self-examinations to audit your conduct before sleep. Zero rationalization, zero excuses.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+         3. REVIEWS & TESTIMONIALS (EDITORIAL RAZOR GRID, ZERO BOXES)
+         ========================================================================= */}
+      <section className="relative py-20 px-4 sm:px-8 max-w-7xl mx-auto border-t border-black/15">
+        <div className="flex flex-col sm:flex-row items-baseline justify-between gap-4 mb-12">
           <div>
-            <div className="flex items-center gap-1 text-amber-500 mb-1">
+            <div className="flex items-center gap-1.5 text-black/70 mb-2">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-amber-500" />
+                <Star key={i} className="w-3.5 h-3.5 fill-black text-black" />
               ))}
-              <span className="text-xs font-bold text-[#121814] ml-2 font-sans tracking-tight">4.96 / 5.0 Rating</span>
+              <span className="text-[11px] font-medium text-black uppercase tracking-[0.25em] ml-2">
+                4.96 / 5.0 Rating • Verified Acquisitions
+              </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#121814] tracking-tight font-sans">
-              Verified Reader Feedback
+            <h2 className="text-2xl sm:text-3xl font-light uppercase tracking-[0.18em] text-[#121814]">
+              Reader Observations
             </h2>
           </div>
 
           <button
             onClick={() => setShowReviewModal(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#d8d5cb] bg-white text-xs font-semibold text-[#121814] hover:bg-[#eceae3] transition-colors shadow-xs font-sans"
+            className="rr-btn px-6 py-2.5 text-[10px] font-medium border border-black/30 hover:border-black text-[#121814] transition-colors rounded-none"
           >
-            <MessageSquarePlus className="w-3.5 h-3.5 text-emerald-800" />
-            <span>Leave a Review</span>
+            Leave An Observation
           </button>
         </div>
 
-        {/* Reviews Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Reviews Razor Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 border-t border-b border-black/15 divide-y md:divide-y-0 md:divide-x divide-black/15">
           {reviewsList.slice(0, 4).map((rev) => (
             <div
               key={rev.id}
-              className="bg-white rounded-2xl border border-[#e7e5dc] p-5 shadow-xs flex flex-col justify-between"
+              className="py-8 md:py-10 md:px-8 first:pl-0 last:pr-0 flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-1 text-amber-500">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-1 text-black">
                     {[...Array(rev.rating || 5)].map((_, i) => (
-                      <Star key={i} className="w-3.5 h-3.5 fill-amber-500" />
+                      <Star key={i} className="w-3 h-3 fill-black text-black" />
                     ))}
                   </div>
-                  <span className="text-[11px] font-sans font-medium text-[#798a80]">{rev.date}</span>
+                  <span className="text-[10px] uppercase tracking-[0.25em] text-black/40">
+                    {rev.date}
+                  </span>
                 </div>
-                <p className="text-xs sm:text-sm text-[#2e3b33] leading-relaxed italic mb-3 font-serif">
+                <p className="text-xs sm:text-sm text-black/80 font-light leading-relaxed italic mb-6">
                   &ldquo;{rev.comment}&rdquo;
                 </p>
               </div>
-              <div className="flex items-center justify-between pt-3 border-t border-[#f0eee6]">
-                <span className="text-xs font-bold text-[#121814] font-sans">{rev.name}</span>
-                <span className="text-[10px] text-emerald-800 font-medium bg-emerald-50 px-2 py-0.5 rounded-full font-sans border border-emerald-200/50">
+              <div className="flex items-baseline justify-between pt-4 border-t border-black/10">
+                <span className="text-xs uppercase tracking-[0.2em] font-medium text-[#121814]">
+                  {rev.name}
+                </span>
+                <span className="text-[9px] uppercase tracking-[0.25em] text-black/50">
                   Verified Reader
                 </span>
               </div>
@@ -328,34 +355,34 @@ export default function GuideLandingPage() {
       </section>
 
       {/* =========================================================================
-         5. FAQS
+         4. FREQUENTLY ASKED QUESTIONS (RAZOR ACCORDION)
          ========================================================================= */}
-      <section className="relative py-16 px-4 sm:px-6 max-w-3xl mx-auto border-t border-[#e7e5dc]">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#121814] tracking-tight font-sans">
-            Frequently Asked Questions
+      <section className="relative py-20 px-4 sm:px-8 max-w-4xl mx-auto border-t border-black/15">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl sm:text-3xl font-light uppercase tracking-[0.2em] text-[#121814] mb-2">
+            Inquiries
           </h2>
+          <p className="text-xs uppercase tracking-[0.3em] text-black/50 font-light">
+            Essential Details Regarding The Publication
+          </p>
         </div>
 
-        <div className="space-y-3">
+        <div className="border-t border-black/15 divide-y divide-black/15">
           {faqs.map((faq, idx) => (
-            <div
-              key={idx}
-              className="bg-white rounded-xl border border-[#dedad0] overflow-hidden transition-all"
-            >
+            <div key={idx} className="transition-all">
               <button
                 onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                className="w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-semibold text-sm text-[#121814] font-sans"
+                className="w-full py-5 text-left flex items-center justify-between gap-4 text-xs sm:text-sm font-medium uppercase tracking-[0.2em] text-[#121814] hover:text-black/70 transition-colors"
               >
                 <span>{faq.q}</span>
                 <ChevronDown
-                  className={`w-4 h-4 text-[#798a80] shrink-0 transition-transform duration-200 ${
-                    openFaq === idx ? "rotate-180 text-[#1b3826]" : ""
+                  className={`w-4 h-4 text-black/50 shrink-0 transition-transform duration-300 ${
+                    openFaq === idx ? "rotate-180 text-black" : ""
                   }`}
                 />
               </button>
               {openFaq === idx && (
-                <div className="px-5 pb-4 text-xs sm:text-sm text-[#4a5950] leading-relaxed border-t border-[#f0eee6] pt-3 font-sans">
+                <div className="pb-6 text-xs sm:text-sm text-black/70 font-light leading-relaxed tracking-[0.01em]">
                   {faq.a}
                 </div>
               )}
@@ -365,125 +392,142 @@ export default function GuideLandingPage() {
       </section>
 
       {/* =========================================================================
-         6. FINAL BOTTOM CTA BANNER (NO TAGS)
+         5. FINAL OBSIDIAN CTA BANNER (ROLLS-ROYCE CONTRAST SECTION)
          ========================================================================= */}
-      <section className="relative py-16 px-4 sm:px-6 bg-[#1b3826] text-white text-center">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 font-editorial">
+      <section className="relative py-24 px-4 sm:px-8 bg-[#0a0a0a] text-white text-center border-t border-black/15">
+        <div className="max-w-3xl mx-auto">
+          <span className="text-[10px] uppercase tracking-[0.35em] text-white/50 block mb-3 font-medium">
+            Immediate Universal Delivery
+          </span>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-light tracking-[0.16em] uppercase mb-4 leading-tight">
             Take Command of Your Mind Today.
           </h2>
-          <p className="text-sm text-emerald-100/80 mb-8 max-w-lg mx-auto font-sans">
-            112 Pages of psychological frameworks, composure disciplines, and nightly accountability audits. Instant delivery to your email.
+          <p className="text-xs sm:text-sm text-white/60 font-light mb-10 max-w-xl mx-auto tracking-[0.02em] leading-relaxed">
+            112 Pages of psychological frameworks, composure disciplines, and nightly accountability audits. Delivered instantly to your email upon checkout.
           </p>
 
           <a
             href={STRIPE_CHECKOUT_URL}
-            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white text-[#1b3826] font-bold text-base hover:bg-emerald-50 transition-all shadow-lg hover:shadow-xl font-sans"
+            className="rr-btn inline-block px-10 py-4 text-xs font-medium border border-white bg-white text-black hover:bg-transparent hover:text-white transition-all rounded-none"
           >
-            <span>Get The Guide — $19</span>
-            <ArrowRight className="w-4 h-4" />
+            Acquire The Guide — $19
           </a>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-emerald-200/80 mt-6 font-sans font-medium">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-[10px] text-white/40 uppercase tracking-[0.25em] font-light mt-10">
             <span>Secure Stripe Checkout</span>
             <span>·</span>
             <span>Immediate Digital Delivery</span>
             <span>·</span>
-            <span>Lifetime Access</span>
+            <span>Universal PDF File</span>
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-         7. FOOTER
+         6. MINIMALIST EDITORIAL FOOTER
          ========================================================================= */}
-      <footer className="w-full border-t border-[#e7e5dc] py-8 px-4 sm:px-6 text-center text-xs text-[#798a80] bg-[#fbfaf6]">
-        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-[#121814]">OurLife.Reset</span>
-            <span>·</span>
-            <span>Reset your mind. Control your life.</span>
+      <footer className="w-full border-t border-black/15 py-10 px-4 sm:px-8 text-center text-xs text-black/50 bg-[#fbfaf6]">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <span className="font-medium uppercase tracking-[0.25em] text-[#121814]">
+              OurLife.Reset
+            </span>
+            <span className="text-black/30">/</span>
+            <span className="font-light tracking-[0.15em] text-black/60">
+              Reset your mind. Control your life.
+            </span>
           </div>
 
-          <div className="flex items-center gap-4">
-            <Link href="/discord" className="hover:text-[#121814] transition-colors">
+          <div className="flex items-center gap-6 uppercase tracking-[0.2em] text-[10px] font-medium text-black/60">
+            <Link href="/discord" className="hover:text-black transition-colors">
               Creator Discord
             </Link>
-            <Link href="/refund-policy" className="hover:text-[#121814] transition-colors">
+            <Link href="/refund-policy" className="hover:text-black transition-colors">
               Refund Policy
             </Link>
-            <a href="mailto:support@ourlifereset.com" className="hover:text-[#121814] transition-colors">
+            <a href="mailto:support@ourlifereset.com" className="hover:text-black transition-colors">
               Support
             </a>
           </div>
         </div>
       </footer>
 
-      {/* Review Modal */}
+      {/* Review Modal - Sharp 0px Architectural Form */}
       {showReviewModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
-          <div className="relative w-full max-w-md bg-white rounded-2xl border border-[#dedad0] shadow-2xl p-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs">
+          <div className="relative w-full max-w-md bg-[#fbfaf6] border border-black/20 shadow-2xl p-6 sm:p-8 rounded-none">
             <button
               onClick={() => setShowReviewModal(false)}
-              className="absolute top-4 right-4 text-[#798a80] hover:text-[#121814]"
+              className="absolute top-5 right-5 text-black/50 hover:text-black"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-lg font-bold text-[#121814] mb-1">Leave a Verified Review</h3>
-            <p className="text-xs text-[#4a5950] mb-4">
+            <span className="text-[10px] uppercase tracking-[0.3em] text-black/50 block mb-1">
+              Verified Feedback
+            </span>
+            <h3 className="text-base font-medium uppercase tracking-[0.2em] text-[#121814] mb-2">
+              Submit An Observation
+            </h3>
+            <p className="text-xs text-black/60 font-light mb-6">
               Share your honest feedback on The Self-Mastery Guide.
             </p>
 
             {reviewSubmitted ? (
-              <div className="py-8 text-center text-emerald-800 font-medium text-sm">
-                Thank you! Your review has been added.
+              <div className="py-8 text-center text-black font-medium text-xs uppercase tracking-[0.2em]">
+                Your observation has been verified and recorded.
               </div>
             ) : (
-              <form onSubmit={handleReviewSubmit} className="space-y-3">
+              <form onSubmit={handleReviewSubmit} className="space-y-4">
                 <div>
-                  <label className="text-xs font-semibold text-[#121814] block mb-1">Your Name</label>
+                  <label className="text-[10px] uppercase tracking-[0.25em] font-medium text-black/70 block mb-1">
+                    Your Name
+                  </label>
                   <input
                     type="text"
                     required
                     value={newReview.name}
                     onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
-                    className="w-full px-3 py-2 text-sm rounded-lg border border-[#dedad0] focus:outline-emerald-800"
-                    placeholder="e.g., Marcus Vance"
+                    className="w-full px-3 py-2 text-xs border border-black/20 bg-white rounded-none focus:outline-black font-riviera"
+                    placeholder="e.g. Marcus Vance"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-[#121814] block mb-1">Rating</label>
+                  <label className="text-[10px] uppercase tracking-[0.25em] font-medium text-black/70 block mb-1">
+                    Evaluation
+                  </label>
                   <select
                     value={newReview.rating}
                     onChange={(e) => setNewReview({ ...newReview, rating: Number(e.target.value) })}
-                    className="w-full px-3 py-2 text-sm rounded-lg border border-[#dedad0] focus:outline-emerald-800"
+                    className="w-full px-3 py-2 text-xs border border-black/20 bg-white rounded-none focus:outline-black font-riviera"
                   >
-                    <option value={5}>5 Stars - Exceptional</option>
-                    <option value={4}>4 Stars - Very Good</option>
-                    <option value={3}>3 Stars - Average</option>
+                    <option value={5}>5 Stars — Masterful Publication</option>
+                    <option value={4}>4 Stars — Very High Value</option>
+                    <option value={3}>3 Stars — Satisfactory</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-[#121814] block mb-1">Your Review</label>
+                  <label className="text-[10px] uppercase tracking-[0.25em] font-medium text-black/70 block mb-1">
+                    Your Observation
+                  </label>
                   <textarea
                     required
                     rows={3}
                     value={newReview.comment}
                     onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
-                    className="w-full px-3 py-2 text-sm rounded-lg border border-[#dedad0] focus:outline-emerald-800"
-                    placeholder="How has reading 1 page and doing the nightly audit impacted your discipline?"
+                    className="w-full px-3 py-2 text-xs border border-black/20 bg-white rounded-none focus:outline-black font-riviera"
+                    placeholder="How has reading 1 page and doing the nightly audit impacted your composure?"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={submittingReview}
-                  className="w-full py-2.5 rounded-xl bg-[#1b3826] text-white font-semibold text-xs hover:bg-[#244b33] transition-colors"
+                  className="rr-btn w-full py-3 bg-[#121814] text-white text-[10px] font-medium hover:bg-black transition-colors rounded-none mt-2"
                 >
-                  {submittingReview ? "Submitting..." : "Submit Review"}
+                  {submittingReview ? "Recording..." : "Submit Observation"}
                 </button>
               </form>
             )}

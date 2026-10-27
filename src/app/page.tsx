@@ -140,139 +140,132 @@ export default function GuideLandingPage() {
       <Navbar activePage="guide" />
 
       {/* =========================================================================
-         1. HERO SECTION: BOLD, ELEGANT, SEAMLESS (NO TAGS AS REQUESTED)
+         INTEGRATED HERO & PRODUCT PRESENTATION: BUILT FOR + READ 1 PAGE, WRITE 1 PAGE
          ========================================================================= */}
-      <section className="relative pt-16 sm:pt-24 pb-16 px-4 sm:px-6 max-w-4xl mx-auto text-center">
-        {/* Dynamic Rotating Headline */}
-        <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#121814] leading-[1.1] mb-6">
-          Built for{" "}
-          <span className="block text-[#1b3826] font-editorial italic mt-1 sm:mt-2 transition-all duration-300">
-            {ROTATING_PILLARS[tickerIndex]}
-          </span>
-        </h1>
+      <section className="relative pt-10 sm:pt-16 pb-16 px-4 sm:px-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          {/* Left Column: Built For + The Daily Ritual */}
+          <div className="lg:col-span-7 flex flex-col justify-center text-left">
+            {/* Dynamic Rotating Headline */}
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#121814] leading-[1.1] mb-5">
+              Built for{" "}
+              <span className="block text-[#1b3826] font-editorial italic mt-1 sm:mt-2 transition-all duration-300">
+                {ROTATING_PILLARS[tickerIndex]}
+              </span>
+            </h1>
 
-        {/* Subtitle */}
-        <p className="text-base sm:text-xl text-[#4a5950] max-w-2xl mx-auto font-normal leading-relaxed mb-8">
-          A 112-page guided manual of 47 psychological frameworks, emotional composure protocols, and nightly accountability audits. Built for serious operators who demand radical personal discipline.
-        </p>
+            {/* Subtitle */}
+            <p className="text-base sm:text-lg text-[#4a5950] font-normal leading-relaxed mb-8 max-w-xl">
+              A 112-page guided manual of 47 practical psychological frameworks and nightly self-audits. Built for driven people who demand real mental discipline in their daily life.
+            </p>
 
-        {/* Primary CTA + Price */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
-          <a
-            href={STRIPE_CHECKOUT_URL}
-            className="scale-cta-btn py-3.5 px-8 text-base font-semibold w-full sm:w-auto shadow-lg shadow-[#1b3826]/15 hover:shadow-xl hover:shadow-[#1b3826]/25 transition-all"
-          >
-            <div className="scale-cta-sheen" />
-            <span className="relative z-10">Get The Guide — $19</span>
-            <div className="relative z-10 w-4 h-4 overflow-hidden">
-              <div className="scale-arrow-track">
-                <span className="w-1/2 flex items-center justify-center">
-                  <ArrowRight className="w-4 h-4" />
-                </span>
-                <span className="w-1/2 flex items-center justify-center">
-                  <ArrowRight className="w-4 h-4" />
-                </span>
+            {/* Integrated Protocol Card: Read 1 Page. Write 1 Page. */}
+            <div className="bg-white rounded-2xl border border-[#dedad0] p-6 sm:p-7 shadow-xs">
+              <div className="flex items-center gap-2.5 mb-2">
+                <BookOpen className="w-5 h-5 text-emerald-800" />
+                <h2 className="text-xl sm:text-2xl font-bold text-[#121814] tracking-tight">
+                  Read 1 Page. Write 1 Page.
+                </h2>
+              </div>
+              <p className="text-xs sm:text-sm text-[#4a5950] mb-6 leading-relaxed">
+                A simple, non-negotiable daily ritual designed to reset your focus and keep your emotions in check:
+              </p>
+
+              <div className="space-y-4">
+                <div className="flex items-start gap-3.5">
+                  <div className="w-7 h-7 rounded-lg bg-[#1b3826] text-white flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5">
+                    01
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-[#121814]">Morning: Read 1 Page</h3>
+                    <p className="text-xs text-[#4a5950] leading-relaxed mt-0.5">
+                      Start your day with one clear mental framework on emotional composure, impulse control, or strategic boundaries before the world&apos;s noise reaches you.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3.5">
+                  <div className="w-7 h-7 rounded-lg bg-[#1b3826] text-white flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5">
+                    02
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-[#121814]">Daytime: Live Application</h3>
+                    <p className="text-xs text-[#4a5950] leading-relaxed mt-0.5">
+                      Put the lesson into practice during high-pressure conversations, difficult moments, and everyday friction.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3.5">
+                  <div className="w-7 h-7 rounded-lg bg-[#1b3826] text-white flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5">
+                    03
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-[#121814]">Night: Write 1 Page</h3>
+                    <p className="text-xs text-[#4a5950] leading-relaxed mt-0.5">
+                      Answer the paired evening accountability prompt directly on your iPad, phone, or notebook. Never close your eyes without an honest audit of where your ego slipped.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-          </a>
-        </div>
+          </div>
 
-        {/* Trust Badges - Restored Strict Decided Policy */}
-        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs text-[#798a80] font-medium pt-4 border-t border-[#e7e5dc]/60">
-          <div className="flex items-center gap-1.5">
-            <Check className="w-4 h-4 text-emerald-700" />
-            <span>Instant Digital Download</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <Smartphone className="w-4 h-4 text-emerald-700" />
-            <span>Formatted for iPad, iPhone & Print</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <ShieldCheck className="w-4 h-4 text-emerald-700" />
-            <span>Immediate Technical Support</span>
-          </div>
-        </div>
-      </section>
+          {/* Right Column: iPad Mockup + Strategic CTA Placement (Below the image) */}
+          <div className="lg:col-span-5 flex flex-col items-center">
+            {/* iPad Preview Container with Scale Border Beam */}
+            <div className="relative w-full max-w-md mx-auto rounded-3xl overflow-hidden border border-[#d8d5cb] bg-white shadow-2xl p-2.5 sm:p-3 transition-transform hover:scale-[1.01] duration-500">
+              <div className="scale-border-beam" />
+              <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-black">
+                <Image
+                  src="/ipad-preview.png"
+                  alt="The Self-Mastery Guide on iPad"
+                  width={1080}
+                  height={1350}
+                  className="w-full h-full object-cover"
+                  priority
+                />
+              </div>
+            </div>
 
-      {/* =========================================================================
-         2. THE IPAD MOCKUP SECTION (MANDATORY USER ASSET - NO TAGS)
-         ========================================================================= */}
-      <section className="relative py-12 px-4 sm:px-6 max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl sm:text-5xl font-bold text-[#121814] tracking-tight">
-            Read 1 Page. Write 1 Page.
-          </h2>
-          <p className="text-sm sm:text-base text-[#4a5950] max-w-xl mx-auto mt-2">
-            Every morning brings one deep psychological framework. Every evening ends with a structured accountability audit before you close your eyes.
-          </p>
-        </div>
+            {/* STRATEGIC CTA BUTTON: Placed right at the bottom of the iPad image */}
+            <div className="w-full max-w-md mt-6 text-center">
+              <a
+                href={STRIPE_CHECKOUT_URL}
+                className="scale-cta-btn py-4 px-8 text-base font-semibold w-full shadow-lg shadow-[#1b3826]/15 hover:shadow-xl hover:shadow-[#1b3826]/25 transition-all flex items-center justify-center gap-3"
+              >
+                <div className="scale-cta-sheen" />
+                <span className="relative z-10">Get The Guide — $19</span>
+                <div className="relative z-10 w-4 h-4 overflow-hidden">
+                  <div className="scale-arrow-track">
+                    <span className="w-1/2 flex items-center justify-center">
+                      <ArrowRight className="w-4 h-4" />
+                    </span>
+                    <span className="w-1/2 flex items-center justify-center">
+                      <ArrowRight className="w-4 h-4" />
+                    </span>
+                  </div>
+                </div>
+              </a>
 
-        {/* iPad Preview Container with Scale Border Beam */}
-        <div className="relative max-w-lg mx-auto rounded-3xl overflow-hidden border border-[#d8d5cb] bg-white shadow-2xl p-2 sm:p-3 transition-transform hover:scale-[1.01] duration-500">
-          <div className="scale-border-beam" />
-          <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-black">
-            <Image
-              src="/ipad-preview.png"
-              alt="The Self-Mastery Guide on iPad"
-              width={1080}
-              height={1350}
-              className="w-full h-full object-cover"
-              priority
-            />
-          </div>
-        </div>
+              {/* Trust Badges directly underneath the CTA */}
+              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-[11px] text-[#798a80] font-medium mt-4 pt-3 border-t border-[#e7e5dc]">
+                <div className="flex items-center gap-1.5">
+                  <Check className="w-3.5 h-3.5 text-emerald-700" />
+                  <span>Instant Digital Download</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Smartphone className="w-3.5 h-3.5 text-emerald-700" />
+                  <span>iPad, iPhone & Print</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-700" />
+                  <span>100% Technical Support</span>
+                </div>
+              </div>
+            </div>
 
-        {/* Protocol Steps */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto mt-12 pt-8 border-t border-[#e7e5dc]">
-          <div>
-            <div className="text-xs font-mono text-emerald-800 font-bold mb-1">01 · MORNING</div>
-            <h3 className="text-base font-bold text-[#121814] mb-1">Cognitive Grounding</h3>
-            <p className="text-xs text-[#4a5950] leading-relaxed">
-              Read one focused chapter analyzing human nature, impulse arrest, or strategic boundaries before stepping into the noise of the day.
-            </p>
-          </div>
-          <div>
-            <div className="text-xs font-mono text-emerald-800 font-bold mb-1">02 · DAYTIME</div>
-            <h3 className="text-base font-bold text-[#121814] mb-1">Live Application</h3>
-            <p className="text-xs text-[#4a5950] leading-relaxed">
-              Practice specific emotional composure protocols during real pressure points and interpersonal friction.
-            </p>
-          </div>
-          <div>
-            <div className="text-xs font-mono text-emerald-800 font-bold mb-1">03 · NIGHT</div>
-            <h3 className="text-base font-bold text-[#121814] mb-1">Accountability Audit</h3>
-            <p className="text-xs text-[#4a5950] leading-relaxed">
-              Answer the unvarnished evening prompt directly on your iPad, notebook, or phone. Never go to sleep without auditing where your ego slipped.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-         3. VIDEO EXPERIENCE SECTION
-         ========================================================================= */}
-      <section className="relative py-14 px-4 sm:px-6 max-w-4xl mx-auto border-t border-[#e7e5dc]">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-4xl font-bold text-[#121814] tracking-tight">
-            Designed for Quiet Evening Study
-          </h2>
-          <p className="text-sm sm:text-base text-[#4a5950] max-w-xl mx-auto mt-2">
-            Clean typography, zero visual distractions, and designed to look stunning in dark mode on tablets and smartphones.
-          </p>
-        </div>
-
-        {/* Video Player Container */}
-        <div className="relative max-w-2xl mx-auto rounded-3xl overflow-hidden border border-[#d8d5cb] bg-black shadow-2xl p-2 sm:p-3">
-          <div className="scale-border-beam" />
-          <div className="relative rounded-2xl overflow-hidden aspect-video bg-black">
-            <video
-              src="/videos/self_mastery_preview.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover"
-            />
           </div>
         </div>
       </section>

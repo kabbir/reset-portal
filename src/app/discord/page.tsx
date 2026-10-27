@@ -73,61 +73,61 @@ export default function DiscordLandingPage() {
     }
   };
 
-  /* Curriculum Modules - High-Level Value without giving away the proprietary secret sauce */
+  /* Curriculum Modules - Simple, Direct, Confident & Enthusiastic */
   const modules = [
     {
       num: "01",
-      title: "The 0 to 30k Distribution Blueprint",
-      tagline: "Algorithmic Pacing & Visual Authority",
-      desc: "Why 99% of creator reels stall at low views while high-authority pages capture millions of impressions. You will master the exact visual formatting, typography balance, and subtle audio pacing that triggers algorithmic distribution without needing expensive cameras or complex editing.",
+      title: "How to Make Viral Reels that Actually Get Views",
+      tagline: "The Secret to Stopping the Scroll",
+      desc: "Most people spend hours editing videos only for them to get stuck at 200 views. I'll show you the exact visual formats, clean fonts, high-contrast layouts, and subtle audio that make people stop scrolling and watch your reels two or three times in a row. No expensive cameras, no studio setups, and no complicated editing required.",
       highlights: [
-        "The retention pacing architecture that keeps viewers hooked through multiple loops",
-        "Visual hierarchy: formatting text and contrast for immediate authority",
-        "Audio selection: subtle soundscapes that stop the scroll"
+        "How to format your text so people can't look away",
+        "The simple audio trick that triggers the algorithm to push your videos",
+        "How to make reels loop seamlessly so your watch time skyrockets"
       ]
     },
     {
       num: "02",
-      title: "The Viral Repost Psychology Engine",
-      tagline: "The Subconscious Story Share Trigger",
-      desc: "Followers do not repost content to promote your page; they repost to signal something about their own identity. Learn the psychological triggers that compel viewers to share your reels to their personal stories, driving thousands of warm organic followers daily.",
+      title: "Why People Share to Their Stories (The Repost Secret)",
+      tagline: "How to Get Free Organic Reach Daily",
+      desc: "Here's the honest truth: people don't share your reels to help you grow. They share them to show their friends who they are, what they believe, and how smart they are. Once you understand this simple psychology, getting hundreds of daily story shares becomes natural and predictable.",
       highlights: [
-        "The identity-signaling framework behind high-share content",
-        "Curating high-authority thoughts that provoke deep agreement",
-        "Structuring captions that maximize saves, shares, and algorithmic reach"
+        "How to pick quotes and topics that people are proud to repost",
+        "Writing 4-paragraph captions that get thousands of saves and shares",
+        "The secret to turning casual viewers into loyal daily followers"
       ]
     },
     {
       num: "03",
-      title: "Automated Batch Production Systems",
-      tagline: "Create A Month of Content in Minutes",
-      desc: "Stop spending hours manually editing one clip at a time. We share our private automated workflow that allows our team to generate, format, and queue weeks of high-definition content in a single afternoon so you can focus purely on strategy.",
+      title: "Make a Month of Content in One Afternoon",
+      tagline: "Never Stress About Posting Again",
+      desc: "Stop staring at a blank screen wondering what to post today. I'll hand you the exact automated batch workflow we use to generate, format, and schedule weeks of high-definition reels in just a couple of hours. You set it up once, and your page runs consistently without burning you out.",
       highlights: [
-        "The complete automated creation workflow walkthrough",
-        "Batch formatting systems for frictionless consistency",
-        "Multi-platform queueing without daily creative burnout"
+        "Step-by-step walkthrough of our entire batch creation system",
+        "How to store and organize your content so you never run out of ideas",
+        "Multi-platform scheduling that posts for you on complete autopilot"
       ]
     },
     {
       num: "04",
-      title: "DM Automation & Cashflow Systems",
-      tagline: "Turn Views into Predictable Revenue",
-      desc: "Views without conversion are useless vanity. Master the frictionless DM automation funnels that convert reel comments and story interactions into qualified buyers for digital products, consultations, and private communities.",
+      title: "Turn Your Views into Real Money with Auto DMs",
+      tagline: "Make Money While You Sleep",
+      desc: "Getting millions of views feels great, but views alone don't pay the bills. I'll show you how we set up simple, friendly automatic DMs that send interested people directly to your digital products, courses, or services the exact second they drop a comment on your post.",
       highlights: [
-        "Setting up automated keyword DM triggers with high open rates",
-        "Frictionless checkout integration and offer presentation",
-        "Converting passive scrollers into long-term community members"
+        "How to set up automatic keyword DMs that get an 80%+ open rate",
+        "Creating simple digital products that people actually want to buy",
+        "How to turn warm comments into immediate Stripe sales smoothly"
       ]
     },
     {
       num: "05",
-      title: "The Private Discord Mastermind",
-      tagline: "Direct Feedback, Weekly Audits & Private Vault",
-      desc: "Get direct access to Kabbir and a room of serious creators. Submit your page for bi-weekly live teardowns, diagnose your view caps, and unlock our private vault of high-performing quotes and frameworks.",
+      title: "Weekly Live Account Reviews with Kabbir",
+      tagline: "You Don't Have to Do This Alone",
+      desc: "Every week, you get direct access to me inside our private Discord. Drop your account link, show me your latest reels, and I will personally review what's working, what's holding your views back, and what exact tweaks to make so you can break through plateaus and scale to 30k+ fast.",
       highlights: [
-        "Personal account audits and script feedback directly with Kabbir",
-        "Access to our private 500+ viral quote swipe vault",
-        "Private networking with operators scaling to 10k–100k+ followers"
+        "Live 1-on-1 teardowns of your account, hooks, and captions",
+        "Instant access to our private vault of 500+ proven viral quotes",
+        "A private room of driven, supportive creators all winning together"
       ]
     }
   ];
@@ -267,7 +267,7 @@ export default function DiscordLandingPage() {
             What You Learn Inside The Discord
           </h2>
           <p className="text-sm sm:text-base text-[#4a5950] max-w-xl mx-auto mt-2">
-            No vague high-level theory. Every module is a tactical blueprint with practical templates and frameworks.
+            No boring theory. No gatekeeping. Just the exact, real-world steps to build an audience that actually cares and turn your views into real money.
           </p>
         </div>
 
@@ -296,7 +296,7 @@ export default function DiscordLandingPage() {
               <div className="bg-[#fcfbf9] rounded-xl p-4 border border-[#eceae3]">
                 <div className="text-xs font-mono uppercase font-bold text-[#121814] mb-2.5 flex items-center gap-1.5">
                   <Zap className="w-3.5 h-3.5 text-emerald-700" />
-                  <span>Key Competencies:</span>
+                  <span>What you get inside:</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {mod.highlights.map((h, i) => (

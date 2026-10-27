@@ -174,36 +174,36 @@ export default function GuideLandingPage() {
 
               <div className="space-y-4">
                 <div className="flex items-start gap-3.5">
-                  <div className="w-7 h-7 rounded-lg bg-[#1b3826] text-white flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5">
+                  <div className="w-7 h-7 rounded-full bg-[#1b3826] text-white flex items-center justify-center text-xs font-sans font-bold shrink-0 mt-0.5 shadow-2xs">
                     01
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-[#121814]">Morning: Read 1 Page</h3>
-                    <p className="text-xs text-[#4a5950] leading-relaxed mt-0.5">
+                    <h3 className="text-sm font-bold text-[#121814] font-sans">Morning: Read 1 Page</h3>
+                    <p className="text-xs text-[#4a5950] leading-relaxed mt-0.5 font-sans">
                       Start your day with one clear mental framework on emotional composure, impulse control, or strategic boundaries before the world&apos;s noise reaches you.
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3.5">
-                  <div className="w-7 h-7 rounded-lg bg-[#1b3826] text-white flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5">
+                  <div className="w-7 h-7 rounded-full bg-[#1b3826] text-white flex items-center justify-center text-xs font-sans font-bold shrink-0 mt-0.5 shadow-2xs">
                     02
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-[#121814]">Daytime: Live Application</h3>
-                    <p className="text-xs text-[#4a5950] leading-relaxed mt-0.5">
+                    <h3 className="text-sm font-bold text-[#121814] font-sans">Daytime: Live Application</h3>
+                    <p className="text-xs text-[#4a5950] leading-relaxed mt-0.5 font-sans">
                       Put the lesson into practice during high-pressure conversations, difficult moments, and everyday friction.
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3.5">
-                  <div className="w-7 h-7 rounded-lg bg-[#1b3826] text-white flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5">
+                  <div className="w-7 h-7 rounded-full bg-[#1b3826] text-white flex items-center justify-center text-xs font-sans font-bold shrink-0 mt-0.5 shadow-2xs">
                     03
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-[#121814]">Night: Write 1 Page</h3>
-                    <p className="text-xs text-[#4a5950] leading-relaxed mt-0.5">
+                    <h3 className="text-sm font-bold text-[#121814] font-sans">Night: Write 1 Page</h3>
+                    <p className="text-xs text-[#4a5950] leading-relaxed mt-0.5 font-sans">
                       Answer the paired evening accountability prompt directly on your iPad, phone, or notebook. Never close your eyes without an honest audit of where your ego slipped.
                     </p>
                   </div>
@@ -280,16 +280,16 @@ export default function GuideLandingPage() {
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-4 h-4 fill-amber-500" />
               ))}
-              <span className="text-xs font-bold text-[#121814] ml-2 font-mono">4.96 / 5.0 Rating</span>
+              <span className="text-xs font-bold text-[#121814] ml-2 font-sans tracking-tight">4.96 / 5.0 Rating</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#121814] tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#121814] tracking-tight font-sans">
               Verified Reader Feedback
             </h2>
           </div>
 
           <button
             onClick={() => setShowReviewModal(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#d8d5cb] bg-white text-xs font-semibold text-[#121814] hover:bg-[#eceae3] transition-colors shadow-xs"
+            className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#d8d5cb] bg-white text-xs font-semibold text-[#121814] hover:bg-[#eceae3] transition-colors shadow-xs font-sans"
           >
             <MessageSquarePlus className="w-3.5 h-3.5 text-emerald-800" />
             <span>Leave a Review</span>
@@ -301,7 +301,7 @@ export default function GuideLandingPage() {
           {reviewsList.slice(0, 4).map((rev) => (
             <div
               key={rev.id}
-              className="bg-white rounded-xl border border-[#e7e5dc] p-5 shadow-xs flex flex-col justify-between"
+              className="bg-white rounded-2xl border border-[#e7e5dc] p-5 shadow-xs flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-2">
@@ -310,15 +310,15 @@ export default function GuideLandingPage() {
                       <Star key={i} className="w-3.5 h-3.5 fill-amber-500" />
                     ))}
                   </div>
-                  <span className="text-[11px] font-mono text-[#798a80]">{rev.date}</span>
+                  <span className="text-[11px] font-sans font-medium text-[#798a80]">{rev.date}</span>
                 </div>
                 <p className="text-xs sm:text-sm text-[#2e3b33] leading-relaxed italic mb-3 font-serif">
                   &ldquo;{rev.comment}&rdquo;
                 </p>
               </div>
               <div className="flex items-center justify-between pt-3 border-t border-[#f0eee6]">
-                <span className="text-xs font-bold text-[#121814]">{rev.name}</span>
-                <span className="text-[10px] text-emerald-800 font-medium bg-emerald-50 px-2 py-0.5 rounded-full">
+                <span className="text-xs font-bold text-[#121814] font-sans">{rev.name}</span>
+                <span className="text-[10px] text-emerald-800 font-medium bg-emerald-50 px-2 py-0.5 rounded-full font-sans border border-emerald-200/50">
                   Verified Reader
                 </span>
               </div>
@@ -332,7 +332,7 @@ export default function GuideLandingPage() {
          ========================================================================= */}
       <section className="relative py-16 px-4 sm:px-6 max-w-3xl mx-auto border-t border-[#e7e5dc]">
         <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#121814] tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#121814] tracking-tight font-sans">
             Frequently Asked Questions
           </h2>
         </div>
@@ -345,7 +345,7 @@ export default function GuideLandingPage() {
             >
               <button
                 onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                className="w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-semibold text-sm text-[#121814]"
+                className="w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-semibold text-sm text-[#121814] font-sans"
               >
                 <span>{faq.q}</span>
                 <ChevronDown
@@ -355,7 +355,7 @@ export default function GuideLandingPage() {
                 />
               </button>
               {openFaq === idx && (
-                <div className="px-5 pb-4 text-xs sm:text-sm text-[#4a5950] leading-relaxed border-t border-[#f0eee6] pt-3">
+                <div className="px-5 pb-4 text-xs sm:text-sm text-[#4a5950] leading-relaxed border-t border-[#f0eee6] pt-3 font-sans">
                   {faq.a}
                 </div>
               )}
@@ -372,19 +372,19 @@ export default function GuideLandingPage() {
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 font-editorial">
             Take Command of Your Mind Today.
           </h2>
-          <p className="text-sm text-emerald-100/80 mb-8 max-w-lg mx-auto">
+          <p className="text-sm text-emerald-100/80 mb-8 max-w-lg mx-auto font-sans">
             112 Pages of psychological frameworks, composure disciplines, and nightly accountability audits. Instant delivery to your email.
           </p>
 
           <a
             href={STRIPE_CHECKOUT_URL}
-            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white text-[#1b3826] font-bold text-base hover:bg-emerald-50 transition-all shadow-lg hover:shadow-xl"
+            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-white text-[#1b3826] font-bold text-base hover:bg-emerald-50 transition-all shadow-lg hover:shadow-xl font-sans"
           >
             <span>Get The Guide — $19</span>
             <ArrowRight className="w-4 h-4" />
           </a>
 
-          <div className="flex items-center justify-center gap-6 text-xs text-emerald-200/60 mt-6 font-mono">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-emerald-200/80 mt-6 font-sans font-medium">
             <span>Secure Stripe Checkout</span>
             <span>·</span>
             <span>Immediate Digital Delivery</span>

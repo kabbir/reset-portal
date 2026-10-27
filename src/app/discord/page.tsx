@@ -208,23 +208,62 @@ export default function DiscordLandingPage() {
           </a>
         </div>
 
-        {/* Metrics Strip */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto pt-8 border-t border-[#e7e5dc]/60">
-          <div className="p-3 bg-white rounded-xl border border-[#dedad0]/80 shadow-2xs">
-            <div className="text-xl sm:text-2xl font-bold text-[#121814] font-mono">30,000+</div>
-            <div className="text-[11px] text-[#798a80] font-medium mt-0.5">Organic Followers</div>
+        {/* Whop-Grade Creator Metrics Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto pt-8 border-t border-[#e7e5dc]/60">
+          <div className="p-4 sm:p-5 bg-white rounded-2xl border border-[#dedad0] shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:border-[#1b3826]/30 transition-all text-left flex flex-col justify-between">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#121814] font-sans">
+                30,000+
+              </span>
+              <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-800 flex items-center justify-center shrink-0 border border-emerald-200/50">
+                <Users className="w-3.5 h-3.5 text-emerald-700" />
+              </div>
+            </div>
+            <span className="text-xs font-semibold text-[#617367] tracking-tight">
+              Organic Followers
+            </span>
           </div>
-          <div className="p-3 bg-white rounded-xl border border-[#dedad0]/80 shadow-2xs">
-            <div className="text-xl sm:text-2xl font-bold text-[#121814] font-mono">10M+</div>
-            <div className="text-[11px] text-[#798a80] font-medium mt-0.5">Monthly Impressions</div>
+
+          <div className="p-4 sm:p-5 bg-white rounded-2xl border border-[#dedad0] shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:border-[#1b3826]/30 transition-all text-left flex flex-col justify-between">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#121814] font-sans">
+                10M+
+              </span>
+              <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-800 flex items-center justify-center shrink-0 border border-emerald-200/50">
+                <TrendingUp className="w-3.5 h-3.5 text-emerald-700" />
+              </div>
+            </div>
+            <span className="text-xs font-semibold text-[#617367] tracking-tight">
+              Monthly Impressions
+            </span>
           </div>
-          <div className="p-3 bg-white rounded-xl border border-[#dedad0]/80 shadow-2xs">
-            <div className="text-xl sm:text-2xl font-bold text-[#121814] font-mono">100%</div>
-            <div className="text-[11px] text-[#798a80] font-medium mt-0.5">Automated Production</div>
+
+          <div className="p-4 sm:p-5 bg-white rounded-2xl border border-[#dedad0] shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:border-[#1b3826]/30 transition-all text-left flex flex-col justify-between">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#121814] font-sans">
+                100%
+              </span>
+              <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-800 flex items-center justify-center shrink-0 border border-emerald-200/50">
+                <Cpu className="w-3.5 h-3.5 text-emerald-700" />
+              </div>
+            </div>
+            <span className="text-xs font-semibold text-[#617367] tracking-tight">
+              Automated Production
+            </span>
           </div>
-          <div className="p-3 bg-white rounded-xl border border-[#dedad0]/80 shadow-2xs">
-            <div className="text-xl sm:text-2xl font-bold text-[#121814] font-mono">80%+</div>
-            <div className="text-[11px] text-[#798a80] font-medium mt-0.5">Loop Retention Rate</div>
+
+          <div className="p-4 sm:p-5 bg-white rounded-2xl border border-[#dedad0] shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:border-[#1b3826]/30 transition-all text-left flex flex-col justify-between">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#121814] font-sans">
+                80%+
+              </span>
+              <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-800 flex items-center justify-center shrink-0 border border-emerald-200/50">
+                <Repeat className="w-3.5 h-3.5 text-emerald-700" />
+              </div>
+            </div>
+            <span className="text-xs font-semibold text-[#617367] tracking-tight">
+              Loop Retention Rate
+            </span>
           </div>
         </div>
       </section>
@@ -275,34 +314,48 @@ export default function DiscordLandingPage() {
           {modules.map((mod) => (
             <div
               key={mod.num}
-              className="bg-white rounded-2xl border border-[#dedad0] p-6 sm:p-8 shadow-xs hover:border-[#b8b3a5] transition-all"
+              className="bg-white rounded-3xl border border-[#dedad0] p-6 sm:p-8 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:border-[#1b3826]/30 hover:shadow-sm transition-all"
             >
-              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 pb-4 mb-4 border-b border-[#eceae3]">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono font-bold bg-[#1b3826] text-white px-2.5 py-1 rounded-md">
-                    MODULE {mod.num}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 mb-5 border-b border-[#eceae3]">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200/70 font-sans shadow-2xs">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                    Module {mod.num}
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#121814]">
+                  <h3 className="text-xl sm:text-2xl font-bold text-[#121814] tracking-tight font-sans">
                     {mod.title}
                   </h3>
                 </div>
-                <span className="text-xs font-mono text-[#798a80]">{mod.tagline}</span>
+                <span className="text-xs font-semibold text-emerald-900/80 bg-[#f4f2ea] px-3 py-1 rounded-full border border-[#e4e1d7] font-sans self-start sm:self-auto">
+                  {mod.tagline}
+                </span>
               </div>
 
-              <p className="text-sm sm:text-base text-[#4a5950] leading-relaxed mb-6">
+              <p className="text-sm sm:text-base text-[#4a5950] leading-relaxed mb-6 font-sans">
                 {mod.desc}
               </p>
 
-              <div className="bg-[#fcfbf9] rounded-xl p-4 border border-[#eceae3]">
-                <div className="text-xs font-mono uppercase font-bold text-[#121814] mb-2.5 flex items-center gap-1.5">
-                  <Zap className="w-3.5 h-3.5 text-emerald-700" />
-                  <span>What you get inside:</span>
+              <div className="bg-[#fcfbf9] rounded-2xl p-4 sm:p-5 border border-[#eceae3]">
+                <div className="flex items-center gap-2 mb-3.5">
+                  <div className="w-5 h-5 rounded-md bg-emerald-800/10 flex items-center justify-center text-emerald-800">
+                    <Zap className="w-3 h-3 text-emerald-800 fill-emerald-800/30" />
+                  </div>
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#121814] font-sans">
+                    What You Get Inside:
+                  </span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {mod.highlights.map((h, i) => (
-                    <div key={i} className="flex items-start gap-2 text-xs text-[#2e3b33] leading-snug">
-                      <Check className="w-3.5 h-3.5 text-emerald-700 shrink-0 mt-0.5" />
-                      <span>{h}</span>
+                    <div
+                      key={i}
+                      className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-[#e8e6df] shadow-2xs hover:border-emerald-700/30 transition-all"
+                    >
+                      <div className="w-4 h-4 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5 border border-emerald-200/60">
+                        <Check className="w-2.5 h-2.5 stroke-[2.5]" />
+                      </div>
+                      <span className="text-xs text-[#2e3b33] font-medium leading-snug font-sans">
+                        {h}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -331,11 +384,11 @@ export default function DiscordLandingPage() {
             <h3 className="text-2xl font-bold tracking-tight mb-2 font-editorial">
               The 0 to 30k Mastermind Access
             </h3>
-            <p className="text-xs text-emerald-100/80 mb-6 leading-relaxed">
+            <p className="text-xs text-emerald-100/80 mb-6 leading-relaxed font-sans">
               Full private Discord server access, complete 5-module curriculum, batch automation workflows, and weekly live account breakdowns.
             </p>
 
-            <div className="space-y-3 pt-4 border-t border-emerald-800/80 mb-8">
+            <div className="space-y-3 pt-4 border-t border-emerald-800/80 mb-8 font-sans">
               <div className="flex items-center gap-2.5 text-xs text-emerald-100">
                 <Check className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>Private Discord channels with direct access to Kabbir</span>
@@ -362,15 +415,15 @@ export default function DiscordLandingPage() {
               </div>
             </div>
 
-            <div className="bg-emerald-950/60 rounded-xl p-5 border border-emerald-800 text-center">
-              <div className="text-xs font-mono text-emerald-300 uppercase tracking-wider mb-1">
-                Discord Community Entry
+            <div className="bg-gradient-to-br from-[#112418] to-[#0a180f] rounded-2xl p-6 border border-emerald-700/50 text-center shadow-lg">
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold bg-emerald-400/15 text-emerald-300 border border-emerald-400/25 mb-3 font-sans uppercase tracking-wider">
+                Private Discord Entry
+              </span>
+              <div className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white mb-1.5 font-sans">
+                $29<span className="text-sm font-medium text-emerald-200/80 ml-1.5 font-sans">/ month</span>
               </div>
-              <div className="text-4xl font-bold font-mono text-white mb-2">
-                $29 <span className="text-xs font-sans text-emerald-200 font-normal">/ month</span>
-              </div>
-              <p className="text-[11px] text-emerald-200/70">
-                Cancel anytime in one click. No hidden fees or contracts.
+              <p className="text-xs text-emerald-200/70 font-sans mt-1">
+                Cancel anytime in one click · Instant Discord role assignment
               </p>
             </div>
           </div>

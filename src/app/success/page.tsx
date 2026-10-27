@@ -109,7 +109,7 @@ function SuccessContent() {
                   <div className="text-[14px] font-semibold text-white">The Self-Mastery Guide & Workbook</div>
                   <div className="text-[12px] text-[#86868b]">Full 112-Page Archival Masterwork (PDF)</div>
                 </div>
-                <span className="text-[11px] px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-mono border border-emerald-500/20">
+                <span className="text-[11px] px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-sans font-semibold border border-emerald-500/20">
                   Paid
                 </span>
               </div>

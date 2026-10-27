@@ -3,7 +3,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Users, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { DiscordLogo, StripeLogo } from "@/components/BrandLogos";
 
 interface NavbarProps {
   activePage: "guide" | "discord";
@@ -42,7 +43,7 @@ export default function Navbar({ activePage }: NavbarProps) {
                 activePage === "discord" ? "text-white/50" : "text-black/50"
               }`}
             >
-              {activePage === "guide" ? "The Archival Manual" : "Creator Mastermind"}
+              {activePage === "guide" ? "Daily Mindset Guide" : "Creator Discord"}
             </span>
           </div>
         </Link>
@@ -62,13 +63,14 @@ export default function Navbar({ activePage }: NavbarProps) {
           <span className={`text-xs ${activePage === "discord" ? "text-white/20" : "text-black/20"}`}>/</span>
           <Link
             href="/discord"
-            className={`font-riviera text-xs uppercase tracking-[0.25em] transition-all duration-300 py-1 border-b ${
+            className={`font-riviera text-xs uppercase tracking-[0.25em] transition-all duration-300 py-1 border-b flex items-center gap-2 ${
               activePage === "discord"
                 ? "border-current opacity-100 font-medium"
                 : "border-transparent opacity-50 hover:opacity-100 font-light"
             }`}
           >
-            Creator Discord ($29)
+            <DiscordLogo className="w-3.5 h-3.5 opacity-80" />
+            <span>Creator Discord ($29)</span>
           </Link>
         </nav>
 
@@ -77,15 +79,17 @@ export default function Navbar({ activePage }: NavbarProps) {
           {activePage === "guide" ? (
             <a
               href={STRIPE_CHECKOUT_URL}
-              className="rr-btn hidden sm:inline-flex items-center gap-2 px-6 py-2.5 text-xs font-medium border border-[#121814] text-[#121814] hover:bg-[#121814] hover:text-white"
+              className="rr-btn hidden sm:inline-flex items-center gap-2.5 px-6 py-2.5 text-xs font-medium border border-[#121814] text-[#121814] hover:bg-[#121814] hover:text-white"
             >
-              <span>Acquire Guide — $19</span>
+              <StripeLogo className="h-3 w-auto opacity-70" />
+              <span>Get The Guide — $19</span>
             </a>
           ) : (
             <a
               href="#enroll"
-              className="rr-btn hidden sm:inline-flex items-center gap-2 px-6 py-2.5 text-xs font-medium border border-white text-white hover:bg-white hover:text-black"
+              className="rr-btn hidden sm:inline-flex items-center gap-2.5 px-6 py-2.5 text-xs font-medium border border-white text-white hover:bg-white hover:text-black"
             >
+              <DiscordLogo className="w-3.5 h-3.5" />
               <span>Join Discord — $29</span>
             </a>
           )}
@@ -119,31 +123,42 @@ export default function Navbar({ activePage }: NavbarProps) {
                 : "border-transparent opacity-60 hover:opacity-100 font-light"
             }`}
           >
-            The Self-Mastery Guide ($19)
+            The Guide ($19)
           </Link>
 
           <Link
             href="/discord"
             onClick={() => setMobileMenuOpen(false)}
-            className={`block font-riviera text-xs uppercase tracking-[0.25em] py-2 border-b ${
+            className={`flex items-center gap-2 font-riviera text-xs uppercase tracking-[0.25em] py-2 border-b ${
               activePage === "discord"
                 ? "border-current opacity-100 font-medium"
                 : "border-transparent opacity-60 hover:opacity-100 font-light"
             }`}
           >
-            Creator Discord ($29)
+            <DiscordLogo className="w-3.5 h-3.5 opacity-80" />
+            <span>Creator Discord ($29)</span>
           </Link>
 
           <div className="pt-2">
             <a
               href={activePage === "guide" ? STRIPE_CHECKOUT_URL : "#enroll"}
-              className={`rr-btn block w-full py-3 text-center text-xs font-medium border ${
+              className={`rr-btn flex items-center justify-center gap-2 w-full py-3 text-center text-xs font-medium border ${
                 activePage === "discord"
                   ? "border-white text-white hover:bg-white hover:text-black"
                   : "border-[#121814] text-[#121814] hover:bg-[#121814] hover:text-white"
               }`}
             >
-              {activePage === "guide" ? "Acquire Guide — $19" : "Join Discord — $29"}
+              {activePage === "guide" ? (
+                <>
+                  <StripeLogo className="h-3 w-auto opacity-70" />
+                  <span>Get The Guide — $19</span>
+                </>
+              ) : (
+                <>
+                  <DiscordLogo className="w-3.5 h-3.5" />
+                  <span>Join Discord — $29</span>
+                </>
+              )}
             </a>
           </div>
         </div>

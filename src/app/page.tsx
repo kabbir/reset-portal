@@ -4,12 +4,19 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  ArrowRight,
   Star,
   ChevronDown,
-  X
+  X,
+  FileText
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import {
+  StripeLogo,
+  GoogleLogo,
+  AppleLogo,
+  KindleLogo,
+  InstagramLogo
+} from "@/components/BrandLogos";
 
 /* --- Live Stripe Checkout Link ($19) --- */
 const STRIPE_CHECKOUT_URL = "https://buy.stripe.com/dRmdR9eZZ9Qf1FkgpY6AM00";
@@ -25,11 +32,11 @@ interface ReviewItem {
 }
 
 const ROTATING_PILLARS = [
-  "INTERNAL COMPOSURE",
-  "EMOTIONAL RESTRAINT",
-  "RADICAL DISCIPLINE",
-  "UNADVERTISED COMPETENCE",
-  "MENTAL SOVEREIGNTY"
+  "CALM UNDER PRESSURE",
+  "EMOTIONAL CONTROL",
+  "DAILY DISCIPLINE",
+  "QUIET CONFIDENCE",
+  "CLEAR THINKING"
 ];
 
 export default function GuideLandingPage() {
@@ -104,19 +111,19 @@ export default function GuideLandingPage() {
   const faqs = [
     {
       q: "WHAT FORMAT DOES THE GUIDE COME IN?",
-      a: "The Self-Mastery Guide is delivered as an ultra-high resolution 112-page archival digital publication. It is formatted specifically for iPad, iPhone, Kindle, desktop, and physical print. As soon as checkout completes, you receive immediate lifetime access with universal PDF delivery."
+      a: "The Guide is a clean 112-page PDF. It looks sharp and reads easily on your iPad, iPhone, Android, Kindle, Mac, or PC. You can also print it out if you prefer reading and writing on paper. You receive an immediate download link right after checkout."
     },
     {
-      q: "HOW DOES THE DAILY RITUAL OPERATE?",
-      a: "The protocol is non-negotiable: Read 1 Page, Write 1 Page. Each morning, read one rigorous psychological framework on composure, emotional restraint, or strategic boundaries. Each evening before sleep, complete the paired accountability prompt to audit your conduct."
+      q: "HOW DOES THE DAILY ROUTINE WORK?",
+      a: "It takes less than 10 minutes a day: Read 1 Page in the morning, and Write 1 Page at night. In the morning, you read a single short lesson on focus, emotional control, or personal boundaries. At night before bed, you answer a quick prompt to review how you handled your day."
     },
     {
       q: "IS THERE ANY MOTIVATIONAL FLUFF OR CLICHÉS?",
-      a: "Zero. Every page is dense, unvarnished, and grounded in Stoic philosophy, depth psychology, and operational discipline. No academic filler, no empty slogans, and no generic advice."
+      a: "None at all. No vague slogans, no academic jargon, and no filler. Every page gets straight to the point with practical ideas and honest reflections you can actually use that day."
     },
     {
-      q: "WHAT IS THE REFUND AND ACCESS POLICY?",
-      a: "Due to the immediate digital delivery of The Guide, all sales are final. If you encounter any technical difficulty downloading, opening, or viewing your publication on any device, our team provides 100% replacement and technical support guaranteed."
+      q: "WHAT IS THE REFUND POLICY?",
+      a: "Because The Guide is an instant digital download, all sales are final. If you have any trouble downloading or opening the file on any device, message us anytime and our team will personally make sure you get your copy immediately."
     }
   ];
 
@@ -131,10 +138,10 @@ export default function GuideLandingPage() {
       <section className="relative pt-12 sm:pt-20 pb-16 px-4 sm:px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
-          {/* Left Column: Built For + The Daily Protocol */}
+          {/* Left Column: Built For + The Daily Routine */}
           <div className="lg:col-span-7 flex flex-col justify-start text-left">
             <span className="text-[11px] uppercase tracking-[0.35em] text-black/50 font-medium mb-3">
-              The Archival Manual • 112 Pages
+              The Self-Mastery Guide • 112 Pages
             </span>
 
             {/* Dynamic Rotating Headline */}
@@ -145,51 +152,51 @@ export default function GuideLandingPage() {
               </span>
             </h1>
 
-            {/* Subtitle */}
+            {/* Subtitle - Simple, Clear, Grounded */}
             <p className="text-sm sm:text-base text-black/70 font-light leading-relaxed mb-10 max-w-xl tracking-[0.02em]">
-              A 112-page guided manual of 47 practical psychological frameworks and nightly self-audits. Built for driven individuals who demand real composure and mental discipline in daily life.
+              A 112-page practical guide with 47 proven mental frameworks and simple nightly reflections. Built for people who want real self-discipline, focus, and emotional control in everyday life.
             </p>
 
-            {/* Daily Protocol: Read 1 Page. Write 1 Page. (Flat Architectural Layout, Zero Boxes) */}
+            {/* Daily Routine: Read 1 Page. Write 1 Page. (Flat Architectural Layout, Zero Boxes) */}
             <div className="border-t border-black/15 pt-8 mt-2">
               <div className="flex items-baseline justify-between mb-3">
                 <h2 className="text-sm sm:text-base font-medium text-[#121814] uppercase tracking-[0.24em]">
                   Read 1 Page. Write 1 Page.
                 </h2>
                 <span className="text-[10px] uppercase tracking-[0.25em] text-black/40">
-                  Daily Protocol
+                  Daily Routine
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-black/60 font-light leading-relaxed mb-8 tracking-[0.01em]">
-                A non-negotiable daily ritual designed to reset your focus and audit your conduct:
+                A simple daily routine to keep your focus sharp and your mind calm:
               </p>
 
               {/* 3 Steps in Razor Architectural Grid */}
               <div className="space-y-6">
                 <div className="border-l border-black/20 pl-4">
                   <div className="text-[11px] uppercase tracking-[0.25em] font-medium text-black/50 mb-1">
-                    01 • Morning / Read 1 Page
+                    01 • Morning: Read 1 Page
                   </div>
                   <p className="text-xs sm:text-sm text-black/75 font-light leading-relaxed tracking-[0.01em]">
-                    Start your day with one clear mental framework on emotional composure, impulse control, or strategic boundaries before the world&apos;s noise reaches you.
+                    Start your morning with one clear lesson on patience, focus, or personal boundaries before checking your phone or dealing with other people.
                   </p>
                 </div>
 
                 <div className="border-l border-black/20 pl-4">
                   <div className="text-[11px] uppercase tracking-[0.25em] font-medium text-black/50 mb-1">
-                    02 • Daytime / Live Application
+                    02 • Afternoon: Put It Into Practice
                   </div>
                   <p className="text-xs sm:text-sm text-black/75 font-light leading-relaxed tracking-[0.01em]">
-                    Put the lesson into practice during high-pressure conversations, difficult moments, and everyday friction.
+                    Use what you read during tough meetings, stressful moments, or difficult conversations throughout your day.
                   </p>
                 </div>
 
                 <div className="border-l border-black/20 pl-4">
                   <div className="text-[11px] uppercase tracking-[0.25em] font-medium text-black/50 mb-1">
-                    03 • Night / Write 1 Page
+                    03 • Night: Write 1 Page
                   </div>
                   <p className="text-xs sm:text-sm text-black/75 font-light leading-relaxed tracking-[0.01em]">
-                    Answer the paired evening accountability prompt directly on your iPad, phone, or notebook. Never close your eyes without an honest audit of where your ego slipped.
+                    Answer the quick evening question in your journal, tablet, or phone. Take two minutes before sleeping to reflect on your day and see where you can improve.
                   </p>
                 </div>
               </div>
@@ -216,18 +223,28 @@ export default function GuideLandingPage() {
             <div className="w-full max-w-md mt-6 text-center">
               <a
                 href={STRIPE_CHECKOUT_URL}
-                className="rr-btn block w-full py-4 text-xs font-medium border border-[#121814] bg-[#121814] text-white hover:bg-transparent hover:text-[#121814] transition-all rounded-none"
+                className="rr-btn flex items-center justify-center gap-2.5 w-full py-4 text-xs font-medium border border-[#121814] bg-[#121814] text-white hover:bg-transparent hover:text-[#121814] transition-all rounded-none"
               >
-                Acquire The Guide — $19
+                <StripeLogo className="h-3.5 w-auto opacity-80" />
+                <span>Get The Guide — $19</span>
               </a>
 
-              {/* Trust Badges directly underneath the CTA */}
-              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-[10px] text-black/50 uppercase tracking-[0.2em] font-medium mt-4 pt-3 border-t border-black/15">
-                <span>Instant Download</span>
+              {/* Trust Badges directly underneath the CTA with Official Monochrome Logos */}
+              <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-[10px] text-black/60 uppercase tracking-[0.2em] font-medium mt-4 pt-3 border-t border-black/15">
+                <div className="flex items-center gap-1.5">
+                  <AppleLogo className="w-3.5 h-3.5 opacity-70" />
+                  <span>iPad & iPhone</span>
+                </div>
                 <span>/</span>
-                <span>iPad, iPhone & Print</span>
+                <div className="flex items-center gap-1.5">
+                  <KindleLogo className="w-3.5 h-3.5 opacity-70" />
+                  <span>Kindle & Android</span>
+                </div>
                 <span>/</span>
-                <span>100% Technical Support</span>
+                <div className="flex items-center gap-1.5">
+                  <FileText className="w-3.5 h-3.5 opacity-70" />
+                  <span>Printable PDF</span>
+                </div>
               </div>
             </div>
 
@@ -237,77 +254,79 @@ export default function GuideLandingPage() {
 
       {/* =========================================================================
          2. ROLLS-ROYCE 3-COLUMN CURRICULUM ARCHITECTURE
-         (Modeled after Rolls-Royce "Explore Further / Continue Your Journey")
          ========================================================================= */}
       <section className="relative py-20 px-4 sm:px-8 max-w-7xl mx-auto border-t border-black/15">
         <div className="text-center mb-14">
           <h2 className="text-2xl sm:text-4xl font-light uppercase tracking-[0.22em] text-[#121814] mb-2">
-            The Archival Pillars
+            What&apos;s Inside The Guide
           </h2>
           <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-black/50 font-light">
-            47 Practical Frameworks For Self-Mastery
+            47 Practical Lessons For Everyday Life
           </p>
         </div>
 
-        {/* 3-Column Razor-Divider Grid (Exact Rolls-Royce Architecture) */}
+        {/* 3-Column Razor-Divider Grid (Rolls-Royce Architecture) */}
         <div className="grid grid-cols-1 md:grid-cols-3 border-t border-b border-black/15 divide-y md:divide-y-0 md:divide-x divide-black/15">
           {/* Pillar 01 */}
           <div className="py-8 md:py-10 md:px-8 first:pl-0 last:pr-0">
             <span className="text-[10px] uppercase tracking-[0.35em] text-black/40 block mb-3 font-medium">
-              Pillar 01 • 16 Frameworks
+              Part 01 • 16 Lessons
             </span>
             <h3 className="text-lg sm:text-xl font-medium uppercase tracking-[0.18em] text-[#121814] mb-3">
-              Radical Discipline
+              Building Real Discipline
             </h3>
             <p className="text-xs sm:text-sm text-black/65 font-light leading-relaxed tracking-[0.01em]">
-              Operational disciplines on impulse control, morning mental conditioning, and non-negotiable daily standards that insulate your mind from distraction.
+              Practical steps to stop procrastinating, build solid morning habits, and keep your focus on what actually matters without getting distracted.
             </p>
           </div>
 
           {/* Pillar 02 */}
           <div className="py-8 md:py-10 md:px-8">
             <span className="text-[10px] uppercase tracking-[0.35em] text-black/40 block mb-3 font-medium">
-              Pillar 02 • 16 Frameworks
+              Part 02 • 16 Lessons
             </span>
             <h3 className="text-lg sm:text-xl font-medium uppercase tracking-[0.18em] text-[#121814] mb-3">
-              Emotional Restraint
+              Controlling Your Emotions
             </h3>
             <p className="text-xs sm:text-sm text-black/65 font-light leading-relaxed tracking-[0.01em]">
-              Tactical protocols on defusing external provocations, eliminating reactive anger, and mastering psychological silence during high-friction interactions.
+              How to stay calm when people test your patience, stop reacting out of anger, and keep your cool in tense, uncomfortable situations.
             </p>
           </div>
 
           {/* Pillar 03 */}
           <div className="py-8 md:py-10 md:px-8 first:pl-0 last:pr-0">
             <span className="text-[10px] uppercase tracking-[0.35em] text-black/40 block mb-3 font-medium">
-              Pillar 03 • 15 Audits
+              Part 03 • 15 Prompts
             </span>
             <h3 className="text-lg sm:text-xl font-medium uppercase tracking-[0.18em] text-[#121814] mb-3">
-              Nightly Audit
+              Nightly Journaling
             </h3>
             <p className="text-xs sm:text-sm text-black/65 font-light leading-relaxed tracking-[0.01em]">
-              Accountability frameworks and structured self-examinations to audit your conduct before sleep. Zero rationalization, zero excuses.
+              Simple, honest evening questions to help you review your actions before bed, fix bad habits, and wake up ready for the next day.
             </p>
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-         3. REVIEWS & TESTIMONIALS (EDITORIAL RAZOR GRID, ZERO BOXES)
+         3. REVIEWS & TESTIMONIALS WITH MONOCHROME GOOGLE REVIEWS LOGO
          ========================================================================= */}
       <section className="relative py-20 px-4 sm:px-8 max-w-7xl mx-auto border-t border-black/15">
         <div className="flex flex-col sm:flex-row items-baseline justify-between gap-4 mb-12">
           <div>
-            <div className="flex items-center gap-1.5 text-black/70 mb-2">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3.5 h-3.5 fill-black text-black" />
-              ))}
-              <span className="text-[11px] font-medium text-black uppercase tracking-[0.25em] ml-2">
-                4.96 / 5.0 Rating • Verified Acquisitions
+            <div className="flex items-center gap-2 text-black/70 mb-2">
+              <GoogleLogo className="w-3.5 h-3.5 opacity-80" />
+              <div className="flex items-center gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3 h-3 fill-black text-black" />
+                ))}
+              </div>
+              <span className="text-[11px] font-medium text-black uppercase tracking-[0.25em] ml-1">
+                4.96 / 5.0 Rating • Verified Reviews
               </span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-light uppercase tracking-[0.18em] text-[#121814]">
-              Reader Observations
+              What Readers Are Saying
             </h2>
           </div>
 
@@ -315,7 +334,7 @@ export default function GuideLandingPage() {
             onClick={() => setShowReviewModal(true)}
             className="rr-btn px-6 py-2.5 text-[10px] font-medium border border-black/30 hover:border-black text-[#121814] transition-colors rounded-none"
           >
-            Leave An Observation
+            Leave A Review
           </button>
         </div>
 
@@ -328,10 +347,13 @@ export default function GuideLandingPage() {
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-1 text-black">
-                    {[...Array(rev.rating || 5)].map((_, i) => (
-                      <Star key={i} className="w-3 h-3 fill-black text-black" />
-                    ))}
+                  <div className="flex items-center gap-1.5">
+                    <GoogleLogo className="w-3 h-3 opacity-60" />
+                    <div className="flex items-center gap-0.5 text-black">
+                      {[...Array(rev.rating || 5)].map((_, i) => (
+                        <Star key={i} className="w-3 h-3 fill-black text-black" />
+                      ))}
+                    </div>
                   </div>
                   <span className="text-[10px] uppercase tracking-[0.25em] text-black/40">
                     {rev.date}
@@ -360,10 +382,10 @@ export default function GuideLandingPage() {
       <section className="relative py-20 px-4 sm:px-8 max-w-4xl mx-auto border-t border-black/15">
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl font-light uppercase tracking-[0.2em] text-[#121814] mb-2">
-            Inquiries
+            Frequently Asked Questions
           </h2>
           <p className="text-xs uppercase tracking-[0.3em] text-black/50 font-light">
-            Essential Details Regarding The Publication
+            Everything You Need To Know
           </p>
         </div>
 
@@ -392,39 +414,43 @@ export default function GuideLandingPage() {
       </section>
 
       {/* =========================================================================
-         5. FINAL OBSIDIAN CTA BANNER (ROLLS-ROYCE CONTRAST SECTION)
+         5. FINAL OBSIDIAN CTA BANNER WITH STRIPE LOGO
          ========================================================================= */}
       <section className="relative py-24 px-4 sm:px-8 bg-[#0a0a0a] text-white text-center border-t border-black/15">
         <div className="max-w-3xl mx-auto">
           <span className="text-[10px] uppercase tracking-[0.35em] text-white/50 block mb-3 font-medium">
-            Immediate Universal Delivery
+            Instant Digital Download
           </span>
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-light tracking-[0.16em] uppercase mb-4 leading-tight">
-            Take Command of Your Mind Today.
+            Start Your Daily Reset Today.
           </h2>
           <p className="text-xs sm:text-sm text-white/60 font-light mb-10 max-w-xl mx-auto tracking-[0.02em] leading-relaxed">
-            112 Pages of psychological frameworks, composure disciplines, and nightly accountability audits. Delivered instantly to your email upon checkout.
+            112 pages of simple mental frameworks and nightly journaling prompts. Delivered straight to your inbox the second you complete checkout.
           </p>
 
           <a
             href={STRIPE_CHECKOUT_URL}
-            className="rr-btn inline-block px-10 py-4 text-xs font-medium border border-white bg-white text-black hover:bg-transparent hover:text-white transition-all rounded-none"
+            className="rr-btn inline-flex items-center justify-center gap-3 px-10 py-4 text-xs font-medium border border-white bg-white text-black hover:bg-transparent hover:text-white transition-all rounded-none"
           >
-            Acquire The Guide — $19
+            <StripeLogo className="h-3.5 w-auto" />
+            <span>Get The Guide — $19</span>
           </a>
 
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-[10px] text-white/40 uppercase tracking-[0.25em] font-light mt-10">
-            <span>Secure Stripe Checkout</span>
+            <div className="flex items-center gap-1.5">
+              <StripeLogo className="h-3 w-auto opacity-60" />
+              <span>Secured by Stripe</span>
+            </div>
             <span>·</span>
             <span>Immediate Digital Delivery</span>
             <span>·</span>
-            <span>Universal PDF File</span>
+            <span>Instant PDF Download</span>
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-         6. MINIMALIST EDITORIAL FOOTER
+         6. MINIMALIST EDITORIAL FOOTER WITH INSTAGRAM LOGO
          ========================================================================= */}
       <footer className="w-full border-t border-black/15 py-10 px-4 sm:px-8 text-center text-xs text-black/50 bg-[#fbfaf6]">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
@@ -439,6 +465,15 @@ export default function GuideLandingPage() {
           </div>
 
           <div className="flex items-center gap-6 uppercase tracking-[0.2em] text-[10px] font-medium text-black/60">
+            <a
+              href="https://instagram.com/ourlife.reset"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-black transition-colors"
+            >
+              <InstagramLogo className="w-3.5 h-3.5 opacity-70" />
+              <span>@ourlife.reset</span>
+            </a>
             <Link href="/discord" className="hover:text-black transition-colors">
               Creator Discord
             </Link>
@@ -463,19 +498,22 @@ export default function GuideLandingPage() {
               <X className="w-5 h-5" />
             </button>
 
-            <span className="text-[10px] uppercase tracking-[0.3em] text-black/50 block mb-1">
-              Verified Feedback
-            </span>
+            <div className="flex items-center gap-1.5 mb-1 text-black/50">
+              <GoogleLogo className="w-3 h-3 opacity-70" />
+              <span className="text-[10px] uppercase tracking-[0.3em] font-medium">
+                Verified Feedback
+              </span>
+            </div>
             <h3 className="text-base font-medium uppercase tracking-[0.2em] text-[#121814] mb-2">
-              Submit An Observation
+              Leave A Review
             </h3>
             <p className="text-xs text-black/60 font-light mb-6">
-              Share your honest feedback on The Self-Mastery Guide.
+              Share your honest thoughts on The Self-Mastery Guide.
             </p>
 
             {reviewSubmitted ? (
               <div className="py-8 text-center text-black font-medium text-xs uppercase tracking-[0.2em]">
-                Your observation has been verified and recorded.
+                Thank you! Your review has been submitted.
               </div>
             ) : (
               <form onSubmit={handleReviewSubmit} className="space-y-4">
@@ -495,22 +533,22 @@ export default function GuideLandingPage() {
 
                 <div>
                   <label className="text-[10px] uppercase tracking-[0.25em] font-medium text-black/70 block mb-1">
-                    Evaluation
+                    Your Rating
                   </label>
                   <select
                     value={newReview.rating}
                     onChange={(e) => setNewReview({ ...newReview, rating: Number(e.target.value) })}
                     className="w-full px-3 py-2 text-xs border border-black/20 bg-white rounded-none focus:outline-black font-riviera"
                   >
-                    <option value={5}>5 Stars — Masterful Publication</option>
-                    <option value={4}>4 Stars — Very High Value</option>
-                    <option value={3}>3 Stars — Satisfactory</option>
+                    <option value={5}>5 Stars — Life-Changing</option>
+                    <option value={4}>4 Stars — Great Guide</option>
+                    <option value={3}>3 Stars — Good</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="text-[10px] uppercase tracking-[0.25em] font-medium text-black/70 block mb-1">
-                    Your Observation
+                    Your Review
                   </label>
                   <textarea
                     required
@@ -518,7 +556,7 @@ export default function GuideLandingPage() {
                     value={newReview.comment}
                     onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
                     className="w-full px-3 py-2 text-xs border border-black/20 bg-white rounded-none focus:outline-black font-riviera"
-                    placeholder="How has reading 1 page and doing the nightly audit impacted your composure?"
+                    placeholder="How has reading 1 page and writing 1 page helped your daily routine and mindset?"
                   />
                 </div>
 
@@ -527,7 +565,7 @@ export default function GuideLandingPage() {
                   disabled={submittingReview}
                   className="rr-btn w-full py-3 bg-[#121814] text-white text-[10px] font-medium hover:bg-black transition-colors rounded-none mt-2"
                 >
-                  {submittingReview ? "Recording..." : "Submit Observation"}
+                  {submittingReview ? "Submitting..." : "Submit Review"}
                 </button>
               </form>
             )}

@@ -1,25 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowRight,
-  Check,
-  ChevronDown,
-  Users,
-  Zap,
-  TrendingUp,
-  Cpu,
-  Repeat,
-  DollarSign,
-  ShieldCheck,
-  CheckCircle2,
-  Lock,
-  MessageCircle,
-  Clock
-} from "lucide-react";
 import Navbar from "@/components/Navbar";
+import {
+  DiscordLogo,
+  StripeLogo,
+  InstagramLogo
+} from "@/components/BrandLogos";
 
 export default function DiscordLandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -135,19 +123,19 @@ export default function DiscordLandingPage() {
   const faqs = [
     {
       q: "Do I need prior video editing experience?",
-      a: "No. The entire system is designed so that anyone can follow our step-by-step blueprints and automated frameworks. You don't need complex software or high-end gear."
+      a: "No. The entire system is built so that anyone can follow our step-by-step templates and automated workflows. You don't need complex software or high-end gear."
     },
     {
       q: "Do I have to show my face on camera?",
-      a: "Not at all. OurLife.Reset was grown to over 30,000 followers and millions of monthly impressions completely faceless. We teach both faceless authority and personal brand scaling."
+      a: "Not at all. OurLife.Reset was grown to over 30,000 followers and millions of monthly impressions completely faceless. We teach both faceless page growth and personal brand scaling."
     },
     {
       q: "What happens after I join the Discord?",
-      a: "You get immediate access to all 5 module breakdowns, our private swipe files, dedicated channels for feedback and account audits with Kabbir, and daily discussions with fellow operators."
+      a: "You get immediate access to all 5 video modules, our private quote vault, dedicated feedback channels for weekly account reviews with Kabbir, and daily discussions with fellow creators."
     },
     {
       q: "Can I cancel my membership at any time?",
-      a: "Yes. There are zero contracts or commitments. You can cancel your membership anytime with one click directly inside your billing portal."
+      a: "Yes. There are zero contracts or lock-ins. You can cancel your membership anytime with one click directly inside your billing portal."
     }
   ];
 
@@ -157,45 +145,49 @@ export default function DiscordLandingPage() {
       <Navbar activePage="discord" />
 
       {/* =========================================================================
-         1. HERO SECTION: ROLLS-ROYCE OBSIDIAN LUXURY
+         1. HERO SECTION: ROLLS-ROYCE OBSIDIAN LUXURY WITH DISCORD LOGO
          ========================================================================= */}
       <section className="relative pt-20 sm:pt-32 pb-16 px-4 sm:px-8 max-w-6xl mx-auto text-center">
-        {/* Eyebrow Kicker */}
-        <span className="font-riviera text-xs uppercase tracking-[0.35em] text-white/50 block mb-6 font-medium">
-          AN EXCLUSIVE CREATOR MASTERMIND · BATCH CREATION & MONETIZATION
-        </span>
+        {/* Eyebrow Kicker with Official Discord Mark */}
+        <div className="inline-flex items-center justify-center gap-2 mb-6 text-white/60 border border-white/15 px-4 py-1.5 rounded-none bg-white/5">
+          <DiscordLogo className="w-4 h-4 opacity-80" />
+          <span className="font-riviera text-[11px] uppercase tracking-[0.3em] font-medium text-white/70">
+            PRIVATE CREATOR COMMUNITY · CONTENT & MONETIZATION
+          </span>
+        </div>
 
         {/* Main Headline */}
         <h1 className="font-riviera text-3xl sm:text-6xl md:text-7xl font-light uppercase tracking-[0.16em] leading-[1.12] text-white mb-6">
           GROW FROM 0 TO 30K.
           <span className="block font-light italic tracking-[0.12em] text-white/70 mt-2">
-            THE CREATOR ENGINE
+            THE 30K BLUEPRINT
           </span>
         </h1>
 
-        {/* Subhead */}
+        {/* Subhead - Clean, Grounded, Real */}
         <p className="font-riviera text-sm sm:text-base text-white/60 max-w-2xl mx-auto font-light leading-relaxed tracking-wide mb-12">
-          The exact viral hook formulas, automated batch systems, audience psychology, and monetization funnels behind OurLife.Reset. Everything you need to scale a high-leverage brand from 0 to 30,000+ followers.
+          The exact hook formulas, video formats, batch creation setup, and monetization steps behind OurLife.Reset. Everything you need to grow your account to 30,000+ followers and make real income.
         </p>
 
-        {/* Action Buttons - Sharp Geometry */}
+        {/* Action Buttons - Sharp Geometry with Discord Logo */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
           <a
             href="#enroll"
-            className="rr-btn w-full sm:w-auto inline-flex items-center justify-center px-10 py-4 text-xs font-medium tracking-[0.25em] uppercase border border-white bg-white text-black hover:bg-transparent hover:text-white transition-all duration-400"
+            className="rr-btn w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-10 py-4 text-xs font-medium tracking-[0.25em] uppercase border border-white bg-white text-black hover:bg-transparent hover:text-white transition-all duration-400"
           >
-            <span>Join Mastermind — $29</span>
+            <DiscordLogo className="w-4 h-4" />
+            <span>Join The Discord — $29</span>
           </a>
 
           <a
             href="#curriculum"
             className="rr-btn w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-xs font-light tracking-[0.25em] uppercase border border-white/20 text-white/70 hover:border-white hover:text-white transition-all duration-400"
           >
-            <span>The 5 Pillars</span>
+            <span>What You Learn</span>
           </a>
         </div>
 
-        {/* Rolls-Royce 4-Metric Razor Grid (Divided by razor-thin lines, 0px radius, no boxes) */}
+        {/* Rolls-Royce 4-Metric Razor Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 border-t border-b border-white/15 my-12 text-left">
           <div className="py-8 px-6 border-r border-b md:border-b-0 border-white/15">
             <div className="font-riviera text-3xl sm:text-4xl font-light tracking-[0.08em] text-white">
@@ -241,13 +233,13 @@ export default function DiscordLandingPage() {
       <section className="relative py-16 px-4 sm:px-8 max-w-5xl mx-auto border-t border-white/15">
         <div className="text-center mb-10">
           <span className="font-riviera text-xs uppercase tracking-[0.3em] text-white/50 block mb-2 font-medium">
-            THE PRODUCTION PIPELINE
+            BEHIND THE SCENES
           </span>
           <h2 className="font-riviera text-2xl sm:text-4xl font-light uppercase tracking-[0.18em] text-white">
-            HOW WE BUILD & SCALE DAILY
+            WATCH HOW WE MAKE OUR REELS
           </h2>
           <p className="font-riviera text-xs sm:text-sm text-white/50 max-w-xl mx-auto mt-2 font-light tracking-wide">
-            A glimpse into our automated production timeline, consistency discipline, and audience retention metrics.
+            A quick look at how we create, edit, and schedule our high-retention reels every single day.
           </p>
         </div>
 
@@ -270,27 +262,27 @@ export default function DiscordLandingPage() {
       <section id="curriculum" className="relative py-20 px-4 sm:px-8 max-w-6xl mx-auto border-t border-white/15">
         <div className="text-center mb-16">
           <span className="font-riviera text-xs uppercase tracking-[0.35em] text-white/50 block mb-3 font-medium">
-            CURRICULUM BREAKDOWN
+            COURSE BREAKDOWN
           </span>
           <h2 className="font-riviera text-2xl sm:text-4xl font-light uppercase tracking-[0.2em] text-white">
-            WHAT YOU MASTER INSIDE
+            WHAT YOU LEARN INSIDE
           </h2>
           <p className="font-riviera text-xs sm:text-sm text-white/50 max-w-xl mx-auto mt-3 font-light tracking-wide">
             No boring theory. No gatekeeping. Just the exact, real-world steps to build an audience that actually cares and turn your views into real money.
           </p>
         </div>
 
-        {/* Modules Grid - Separated by Razor Thin Lines (No Cards, No Boxes) */}
+        {/* Modules Grid - Separated by Razor Thin Lines */}
         <div className="border-t border-b border-white/15 divide-y divide-white/15">
           {modules.map((mod) => (
             <div
               key={mod.num}
               className="grid grid-cols-1 md:grid-cols-12 py-12 sm:py-16 gap-8 items-start group"
             >
-              {/* Left Column: Pillar Title & Narrative */}
+              {/* Left Column: Module Title & Narrative */}
               <div className="md:col-span-6 pr-0 md:pr-8">
                 <span className="font-riviera text-xs uppercase tracking-[0.3em] text-white/40 font-medium block mb-3">
-                  PILLAR {mod.num}
+                  PART {mod.num}
                 </span>
                 <h3 className="font-riviera text-xl sm:text-2xl font-light uppercase tracking-[0.14em] text-white mb-2 leading-snug">
                   {mod.title}
@@ -306,7 +298,7 @@ export default function DiscordLandingPage() {
               {/* Right Column: Architectural Deliverables */}
               <div className="md:col-span-6 border-t md:border-t-0 md:border-l border-white/15 pt-6 md:pt-0 md:pl-10">
                 <span className="font-riviera text-[10px] uppercase tracking-[0.3em] text-white/40 block mb-4 font-medium">
-                  CORE DELIVERABLES:
+                  WHAT YOU GET:
                 </span>
                 <div className="space-y-4">
                   {mod.highlights.map((h, i) => (
@@ -326,18 +318,18 @@ export default function DiscordLandingPage() {
       </section>
 
       {/* =========================================================================
-         4. ENROLLMENT & APPLICATION ($29 PRICING) - ARCHITECTURAL MINIMALISM
+         4. ENROLLMENT & APPLICATION ($29 PRICING) WITH STRIPE & DISCORD LOGOS
          ========================================================================= */}
       <section id="enroll" className="relative py-20 px-4 sm:px-8 max-w-6xl mx-auto border-t border-white/15">
         <div className="text-center mb-14">
           <span className="font-riviera text-xs uppercase tracking-[0.35em] text-white/50 block mb-3 font-medium">
-            LIMITED COHORT ACCESS
+            LIMITED SPOTS AVAILABLE
           </span>
           <h2 className="font-riviera text-2xl sm:text-4xl font-light uppercase tracking-[0.2em] text-white">
-            JOIN THE PRIVATE DISCORD
+            JOIN THE CREATOR DISCORD
           </h2>
           <p className="font-riviera text-xs sm:text-sm text-white/50 max-w-xl mx-auto mt-2 font-light tracking-wide">
-            Direct access to Kabbir, live weekly account audits, our private viral swipe file, and automated batch frameworks.
+            Direct access to Kabbir, live weekly account reviews, our private viral quote vault, and simple batch creation templates.
           </p>
         </div>
 
@@ -345,19 +337,19 @@ export default function DiscordLandingPage() {
           {/* Left: What's Included & $29 Pricing */}
           <div className="border border-white/15 bg-black p-8 sm:p-12 rounded-none">
             <span className="font-riviera text-xs uppercase tracking-[0.3em] text-white/40 block mb-2 font-medium">
-              THE COMPLETE PACKAGE
+              WHAT&apos;S INCLUDED
             </span>
             <h3 className="font-riviera text-2xl font-light uppercase tracking-[0.16em] text-white mb-4">
-              0 TO 30K MASTERMIND
+              THE 0 TO 30K BLUEPRINT
             </h3>
             <p className="font-riviera text-xs text-white/60 leading-relaxed font-light mb-8">
-              Full private Discord server access, complete 5-module curriculum, batch automation workflows, and weekly live account breakdowns.
+              Full private Discord access, complete 5-part video curriculum, batch automation workflows, and weekly live account breakdowns.
             </p>
 
-            {/* Inclusions List */}
+            {/* Inclusions List with Discord & Stripe integration */}
             <div className="space-y-3 pt-6 border-t border-white/15 mb-8 font-riviera text-xs text-white/80 font-light">
               <div className="flex items-start gap-3">
-                <span className="w-1.5 h-1.5 bg-white/60 shrink-0 mt-1.5 rounded-none" />
+                <DiscordLogo className="w-3.5 h-3.5 opacity-70 shrink-0 mt-0.5" />
                 <span>Private Discord channels with direct access to Kabbir</span>
               </div>
               <div className="flex items-start gap-3">
@@ -374,7 +366,7 @@ export default function DiscordLandingPage() {
               </div>
               <div className="flex items-start gap-3">
                 <span className="w-1.5 h-1.5 bg-white/60 shrink-0 mt-1.5 rounded-none" />
-                <span>Bi-weekly live account audits & script teardowns</span>
+                <span>Weekly live account reviews & script teardowns</span>
               </div>
               <div className="flex items-start gap-3">
                 <span className="w-1.5 h-1.5 bg-white/60 shrink-0 mt-1.5 rounded-none" />
@@ -385,27 +377,32 @@ export default function DiscordLandingPage() {
             {/* Price Box - Razor Lines, No Curves */}
             <div className="border-t border-b border-white/15 py-6 text-center">
               <span className="font-riviera text-[10px] uppercase tracking-[0.3em] text-white/40 block mb-1 font-medium">
-                MEMBERSHIP ENTRY
+                MONTHLY MEMBERSHIP
               </span>
               <div className="font-riviera text-4xl sm:text-5xl font-light tracking-[0.05em] text-white mb-2">
                 $29 <span className="text-xs uppercase tracking-[0.2em] text-white/40">/ month</span>
               </div>
-              <p className="font-riviera text-[11px] text-white/50 font-light tracking-wide">
-                Cancel anytime with 1 click · Instant access upon approval
-              </p>
+              <div className="flex items-center justify-center gap-2 text-[11px] text-white/50 font-light tracking-wide">
+                <span>Cancel anytime with 1 click</span>
+                <span>·</span>
+                <div className="flex items-center gap-1">
+                  <StripeLogo className="h-3 w-auto opacity-70" />
+                  <span>Secured by Stripe</span>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Right: Quick Join / Application Form */}
           <div className="border border-white/15 bg-[#0e0e0e] p-8 sm:p-12 rounded-none">
             <span className="font-riviera text-xs uppercase tracking-[0.3em] text-white/40 block mb-2 font-medium">
-              DIRECT APPLICATION
+              QUICK APPLICATION
             </span>
             <h3 className="font-riviera text-xl sm:text-2xl font-light uppercase tracking-[0.16em] text-white mb-2">
-              REQUEST COHORT ACCESS
+              APPLY TO JOIN
             </h3>
             <p className="font-riviera text-xs text-white/50 mb-8 font-light leading-relaxed">
-              Enter your handle and details below. We review accounts to ensure you&apos;re serious about building.
+              Enter your details below. We review each application to make sure everyone inside is serious about creating.
             </p>
 
             {submitted ? (
@@ -415,7 +412,7 @@ export default function DiscordLandingPage() {
                   Application Received
                 </h4>
                 <p className="font-riviera text-xs text-white/60 leading-relaxed font-light">
-                  We have queued your account review. You will receive an invite link directly to your email and Instagram handle within 24 hours.
+                  We received your application! You will get your Discord invite link via email within 24 hours.
                 </p>
               </div>
             ) : (
@@ -455,9 +452,12 @@ export default function DiscordLandingPage() {
                 </div>
 
                 <div>
-                  <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-1.5 font-medium">
-                    Instagram Handle
-                  </label>
+                  <div className="flex items-center gap-1.5 mb-1.5">
+                    <InstagramLogo className="w-3 h-3 opacity-60" />
+                    <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 font-medium">
+                      Instagram Handle
+                    </label>
+                  </div>
                   <input
                     type="text"
                     required
@@ -486,24 +486,25 @@ export default function DiscordLandingPage() {
 
                 <div>
                   <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-1.5 font-medium">
-                    Primary Bottleneck / Goal
+                    What is holding your page back?
                   </label>
                   <textarea
                     rows={2}
                     value={form.challenge}
                     onChange={(e) => setForm({ ...form, challenge: e.target.value })}
                     className="w-full px-4 py-3 text-xs rounded-none border border-white/20 bg-black/60 text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"
-                    placeholder="What is holding your page back right now?"
+                    placeholder="Low views, inconsistent posting, or monetization struggles?"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="rr-btn w-full py-4 text-xs uppercase tracking-[0.25em] font-medium border border-white bg-white text-black hover:bg-transparent hover:text-white transition-all cursor-pointer"
+                  className="rr-btn flex items-center justify-center gap-2.5 w-full py-4 text-xs uppercase tracking-[0.25em] font-medium border border-white bg-white text-black hover:bg-transparent hover:text-white transition-all cursor-pointer"
                 >
+                  <DiscordLogo className="w-3.5 h-3.5" />
                   <span>
-                    {submitting ? "Submitting Application..." : "Apply For Discord Entry — $29"}
+                    {submitting ? "Submitting Application..." : "Apply To Join Discord — $29/mo"}
                   </span>
                 </button>
               </form>
@@ -518,7 +519,7 @@ export default function DiscordLandingPage() {
       <section className="relative py-20 px-4 sm:px-8 max-w-4xl mx-auto border-t border-white/15">
         <div className="text-center mb-12">
           <span className="font-riviera text-xs uppercase tracking-[0.35em] text-white/50 block mb-3 font-medium">
-            CLARIFICATIONS
+            GOT QUESTIONS?
           </span>
           <h2 className="font-riviera text-2xl sm:text-3xl font-light uppercase tracking-[0.2em] text-white">
             FREQUENTLY ASKED QUESTIONS
@@ -548,17 +549,26 @@ export default function DiscordLandingPage() {
       </section>
 
       {/* =========================================================================
-         6. FOOTER - MINIMALIST EDITORIAL
+         6. FOOTER - MINIMALIST EDITORIAL WITH SOCIAL LOGOS
          ========================================================================= */}
       <footer className="w-full border-t border-white/15 py-12 px-4 sm:px-8 text-center text-xs text-white/40 bg-black font-riviera">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <span className="font-medium uppercase tracking-[0.25em] text-white">OurLife.Reset</span>
             <span>·</span>
-            <span className="font-light uppercase tracking-[0.2em] text-white/50">Creator Mastermind</span>
+            <span className="font-light uppercase tracking-[0.2em] text-white/50">Creator Discord</span>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6 text-[11px] font-light uppercase tracking-[0.2em]">
+            <a
+              href="https://instagram.com/ourlife.reset"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-white transition-colors"
+            >
+              <InstagramLogo className="w-3.5 h-3.5 opacity-70" />
+              <span>@ourlife.reset</span>
+            </a>
             <Link href="/" className="hover:text-white transition-colors">
               The Self-Mastery Guide ($19)
             </Link>

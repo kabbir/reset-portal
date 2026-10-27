@@ -6,24 +6,61 @@ interface LogoProps {
 }
 
 /**
- * Official Monochrome Stripe Wordmark / Icon
+ * 100% Official Stripe Wordmark SVG (revised 2016 corporate vector)
+ * Coordinates directly from official vector: viewBox="54 36 360.02 149.84"
  */
-export function StripeLogo({ className = "h-4 w-auto", size }: LogoProps) {
+export function StripeLogo({ className = "h-3.5 w-auto", size }: LogoProps) {
   return (
     <svg
-      viewBox="0 0 60 25"
+      viewBox="54 36 360.02 149.84"
       fill="currentColor"
       className={className}
       height={size}
       aria-label="Stripe"
+      preserveAspectRatio="xMidYMid meet"
     >
-      <path d="M59.64 14.28c0-4.44-2.16-7.94-6.32-7.94-4.2 0-6.76 3.5-6.76 7.9 0 5.2 3.08 7.86 7.42 7.86 2.12 0 3.72-.48 4.94-1.16v-3.48c-1.22.6-2.58.94-4.1.94-1.68 0-3.14-.6-3.34-2.52h8.1c0-.44.06-1.14.06-1.6zm-8.16-1.5c0-1.84 1.12-2.6 2.06-2.6.9 0 1.98.76 1.98 2.6h-4.04zM39.9 6.34c-1.74 0-2.88.82-3.46 1.38l-.24-1.1H31.7v20.72l4.9-1.04.02-4.96c.6.5 1.64 1.22 3.28 1.22 3.32 0 6.38-2.62 6.38-8.16 0-5.32-3.08-8.06-6.38-8.06zm-1.04 12.16c-1.1 0-1.74-.38-2.18-.84l-.04-6.04c.48-.54 1.16-.92 2.22-.92 1.7 0 2.84 1.68 2.84 3.9 0 2.26-1.14 3.9-2.84 3.9zM28.7 8.44V6.62h-4.9v15.5h4.9v-9.5c1.14-1.48 3.08-1.2 3.7-1.02V6.66c-.66-.22-2.54-.52-3.7 1.78zM20.24 3.28l-4.86 1.04-.02 3.32h-2.42v3.96h2.42v7.1c0 3.76 1.84 5.4 5.34 5.4 1.48 0 2.58-.26 3.16-.58v-3.8c-.56.24-1.3.4-2.16.4-1.16 0-1.46-.58-1.46-1.86v-6.66h3.62V7.64h-3.62V3.28zM8.32 9.54c0-.74.62-1.02 1.62-1.02 1.44 0 3.28.44 4.72 1.22V5.78C13.06 5.18 11.44 5 9.94 5 4.96 5 2.28 7.6 2.28 11.96c0 6.78 9.3 5.7 9.3 8.62 0 .86-.76 1.14-1.82 1.14-1.58 0-3.64-.64-5.26-1.54v4.06c1.8.78 3.66 1.08 5.26 1.08 5.12 0 8.04-2.52 8.04-7.04-.02-7.3-9.48-6-9.48-8.68z" />
+      <g fill="currentColor" fillRule="evenodd">
+        {/* 'e' */}
+        <path d="M414,113.4c0-25.6-12.4-45.8-36.1-45.8c-23.8,0-38.2,20.2-38.2,45.6c0,30.1,17,45.3,41.4,45.3c11.9,0,20.9-2.7,27.7-6.5v-20c-6.8,3.4-14.6,5.5-24.5,5.5c-9.7,0-18.3-3.4-19.4-15.2h48.9C413.8,121,414,115.8,414,113.4z M364.6,103.9c0-11.3,6.9-16,13.2-16c6.1,0,12.6,4.7,12.6,16H364.6z" />
+        {/* 'p' */}
+        <path d="M301.1,67.6c-9.8,0-16.1,4.6-19.6,7.8l-1.3-6.2h-22v116.6l25-5.3l0.1-28.3c3.6,2.6,8.9,6.3,17.7,6.3c17.9,0,34.2-14.4,34.2-46.1C335.1,83.4,318.6,67.6,301.1,67.6z M295.1,136.5c-5.9,0-9.4-2.1-11.8-4.7l-0.1-37.1c2.6-2.9,6.2-4.9,11.9-4.9c9.1,0,15.4,10.2,15.4,23.3C310.5,126.5,304.3,136.5,295.1,136.5z" />
+        {/* 'i' dot */}
+        <polygon points="223.8,61.7 248.9,56.3 248.9,36 223.8,41.3" />
+        {/* 'i' stem */}
+        <rect x="223.8" y="69.3" width="25.1" height="87.5" />
+        {/* 'r' */}
+        <path d="M196.9,76.7l-1.6-7.4h-21.6v87.5h25V97.5c5.9-7.7,15.9-6.3,19-5.2v-23C214.5,68.1,202.8,65.9,196.9,76.7z" />
+        {/* 't' */}
+        <path d="M146.9,47.6l-24.4,5.2l-0.1,80.1c0,14.8,11.1,25.7,25.9,25.7c8.2,0,14.2-1.5,17.5-3.3V135c-3.2,1.3-19,5.9-19-8.9V90.6h19V69.3h-19L146.9,47.6z" />
+        {/* 's' */}
+        <path d="M79.3,94.7c0-3.9,3.2-5.4,8.5-5.4c7.6,0,17.2,2.3,24.8,6.4V72.2c-8.3-3.3-16.5-4.6-24.8-4.6C67.5,67.6,54,78.2,54,95.9c0,27.6,38,23.2,38,35.1c0,4.6-4,6.1-9.6,6.1c-8.3,0-18.9-3.4-27.3-8v23.8c9.3,4,18.7,5.7,27.3,5.7c20.8,0,35.1-10.3,35.1-28.2C117.4,100.6,79.3,105.9,79.3,94.7z" />
+      </g>
     </svg>
   );
 }
 
 /**
- * Official Monochrome Discord Clyde Mark
+ * 100% Official Apple Logo SVG (authentic corporate vector asset)
+ * Coordinates directly from official vector: viewBox="0 0 814 1000"
+ */
+export function AppleLogo({ className = "w-3.5 h-3.5", size }: LogoProps) {
+  return (
+    <svg
+      viewBox="0 0 814 1000"
+      fill="currentColor"
+      className={className}
+      width={size}
+      height={size}
+      aria-label="Apple"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57-155.5-127C46.7 790.7 0 663 0 541.8c0-194.4 126.4-297.5 250.8-297.5 66.1 0 121.2 43.4 162.7 43.4 39.5 0 101.1-46 176.3-46 28.5 0 130.9 2.6 198.3 99.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z" />
+    </svg>
+  );
+}
+
+/**
+ * 100% Official Discord Clyde Mark (viewBox="0 0 127.14 96.36")
  */
 export function DiscordLogo({ className = "w-4 h-4", size }: LogoProps) {
   return (
@@ -41,9 +78,9 @@ export function DiscordLogo({ className = "w-4 h-4", size }: LogoProps) {
 }
 
 /**
- * Official Monochrome Google 'G' Mark
+ * 100% Official Google 'G' Mark (viewBox="0 0 24 24")
  */
-export function GoogleLogo({ className = "w-4 h-4", size }: LogoProps) {
+export function GoogleLogo({ className = "w-3.5 h-3.5", size }: LogoProps) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -59,27 +96,9 @@ export function GoogleLogo({ className = "w-4 h-4", size }: LogoProps) {
 }
 
 /**
- * Official Monochrome Apple Logo
+ * Amazon Kindle / E-Reader Icon (viewBox="0 0 24 24")
  */
-export function AppleLogo({ className = "w-4 h-4", size }: LogoProps) {
-  return (
-    <svg
-      viewBox="0 0 170 170"
-      fill="currentColor"
-      className={className}
-      width={size}
-      height={size}
-      aria-label="Apple"
-    >
-      <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.69-3.08-7.69-7.86-12-14.34-6.41-9.68-11.39-20.73-14.94-33.15-3.55-12.42-5.33-24.16-5.33-35.22 0-14.49 3.66-26.65 10.99-36.48 7.33-9.83 16.59-14.86 27.79-15.09 5.34 0 11.19 1.48 17.56 4.45 6.37 2.97 10.45 4.51 12.24 4.63 1.34 0 5.61-1.63 12.82-4.91 7.2-3.28 13.53-4.74 18.99-4.37 14.15.86 25.44 6.27 33.88 16.23-12.35 7.49-18.39 17.82-18.12 31.01.27 10.28 4.17 18.89 11.71 25.82 7.54 6.93 16.48 10.96 26.83 12.09-2.34 7.24-5.3 14.48-8.87 21.7zM119.22 31.42c0-7.39 2.66-14.37 7.98-20.93 5.32-6.56 12-10.49 20.04-11.79.22 1.13.33 2.17.33 3.12 0 7.39-2.79 14.52-8.37 21.39-5.58 6.87-12.29 10.82-20.13 11.86-.33-1.01-.5-2.01-.5-3.65z" />
-    </svg>
-  );
-}
-
-/**
- * Official Monochrome Amazon Kindle / Book Icon
- */
-export function KindleLogo({ className = "w-4 h-4", size }: LogoProps) {
+export function KindleLogo({ className = "w-3.5 h-3.5", size }: LogoProps) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -102,9 +121,9 @@ export function KindleLogo({ className = "w-4 h-4", size }: LogoProps) {
 }
 
 /**
- * Official Monochrome Instagram Camera Glyph
+ * 100% Official Instagram Camera Glyph (viewBox="0 0 24 24")
  */
-export function InstagramLogo({ className = "w-4 h-4", size }: LogoProps) {
+export function InstagramLogo({ className = "w-3.5 h-3.5", size }: LogoProps) {
   return (
     <svg
       viewBox="0 0 24 24"

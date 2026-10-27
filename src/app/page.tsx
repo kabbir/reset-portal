@@ -541,8 +541,10 @@ export default function GuideLandingPage() {
                     className="w-full px-3 py-2 text-xs border border-black/20 bg-white rounded-none focus:outline-black font-riviera"
                   >
                     <option value={5}>5 Stars — Life-Changing</option>
-                    <option value={4}>4 Stars — Great Guide</option>
+                    <option value={4}>4 Stars — Great</option>
                     <option value={3}>3 Stars — Good</option>
+                    <option value={2}>2 Stars — Needs Improvement</option>
+                    <option value={1}>1 Star — Poor</option>
                   </select>
                 </div>
 

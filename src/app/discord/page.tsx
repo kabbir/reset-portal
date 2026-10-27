@@ -12,17 +12,15 @@ import {
 export default function DiscordLandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  /* Quick Application Form State */
+  /* Discord Claim & Checkout Form State */
   const [form, setForm] = useState({
     name: "",
     email: "",
     handle: "",
     currentFollowers: "0 - 1k",
-    niche: "",
     challenge: ""
   });
   const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,28 +33,27 @@ export default function DiscordLandingPage() {
     setSubmitting(true);
     setErrorMsg(null);
     try {
-      const combinedReason = `[Followers: ${form.currentFollowers} | Niche: ${form.niche || "General"}] ${form.challenge || "Looking to scale to 30k"}`;
-      const res = await fetch("/api/apply", {
+      const res = await fetch("/api/claim-discord", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: form.name,
           email: form.email,
           handle: form.handle,
-          track: "creator_discord_30k",
-          reason: combinedReason
+          currentFollowers: form.currentFollowers,
+          challenge: form.challenge
         })
       });
 
-      if (res.ok) {
-        setSubmitted(true);
+      const data = await res.json();
+      if (res.ok && data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
       } else {
-        const d = await res.json();
-        setErrorMsg(d.error || "Failed to submit. Please try again.");
+        setErrorMsg(data.error || "Unable to initiate checkout. Please try again.");
+        setSubmitting(false);
       }
     } catch {
       setErrorMsg("Connection error. Please try again.");
-    } finally {
       setSubmitting(false);
     }
   };
@@ -109,7 +106,7 @@ export default function DiscordLandingPage() {
     },
     {
       num: "05",
-      title: "Weekly Live Account Reviews with Kabbir",
+      title: "Weekly Live Account Reviews with Me",
       tagline: "You Don't Have to Do This Alone",
       desc: "Every week, you get direct access to me inside our private Discord. Drop your account link, show me your latest reels, and I will personally review what's working, what's holding your views back, and what exact tweaks to make so you can break through plateaus and scale to 30k+ fast.",
       highlights: [
@@ -131,7 +128,7 @@ export default function DiscordLandingPage() {
     },
     {
       q: "What happens after I join the Discord?",
-      a: "You get immediate access to all 5 video modules, our private quote vault, dedicated feedback channels for weekly account reviews with Kabbir, and daily discussions with fellow creators."
+      a: "You get immediate access to all 5 video modules, our private quote vault, dedicated feedback channels for weekly account reviews with me, and daily discussions with fellow creators."
     },
     {
       q: "Can I cancel my membership at any time?",
@@ -176,7 +173,7 @@ export default function DiscordLandingPage() {
             className="rr-btn w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-10 py-4 text-xs font-medium tracking-[0.25em] uppercase border border-white bg-white text-black hover:bg-transparent hover:text-white transition-all duration-400"
           >
             <DiscordLogo className="w-4 h-4" />
-            <span>Join The Discord — $29</span>
+            <span>Claim Discord Access — $29</span>
           </a>
 
           <a
@@ -323,13 +320,13 @@ export default function DiscordLandingPage() {
       <section id="enroll" className="relative py-20 px-4 sm:px-8 max-w-6xl mx-auto border-t border-white/15">
         <div className="text-center mb-14">
           <span className="font-riviera text-xs uppercase tracking-[0.35em] text-white/50 block mb-3 font-medium">
-            LIMITED SPOTS AVAILABLE
+            INSTANT MEMBERSHIP
           </span>
           <h2 className="font-riviera text-2xl sm:text-4xl font-light uppercase tracking-[0.2em] text-white">
-            JOIN THE CREATOR DISCORD
+            CLAIM DISCORD ACCESS
           </h2>
           <p className="font-riviera text-xs sm:text-sm text-white/50 max-w-xl mx-auto mt-2 font-light tracking-wide">
-            Direct access to Kabbir, live weekly account reviews, our private viral quote vault, and simple batch creation templates.
+            Direct access to me, live weekly account reviews, our private viral quote vault, and simple batch creation templates.
           </p>
         </div>
 
@@ -350,7 +347,7 @@ export default function DiscordLandingPage() {
             <div className="space-y-3 pt-6 border-t border-white/15 mb-8 font-riviera text-xs text-white/80 font-light">
               <div className="flex items-start gap-3">
                 <DiscordLogo className="w-3.5 h-3.5 opacity-70 shrink-0 mt-0.5" />
-                <span>Private Discord channels with direct access to Kabbir</span>
+                <span>Private Discord channels with direct access to me</span>
               </div>
               <div className="flex items-start gap-3">
                 <span className="w-1.5 h-1.5 bg-white/60 shrink-0 mt-1.5 rounded-none" />
@@ -393,122 +390,115 @@ export default function DiscordLandingPage() {
             </div>
           </div>
 
-          {/* Right: Quick Join / Application Form */}
+          {/* Right: Instant Claim Access Form */}
           <div className="border border-white/15 bg-[#0e0e0e] p-8 sm:p-12 rounded-none">
             <span className="font-riviera text-xs uppercase tracking-[0.3em] text-white/40 block mb-2 font-medium">
-              QUICK APPLICATION
+              INSTANT ACCESS
             </span>
             <h3 className="font-riviera text-xl sm:text-2xl font-light uppercase tracking-[0.16em] text-white mb-2">
-              APPLY TO JOIN
+              CLAIM DISCORD ACCESS
             </h3>
             <p className="font-riviera text-xs text-white/50 mb-8 font-light leading-relaxed">
-              Enter your details below. We review each application to make sure everyone inside is serious about creating.
+              Enter your details below to claim your spot. You will be redirected to secure Stripe checkout to complete your $29 membership and receive instant Discord access.
             </p>
 
-            {submitted ? (
-              <div className="p-8 border border-white/20 bg-black text-center space-y-3">
-                <span className="w-2 h-2 bg-emerald-400 block mx-auto rounded-none" />
-                <h4 className="font-riviera text-sm uppercase tracking-[0.2em] text-white font-medium">
-                  Application Received
-                </h4>
-                <p className="font-riviera text-xs text-white/60 leading-relaxed font-light">
-                  We received your application! You will get your Discord invite link via email within 24 hours.
-                </p>
+            <form onSubmit={handleSubmit} className="space-y-5">
+              {errorMsg && (
+                <div className="p-3 border border-red-500/40 bg-red-950/20 text-xs text-red-300 font-light">
+                  {errorMsg}
+                </div>
+              )}
+
+              <div>
+                <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-1.5 font-medium">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  className="w-full px-4 py-3 text-xs rounded-none border border-white/20 bg-black/60 text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"
+                  placeholder="Alex Bennett"
+                />
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                {errorMsg && (
-                  <div className="p-3 border border-red-500/40 bg-red-950/20 text-xs text-red-300 font-light">
-                    {errorMsg}
-                  </div>
-                )}
 
-                <div>
-                  <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-1.5 font-medium">
-                    Full Name
+              <div>
+                <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-1.5 font-medium">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  className="w-full px-4 py-3 text-xs rounded-none border border-white/20 bg-black/60 text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"
+                  placeholder="alex@example.com"
+                />
+              </div>
+
+              <div>
+                <div className="flex items-center gap-1.5 mb-1.5">
+                  <InstagramLogo className="w-3 h-3 opacity-60" />
+                  <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 font-medium">
+                    Instagram Handle
                   </label>
-                  <input
-                    type="text"
-                    required
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="w-full px-4 py-3 text-xs rounded-none border border-white/20 bg-black/60 text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"
-                    placeholder="Alex Bennett"
-                  />
                 </div>
+                <input
+                  type="text"
+                  required
+                  value={form.handle}
+                  onChange={(e) => setForm({ ...form, handle: e.target.value })}
+                  className="w-full px-4 py-3 text-xs rounded-none border border-white/20 bg-black/60 text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"
+                  placeholder="@yourhandle"
+                />
+              </div>
 
-                <div>
-                  <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-1.5 font-medium">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full px-4 py-3 text-xs rounded-none border border-white/20 bg-black/60 text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"
-                    placeholder="alex@example.com"
-                  />
-                </div>
-
-                <div>
-                  <div className="flex items-center gap-1.5 mb-1.5">
-                    <InstagramLogo className="w-3 h-3 opacity-60" />
-                    <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 font-medium">
-                      Instagram Handle
-                    </label>
-                  </div>
-                  <input
-                    type="text"
-                    required
-                    value={form.handle}
-                    onChange={(e) => setForm({ ...form, handle: e.target.value })}
-                    className="w-full px-4 py-3 text-xs rounded-none border border-white/20 bg-black/60 text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"
-                    placeholder="@yourhandle"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-1.5 font-medium">
-                    Current Followers
-                  </label>
-                  <select
-                    value={form.currentFollowers}
-                    onChange={(e) => setForm({ ...form, currentFollowers: e.target.value })}
-                    className="w-full px-4 py-3 text-xs rounded-none border border-white/20 bg-black text-white focus:border-white focus:outline-none transition-colors"
-                  >
-                    <option value="0 - 1k">0 - 1,000 (Just starting)</option>
-                    <option value="1k - 5k">1,000 - 5,000 (Early traction)</option>
-                    <option value="5k - 20k">5,000 - 20,000 (Scaling phase)</option>
-                    <option value="20k+">20,000+ (Looking to automate & monetize)</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-1.5 font-medium">
-                    What is holding your page back?
-                  </label>
-                  <textarea
-                    rows={2}
-                    value={form.challenge}
-                    onChange={(e) => setForm({ ...form, challenge: e.target.value })}
-                    className="w-full px-4 py-3 text-xs rounded-none border border-white/20 bg-black/60 text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"
-                    placeholder="Low views, inconsistent posting, or monetization struggles?"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="rr-btn flex items-center justify-center gap-2.5 w-full py-4 text-xs uppercase tracking-[0.25em] font-medium border border-white bg-white text-black hover:bg-transparent hover:text-white transition-all cursor-pointer"
+              <div>
+                <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-1.5 font-medium">
+                  Current Followers
+                </label>
+                <select
+                  value={form.currentFollowers}
+                  onChange={(e) => setForm({ ...form, currentFollowers: e.target.value })}
+                  className="w-full px-4 py-3 text-xs rounded-none border border-white/20 bg-black text-white focus:border-white focus:outline-none transition-colors"
                 >
-                  <DiscordLogo className="w-3.5 h-3.5" />
-                  <span>
-                    {submitting ? "Submitting Application..." : "Apply To Join Discord — $29/mo"}
-                  </span>
-                </button>
-              </form>
-            )}
+                  <option value="0 - 1k">0 - 1,000 (Just starting)</option>
+                  <option value="1k - 5k">1,000 - 5,000 (Early traction)</option>
+                  <option value="5k - 20k">5,000 - 20,000 (Scaling phase)</option>
+                  <option value="20k+">20,000+ (Looking to automate & monetize)</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-1.5 font-medium">
+                  What is your main goal right now?
+                </label>
+                <textarea
+                  rows={2}
+                  value={form.challenge}
+                  onChange={(e) => setForm({ ...form, challenge: e.target.value })}
+                  className="w-full px-4 py-3 text-xs rounded-none border border-white/20 bg-black/60 text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"
+                  placeholder="Scale to 30k, automate daily reels, or monetize views?"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={submitting}
+                className="rr-btn flex items-center justify-center gap-2.5 w-full py-4 text-xs uppercase tracking-[0.25em] font-medium border border-white bg-white text-black hover:bg-transparent hover:text-white transition-all cursor-pointer"
+              >
+                <DiscordLogo className="w-3.5 h-3.5" />
+                <span>
+                  {submitting ? "Redirecting to Checkout..." : "Claim Discord Access — $29/mo"}
+                </span>
+              </button>
+
+              <div className="flex items-center justify-center gap-2 pt-1 text-[10px] uppercase tracking-[0.2em] text-white/40">
+                <StripeLogo className="h-2.5 w-auto opacity-70" />
+                <span>Secured by Stripe · Instant Access · Cancel Anytime</span>
+              </div>
+            </form>
           </div>
         </div>
       </section>

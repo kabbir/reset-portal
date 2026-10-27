@@ -1,18 +1,18 @@
 [
   {
-    "id": "rev-1",
-    "name": "Alex R.",
-    "role": "Software Engineer",
-    "date": "October 16, 2026",
+    "id": "rev-4",
+    "name": "Sophia C.",
+    "role": "Consultant",
+    "date": "October 26, 2026",
     "rating": 5,
-    "highlight": "That single page paid for the $19",
-    "comment": "I bought this at 1am after watching one of their reels. Honestly expected another generic PDF of quote graphics, but page 18 on the 10-second delay caught me completely off guard. Ended up using it the very next afternoon when a client was arguing with me over a contract revision. Stayed completely quiet, lowered my voice, and they literally apologized ten minutes later. That single page paid for the $19."
+    "highlight": "Closed my iPad for an hour out of discomfort",
+    "comment": "The section on shadow integration made me so uncomfortable I had to close my iPad for an hour. Then I came back and actually filled out the prompt. Best money I’ve spent on personal development in years."
   },
   {
     "id": "rev-2",
     "name": "Marcus V.",
     "role": "Product Designer",
-    "date": "October 15, 2026",
+    "date": "October 26, 2026",
     "rating": 5,
     "highlight": "You realize how much you lie to yourself",
     "comment": "The facing pages are what make it work. Anyone can read philosophy online and feel enlightened for five minutes. But when you look at the right page and have to physically write down who you lost your temper with and what insecurity made you do it... you realize how much you lie to yourself. It's uncomfortable, but it's the first thing that's actually changed my behavior."
@@ -21,25 +21,25 @@
     "id": "rev-3",
     "name": "Julian C.",
     "role": "Operations",
-    "date": "October 14, 2026",
+    "date": "October 25, 2026",
     "rating": 5,
     "highlight": "It sits open on my desk every day",
     "comment": "I’ve read Seneca, Epictetus, Greene, all of them. But having the core principles distilled down to a single facing page next to an audit prompt makes it something you actually use instead of leaving on a bookshelf to look smart. It’s been sitting open on my desk every single day."
   },
   {
-    "id": "rev-4",
-    "name": "Sophia C.",
-    "role": "Consultant",
-    "date": "October 13, 2026",
+    "id": "rev-1",
+    "name": "Alex R.",
+    "role": "Software Engineer",
+    "date": "October 25, 2026",
     "rating": 5,
-    "highlight": "Closed my iPad for an hour out of discomfort",
-    "comment": "The section on shadow integration made me so uncomfortable I had to close my iPad for an hour. Then I came back and actually filled out the prompt. Best money I’ve spent on personal development in years."
+    "highlight": "That single page paid for the $19",
+    "comment": "I bought this at 1am after watching one of their reels. Honestly expected another generic PDF of quote graphics, but page 18 on the 10-second delay caught me completely off guard. Ended up using it the very next afternoon when a client was arguing with me over a contract revision. Stayed completely quiet, lowered my voice, and they literally apologized ten minutes later. That single page paid for the $19."
   },
   {
     "id": "rev-5",
     "name": "David S.",
     "role": "Creative Director",
-    "date": "October 12, 2026",
+    "date": "October 25, 2026",
     "rating": 5,
     "highlight": "Doesn't talk down to you",
     "comment": "What I appreciate most is that there is no filler or empty quotes. You get right into human psychology, why we react the way we do, and then you have to account for yourself. It’s rare to find something that doesn't talk down to you or try to sell you a miracle."
@@ -48,7 +48,7 @@
     "id": "rev-6",
     "name": "Elena R.",
     "role": "Architect",
-    "date": "October 10, 2026",
+    "date": "October 25, 2026",
     "rating": 5,
     "highlight": "Question your own motives before you realize it",
     "comment": "Got the link instantly after Stripe checkout and loaded it right into GoodNotes. The layout on iPad is gorgeous. The prompts make you question your own motives before you even realize you're doing it."

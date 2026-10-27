@@ -1,0 +1,12 @@
+[
+  {
+    "id": "claim-1793103971228",
+    "name": "Test User",
+    "email": "test@example.com",
+    "handle": "@test",
+    "followers": "Not specified",
+    "challenge": "Claimed Discord membership",
+    "date": "October 27, 2026",
+    "status": "pending_payment"
+  }
+]

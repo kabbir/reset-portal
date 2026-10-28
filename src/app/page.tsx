@@ -451,7 +451,7 @@ export default function GuideLandingPage() {
                     value={newReview.comment}
                     onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
                     className="w-full px-3 py-2 text-xs border border-black/20 bg-white rounded-none focus:outline-black font-riviera"
-                    placeholder="How has reading 1 page and writing 1 page helped your daily routine and mindset?"
+                    placeholder="What part of the early draft stood out to you? How has reading 1 page and writing 1 page helped you stay on the right path?"
                   />
                 </div>
 

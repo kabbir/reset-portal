@@ -49,7 +49,7 @@ export default function Navbar({ activePage }: NavbarProps) {
         </Link>
 
         {/* Desktop Navigation Switcher - Minimalist Editorial */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-7">
           <Link
             href="/"
             className={`font-riviera text-xs uppercase tracking-[0.25em] transition-all duration-300 py-1 border-b ${
@@ -58,7 +58,14 @@ export default function Navbar({ activePage }: NavbarProps) {
                 : "border-transparent opacity-50 hover:opacity-100 font-light"
             }`}
           >
-            The Guide ($19)
+            Overview
+          </Link>
+          <span className={`text-xs ${activePage === "discord" ? "text-white/20" : "text-black/20"}`}>/</span>
+          <Link
+            href="/guide"
+            className="font-riviera text-xs uppercase tracking-[0.25em] transition-all duration-300 py-1 border-b border-transparent opacity-60 hover:opacity-100 font-light"
+          >
+            What&apos;s Inside
           </Link>
           <span className={`text-xs ${activePage === "discord" ? "text-white/20" : "text-black/20"}`}>/</span>
           <Link
@@ -117,13 +124,17 @@ export default function Navbar({ activePage }: NavbarProps) {
           <Link
             href="/"
             onClick={() => setMobileMenuOpen(false)}
-            className={`block font-riviera text-xs uppercase tracking-[0.25em] py-2 border-b ${
-              activePage === "guide"
-                ? "border-current opacity-100 font-medium"
-                : "border-transparent opacity-60 hover:opacity-100 font-light"
-            }`}
+            className="block font-riviera text-xs uppercase tracking-[0.25em] py-2 border-b border-black/10 opacity-90 font-medium"
           >
-            The Guide ($19)
+            Overview
+          </Link>
+
+          <Link
+            href="/guide"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block font-riviera text-xs uppercase tracking-[0.25em] py-2 border-b border-black/10 opacity-70 hover:opacity-100 font-light"
+          >
+            What&apos;s Inside The Guide
           </Link>
 
           <Link
@@ -132,7 +143,7 @@ export default function Navbar({ activePage }: NavbarProps) {
             className={`flex items-center gap-2 font-riviera text-xs uppercase tracking-[0.25em] py-2 border-b ${
               activePage === "discord"
                 ? "border-current opacity-100 font-medium"
-                : "border-transparent opacity-60 hover:opacity-100 font-light"
+                : "border-black/10 opacity-70 hover:opacity-100 font-light"
             }`}
           >
             <DiscordLogo className="w-3.5 h-3.5 opacity-80" />

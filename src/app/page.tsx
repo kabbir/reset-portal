@@ -133,177 +133,78 @@ export default function GuideLandingPage() {
       <Navbar activePage="guide" />
 
       {/* =========================================================================
-         1. HERO SECTION: BESPOKE EDITORIAL ARCHITECTURE
+         1. HERO SECTION: FULL-WIDTH IPAD BACKGROUND WITH HIGH-CONTRAST FROSTED SCRIM
+         Zero text clashing, crystal-clear readability, bespoke luxury architecture
          ========================================================================= */}
-      <section className="relative pt-12 sm:pt-20 pb-16 px-4 sm:px-8 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-          
-          {/* Left Column: Built For + The Daily Routine */}
-          <div className="lg:col-span-7 flex flex-col justify-start text-left">
-            <span className="text-[11px] uppercase tracking-[0.35em] text-black/50 font-medium mb-3">
-              The Self-Mastery Guide • 112 Pages
-            </span>
-
-            {/* Dynamic Rotating Headline */}
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-light tracking-[0.14em] text-[#121814] uppercase leading-[1.12] mb-6">
-              Built for
-              <span className="block font-medium tracking-[0.16em] text-black mt-1 sm:mt-2 transition-all duration-300">
-                {ROTATING_PILLARS[tickerIndex]}
-              </span>
-            </h1>
-
-            {/* Subtitle - Simple, Clear, Grounded */}
-            <p className="text-sm sm:text-base text-black/70 font-light leading-relaxed mb-10 max-w-xl tracking-[0.02em]">
-              A 112-page practical guide with 47 proven mental frameworks and simple nightly reflections. Built for people who want real self-discipline, focus, and emotional control in everyday life.
-            </p>
-
-            {/* Daily Routine: Read 1 Page. Write 1 Page. (Flat Architectural Layout, Zero Boxes) */}
-            <div className="border-t border-black/15 pt-8 mt-2">
-              <div className="flex items-baseline justify-between mb-3">
-                <h2 className="text-sm sm:text-base font-medium text-[#121814] uppercase tracking-[0.24em]">
-                  Read 1 Page. Write 1 Page.
-                </h2>
-                <span className="text-[10px] uppercase tracking-[0.25em] text-black/40">
-                  Daily Routine
-                </span>
-              </div>
-              <p className="text-xs sm:text-sm text-black/60 font-light leading-relaxed mb-8 tracking-[0.01em]">
-                A simple daily routine to keep your focus sharp and your mind calm:
-              </p>
-
-              {/* 3 Steps in Razor Architectural Grid */}
-              <div className="space-y-6">
-                <div className="border-l border-black/20 pl-4">
-                  <div className="text-[11px] uppercase tracking-[0.25em] font-medium text-black/50 mb-1">
-                    01 • Morning: Read 1 Page
-                  </div>
-                  <p className="text-xs sm:text-sm text-black/75 font-light leading-relaxed tracking-[0.01em]">
-                    Start your morning with one clear lesson on patience, focus, or personal boundaries before checking your phone or dealing with other people.
-                  </p>
-                </div>
-
-                <div className="border-l border-black/20 pl-4">
-                  <div className="text-[11px] uppercase tracking-[0.25em] font-medium text-black/50 mb-1">
-                    02 • Afternoon: Put It Into Practice
-                  </div>
-                  <p className="text-xs sm:text-sm text-black/75 font-light leading-relaxed tracking-[0.01em]">
-                    Use what you read during tough meetings, stressful moments, or difficult conversations throughout your day.
-                  </p>
-                </div>
-
-                <div className="border-l border-black/20 pl-4">
-                  <div className="text-[11px] uppercase tracking-[0.25em] font-medium text-black/50 mb-1">
-                    03 • Night: Write 1 Page
-                  </div>
-                  <p className="text-xs sm:text-sm text-black/75 font-light leading-relaxed tracking-[0.01em]">
-                    Answer the quick evening question in your journal, tablet, or phone. Take two minutes before sleeping to reflect on your day and see where you can improve.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: iPad Mockup + Strategic CTA Placement (Below the image) */}
-          <div className="lg:col-span-5 flex flex-col items-center">
-            {/* iPad Preview Container - Zero Curve, Razor 1px Border, Slow Zoom */}
-            <div className="relative w-full max-w-md mx-auto border border-black/15 bg-black p-0 rounded-none overflow-hidden rr-image-zoom">
-              <div className="relative aspect-[4/5] bg-black">
-                <Image
-                  src="/ipad-preview.png"
-                  alt="The Self-Mastery Guide on iPad"
-                  width={1080}
-                  height={1350}
-                  className="w-full h-full object-cover"
-                  priority
-                />
-              </div>
-            </div>
-
-            {/* STRATEGIC CTA BUTTON: Placed right at the bottom of the iPad image */}
-            <div className="w-full max-w-md mt-6 text-center">
-              <a
-                href={STRIPE_CHECKOUT_URL}
-                className="rr-btn flex items-center justify-center gap-2.5 w-full py-4 text-xs font-medium border border-[#121814] bg-[#121814] text-white hover:bg-transparent hover:text-[#121814] transition-all rounded-none"
-              >
-                <StripeLogo className="h-3.5 w-auto opacity-80" />
-                <span>Get The Guide — $19</span>
-              </a>
-
-              {/* Trust Badges directly underneath the CTA with Official Monochrome Logos */}
-              <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-[10px] text-black/60 uppercase tracking-[0.2em] font-medium mt-4 pt-3 border-t border-black/15">
-                <div className="flex items-center gap-1.5">
-                  <AppleLogo className="w-3.5 h-3.5 opacity-70" />
-                  <span>iPad & iPhone</span>
-                </div>
-                <span>/</span>
-                <div className="flex items-center gap-1.5">
-                  <KindleLogo className="w-3.5 h-3.5 opacity-70" />
-                  <span>Kindle & Android</span>
-                </div>
-                <span>/</span>
-                <div className="flex items-center gap-1.5">
-                  <FileText className="w-3.5 h-3.5 opacity-70" />
-                  <span>Printable PDF</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
+      <section className="relative min-h-[85vh] sm:min-h-[88vh] flex items-center justify-center overflow-hidden py-12 sm:py-20 px-4 sm:px-8 border-b border-black/15">
+        {/* Main Background Image: The Self-Mastery Guide on iPad */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/ipad-preview.png"
+            alt="The Self-Mastery Guide on iPad"
+            fill
+            priority
+            className="object-cover object-center md:object-[center_38%] filter brightness-[0.88] contrast-[1.05]"
+          />
+          {/* Subtle Ambient Film Overlay */}
+          <div className="absolute inset-0 bg-black/25 backdrop-blur-[0.5px]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#fbfaf6] via-transparent to-black/30" />
         </div>
-      </section>
 
-      {/* =========================================================================
-         2. ROLLS-ROYCE 3-COLUMN CURRICULUM ARCHITECTURE
-         ========================================================================= */}
-      <section className="relative py-20 px-4 sm:px-8 max-w-7xl mx-auto border-t border-black/15">
-        <div className="text-center mb-14">
-          <h2 className="text-2xl sm:text-4xl font-light uppercase tracking-[0.22em] text-[#121814] mb-2">
-            What&apos;s Inside The Guide
-          </h2>
-          <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-black/50 font-light">
-            47 Practical Lessons For Everyday Life
+        {/* Foreground Content Card: High-Contrast Frosted Monolith */}
+        <div className="relative z-10 w-full max-w-2xl mx-auto my-auto p-6 sm:p-12 md:p-14 bg-[#fbfaf6]/95 backdrop-blur-md border border-black/15 shadow-2xl rounded-none text-left">
+          <span className="text-[11px] uppercase tracking-[0.35em] text-black/50 font-medium block mb-3">
+            The Self-Mastery Guide • 112 Pages
+          </span>
+
+          {/* Dynamic Rotating Headline */}
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-light tracking-[0.14em] text-[#121814] uppercase leading-[1.12] mb-5">
+            Built for
+            <span className="block font-medium tracking-[0.16em] text-black mt-1 sm:mt-2 transition-all duration-300">
+              {ROTATING_PILLARS[tickerIndex]}
+            </span>
+          </h1>
+
+          {/* Subtitle - Simple, Grounded, Punchy */}
+          <p className="text-xs sm:text-sm md:text-base text-black/75 font-light leading-relaxed mb-8 max-w-xl tracking-[0.01em]">
+            A 112-page practical guide with 47 proven mental frameworks and simple nightly reflections. Built for people who want real self-discipline, focus, and emotional control in everyday life.
           </p>
-        </div>
 
-        {/* 3-Column Razor-Divider Grid (Rolls-Royce Architecture) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 border-t border-b border-black/15 divide-y md:divide-y-0 md:divide-x divide-black/15">
-          {/* Pillar 01 */}
-          <div className="py-8 md:py-10 md:px-8 first:pl-0 last:pr-0">
-            <span className="text-[10px] uppercase tracking-[0.35em] text-black/40 block mb-3 font-medium">
-              Part 01 • 16 Lessons
-            </span>
-            <h3 className="text-lg sm:text-xl font-medium uppercase tracking-[0.18em] text-[#121814] mb-3">
-              Building Real Discipline
-            </h3>
-            <p className="text-xs sm:text-sm text-black/65 font-light leading-relaxed tracking-[0.01em]">
-              Practical steps to stop procrastinating, build solid morning habits, and keep your focus on what actually matters without getting distracted.
-            </p>
+          {/* Action Buttons: Primary Stripe Checkout + Learn More Subpage */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 mb-8">
+            <a
+              href={STRIPE_CHECKOUT_URL}
+              className="rr-btn flex-1 inline-flex items-center justify-center gap-2.5 py-4 px-8 text-xs font-medium border border-[#121814] bg-[#121814] text-white hover:bg-transparent hover:text-[#121814] transition-all rounded-none"
+            >
+              <StripeLogo className="h-3.5 w-auto opacity-80" />
+              <span>Get The Guide — $19</span>
+            </a>
+
+            <Link
+              href="/guide"
+              className="rr-btn inline-flex items-center justify-center gap-2 py-4 px-8 text-xs font-medium uppercase tracking-[0.2em] border border-black/30 bg-white/80 text-[#121814] hover:border-black hover:bg-black hover:text-white transition-all rounded-none"
+            >
+              <span>Learn More</span>
+              <span>→</span>
+            </Link>
           </div>
 
-          {/* Pillar 02 */}
-          <div className="py-8 md:py-10 md:px-8">
-            <span className="text-[10px] uppercase tracking-[0.35em] text-black/40 block mb-3 font-medium">
-              Part 02 • 16 Lessons
-            </span>
-            <h3 className="text-lg sm:text-xl font-medium uppercase tracking-[0.18em] text-[#121814] mb-3">
-              Controlling Your Emotions
-            </h3>
-            <p className="text-xs sm:text-sm text-black/65 font-light leading-relaxed tracking-[0.01em]">
-              How to stay calm when people test your patience, stop reacting out of anger, and keep your cool in tense, uncomfortable situations.
-            </p>
-          </div>
-
-          {/* Pillar 03 */}
-          <div className="py-8 md:py-10 md:px-8 first:pl-0 last:pr-0">
-            <span className="text-[10px] uppercase tracking-[0.35em] text-black/40 block mb-3 font-medium">
-              Part 03 • 15 Prompts
-            </span>
-            <h3 className="text-lg sm:text-xl font-medium uppercase tracking-[0.18em] text-[#121814] mb-3">
-              Nightly Journaling
-            </h3>
-            <p className="text-xs sm:text-sm text-black/65 font-light leading-relaxed tracking-[0.01em]">
-              Simple, honest evening questions to help you review your actions before bed, fix bad habits, and wake up ready for the next day.
-            </p>
+          {/* Trust Badges directly underneath the CTAs */}
+          <div className="flex flex-wrap items-center justify-start gap-4 sm:gap-6 text-[10px] text-black/60 uppercase tracking-[0.2em] font-medium pt-5 border-t border-black/10">
+            <div className="flex items-center gap-1.5">
+              <AppleLogo className="w-3.5 h-3.5 opacity-70" />
+              <span>iPad & iPhone</span>
+            </div>
+            <span>/</span>
+            <div className="flex items-center gap-1.5">
+              <KindleLogo className="w-3.5 h-3.5 opacity-70" />
+              <span>Kindle & Android</span>
+            </div>
+            <span>/</span>
+            <div className="flex items-center gap-1.5">
+              <FileText className="w-3.5 h-3.5 opacity-70" />
+              <span>Printable PDF</span>
+            </div>
           </div>
         </div>
       </section>
@@ -338,12 +239,12 @@ export default function GuideLandingPage() {
           </button>
         </div>
 
-        {/* Reviews Razor Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 border-t border-b border-black/15 divide-y md:divide-y-0 md:divide-x divide-black/15">
+        {/* Reviews Architectural Cards — Seamlessly Connected to Header */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
           {reviewsList.slice(0, 4).map((rev) => (
             <div
               key={rev.id}
-              className="py-8 md:py-10 md:px-8 first:pl-0 last:pr-0 flex flex-col justify-between"
+              className="border border-black/15 p-6 sm:p-8 bg-white/60 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">

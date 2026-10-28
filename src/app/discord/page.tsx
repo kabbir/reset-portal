@@ -275,8 +275,17 @@ export default function DiscordLandingPage() {
               className="w-full h-full object-cover"
             />
 
+            {/* Big Floating White Center Blob */}
+            <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-5 pointer-events-none z-10">
+              <div className="bg-white text-black px-5 py-5 sm:px-6 sm:py-6 rounded-[28px] sm:rounded-[36px] shadow-[0_25px_60px_rgba(0,0,0,0.9)] border border-black/10 text-center max-w-[270px] sm:max-w-[290px]">
+                <p className="font-riviera font-black text-xs sm:text-[13px] uppercase tracking-wider leading-[1.38] text-black">
+                  SO MUCH INFO AVAILABLE TODAY BUT NONE OF THESE GUYS PERSONALLY HELP YOU BUILD ANY OF IT FROM START TO FINISH
+                </p>
+              </div>
+            </div>
+
             {/* Tap Indicator / Play Pause overlay on hover */}
-            <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20">
               <div className="p-3 border border-white/30 bg-black/75 text-white rounded-none">
                 {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
               </div>
@@ -373,77 +382,34 @@ export default function DiscordLandingPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-          {/* Left: What's Included & $29 Pricing */}
-          <div className="border border-white/15 bg-black p-8 sm:p-12 rounded-none">
-            <span className="font-riviera text-xs uppercase tracking-[0.3em] text-white/40 block mb-2 font-medium">
-              WHAT&apos;S INCLUDED
-            </span>
-            <h3 className="font-riviera text-2xl font-light uppercase tracking-[0.16em] text-white mb-4">
-              THE 0 TO 30K BLUEPRINT
-            </h3>
-            <p className="font-riviera text-xs text-white/60 leading-relaxed font-light mb-8">
-              Full private Discord access, complete 5-part video curriculum, batch automation workflows, and weekly live account breakdowns.
-            </p>
-
-            {/* Inclusions List with Discord & Stripe integration */}
-            <div className="space-y-3 pt-6 border-t border-white/15 mb-8 font-riviera text-xs text-white/80 font-light">
-              <div className="flex items-start gap-3">
-                <DiscordLogo className="w-3.5 h-3.5 opacity-70 shrink-0 mt-0.5" />
-                <span>Private Discord channels with direct access to me</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="w-1.5 h-1.5 bg-white/60 shrink-0 mt-1.5 rounded-none" />
-                <span>All 5 tactical creator modules from 0 to 30k</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="w-1.5 h-1.5 bg-white/60 shrink-0 mt-1.5 rounded-none" />
-                <span>Our complete automated batch production workflows</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="w-1.5 h-1.5 bg-white/60 shrink-0 mt-1.5 rounded-none" />
-                <span>Curated 500+ viral quote and hook swipe vault</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="w-1.5 h-1.5 bg-white/60 shrink-0 mt-1.5 rounded-none" />
-                <span>Weekly live account reviews & script teardowns</span>
-              </div>
-              <div className="flex items-start gap-3">
-                <span className="w-1.5 h-1.5 bg-white/60 shrink-0 mt-1.5 rounded-none" />
-                <span>DM automation templates that turn comments into sales</span>
-              </div>
-            </div>
-
-            {/* Price Box - Razor Lines, No Curves */}
-            <div className="border-t border-b border-white/15 py-6 text-center">
+        {/* Centered Instant Claim Access Form - Clean & Focused */}
+        <div className="max-w-xl mx-auto border border-white/15 bg-[#0e0e0e] p-8 sm:p-12 rounded-none">
+          <div className="flex items-center justify-between border-b border-white/15 pb-5 mb-8">
+            <div>
               <span className="font-riviera text-[10px] uppercase tracking-[0.3em] text-white/40 block mb-1 font-medium">
                 MONTHLY MEMBERSHIP
               </span>
-              <div className="font-riviera text-4xl sm:text-5xl font-light tracking-[0.05em] text-white mb-2">
+              <div className="font-riviera text-3xl sm:text-4xl font-light text-white">
                 $29 <span className="text-xs uppercase tracking-[0.2em] text-white/40">/ month</span>
               </div>
-              <div className="flex items-center justify-center gap-2 text-[11px] text-white/50 font-light tracking-wide">
-                <span>Cancel anytime with 1 click</span>
-                <span>·</span>
-                <div className="flex items-center gap-1">
-                  <StripeLogo className="h-3 w-auto opacity-70" />
-                  <span>Secured by Stripe</span>
-                </div>
+            </div>
+            <div className="text-right">
+              <span className="font-riviera text-[11px] uppercase tracking-[0.2em] text-white/60 block font-light">
+                Cancel Anytime
+              </span>
+              <div className="flex items-center gap-1.5 justify-end mt-1 text-[10px] text-white/40">
+                <StripeLogo className="h-2.5 w-auto opacity-70" />
+                <span>Secured by Stripe</span>
               </div>
             </div>
           </div>
 
-          {/* Right: Instant Claim Access Form */}
-          <div className="border border-white/15 bg-[#0e0e0e] p-8 sm:p-12 rounded-none">
-            <span className="font-riviera text-xs uppercase tracking-[0.3em] text-white/40 block mb-2 font-medium">
-              INSTANT ACCESS
-            </span>
-            <h3 className="font-riviera text-xl sm:text-2xl font-light uppercase tracking-[0.16em] text-white mb-2">
-              CLAIM DISCORD ACCESS
-            </h3>
-            <p className="font-riviera text-xs text-white/50 mb-8 font-light leading-relaxed">
-              Enter your details below to claim your spot. You will be redirected to secure Stripe checkout to complete your $29 membership and receive instant Discord access.
-            </p>
+          <h3 className="font-riviera text-xl sm:text-2xl font-light uppercase tracking-[0.16em] text-white mb-2">
+            CLAIM DISCORD ACCESS
+          </h3>
+          <p className="font-riviera text-xs text-white/50 mb-8 font-light leading-relaxed">
+            Enter your details below to claim your spot. You will be redirected to secure Stripe checkout to complete your $29 membership and receive instant single-use Discord access.
+          </p>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               {errorMsg && (
@@ -542,7 +508,6 @@ export default function DiscordLandingPage() {
               </div>
             </form>
           </div>
-        </div>
       </section>
 
       {/* =========================================================================

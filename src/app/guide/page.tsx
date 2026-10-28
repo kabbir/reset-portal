@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/image";
-import NextLink from "next/link";
-import { ChevronDown, ArrowLeft, FileText } from "lucide-react";
+import Link from "next/link";
+import { ChevronDown, ArrowLeft, FileText, Check } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import {
   StripeLogo,
@@ -20,15 +19,49 @@ export default function GuideDetailPage() {
   const faqs = [
     {
       q: "WHAT FORMAT DOES THE GUIDE COME IN?",
-      a: "The Guide is a clean 112-page PDF. It looks sharp and reads easily on your iPad, iPhone, Android, Kindle, Mac, or PC. You can also print it out if you prefer reading and writing on paper. You receive an immediate download link right after checkout."
+      a: "The Guide is a clean 112-page digital PDF. It is formatted to look sharp and read easily on your iPad, iPhone, Android, Kindle, Mac, or PC. You can also print it out if you prefer writing with pen and paper. You get an immediate download link right after checkout."
     },
     {
       q: "HOW DOES THE DAILY ROUTINE WORK?",
-      a: "It takes less than 10 minutes a day: Read 1 Page in the morning, and Write 1 Page at night. In the morning, you read a single short lesson on focus, emotional control, or personal boundaries. At night before bed, you answer a quick prompt to review how you handled your day."
+      a: "It takes less than 10 minutes a day: Read 1 Page in the morning, and Write 1 Page at night. In the morning, you read a single short thought on focus, boundaries, or calm composure. At night before bed, you answer a single honest question to review your day and clear your head."
     },
     {
-      q: "IS THERE ANY MOTIVATIONAL FLUFF OR CLICHÉS?",
-      a: "None at all. No vague slogans, no academic jargon, and no filler. Every page gets straight to the point with practical ideas and honest reflections you can actually use that day."
+      q: "IS THERE ANY FLUFF OR COMPLICATED JARGON?",
+      a: "None at all. No vague slogans, no academic theories, and no filler. Every page gets straight to the point with honest, practical truths you can actually apply to your real life that day."
+    }
+  ];
+
+  /* The 5 Diverse Real-Life Problems */
+  const struggles = [
+    {
+      num: "01",
+      problem: "When you feel secretly behind in life",
+      explanation:
+        "You look at peers or social media and get that quiet sinking panic that you're running out of time, even when things look fine on paper. The guide cuts straight through the comparison trap. It reminds you who you are actually building for, pulls your focus away from everyone else, and grounds you back in your own daily standard."
+    },
+    {
+      num: "02",
+      problem: "When you keep putting things off and breaking promises to yourself",
+      explanation:
+        "You make big plans in your head, but when the day comes, you avoid the hard work, scroll instead, and go to bed with that subtle guilt eating at your self-respect. The guide doesn't lecture or hype you up. The facing write-page forces you to look at your honest excuses without judgment, helping you rebuild self-trust one day at a time."
+    },
+    {
+      num: "03",
+      problem: "When someone tests your patience or pushes you to react",
+      explanation:
+        "An unexpected disagreement, an irritating remark, or someone disrespecting your boundary. Old habits make you react right away, say something you regret, or stay angry for hours. The guide gives you the quiet power of the pause—learning to stay silent, lower your voice, and stay in complete control while everyone else is losing theirs."
+    },
+    {
+      num: "04",
+      problem: "When your mind won't stop overthinking at night",
+      explanation:
+        "Replaying old conversations, worrying about what someone thought of you, or carrying the day's stress straight into bed. The evening prompts give you a place to dump the mental chaos. You get the thoughts out of your chest and onto paper, closing the open tabs in your brain so you can sleep peacefully."
+    },
+    {
+      num: "05",
+      problem: "When you care too much about being liked",
+      explanation:
+        "Saying yes to things you hate just to keep the peace, modifying your personality around different people, or worrying about looking foolish. The lessons give you the courage to be quietly misunderstood. You learn to speak with honesty, hold your boundaries, and build self-respect from within."
     }
   ];
 
@@ -38,243 +71,160 @@ export default function GuideDetailPage() {
       <Navbar activePage="guide" />
 
       {/* =========================================================================
-         SUBPAGE HERO: CLEAN EDITORIAL INTRODUCTION
+         1. HERO: SEAMLESS, AIRY EDITORIAL INTRODUCTION (ZERO BOXES)
          ========================================================================= */}
-      <section className="relative pt-12 sm:pt-20 pb-12 px-4 sm:px-8 max-w-5xl mx-auto text-left">
-        <NextLink
+      <section className="relative pt-12 sm:pt-24 pb-16 px-4 sm:px-8 max-w-4xl mx-auto">
+        <Link
           href="/"
-          className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-black/50 hover:text-black transition-colors mb-6 font-medium"
+          className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-black/40 hover:text-black transition-colors mb-8 font-medium"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
-          <span>Back to Overview</span>
-        </NextLink>
+          <span>Back to Main Page</span>
+        </Link>
 
-        <span className="text-[11px] uppercase tracking-[0.35em] text-black/50 font-medium block mb-3">
-          The Complete Architecture • 112 Pages
+        <span className="text-[11px] uppercase tracking-[0.35em] text-black/50 font-medium block mb-4">
+          112 Pages · 47 Lessons & Prompts
         </span>
 
-        <h1 className="text-3xl sm:text-5xl font-light tracking-[0.14em] text-[#121814] uppercase leading-[1.15] mb-4">
+        <h1 className="text-3xl sm:text-6xl font-light tracking-[0.14em] text-[#121814] uppercase leading-[1.12] mb-6">
           What&apos;s Inside The Guide
         </h1>
 
-        <p className="text-sm sm:text-base text-black/70 font-light leading-relaxed max-w-2xl tracking-[0.02em] mb-8">
-          A full breakdown of the 47 mental frameworks, facing audit pages, and the 10-minute daily routine designed for emotional control and calm focus.
+        <p className="text-base sm:text-lg text-black/75 font-light leading-relaxed max-w-2xl tracking-[0.01em] mb-10">
+          A simple daily standard for keeping your mind calm, your focus clear, and your self-respect intact—no matter what life throws at you.
         </p>
 
-        {/* Quick Purchase Bar */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4 border-t border-black/15">
+        {/* Action Button & Instant Delivery Note */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 pt-2">
           <a
             href={STRIPE_CHECKOUT_URL}
-            className="rr-btn inline-flex items-center justify-center gap-2.5 px-8 py-3.5 text-xs font-medium border border-[#121814] bg-[#121814] text-white hover:bg-transparent hover:text-[#121814] transition-all rounded-none"
+            className="rr-btn inline-flex items-center justify-center gap-2.5 px-9 py-4 text-xs font-medium border border-[#121814] bg-[#121814] text-white hover:bg-transparent hover:text-[#121814] transition-all rounded-none"
           >
             <StripeLogo className="h-3.5 w-auto opacity-80" />
             <span>Get The Guide — $19</span>
           </a>
 
-          <div className="flex items-center gap-4 text-[10px] text-black/50 uppercase tracking-[0.2em] font-medium">
+          <div className="flex items-center gap-3 text-[11px] text-black/50 uppercase tracking-[0.2em] font-light">
             <span>Instant PDF Download</span>
             <span>·</span>
-            <span>All Devices Supported</span>
+            <span>All Devices</span>
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-         SECTION 1: DAILY ROUTINE — READ 1 PAGE. WRITE 1 PAGE.
-         Unified heading and content, zero disjointed lines
+         2. THE DAILY ROUTINE: PURE EDITORIAL FLOW (NO BOXES, NO HARD FRAMES)
          ========================================================================= */}
-      <section className="relative py-14 px-4 sm:px-8 max-w-5xl mx-auto border-t border-black/15">
-        <div className="mb-8">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-black/40 block mb-2 font-medium">
-            The Daily Practice
+      <section className="relative py-16 sm:py-24 px-4 sm:px-8 max-w-4xl mx-auto">
+        <div className="mb-14">
+          <span className="text-[11px] uppercase tracking-[0.35em] text-black/40 block mb-3 font-medium">
+            The Daily Routine
           </span>
-          <h2 className="text-2xl sm:text-3xl font-light uppercase tracking-[0.18em] text-[#121814] mb-2">
+          <h2 className="text-2xl sm:text-4xl font-light uppercase tracking-[0.16em] text-[#121814] mb-4">
             Read 1 Page. Write 1 Page.
           </h2>
-          <p className="text-xs sm:text-sm text-black/60 font-light leading-relaxed max-w-xl tracking-[0.01em]">
-            Takes less than 10 minutes a day to keep your focus sharp and your mind calm:
+          <p className="text-sm sm:text-base text-black/65 font-light leading-relaxed max-w-xl">
+            It takes under 10 minutes a day. Designed to act like a grounded friend who keeps you on the right path.
           </p>
         </div>
 
-        {/* 3 Steps in Clean Architectural Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-          <div className="border border-black/15 p-6 bg-white/60 flex flex-col justify-between">
-            <div>
-              <div className="text-[11px] uppercase tracking-[0.25em] font-medium text-black/50 mb-2">
-                01 • Morning
-              </div>
-              <h3 className="text-base font-medium uppercase tracking-[0.16em] text-[#121814] mb-3">
-                Read 1 Page
-              </h3>
-              <p className="text-xs sm:text-sm text-black/70 font-light leading-relaxed tracking-[0.01em]">
-                Start your morning with one clear lesson on patience, focus, or personal boundaries before checking your phone or dealing with other people.
-              </p>
-            </div>
-            <div className="mt-4 pt-3 border-t border-black/10 text-[10px] uppercase tracking-[0.2em] text-black/40">
-              Under 4 minutes
-            </div>
+        {/* 3 Steps in Clean, Open Editorial Spacing */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 sm:gap-12">
+          <div className="space-y-3">
+            <span className="text-[10px] uppercase tracking-[0.3em] font-medium text-black/40 block">
+              01 · Morning (Under 4 Min)
+            </span>
+            <h3 className="text-lg font-medium uppercase tracking-[0.14em] text-[#121814]">
+              Read 1 Page
+            </h3>
+            <p className="text-xs sm:text-sm text-black/70 font-light leading-relaxed">
+              Start your morning with a single lesson on patience, calm, or boundaries before you check notifications or deal with other people.
+            </p>
           </div>
 
-          <div className="border border-black/15 p-6 bg-white/60 flex flex-col justify-between">
-            <div>
-              <div className="text-[11px] uppercase tracking-[0.25em] font-medium text-black/50 mb-2">
-                02 • Afternoon
-              </div>
-              <h3 className="text-base font-medium uppercase tracking-[0.16em] text-[#121814] mb-3">
-                Put It Into Practice
-              </h3>
-              <p className="text-xs sm:text-sm text-black/70 font-light leading-relaxed tracking-[0.01em]">
-                Use what you read during tough meetings, stressful moments, or difficult conversations throughout your day.
-              </p>
-            </div>
-            <div className="mt-4 pt-3 border-t border-black/10 text-[10px] uppercase tracking-[0.2em] text-black/40">
-              Throughout the day
-            </div>
+          <div className="space-y-3">
+            <span className="text-[10px] uppercase tracking-[0.3em] font-medium text-black/40 block">
+              02 · Daytime (In Your Head)
+            </span>
+            <h3 className="text-lg font-medium uppercase tracking-[0.14em] text-[#121814]">
+              Stay Grounded
+            </h3>
+            <p className="text-xs sm:text-sm text-black/70 font-light leading-relaxed">
+              When someone tests you, when stress hits, or when you feel tempted to react out of ego, you remember the lesson and take the pause.
+            </p>
           </div>
 
-          <div className="border border-black/15 p-6 bg-white/60 flex flex-col justify-between">
-            <div>
-              <div className="text-[11px] uppercase tracking-[0.25em] font-medium text-black/50 mb-2">
-                03 • Night
-              </div>
-              <h3 className="text-base font-medium uppercase tracking-[0.16em] text-[#121814] mb-3">
-                Write 1 Page
-              </h3>
-              <p className="text-xs sm:text-sm text-black/70 font-light leading-relaxed tracking-[0.01em]">
-                Answer the quick evening question in your journal, tablet, or phone. Take two minutes before sleeping to reflect on your day and see where you can improve.
-              </p>
-            </div>
-            <div className="mt-4 pt-3 border-t border-black/10 text-[10px] uppercase tracking-[0.2em] text-black/40">
-              Under 3 minutes
-            </div>
+          <div className="space-y-3">
+            <span className="text-[10px] uppercase tracking-[0.3em] font-medium text-black/40 block">
+              03 · Night (Under 3 Min)
+            </span>
+            <h3 className="text-lg font-medium uppercase tracking-[0.14em] text-[#121814]">
+              Write 1 Page
+            </h3>
+            <p className="text-xs sm:text-sm text-black/70 font-light leading-relaxed">
+              Answer the single question on the facing page. Review your day honestly, admit where you slipped, and close your day with a clear head.
+            </p>
           </div>
         </div>
       </section>
 
       {/* =========================================================================
-         SECTION 2: COMPLETE 3-PART CURRICULUM
-         Unified heading and content, zero disjointed lines
+         3. HOW THE GUIDE HELPS YOU TACKLE DIVERSE LIFE STRUGGLES
+         Seamless, beautiful typographic rhythm without boxed cards
          ========================================================================= */}
-      <section className="relative py-14 px-4 sm:px-8 max-w-5xl mx-auto border-t border-black/15">
-        <div className="mb-8">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-black/40 block mb-2 font-medium">
-            Complete Curriculum
+      <section className="relative py-16 sm:py-24 px-4 sm:px-8 max-w-4xl mx-auto">
+        <div className="mb-16">
+          <span className="text-[11px] uppercase tracking-[0.35em] text-black/40 block mb-3 font-medium">
+            Real Life Solutions
           </span>
-          <h2 className="text-2xl sm:text-3xl font-light uppercase tracking-[0.18em] text-[#121814] mb-2">
-            The 3 Core Modules
+          <h2 className="text-2xl sm:text-4xl font-light uppercase tracking-[0.16em] text-[#121814] mb-4">
+            Built For What You Actually Go Through
           </h2>
-          <p className="text-xs sm:text-sm text-black/60 font-light leading-relaxed max-w-xl tracking-[0.01em]">
-            47 practical lessons and prompts organized across 112 facing pages:
+          <p className="text-sm sm:text-base text-black/65 font-light leading-relaxed max-w-2xl">
+            Real life doesn&apos;t test you with abstract ideas. It tests you when you&apos;re tired, stressed, or secretly doubting yourself. Here is how the guide helps you through those exact moments:
           </p>
         </div>
 
-        {/* 3 Pillars - Clean Visual Hierarchy */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-          {/* Pillar 01 */}
-          <div className="border border-black/15 p-6 sm:p-8 bg-white/60 flex flex-col justify-between">
-            <div>
-              <span className="text-[10px] uppercase tracking-[0.35em] text-black/40 block mb-2 font-medium">
-                Part 01 • 16 Lessons
-              </span>
-              <h3 className="text-lg font-medium uppercase tracking-[0.16em] text-[#121814] mb-3">
-                Building Real Discipline
-              </h3>
-              <p className="text-xs sm:text-sm text-black/70 font-light leading-relaxed tracking-[0.01em] mb-4">
-                Practical steps to stop procrastinating, build solid morning habits, and keep your focus on what actually matters without getting distracted.
-              </p>
+        {/* Seamless Flowing Problem-Solution List (No Box Borders) */}
+        <div className="space-y-14 sm:space-y-16">
+          {struggles.map((item) => (
+            <div key={item.num} className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-start">
+              <div className="md:col-span-1">
+                <span className="font-riviera text-xs text-black/30 font-medium tracking-[0.2em] block">
+                  {item.num}
+                </span>
+              </div>
+              <div className="md:col-span-4">
+                <h3 className="text-base sm:text-lg font-medium uppercase tracking-[0.12em] text-[#121814] leading-snug">
+                  {item.problem}
+                </h3>
+              </div>
+              <div className="md:col-span-7">
+                <p className="text-xs sm:text-sm text-black/75 font-light leading-relaxed">
+                  {item.explanation}
+                </p>
+              </div>
             </div>
-            <ul className="text-xs text-black/60 space-y-2 pt-4 border-t border-black/10 font-light">
-              <li className="flex items-center gap-2">
-                <span className="w-1 h-1 bg-black/60" />
-                <span>The 10-Second Delay Rule</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1 h-1 bg-black/60" />
-                <span>Eliminating Distraction Loops</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1 h-1 bg-black/60" />
-                <span>Daily Friction Reduction</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Pillar 02 */}
-          <div className="border border-black/15 p-6 sm:p-8 bg-white/60 flex flex-col justify-between">
-            <div>
-              <span className="text-[10px] uppercase tracking-[0.35em] text-black/40 block mb-2 font-medium">
-                Part 02 • 16 Lessons
-              </span>
-              <h3 className="text-lg font-medium uppercase tracking-[0.16em] text-[#121814] mb-3">
-                Controlling Your Emotions
-              </h3>
-              <p className="text-xs sm:text-sm text-black/70 font-light leading-relaxed tracking-[0.01em] mb-4">
-                How to stay calm when people test your patience, stop reacting out of anger, and keep your cool in tense, uncomfortable situations.
-              </p>
-            </div>
-            <ul className="text-xs text-black/60 space-y-2 pt-4 border-t border-black/10 font-light">
-              <li className="flex items-center gap-2">
-                <span className="w-1 h-1 bg-black/60" />
-                <span>De-escalating High-Stakes Arguments</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1 h-1 bg-black/60" />
-                <span>Mastering Inner Composure</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1 h-1 bg-black/60" />
-                <span>Detachment from Outside Judgments</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Pillar 03 */}
-          <div className="border border-black/15 p-6 sm:p-8 bg-white/60 flex flex-col justify-between">
-            <div>
-              <span className="text-[10px] uppercase tracking-[0.35em] text-black/40 block mb-2 font-medium">
-                Part 03 • 15 Prompts
-              </span>
-              <h3 className="text-lg font-medium uppercase tracking-[0.16em] text-[#121814] mb-3">
-                Nightly Journaling
-              </h3>
-              <p className="text-xs sm:text-sm text-black/70 font-light leading-relaxed tracking-[0.01em] mb-4">
-                Simple, honest evening questions to help you review your actions before bed, fix bad habits, and wake up ready for the next day.
-              </p>
-            </div>
-            <ul className="text-xs text-black/60 space-y-2 pt-4 border-t border-black/10 font-light">
-              <li className="flex items-center gap-2">
-                <span className="w-1 h-1 bg-black/60" />
-                <span>2-Minute Nightly Self-Audits</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1 h-1 bg-black/60" />
-                <span>Pattern Recognition in Reactions</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1 h-1 bg-black/60" />
-                <span>Clearing Mental Clutter Before Bed</span>
-              </li>
-            </ul>
-          </div>
+          ))}
         </div>
       </section>
 
       {/* =========================================================================
-         SECTION 3: DEVICE COMPATIBILITY & TRUST BADGES
+         4. WHAT YOU RECEIVE & DEVICE COMPATIBILITY (SEAMLESS ELEGANCE)
          ========================================================================= */}
-      <section className="relative py-14 px-4 sm:px-8 max-w-5xl mx-auto border-t border-black/15">
-        <div className="border border-black/15 p-8 sm:p-12 bg-white/70 text-center">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-black/40 block mb-2 font-medium">
-            Instant Digital Delivery
+      <section className="relative py-16 sm:py-24 px-4 sm:px-8 max-w-4xl mx-auto">
+        <div className="max-w-2xl mx-auto text-center space-y-6">
+          <span className="text-[11px] uppercase tracking-[0.35em] text-black/40 block font-medium">
+            Digital Edition
           </span>
-          <h2 className="text-2xl sm:text-3xl font-light uppercase tracking-[0.18em] text-[#121814] mb-3">
-            Read Anywhere, On Any Device
+          <h2 className="text-2xl sm:text-4xl font-light uppercase tracking-[0.16em] text-[#121814]">
+            Read On Any Device You Own
           </h2>
-          <p className="text-xs sm:text-sm text-black/65 font-light max-w-xl mx-auto mb-8 leading-relaxed">
-            Immediate access right after checkout. High-resolution PDF optimized for GoodNotes, Notability, Apple Books, Kindle, and print.
+          <p className="text-xs sm:text-sm text-black/65 font-light leading-relaxed">
+            Instant digital access delivered immediately after checkout. High-resolution PDF with clean typography, optimized for GoodNotes, Notability, Apple Books, Kindle, or paper printing.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-[11px] text-black/70 uppercase tracking-[0.2em] font-medium mb-8">
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-[11px] text-black/70 uppercase tracking-[0.2em] font-medium pt-4">
             <div className="flex items-center gap-2">
               <AppleLogo className="w-4 h-4 opacity-80" />
               <span>iPad & iPhone</span>
@@ -285,49 +235,51 @@ export default function GuideDetailPage() {
             </div>
             <div className="flex items-center gap-2">
               <FileText className="w-4 h-4 opacity-80" />
-              <span>Printable PDF (8.5x11)</span>
+              <span>Printable PDF</span>
             </div>
           </div>
 
-          <a
-            href={STRIPE_CHECKOUT_URL}
-            className="rr-btn inline-flex items-center justify-center gap-3 px-10 py-4 text-xs font-medium border border-[#121814] bg-[#121814] text-white hover:bg-transparent hover:text-[#121814] transition-all rounded-none"
-          >
-            <StripeLogo className="h-3.5 w-auto opacity-80" />
-            <span>Get The Guide — $19</span>
-          </a>
+          <div className="pt-6">
+            <a
+              href={STRIPE_CHECKOUT_URL}
+              className="rr-btn inline-flex items-center justify-center gap-3 px-10 py-4 text-xs font-medium border border-[#121814] bg-[#121814] text-white hover:bg-transparent hover:text-[#121814] transition-all rounded-none"
+            >
+              <StripeLogo className="h-3.5 w-auto opacity-80" />
+              <span>Get The Guide — $19</span>
+            </a>
+          </div>
         </div>
       </section>
 
       {/* =========================================================================
-         SECTION 4: FAQS
+         5. FAQS (CLEAN ACCORDION, MINIMAL DIVIDERS)
          ========================================================================= */}
-      <section className="relative py-14 px-4 sm:px-8 max-w-4xl mx-auto border-t border-black/15">
-        <div className="mb-8 text-center">
-          <h2 className="text-2xl sm:text-3xl font-light uppercase tracking-[0.18em] text-[#121814] mb-1">
-            Frequently Asked Questions
+      <section className="relative py-16 sm:py-24 px-4 sm:px-8 max-w-3xl mx-auto">
+        <div className="mb-10 text-center">
+          <span className="text-[10px] uppercase tracking-[0.3em] text-black/40 block mb-2 font-medium">
+            Questions
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-light uppercase tracking-[0.18em] text-[#121814]">
+            Common Questions
           </h2>
-          <p className="text-xs uppercase tracking-[0.25em] text-black/50 font-light">
-            Everything You Need To Know
-          </p>
         </div>
 
-        <div className="border-t border-black/15 divide-y divide-black/15">
+        <div className="divide-y divide-black/10 border-t border-b border-black/10">
           {faqs.map((faq, idx) => (
             <div key={idx} className="transition-all">
               <button
                 onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                className="w-full py-5 text-left flex items-center justify-between gap-4 text-xs sm:text-sm font-medium uppercase tracking-[0.2em] text-[#121814] hover:text-black/70 transition-colors"
+                className="w-full py-5 text-left flex items-center justify-between gap-4 text-xs sm:text-sm font-medium uppercase tracking-[0.18em] text-[#121814] hover:text-black/60 transition-colors cursor-pointer"
               >
                 <span>{faq.q}</span>
                 <ChevronDown
-                  className={`w-4 h-4 text-black/50 shrink-0 transition-transform duration-300 ${
+                  className={`w-4 h-4 text-black/40 shrink-0 transition-transform duration-300 ${
                     openFaq === idx ? "rotate-180 text-black" : ""
                   }`}
                 />
               </button>
               {openFaq === idx && (
-                <div className="pb-6 text-xs sm:text-sm text-black/70 font-light leading-relaxed tracking-[0.01em]">
+                <div className="pb-6 text-xs sm:text-sm text-black/70 font-light leading-relaxed">
                   {faq.a}
                 </div>
               )}
@@ -337,8 +289,8 @@ export default function GuideDetailPage() {
       </section>
 
       {/* Minimalist Footer */}
-      <footer className="w-full border-t border-black/15 py-10 px-4 sm:px-8 text-center text-xs text-black/50 bg-[#fbfaf6]">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+      <footer className="w-full py-12 px-4 sm:px-8 text-center text-xs text-black/50 bg-[#fbfaf6]">
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <span className="font-medium uppercase tracking-[0.25em] text-[#121814]">
               OurLife.Reset
@@ -359,15 +311,15 @@ export default function GuideDetailPage() {
               <InstagramLogo className="w-3.5 h-3.5 opacity-70" />
               <span>@ourlife.reset</span>
             </a>
-            <NextLink href="/" className="hover:text-black transition-colors">
-              Overview
-            </NextLink>
-            <NextLink href="/discord" className="hover:text-black transition-colors">
-              Creator Discord ($29)
-            </NextLink>
-            <NextLink href="/refund-policy" className="hover:text-black transition-colors">
+            <Link href="/" className="hover:text-black transition-colors">
+              The Guide
+            </Link>
+            <Link href="/discord" className="hover:text-black transition-colors">
+              Creator Discord
+            </Link>
+            <Link href="/refund-policy" className="hover:text-black transition-colors">
               Refund Policy
-            </NextLink>
+            </Link>
             <a href="mailto:support@ourlifereset.com" className="hover:text-black transition-colors">
               Support
             </a>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import {
@@ -8,26 +8,9 @@ import {
   StripeLogo,
   InstagramLogo
 } from "@/components/BrandLogos";
-import { Play, Pause } from "lucide-react";
 
 export default function DiscordLandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-
-  /* Reels Montage Video State (Silent Autoplay Loop) */
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [isPlaying, setIsPlaying] = useState(true);
-
-  const togglePlay = () => {
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play();
-        setIsPlaying(true);
-      } else {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      }
-    }
-  };
 
   /* Discord Claim & Checkout Form State */
   const [form, setForm] = useState({
@@ -259,20 +242,16 @@ export default function DiscordLandingPage() {
 
         {/* Vertical Reel Video Montage Frame - Pure Sharp Rolls-Royce Geometry */}
         <div className="relative max-w-[320px] sm:max-w-[360px] mx-auto border border-white/20 bg-black rounded-none shadow-[0_25px_60px_rgba(0,0,0,0.9)] overflow-hidden">
-          {/* Video Player (9:16 Vertical Reel Ratio) */}
-          <div
-            className="relative aspect-[9/16] w-full bg-black cursor-pointer group"
-            onClick={togglePlay}
-          >
+          {/* Video Player (9:16 Vertical Reel Ratio - Continuous Autoplay) */}
+          <div className="relative aspect-[9/16] w-full bg-black">
             <video
-              ref={videoRef}
               src="/overwhelmed-montage.mp4"
               poster="/overwhelmed-montage-poster.jpg"
               autoPlay
               loop
               muted
               playsInline
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover pointer-events-none"
             />
 
             {/* Big Floating White Center Blob */}
@@ -281,13 +260,6 @@ export default function DiscordLandingPage() {
                 <p className="font-riviera font-black text-xs sm:text-[13px] uppercase tracking-wider leading-[1.38] text-black">
                   SO MUCH INFO AVAILABLE TODAY BUT NONE OF THESE GUYS PERSONALLY HELP YOU BUILD ANY OF IT FROM START TO FINISH
                 </p>
-              </div>
-            </div>
-
-            {/* Tap Indicator / Play Pause overlay on hover */}
-            <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-20">
-              <div className="p-3 border border-white/30 bg-black/75 text-white rounded-none">
-                {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
               </div>
             </div>
           </div>

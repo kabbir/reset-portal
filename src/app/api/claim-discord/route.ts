@@ -75,14 +75,17 @@ export async function POST(request: NextRequest) {
     }
 
     // Determine checkout URL
-    // Priority 1: Direct Payment Link configured in env (same pattern as the $19 guide)
-    const directLink =
+    // Priority 1: Direct Payment Link configured in env for the $29 Discord
+    const rawDirectLink =
       process.env.STRIPE_DISCORD_PAYMENT_LINK ||
       process.env.STRIPE_DISCORD_CHECKOUT_URL ||
       process.env.NEXT_PUBLIC_STRIPE_DISCORD_CHECKOUT_URL;
 
-    if (directLink) {
-      // If payment link allows prefilling email
+    const directLink = rawDirectLink ? rawDirectLink.trim() : "";
+    const GUIDE_LINK_ID = "dRmdR9eZZ9Qf1FkgpY6AM00";
+
+    // Only use direct link if it is NOT the $19 guide link
+    if (directLink && !directLink.includes(GUIDE_LINK_ID)) {
       const separator = directLink.includes("?") ? "&" : "?";
       const prefilledUrl = `${directLink}${separator}prefilled_email=${encodeURIComponent(newClaim.email)}`;
       return NextResponse.json({
@@ -127,20 +130,17 @@ export async function POST(request: NextRequest) {
         }
       } catch (stripeErr: any) {
         console.warn("Dynamic Stripe checkout session creation failed:", stripeErr?.message);
-        // Fall back to configured link or return helpful error
       }
     }
 
-    // Fallback: Default direct Stripe link
-    // Defaulting to the existing verified Stripe portal / link
-    const fallbackUrl =
-      process.env.STRIPE_CHECKOUT_URL ||
-      "https://buy.stripe.com/dRmdR9eZZ9Qf1FkgpY6AM00";
-
-    return NextResponse.json({
-      success: true,
-      checkoutUrl: fallbackUrl
-    });
+    // If no $29 link is configured yet and dynamic creation cannot proceed:
+    return NextResponse.json(
+      {
+        error:
+          "The $29 Creator Discord checkout link is currently being connected in Stripe. Please DM @ourlife.reset on Instagram or check back shortly."
+      },
+      { status: 400 }
+    );
   } catch (error) {
     console.error("Claim Discord error:", error);
     return NextResponse.json({ error: "Failed to process claim." }, { status: 500 });

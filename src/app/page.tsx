@@ -120,10 +120,6 @@ export default function GuideLandingPage() {
     {
       q: "IS THERE ANY MOTIVATIONAL FLUFF OR CLICHÉS?",
       a: "None at all. No vague slogans, no academic jargon, and no filler. Every page gets straight to the point with practical ideas and honest reflections you can actually use that day."
-    },
-    {
-      q: "WHAT IS THE REFUND POLICY?",
-      a: "Because The Guide is an instant digital download, all sales are final. If you have any trouble downloading or opening the file on any device, message us anytime and our team will personally make sure you get your copy immediately."
     }
   ];
 

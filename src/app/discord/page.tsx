@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import {
@@ -8,9 +8,35 @@ import {
   StripeLogo,
   InstagramLogo
 } from "@/components/BrandLogos";
+import { Volume2, VolumeX, Play, Pause } from "lucide-react";
 
 export default function DiscordLandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  /* Reels Montage Video State */
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  const toggleSound = () => {
+    if (videoRef.current) {
+      const nextMuted = !videoRef.current.muted;
+      videoRef.current.muted = nextMuted;
+      setIsMuted(nextMuted);
+    }
+  };
+
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+        setIsPlaying(true);
+      } else {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
 
   /* Discord Claim & Checkout Form State */
   const [form, setForm] = useState({
@@ -225,31 +251,94 @@ export default function DiscordLandingPage() {
       </section>
 
       {/* =========================================================================
-         2. CREATOR VIDEO MONTAGE - ARCHITECTURAL PRESENTATION
+         2. REELS MONTAGE & HOOK: OVERWHELMED BY SOCIAL MEDIA NOISE?
          ========================================================================= */}
-      <section className="relative py-16 px-4 sm:px-8 max-w-5xl mx-auto border-t border-white/15">
-        <div className="text-center mb-10">
-          <span className="font-riviera text-xs uppercase tracking-[0.3em] text-white/50 block mb-2 font-medium">
-            BEHIND THE SCENES
+      <section className="relative py-20 px-4 sm:px-8 max-w-5xl mx-auto border-t border-white/15">
+        <div className="text-center mb-12">
+          <span className="font-riviera text-[11px] uppercase tracking-[0.35em] text-white/50 block mb-3 font-medium">
+            THE SOCIAL MEDIA TRAP
           </span>
-          <h2 className="font-riviera text-2xl sm:text-4xl font-light uppercase tracking-[0.18em] text-white">
-            WATCH HOW WE MAKE OUR REELS
+          <h2 className="font-riviera text-2xl sm:text-4xl md:text-5xl font-light uppercase tracking-[0.14em] text-white max-w-3xl mx-auto leading-tight">
+            Do you constantly get these types of reels on your page, but they always leave you feeling overwhelmed?
           </h2>
-          <p className="font-riviera text-xs sm:text-sm text-white/50 max-w-xl mx-auto mt-2 font-light tracking-wide">
-            A quick look at how we create, edit, and schedule our high-retention reels every single day.
+          <p className="font-riviera text-xs sm:text-sm text-white/50 max-w-2xl mx-auto mt-4 font-light leading-relaxed tracking-wide">
+            Your feed is flooded with aesthetic videos, cinematic footage, and endless advice — but none of them show you the actual structure behind the growth. Inside our private Discord, we cut out the noise with a clear, step-by-step system: clean layouts, repeatable batching, and monetization.
           </p>
         </div>
 
-        {/* Video Player - Zero Radius, Sharp 1px Border */}
-        <div className="relative max-w-3xl mx-auto border border-white/15 bg-black p-0 rounded-none overflow-hidden rr-image-zoom">
-          <video
-            src="/videos/creator_montage.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full aspect-video object-cover"
-          />
+        {/* Vertical Reel Video Montage Frame - Sharp Rolls-Royce Geometry */}
+        <div className="relative max-w-[320px] sm:max-w-[360px] mx-auto border border-white/20 bg-black rounded-none shadow-[0_25px_60px_rgba(0,0,0,0.9)] overflow-hidden">
+          {/* Top Frame Status Bar */}
+          <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-white/15 bg-white/5 backdrop-blur-sm z-10 relative">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+              <span className="font-riviera text-[9px] uppercase tracking-[0.25em] text-white/70">
+                Aesthetic Reel Fatigue
+              </span>
+            </div>
+            <button
+              onClick={toggleSound}
+              type="button"
+              className="flex items-center gap-1.5 px-2.5 py-1 text-[9px] uppercase tracking-[0.2em] text-white/80 border border-white/20 bg-black/60 hover:bg-white hover:text-black transition-colors cursor-pointer rounded-none"
+            >
+              {isMuted ? (
+                <>
+                  <VolumeX className="w-3 h-3 text-white/70" />
+                  <span>Unmute</span>
+                </>
+              ) : (
+                <>
+                  <Volume2 className="w-3 h-3 text-white" />
+                  <span>Sound On</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          {/* Video Player (9:16 Vertical Reel Ratio) */}
+          <div
+            className="relative aspect-[9/16] w-full bg-black cursor-pointer group"
+            onClick={togglePlay}
+          >
+            <video
+              ref={videoRef}
+              src="/overwhelmed-montage.mp4"
+              poster="/overwhelmed-montage-poster.jpg"
+              autoPlay
+              loop
+              muted={isMuted}
+              playsInline
+              className="w-full h-full object-cover"
+            />
+
+            {/* Tap Indicator / Play Pause overlay on hover */}
+            <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+              <div className="p-3 border border-white/30 bg-black/75 text-white rounded-none">
+                {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+              </div>
+            </div>
+
+            {/* Bottom Floating Pattern Banner */}
+            <div className="absolute bottom-3 left-3 right-3 p-3 bg-black/85 backdrop-blur-md border border-white/15 pointer-events-none rounded-none">
+              <span className="font-riviera text-[9px] uppercase tracking-[0.25em] text-white/40 block mb-1">
+                The Constant Cycle
+              </span>
+              <p className="font-riviera text-[11px] text-white/90 font-light leading-snug">
+                Endless hours watching aesthetic clips. Zero growth on your own page.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Callout below video */}
+        <div className="mt-8 text-center">
+          <a
+            href="#curriculum"
+            className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-white/60 hover:text-white transition-colors border-b border-white/20 pb-1"
+          >
+            <span>See how we turn this into a simple 5-step blueprint</span>
+            <span className="text-white/40">↓</span>
+          </a>
         </div>
       </section>
 

@@ -8,23 +8,14 @@ import {
   StripeLogo,
   InstagramLogo
 } from "@/components/BrandLogos";
-import { Volume2, VolumeX, Play, Pause } from "lucide-react";
+import { Play, Pause } from "lucide-react";
 
 export default function DiscordLandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  /* Reels Montage Video State */
+  /* Reels Montage Video State (Silent Autoplay Loop) */
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(true);
-
-  const toggleSound = () => {
-    if (videoRef.current) {
-      const nextMuted = !videoRef.current.muted;
-      videoRef.current.muted = nextMuted;
-      setIsMuted(nextMuted);
-    }
-  };
 
   const togglePlay = () => {
     if (videoRef.current) {
@@ -51,8 +42,8 @@ export default function DiscordLandingPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.email.trim() || !form.handle.trim()) {
-      setErrorMsg("Please fill out your name, email, and Instagram handle.");
+    if (!form.name.trim() || !form.email.trim()) {
+      setErrorMsg("Please fill out your name and email.");
       return;
     }
 
@@ -266,35 +257,8 @@ export default function DiscordLandingPage() {
           </p>
         </div>
 
-        {/* Vertical Reel Video Montage Frame - Sharp Rolls-Royce Geometry */}
+        {/* Vertical Reel Video Montage Frame - Pure Sharp Rolls-Royce Geometry */}
         <div className="relative max-w-[320px] sm:max-w-[360px] mx-auto border border-white/20 bg-black rounded-none shadow-[0_25px_60px_rgba(0,0,0,0.9)] overflow-hidden">
-          {/* Top Frame Status Bar */}
-          <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-white/15 bg-white/5 backdrop-blur-sm z-10 relative">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-              <span className="font-riviera text-[9px] uppercase tracking-[0.25em] text-white/70">
-                Aesthetic Reel Fatigue
-              </span>
-            </div>
-            <button
-              onClick={toggleSound}
-              type="button"
-              className="flex items-center gap-1.5 px-2.5 py-1 text-[9px] uppercase tracking-[0.2em] text-white/80 border border-white/20 bg-black/60 hover:bg-white hover:text-black transition-colors cursor-pointer rounded-none"
-            >
-              {isMuted ? (
-                <>
-                  <VolumeX className="w-3 h-3 text-white/70" />
-                  <span>Unmute</span>
-                </>
-              ) : (
-                <>
-                  <Volume2 className="w-3 h-3 text-white" />
-                  <span>Sound On</span>
-                </>
-              )}
-            </button>
-          </div>
-
           {/* Video Player (9:16 Vertical Reel Ratio) */}
           <div
             className="relative aspect-[9/16] w-full bg-black cursor-pointer group"
@@ -306,7 +270,7 @@ export default function DiscordLandingPage() {
               poster="/overwhelmed-montage-poster.jpg"
               autoPlay
               loop
-              muted={isMuted}
+              muted
               playsInline
               className="w-full h-full object-cover"
             />
@@ -316,16 +280,6 @@ export default function DiscordLandingPage() {
               <div className="p-3 border border-white/30 bg-black/75 text-white rounded-none">
                 {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
               </div>
-            </div>
-
-            {/* Bottom Floating Pattern Banner */}
-            <div className="absolute bottom-3 left-3 right-3 p-3 bg-black/85 backdrop-blur-md border border-white/15 pointer-events-none rounded-none">
-              <span className="font-riviera text-[9px] uppercase tracking-[0.25em] text-white/40 block mb-1">
-                The Constant Cycle
-              </span>
-              <p className="font-riviera text-[11px] text-white/90 font-light leading-snug">
-                Endless hours watching aesthetic clips. Zero growth on your own page.
-              </p>
             </div>
           </div>
         </div>
@@ -530,12 +484,11 @@ export default function DiscordLandingPage() {
                 <div className="flex items-center gap-1.5 mb-1.5">
                   <InstagramLogo className="w-3 h-3 opacity-60" />
                   <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 font-medium">
-                    Instagram Handle
+                    Instagram Handle <span className="text-white/40 normal-case tracking-normal">(Optional)</span>
                   </label>
                 </div>
                 <input
                   type="text"
-                  required
                   value={form.handle}
                   onChange={(e) => setForm({ ...form, handle: e.target.value })}
                   className="w-full px-4 py-3 text-xs rounded-none border border-white/20 bg-black/60 text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"

@@ -163,8 +163,8 @@ export default function AdminPage() {
               <span>Avg. Rating</span>
               <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
             </div>
-            <div className="text-2xl font-bold text-white">4.9 / 5.0</div>
-            <div className="text-[11px] text-[#9eb6a6] mt-0.5">Google Reviews Standard</div>
+            <div className="text-2xl font-bold text-white">5.0 / 5.0</div>
+            <div className="text-[11px] text-[#9eb6a6] mt-0.5">Early Access Feedback</div>
           </div>
 
           <div className="p-4 rounded-xl bg-[#17271d] border border-[#294232]">

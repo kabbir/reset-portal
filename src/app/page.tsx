@@ -12,7 +12,6 @@ import {
 import Navbar from "@/components/Navbar";
 import {
   StripeLogo,
-  GoogleLogo,
   AppleLogo,
   KindleLogo,
   InstagramLogo
@@ -206,24 +205,24 @@ export default function GuideLandingPage() {
       </section>
 
       {/* =========================================================================
-         3. REVIEWS & TESTIMONIALS WITH MONOCHROME GOOGLE REVIEWS LOGO
+         3. REVIEWS & TESTIMONIALS (PRIVATE PRE-RELEASE READER FEEDBACK)
          ========================================================================= */}
       <section className="relative py-20 px-4 sm:px-8 max-w-7xl mx-auto border-t border-black/15">
         <div className="flex flex-col sm:flex-row items-baseline justify-between gap-4 mb-12">
           <div>
             <div className="flex items-center gap-2 text-black/70 mb-2">
-              <GoogleLogo className="w-3.5 h-3.5 opacity-80" />
+              <span className="w-1.5 h-1.5 bg-black rounded-none" />
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-3 h-3 fill-black text-black" />
                 ))}
               </div>
               <span className="text-[11px] font-medium text-black uppercase tracking-[0.25em] ml-1">
-                4.96 / 5.0 Rating • Verified Reviews
+                Private Pre-Release · Early Reader Feedback
               </span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-light uppercase tracking-[0.18em] text-[#121814]">
-              What Readers Are Saying
+              What Early Readers Are Saying
             </h2>
           </div>
 
@@ -231,7 +230,7 @@ export default function GuideLandingPage() {
             onClick={() => setShowReviewModal(true)}
             className="rr-btn px-6 py-2.5 text-[10px] font-medium border border-black/30 hover:border-black text-[#121814] transition-colors rounded-none"
           >
-            Leave A Review
+            Leave Feedback
           </button>
         </div>
 
@@ -244,13 +243,10 @@ export default function GuideLandingPage() {
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-1.5">
-                    <GoogleLogo className="w-3 h-3 opacity-60" />
-                    <div className="flex items-center gap-0.5 text-black">
-                      {[...Array(rev.rating || 5)].map((_, i) => (
-                        <Star key={i} className="w-3 h-3 fill-black text-black" />
-                      ))}
-                    </div>
+                  <div className="flex items-center gap-0.5 text-black">
+                    {[...Array(rev.rating || 5)].map((_, i) => (
+                      <Star key={i} className="w-3 h-3 fill-black text-black" />
+                    ))}
                   </div>
                   <span className="text-[10px] uppercase tracking-[0.25em] text-black/40">
                     {rev.date}
@@ -265,7 +261,7 @@ export default function GuideLandingPage() {
                   {rev.name}
                 </span>
                 <span className="text-[9px] uppercase tracking-[0.25em] text-black/50">
-                  Verified Reader
+                  Early Access Reader
                 </span>
               </div>
             </div>
@@ -396,16 +392,16 @@ export default function GuideLandingPage() {
             </button>
 
             <div className="flex items-center gap-1.5 mb-1 text-black/50">
-              <GoogleLogo className="w-3 h-3 opacity-70" />
+              <span className="w-1.5 h-1.5 bg-black rounded-none" />
               <span className="text-[10px] uppercase tracking-[0.3em] font-medium">
-                Verified Feedback
+                Early Reader Feedback
               </span>
             </div>
             <h3 className="text-base font-medium uppercase tracking-[0.2em] text-[#121814] mb-2">
-              Leave A Review
+              Leave Feedback
             </h3>
             <p className="text-xs text-black/60 font-light mb-6">
-              Share your honest thoughts on The Self-Mastery Guide.
+              Share your honest advance thoughts on The Self-Mastery Guide.
             </p>
 
             {reviewSubmitted ? (

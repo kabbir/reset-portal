@@ -31,11 +31,11 @@ interface ReviewItem {
 }
 
 const ROTATING_PILLARS = [
-  "CALM UNDER PRESSURE",
-  "EMOTIONAL CONTROL",
-  "DAILY DISCIPLINE",
-  "QUIET CONFIDENCE",
-  "CLEAR THINKING"
+  "LOOKING DEEP WITHIN",
+  "FACING YOUR OWN FAULTS",
+  "TIMELESS LIFE LESSONS",
+  "REAL SELF-HONESTY",
+  "CHANGING HOW YOU LIVE"
 ];
 
 export default function GuideLandingPage() {
@@ -109,16 +109,16 @@ export default function GuideLandingPage() {
 
   const faqs = [
     {
-      q: "WHAT FORMAT DOES THE GUIDE COME IN?",
-      a: "The Guide is a clean 112-page PDF. It looks sharp and reads easily on your iPad, iPhone, Android, Kindle, Mac, or PC. You can also print it out if you prefer reading and writing on paper. You receive an immediate download link right after checkout."
+      q: "WHAT IS ACTUALLY INSIDE THE GUIDE?",
+      a: "It brings together the best learnings from the most famous books, thinkers, and authors in history—all combined into one 112-page guide. Instead of reading 50 separate books, you get their sharpest life lessons in one place, paired with honest daily questions that make you look within and see what you need to change in your own life."
     },
     {
       q: "HOW DOES THE DAILY ROUTINE WORK?",
-      a: "It takes less than 10 minutes a day: Read 1 Page in the morning, and Write 1 Page at night. In the morning, you read a single short lesson on focus, emotional control, or personal boundaries. At night before bed, you answer a quick prompt to review how you handled your day."
+      a: "It takes less than 10 minutes a day: Read 1 Page in the morning, and Write 1 Page at night. On the left page, you read a timeless lesson distilled from a great thinker or book. On the facing right page, you answer a direct question that forces you to look at your own habits, excuses, and faults."
     },
     {
-      q: "IS THERE ANY MOTIVATIONAL FLUFF OR CLICHÉS?",
-      a: "None at all. No vague slogans, no academic jargon, and no filler. Every page gets straight to the point with practical ideas and honest reflections you can actually use that day."
+      q: "WHAT FORMAT DOES THE GUIDE COME IN?",
+      a: "The Guide is a clean 112-page PDF. It looks sharp and reads easily on your iPad, iPhone, Android, Kindle, Mac, or PC. You can also print it out if you prefer reading and writing on paper. You receive an immediate download link right after checkout."
     }
   ];
 
@@ -162,7 +162,7 @@ export default function GuideLandingPage() {
 
           {/* Subtitle - Simple, Grounded, Punchy */}
           <p className="text-xs sm:text-sm md:text-base text-black/75 font-light leading-relaxed mb-8 max-w-xl tracking-[0.01em]">
-            A 112-page practical guide with 47 proven mental frameworks and simple nightly reflections. Built for people who want real self-discipline, focus, and emotional control in everyday life.
+            A complete set of learnings combining the best books and famous lessons from the greatest thinkers and authors in history—all in one 112-page guide. Built to make you look deep within, find the faults within yourself, and see the exact areas of your life you need to change.
           </p>
 
           {/* Action Buttons: Primary Stripe Checkout + Learn More Subpage */}
@@ -315,10 +315,10 @@ export default function GuideLandingPage() {
             Instant Digital Download
           </span>
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-light tracking-[0.16em] uppercase mb-4 leading-tight">
-            Start Your Daily Reset Today.
+            Look Within. Change Your Life.
           </h2>
           <p className="text-xs sm:text-sm text-white/60 font-light mb-10 max-w-xl mx-auto tracking-[0.02em] leading-relaxed">
-            112 pages of simple mental frameworks and nightly journaling prompts. Delivered straight to your inbox the second you complete checkout.
+            112 pages combining the greatest books and life lessons ever written with honest daily reflection prompts. Delivered straight to your inbox the second you complete checkout.
           </p>
 
           <a

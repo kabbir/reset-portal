@@ -18,50 +18,50 @@ export default function GuideDetailPage() {
 
   const faqs = [
     {
-      q: "WHAT FORMAT DOES THE GUIDE COME IN?",
-      a: "The Guide is a clean 112-page digital PDF. It is formatted to look sharp and read easily on your iPad, iPhone, Android, Kindle, Mac, or PC. You can also print it out if you prefer writing with pen and paper. You get an immediate download link right after checkout."
+      q: "WHAT IS ACTUALLY INSIDE THE GUIDE?",
+      a: "It is a complete collection of the best learnings from the most famous books, thinkers, and authors in history—all combined into one 112-page guide. From Marcus Aurelius, Seneca, and Carl Jung to Robert Greene, James Clear, and David Goggins, their core lessons are distilled into single pages and paired with direct questions that make you examine your own life."
     },
     {
       q: "HOW DOES THE DAILY ROUTINE WORK?",
-      a: "It takes less than 10 minutes a day: Read 1 Page in the morning, and Write 1 Page at night. In the morning, you read a single short thought on focus, boundaries, or calm composure. At night before bed, you answer a single honest question to review your day and clear your head."
+      a: "It takes less than 10 minutes a day: Read 1 Page in the morning, and Write 1 Page at night. On the left page, you read a timeless lesson distilled from a famous book or thinker. On the facing right page, you answer an honest question that makes you look deep within yourself and spot what you need to change."
     },
     {
-      q: "IS THERE ANY FLUFF OR COMPLICATED JARGON?",
-      a: "None at all. No vague slogans, no academic theories, and no filler. Every page gets straight to the point with honest, practical truths you can actually apply to your real life that day."
+      q: "WHAT FORMAT DOES THE GUIDE COME IN?",
+      a: "The Guide is a clean 112-page digital PDF. It is formatted to look sharp and read easily on your iPad, iPhone, Android, Kindle, Mac, or PC. You can also print it out if you prefer writing with pen and paper. You get an immediate download link right after checkout."
     }
   ];
 
-  /* The 5 Diverse Real-Life Problems */
+  /* The 5 Diverse Real-Life Problems & Looking Deep Within */
   const struggles = [
     {
       num: "01",
-      problem: "When you feel secretly behind in life",
+      problem: "When you keep repeating the same mistakes and don't know why",
       explanation:
-        "You look at peers or social media and get that quiet sinking panic that you're running out of time, even when things look fine on paper. The guide cuts straight through the comparison trap. It reminds you who you are actually building for, pulls your focus away from everyone else, and grounds you back in your own daily standard."
+        "Most people go through years of life blaming bad luck, timing, or other people without ever seeing their own blind spots. By combining the sharpest lessons on human nature from thinkers like Carl Jung, Seneca, and Robert Greene, the guide holds up a mirror to your daily behavior—helping you finally see the patterns and faults within yourself that are holding you back."
     },
     {
       num: "02",
       problem: "When you keep putting things off and breaking promises to yourself",
       explanation:
-        "You make big plans in your head, but when the day comes, you avoid the hard work, scroll instead, and go to bed with that subtle guilt eating at your self-respect. The guide doesn't lecture or hype you up. The facing write-page forces you to look at your honest excuses without judgment, helping you rebuild self-trust one day at a time."
+        "You set goals in your head, but when the day comes, you take the easy route and go to bed with quiet guilt eating at your self-respect. Drawing from the best teachings on habits and human resistance—from James Clear and Steven Pressfield to David Goggins—the guide forces you to look at your own excuses on paper and change how you show up every day."
     },
     {
       num: "03",
-      problem: "When someone tests your patience or pushes you to react",
+      problem: "When you feel secretly behind or lost in your own life",
       explanation:
-        "An unexpected disagreement, an irritating remark, or someone disrespecting your boundary. Old habits make you react right away, say something you regret, or stay angry for hours. The guide gives you the quiet power of the pause—learning to stay silent, lower your voice, and stay in complete control while everyone else is losing theirs."
+        "You look at people around you or online and feel like you are running out of time, chasing things you don't even care about just to keep up. Through the timeless writings of Marcus Aurelius, Emerson, and Thoreau, the guide makes you question what you are actually building, strip away fake ambitions, and fix the areas of your life that feel empty."
     },
     {
       num: "04",
-      problem: "When your mind won't stop overthinking at night",
+      problem: "When you care too much about other people's opinions",
       explanation:
-        "Replaying old conversations, worrying about what someone thought of you, or carrying the day's stress straight into bed. The evening prompts give you a place to dump the mental chaos. You get the thoughts out of your chest and onto paper, closing the open tabs in your brain so you can sleep peacefully."
+        "Saying yes when you want to say no, changing how you act to fit in, or letting someone else's disrespect ruin your peace. Combining the famous lessons of Epictetus, Schopenhauer, and Nietzsche, the guide makes you confront where you are giving your power away so you can build real self-respect from within."
     },
     {
       num: "05",
-      problem: "When you care too much about being liked",
+      problem: "When you read books or watch videos but never actually change",
       explanation:
-        "Saying yes to things you hate just to keep the peace, modifying your personality around different people, or worrying about looking foolish. The lessons give you the courage to be quietly misunderstood. You learn to speak with honesty, hold your boundaries, and build self-respect from within."
+        "You can read twenty books or save hundreds of advice videos and still stay the exact same person—because passive reading never forces you to look at yourself. Here, every famous lesson is paired with a facing reflection page that asks you the hard questions about your own life, turning wisdom from the greatest minds into real personal change."
     }
   ];
 
@@ -83,7 +83,7 @@ export default function GuideDetailPage() {
         </Link>
 
         <span className="text-[11px] uppercase tracking-[0.35em] text-black/50 font-medium block mb-4">
-          112 Pages · 47 Lessons & Prompts
+          112 Pages · 47 Timeless Lessons & Self-Reflections
         </span>
 
         <h1 className="text-3xl sm:text-6xl font-light tracking-[0.14em] text-[#121814] uppercase leading-[1.12] mb-6">
@@ -91,7 +91,7 @@ export default function GuideDetailPage() {
         </h1>
 
         <p className="text-base sm:text-lg text-black/75 font-light leading-relaxed max-w-2xl tracking-[0.01em] mb-10">
-          A simple daily standard for keeping your mind calm, your focus clear, and your self-respect intact—no matter what life throws at you.
+          The best combinations of the greatest books and famous life lessons from history&apos;s sharpest thinkers, authors, and minds—all brought together in one guide to make you look deep within, find the faults within yourself, and change the areas of your life holding you back.
         </p>
 
         {/* Action Button & Instant Delivery Note */}
@@ -118,13 +118,13 @@ export default function GuideDetailPage() {
       <section className="relative py-16 sm:py-24 px-4 sm:px-8 max-w-4xl mx-auto">
         <div className="mb-14">
           <span className="text-[11px] uppercase tracking-[0.35em] text-black/40 block mb-3 font-medium">
-            The Daily Routine
+            How It Works
           </span>
           <h2 className="text-2xl sm:text-4xl font-light uppercase tracking-[0.16em] text-[#121814] mb-4">
             Read 1 Page. Write 1 Page.
           </h2>
-          <p className="text-sm sm:text-base text-black/65 font-light leading-relaxed max-w-xl">
-            It takes under 10 minutes a day. Designed to act like a grounded friend who keeps you on the right path.
+          <p className="text-sm sm:text-base text-black/65 font-light leading-relaxed max-w-2xl">
+            Instead of reading dozens of 300-page books and forgetting 90% of what you read, every spread gives you the core lesson from a legendary author or thinker on the left, and a direct mirror to examine your own life on the right.
           </p>
         </div>
 
@@ -132,37 +132,37 @@ export default function GuideDetailPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 sm:gap-12">
           <div className="space-y-3">
             <span className="text-[10px] uppercase tracking-[0.3em] font-medium text-black/40 block">
-              01 · Morning (Under 4 Min)
+              01 · Left Page
             </span>
             <h3 className="text-lg font-medium uppercase tracking-[0.14em] text-[#121814]">
               Read 1 Page
             </h3>
             <p className="text-xs sm:text-sm text-black/70 font-light leading-relaxed">
-              Start your morning with a single lesson on patience, calm, or boundaries before you check notifications or deal with other people.
+              Absorb the core truth from one of the greatest books or minds in history—from Marcus Aurelius, Seneca, and Carl Jung to Robert Greene, James Clear, and David Goggins—distilled down to what actually matters.
             </p>
           </div>
 
           <div className="space-y-3">
             <span className="text-[10px] uppercase tracking-[0.3em] font-medium text-black/40 block">
-              02 · Daytime (In Your Head)
+              02 · Look Within
             </span>
             <h3 className="text-lg font-medium uppercase tracking-[0.14em] text-[#121814]">
-              Stay Grounded
+              Spot Your Faults
             </h3>
             <p className="text-xs sm:text-sm text-black/70 font-light leading-relaxed">
-              When someone tests you, when stress hits, or when you feel tempted to react out of ego, you remember the lesson and take the pause.
+              Let that lesson sit with you and challenge the way you live. Notice where your own ego, habits, or excuses are the real reason certain parts of your life aren&apos;t where they should be.
             </p>
           </div>
 
           <div className="space-y-3">
             <span className="text-[10px] uppercase tracking-[0.3em] font-medium text-black/40 block">
-              03 · Night (Under 3 Min)
+              03 · Right Page
             </span>
             <h3 className="text-lg font-medium uppercase tracking-[0.14em] text-[#121814]">
               Write 1 Page
             </h3>
             <p className="text-xs sm:text-sm text-black/70 font-light leading-relaxed">
-              Answer the single question on the facing page. Review your day honestly, admit where you slipped, and close your day with a clear head.
+              Answer the direct prompt on the facing page. Be completely honest with yourself about your blind spots, admit where you are falling short, and write down what you are going to change.
             </p>
           </div>
         </div>
@@ -175,13 +175,13 @@ export default function GuideDetailPage() {
       <section className="relative py-16 sm:py-24 px-4 sm:px-8 max-w-4xl mx-auto">
         <div className="mb-16">
           <span className="text-[11px] uppercase tracking-[0.35em] text-black/40 block mb-3 font-medium">
-            Real Life Solutions
+            Why It Works
           </span>
           <h2 className="text-2xl sm:text-4xl font-light uppercase tracking-[0.16em] text-[#121814] mb-4">
-            Built For What You Actually Go Through
+            A Mirror For Every Area Of Your Life
           </h2>
           <p className="text-sm sm:text-base text-black/65 font-light leading-relaxed max-w-2xl">
-            Real life doesn&apos;t test you with abstract ideas. It tests you when you&apos;re tired, stressed, or secretly doubting yourself. Here is how the guide helps you through those exact moments:
+            Every chapter combines the wisdom of a great thinker or author with deep self-reflection—so no matter what problem you are facing right now, it helps you look within, see where you are going wrong, and fix it:
           </p>
         </div>
 

@@ -16,14 +16,15 @@ export default function Navbar({ activePage }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header
-      className={`sticky top-0 z-50 w-full backdrop-blur-md transition-colors duration-500 ${
-        activePage === "discord"
-          ? "bg-[#0b0b0b]/95 border-b border-white/15 text-white"
-          : "bg-[#fbfaf6]/95 border-b border-black/15 text-[#121814]"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 h-18 sm:h-20 flex items-center justify-between">
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 w-full backdrop-blur-md transition-colors duration-500 ${
+          activePage === "discord"
+            ? "bg-[#0a0a0a]/90 text-white"
+            : "bg-[#fbfaf6]/90 text-[#121814]"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 h-16 sm:h-20 flex items-center justify-between">
         {/* Brand / Logo */}
         <Link href="/" className="flex items-center gap-3.5 shrink-0 group">
           <Image
@@ -165,6 +166,9 @@ export default function Navbar({ activePage }: NavbarProps) {
           </div>
         </div>
       )}
-    </header>
+      </header>
+      {/* Spacer so fixed navbar never overlaps top page content */}
+      <div className="h-16 sm:h-20 w-full shrink-0" />
+    </>
   );
 }

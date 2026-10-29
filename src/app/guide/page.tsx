@@ -264,12 +264,12 @@ export default function GuideDetailPage() {
           </h2>
         </div>
 
-        <div className="divide-y divide-black/10 border-t border-b border-black/10">
+        <div className="space-y-4">
           {faqs.map((faq, idx) => (
             <div key={idx} className="transition-all">
               <button
                 onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                className="w-full py-5 text-left flex items-center justify-between gap-4 text-xs sm:text-sm font-medium uppercase tracking-[0.18em] text-[#121814] hover:text-black/60 transition-colors cursor-pointer"
+                className="w-full py-4 text-left flex items-center justify-between gap-4 text-xs sm:text-sm font-medium uppercase tracking-[0.18em] text-[#121814] hover:text-black/60 transition-colors cursor-pointer"
               >
                 <span>{faq.q}</span>
                 <ChevronDown
@@ -279,7 +279,7 @@ export default function GuideDetailPage() {
                 />
               </button>
               {openFaq === idx && (
-                <div className="pb-6 text-xs sm:text-sm text-black/70 font-light leading-relaxed">
+                <div className="pb-5 text-xs sm:text-sm text-black/70 font-light leading-relaxed">
                   {faq.a}
                 </div>
               )}

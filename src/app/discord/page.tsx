@@ -142,13 +142,13 @@ export default function DiscordLandingPage() {
       <Navbar activePage="discord" />
 
       {/* =========================================================================
-         1. HERO SECTION: ROLLS-ROYCE OBSIDIAN LUXURY WITH DISCORD LOGO
+         1. HERO SECTION: SEAMLESS OPEN EDITORIAL LUXURY (ZERO BOXES OR GRID LINES)
          ========================================================================= */}
-      <section className="relative pt-20 sm:pt-32 pb-16 px-4 sm:px-8 max-w-6xl mx-auto text-center">
-        {/* Eyebrow Kicker with Official Discord Mark */}
-        <div className="inline-flex items-center justify-center gap-2 mb-6 text-white/60 border border-white/15 px-4 py-1.5 rounded-none bg-white/5">
+      <section className="relative pt-20 sm:pt-32 pb-16 px-4 sm:px-8 max-w-5xl mx-auto text-center">
+        {/* Eyebrow Kicker with Official Discord Mark (No Box Frame) */}
+        <div className="inline-flex items-center justify-center gap-2 mb-6 text-white/60">
           <DiscordLogo className="w-4 h-4 opacity-80" />
-          <span className="font-riviera text-[11px] uppercase tracking-[0.3em] font-medium text-white/70">
+          <span className="font-riviera text-[11px] uppercase tracking-[0.3em] font-medium text-white/60">
             PRIVATE CREATOR COMMUNITY · CONTENT & MONETIZATION
           </span>
         </div>
@@ -166,8 +166,8 @@ export default function DiscordLandingPage() {
           The exact hook formulas, video formats, batch creation setup, and monetization steps behind OurLife.Reset. Everything you need to grow your account to 30,000+ followers and make real income.
         </p>
 
-        {/* Action Buttons - Sharp Geometry with Discord Logo */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
           <a
             href="#enroll"
             className="rr-btn w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-10 py-4 text-xs font-medium tracking-[0.25em] uppercase border border-white bg-white text-black hover:bg-transparent hover:text-white transition-all duration-400"
@@ -184,9 +184,9 @@ export default function DiscordLandingPage() {
           </a>
         </div>
 
-        {/* Rolls-Royce 4-Metric Razor Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 border-t border-b border-white/15 my-12 text-left">
-          <div className="py-8 px-6 border-r border-b md:border-b-0 border-white/15">
+        {/* Seamless 4-Metric Open Row — Zero Grid Lines or Boxes */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 pt-4 text-center">
+          <div>
             <div className="font-riviera text-3xl sm:text-4xl font-light tracking-[0.08em] text-white">
               30,000+
             </div>
@@ -195,7 +195,7 @@ export default function DiscordLandingPage() {
             </div>
           </div>
 
-          <div className="py-8 px-6 border-b md:border-b-0 md:border-r border-white/15">
+          <div>
             <div className="font-riviera text-3xl sm:text-4xl font-light tracking-[0.08em] text-white">
               10M+
             </div>
@@ -204,7 +204,7 @@ export default function DiscordLandingPage() {
             </div>
           </div>
 
-          <div className="py-8 px-6 border-r border-white/15">
+          <div>
             <div className="font-riviera text-3xl sm:text-4xl font-light tracking-[0.08em] text-white">
               100%
             </div>
@@ -213,7 +213,7 @@ export default function DiscordLandingPage() {
             </div>
           </div>
 
-          <div className="py-8 px-6">
+          <div>
             <div className="font-riviera text-3xl sm:text-4xl font-light tracking-[0.08em] text-white">
               80%+
             </div>
@@ -227,9 +227,9 @@ export default function DiscordLandingPage() {
       {/* =========================================================================
          2. REELS MONTAGE & HOOK: OVERWHELMED BY SOCIAL MEDIA NOISE?
          ========================================================================= */}
-      <section className="relative py-20 px-4 sm:px-8 max-w-5xl mx-auto border-t border-white/15">
+      <section className="relative py-20 sm:py-28 px-4 sm:px-8 max-w-5xl mx-auto">
         <div className="text-center mb-12">
-          <span className="font-riviera text-[11px] uppercase tracking-[0.35em] text-white/50 block mb-3 font-medium">
+          <span className="font-riviera text-[11px] uppercase tracking-[0.35em] text-white/40 block mb-3 font-medium">
             THE SOCIAL MEDIA TRAP
           </span>
           <h2 className="font-riviera text-2xl sm:text-4xl md:text-5xl font-light uppercase tracking-[0.14em] text-white max-w-3xl mx-auto leading-tight">
@@ -240,8 +240,8 @@ export default function DiscordLandingPage() {
           </p>
         </div>
 
-        {/* Vertical Reel Video Montage Frame - Pure Sharp Rolls-Royce Geometry */}
-        <div className="relative max-w-[320px] sm:max-w-[360px] mx-auto border border-white/20 bg-black rounded-none shadow-[0_25px_60px_rgba(0,0,0,0.9)] overflow-hidden">
+        {/* Vertical Reel Video Montage (Frameless, Seamless) */}
+        <div className="relative max-w-[320px] sm:max-w-[360px] mx-auto bg-black overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.9)]">
           {/* Video Player (9:16 Vertical Reel Ratio - Continuous Autoplay) */}
           <div className="relative aspect-[9/16] w-full bg-black">
             <video
@@ -256,7 +256,7 @@ export default function DiscordLandingPage() {
 
             {/* Big Floating White Center Blob */}
             <div className="absolute inset-0 flex items-center justify-center p-4 sm:p-5 pointer-events-none z-10">
-              <div className="bg-white text-black px-5 py-5 sm:px-6 sm:py-6 rounded-[28px] sm:rounded-[36px] shadow-[0_25px_60px_rgba(0,0,0,0.9)] border border-black/10 text-center max-w-[270px] sm:max-w-[290px]">
+              <div className="bg-white text-black px-5 py-5 sm:px-6 sm:py-6 rounded-[28px] sm:rounded-[36px] shadow-[0_25px_60px_rgba(0,0,0,0.9)] text-center max-w-[270px] sm:max-w-[290px]">
                 <p className="font-riviera font-black text-xs sm:text-[13px] uppercase tracking-wider leading-[1.38] text-black">
                   SO MUCH INFO AVAILABLE TODAY BUT NONE OF THESE GUYS PERSONALLY HELP YOU BUILD ANY OF IT FROM START TO FINISH
                 </p>
@@ -266,10 +266,10 @@ export default function DiscordLandingPage() {
         </div>
 
         {/* Callout below video */}
-        <div className="mt-8 text-center">
+        <div className="mt-10 text-center">
           <a
             href="#curriculum"
-            className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-white/60 hover:text-white transition-colors border-b border-white/20 pb-1"
+            className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-white/55 hover:text-white transition-colors"
           >
             <span>See how we turn this into a simple 5-step blueprint</span>
             <span className="text-white/40">↓</span>
@@ -278,56 +278,56 @@ export default function DiscordLandingPage() {
       </section>
 
       {/* =========================================================================
-         3. CURRICULUM MODULES (ROLLS-ROYCE EDITORIAL ARCHITECTURE)
+         3. CURRICULUM MODULES (SEAMLESS OPEN EDITORIAL FLOW — NO LINES OR BOXES)
          ========================================================================= */}
-      <section id="curriculum" className="relative py-20 px-4 sm:px-8 max-w-6xl mx-auto border-t border-white/15">
-        <div className="text-center mb-16">
-          <span className="font-riviera text-xs uppercase tracking-[0.35em] text-white/50 block mb-3 font-medium">
+      <section id="curriculum" className="relative py-20 sm:py-28 px-4 sm:px-8 max-w-5xl mx-auto">
+        <div className="mb-16 sm:mb-20">
+          <span className="font-riviera text-[11px] uppercase tracking-[0.35em] text-white/40 block mb-3 font-medium">
             COURSE BREAKDOWN
           </span>
-          <h2 className="font-riviera text-2xl sm:text-4xl font-light uppercase tracking-[0.2em] text-white">
+          <h2 className="font-riviera text-2xl sm:text-4xl font-light uppercase tracking-[0.18em] text-white mb-4">
             WHAT YOU LEARN INSIDE
           </h2>
-          <p className="font-riviera text-xs sm:text-sm text-white/50 max-w-xl mx-auto mt-3 font-light tracking-wide">
+          <p className="font-riviera text-sm sm:text-base text-white/55 max-w-2xl font-light leading-relaxed tracking-wide">
             No boring theory. No gatekeeping. Just the exact, real-world steps to build an audience that actually cares and turn your views into real money.
           </p>
         </div>
 
-        {/* Modules Grid - Separated by Razor Thin Lines */}
-        <div className="border-t border-b border-white/15 divide-y divide-white/15">
+        {/* Seamless Flowing Modules List — Zero Divider Lines, Zero Box Borders */}
+        <div className="space-y-16 sm:space-y-24">
           {modules.map((mod) => (
             <div
               key={mod.num}
-              className="grid grid-cols-1 md:grid-cols-12 py-12 sm:py-16 gap-8 items-start group"
+              className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-12 items-start"
             >
               {/* Left Column: Module Title & Narrative */}
-              <div className="md:col-span-6 pr-0 md:pr-8">
-                <span className="font-riviera text-xs uppercase tracking-[0.3em] text-white/40 font-medium block mb-3">
+              <div className="md:col-span-6">
+                <span className="font-riviera text-xs uppercase tracking-[0.3em] text-white/35 font-medium block mb-3">
                   PART {mod.num}
                 </span>
                 <h3 className="font-riviera text-xl sm:text-2xl font-light uppercase tracking-[0.14em] text-white mb-2 leading-snug">
                   {mod.title}
                 </h3>
-                <span className="font-riviera text-[11px] uppercase tracking-[0.2em] text-white/60 font-light block mb-4">
+                <span className="font-riviera text-[11px] uppercase tracking-[0.2em] text-white/55 font-light block mb-4">
                   {mod.tagline}
                 </span>
-                <p className="font-riviera text-xs sm:text-sm text-white/50 leading-relaxed font-light">
+                <p className="font-riviera text-xs sm:text-sm text-white/55 leading-relaxed font-light">
                   {mod.desc}
                 </p>
               </div>
 
-              {/* Right Column: Architectural Deliverables */}
-              <div className="md:col-span-6 border-t md:border-t-0 md:border-l border-white/15 pt-6 md:pt-0 md:pl-10">
-                <span className="font-riviera text-[10px] uppercase tracking-[0.3em] text-white/40 block mb-4 font-medium">
-                  WHAT YOU GET:
+              {/* Right Column: Deliverables (Open Layout, No Border Lines) */}
+              <div className="md:col-span-6 md:pt-7">
+                <span className="font-riviera text-[10px] uppercase tracking-[0.3em] text-white/35 block mb-4 font-medium">
+                  WHAT YOU GET
                 </span>
                 <div className="space-y-4">
                   {mod.highlights.map((h, i) => (
                     <div
                       key={i}
-                      className="flex items-start gap-3.5 text-xs font-light text-white/80 tracking-wide leading-relaxed"
+                      className="flex items-start gap-3.5 text-xs sm:text-sm font-light text-white/80 tracking-wide leading-relaxed"
                     >
-                      <span className="w-1.5 h-1.5 bg-white/60 shrink-0 mt-1.5 rounded-none" />
+                      <span className="w-1.5 h-1.5 bg-white/50 shrink-0 mt-2 rounded-none" />
                       <span>{h}</span>
                     </div>
                   ))}
@@ -339,24 +339,24 @@ export default function DiscordLandingPage() {
       </section>
 
       {/* =========================================================================
-         4. ENROLLMENT & APPLICATION ($29 PRICING) WITH STRIPE & DISCORD LOGOS
+         4. ENROLLMENT ($29 PRICING) — SEAMLESS OPEN FORM (NO OUTER BOX FRAME)
          ========================================================================= */}
-      <section id="enroll" className="relative py-20 px-4 sm:px-8 max-w-6xl mx-auto border-t border-white/15">
-        <div className="text-center mb-14">
-          <span className="font-riviera text-xs uppercase tracking-[0.35em] text-white/50 block mb-3 font-medium">
+      <section id="enroll" className="relative py-20 sm:py-28 px-4 sm:px-8 max-w-2xl mx-auto">
+        <div className="text-center mb-12">
+          <span className="font-riviera text-[11px] uppercase tracking-[0.35em] text-white/40 block mb-3 font-medium">
             INSTANT MEMBERSHIP
           </span>
-          <h2 className="font-riviera text-2xl sm:text-4xl font-light uppercase tracking-[0.2em] text-white">
+          <h2 className="font-riviera text-2xl sm:text-4xl font-light uppercase tracking-[0.18em] text-white mb-3">
             CLAIM DISCORD ACCESS
           </h2>
-          <p className="font-riviera text-xs sm:text-sm text-white/50 max-w-xl mx-auto mt-2 font-light tracking-wide">
+          <p className="font-riviera text-xs sm:text-sm text-white/55 max-w-xl mx-auto font-light leading-relaxed tracking-wide">
             Direct access to me, live weekly account reviews, our private viral quote vault, and simple batch creation templates.
           </p>
         </div>
 
-        {/* Centered Instant Claim Access Form - Clean & Focused */}
-        <div className="max-w-xl mx-auto border border-white/15 bg-[#0e0e0e] p-8 sm:p-12 rounded-none">
-          <div className="flex items-center justify-between border-b border-white/15 pb-5 mb-8">
+        {/* Seamless Open Enrollment Flow — No Box Border */}
+        <div>
+          <div className="flex items-baseline justify-between mb-10">
             <div>
               <span className="font-riviera text-[10px] uppercase tracking-[0.3em] text-white/40 block mb-1 font-medium">
                 MONTHLY MEMBERSHIP
@@ -376,131 +376,124 @@ export default function DiscordLandingPage() {
             </div>
           </div>
 
-          <h3 className="font-riviera text-xl sm:text-2xl font-light uppercase tracking-[0.16em] text-white mb-2">
-            CLAIM DISCORD ACCESS
-          </h3>
-          <p className="font-riviera text-xs text-white/50 mb-8 font-light leading-relaxed">
-            Enter your details below to claim your spot. You will be redirected to secure Stripe checkout to complete your $29 membership and receive instant single-use Discord access.
-          </p>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {errorMsg && (
+              <div className="p-3 bg-red-950/30 text-xs text-red-300 font-light">
+                {errorMsg}
+              </div>
+            )}
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              {errorMsg && (
-                <div className="p-3 border border-red-500/40 bg-red-950/20 text-xs text-red-300 font-light">
-                  {errorMsg}
-                </div>
-              )}
+            <div>
+              <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-2 font-medium">
+                Full Name
+              </label>
+              <input
+                type="text"
+                required
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                className="w-full px-4 py-3.5 text-xs rounded-none border border-white/15 bg-white/[0.03] text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"
+                placeholder="Alex Bennett"
+              />
+            </div>
 
-              <div>
-                <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-1.5 font-medium">
-                  Full Name
+            <div>
+              <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-2 font-medium">
+                Email Address
+              </label>
+              <input
+                type="email"
+                required
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                className="w-full px-4 py-3.5 text-xs rounded-none border border-white/15 bg-white/[0.03] text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"
+                placeholder="alex@example.com"
+              />
+            </div>
+
+            <div>
+              <div className="flex items-center gap-1.5 mb-2">
+                <InstagramLogo className="w-3 h-3 opacity-60" />
+                <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 font-medium">
+                  Instagram Handle <span className="text-white/40 normal-case tracking-normal">(Optional)</span>
                 </label>
-                <input
-                  type="text"
-                  required
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full px-4 py-3 text-xs rounded-none border border-white/20 bg-black/60 text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"
-                  placeholder="Alex Bennett"
-                />
               </div>
+              <input
+                type="text"
+                value={form.handle}
+                onChange={(e) => setForm({ ...form, handle: e.target.value })}
+                className="w-full px-4 py-3.5 text-xs rounded-none border border-white/15 bg-white/[0.03] text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"
+                placeholder="@yourhandle"
+              />
+            </div>
 
-              <div>
-                <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-1.5 font-medium">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="w-full px-4 py-3 text-xs rounded-none border border-white/20 bg-black/60 text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"
-                  placeholder="alex@example.com"
-                />
-              </div>
-
-              <div>
-                <div className="flex items-center gap-1.5 mb-1.5">
-                  <InstagramLogo className="w-3 h-3 opacity-60" />
-                  <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 font-medium">
-                    Instagram Handle <span className="text-white/40 normal-case tracking-normal">(Optional)</span>
-                  </label>
-                </div>
-                <input
-                  type="text"
-                  value={form.handle}
-                  onChange={(e) => setForm({ ...form, handle: e.target.value })}
-                  className="w-full px-4 py-3 text-xs rounded-none border border-white/20 bg-black/60 text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"
-                  placeholder="@yourhandle"
-                />
-              </div>
-
-              <div>
-                <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-1.5 font-medium">
-                  Current Followers
-                </label>
-                <select
-                  value={form.currentFollowers}
-                  onChange={(e) => setForm({ ...form, currentFollowers: e.target.value })}
-                  className="w-full px-4 py-3 text-xs rounded-none border border-white/20 bg-black text-white focus:border-white focus:outline-none transition-colors"
-                >
-                  <option value="0 - 1k">0 - 1,000 (Just starting)</option>
-                  <option value="1k - 5k">1,000 - 5,000 (Early traction)</option>
-                  <option value="5k - 20k">5,000 - 20,000 (Scaling phase)</option>
-                  <option value="20k+">20,000+ (Looking to automate & monetize)</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-1.5 font-medium">
-                  What is your main goal right now?
-                </label>
-                <textarea
-                  rows={2}
-                  value={form.challenge}
-                  onChange={(e) => setForm({ ...form, challenge: e.target.value })}
-                  className="w-full px-4 py-3 text-xs rounded-none border border-white/20 bg-black/60 text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"
-                  placeholder="Scale to 30k, automate daily reels, or monetize views?"
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={submitting}
-                className="rr-btn flex items-center justify-center gap-2.5 w-full py-4 text-xs uppercase tracking-[0.25em] font-medium border border-white bg-white text-black hover:bg-transparent hover:text-white transition-all cursor-pointer"
+            <div>
+              <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-2 font-medium">
+                Current Followers
+              </label>
+              <select
+                value={form.currentFollowers}
+                onChange={(e) => setForm({ ...form, currentFollowers: e.target.value })}
+                className="w-full px-4 py-3.5 text-xs rounded-none border border-white/15 bg-[#0a0a0a] text-white focus:border-white focus:outline-none transition-colors"
               >
-                <DiscordLogo className="w-3.5 h-3.5" />
-                <span>
-                  {submitting ? "Redirecting to Checkout..." : "Claim Discord Access — $29/mo"}
-                </span>
-              </button>
+                <option value="0 - 1k">0 - 1,000 (Just starting)</option>
+                <option value="1k - 5k">1,000 - 5,000 (Early traction)</option>
+                <option value="5k - 20k">5,000 - 20,000 (Scaling phase)</option>
+                <option value="20k+">20,000+ (Looking to automate & monetize)</option>
+              </select>
+            </div>
 
-              <div className="flex items-center justify-center gap-2 pt-1 text-[10px] uppercase tracking-[0.2em] text-white/40">
-                <StripeLogo className="h-2.5 w-auto opacity-70" />
-                <span>Secured by Stripe · Instant Access · Cancel Anytime</span>
-              </div>
-            </form>
-          </div>
+            <div>
+              <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-2 font-medium">
+                What is your main goal right now?
+              </label>
+              <textarea
+                rows={2}
+                value={form.challenge}
+                onChange={(e) => setForm({ ...form, challenge: e.target.value })}
+                className="w-full px-4 py-3.5 text-xs rounded-none border border-white/15 bg-white/[0.03] text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"
+                placeholder="Scale to 30k, automate daily reels, or monetize views?"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={submitting}
+              className="rr-btn flex items-center justify-center gap-2.5 w-full py-4 text-xs uppercase tracking-[0.25em] font-medium border border-white bg-white text-black hover:bg-transparent hover:text-white transition-all cursor-pointer mt-2"
+            >
+              <DiscordLogo className="w-3.5 h-3.5" />
+              <span>
+                {submitting ? "Redirecting to Checkout..." : "Claim Discord Access — $29/mo"}
+              </span>
+            </button>
+
+            <div className="flex items-center justify-center gap-2 pt-2 text-[10px] uppercase tracking-[0.2em] text-white/40">
+              <StripeLogo className="h-2.5 w-auto opacity-70" />
+              <span>Secured by Stripe · Instant Access · Cancel Anytime</span>
+            </div>
+          </form>
+        </div>
       </section>
 
       {/* =========================================================================
-         5. FAQS - RAZOR ACCORDION
+         5. FAQS - SEAMLESS OPEN ACCORDION (NO LINES)
          ========================================================================= */}
-      <section className="relative py-20 px-4 sm:px-8 max-w-4xl mx-auto border-t border-white/15">
+      <section className="relative py-20 sm:py-24 px-4 sm:px-8 max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <span className="font-riviera text-xs uppercase tracking-[0.35em] text-white/50 block mb-3 font-medium">
-            GOT QUESTIONS?
+          <span className="font-riviera text-[11px] uppercase tracking-[0.35em] text-white/40 block mb-3 font-medium">
+            QUESTIONS
           </span>
           <h2 className="font-riviera text-2xl sm:text-3xl font-light uppercase tracking-[0.2em] text-white">
             FREQUENTLY ASKED QUESTIONS
           </h2>
         </div>
 
-        <div className="border-t border-b border-white/15 divide-y divide-white/15">
+        <div className="space-y-4">
           {faqs.map((faq, idx) => (
             <div key={idx} className="transition-all">
               <button
                 onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                className="w-full py-5 text-left flex items-center justify-between gap-4 font-riviera font-light text-xs sm:text-sm uppercase tracking-[0.18em] text-white hover:text-white/70 transition-colors cursor-pointer"
+                className="w-full py-4 text-left flex items-center justify-between gap-4 font-riviera font-light text-xs sm:text-sm uppercase tracking-[0.18em] text-white hover:text-white/70 transition-colors cursor-pointer"
               >
                 <span>{faq.q}</span>
                 <span className="text-sm font-light text-white/50">
@@ -508,7 +501,7 @@ export default function DiscordLandingPage() {
                 </span>
               </button>
               {openFaq === idx && (
-                <div className="pb-6 font-riviera text-xs text-white/60 leading-relaxed font-light tracking-wide">
+                <div className="pb-5 font-riviera text-xs sm:text-sm text-white/60 leading-relaxed font-light tracking-wide">
                   {faq.a}
                 </div>
               )}
@@ -518,10 +511,10 @@ export default function DiscordLandingPage() {
       </section>
 
       {/* =========================================================================
-         6. FOOTER - MINIMALIST EDITORIAL WITH SOCIAL LOGOS
+         6. FOOTER - SEAMLESS EDITORIAL FOOTER (NO TOP BORDER LINE)
          ========================================================================= */}
-      <footer className="w-full border-t border-white/15 py-12 px-4 sm:px-8 text-center text-xs text-white/40 bg-black font-riviera">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+      <footer className="w-full py-12 px-4 sm:px-8 text-center text-xs text-white/40 bg-[#0a0a0a] font-riviera">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <span className="font-medium uppercase tracking-[0.25em] text-white">OurLife.Reset</span>
             <span>·</span>

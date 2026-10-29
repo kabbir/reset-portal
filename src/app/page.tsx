@@ -128,10 +128,10 @@ export default function GuideLandingPage() {
       <Navbar activePage="guide" />
 
       {/* =========================================================================
-         1. HERO SECTION: FULL-WIDTH IPAD BACKGROUND WITH HIGH-CONTRAST FROSTED SCRIM
-         Zero text clashing, crystal-clear readability, bespoke luxury architecture
+         1. HERO SECTION: FULL-WIDTH IPAD BACKGROUND WITH SEAMLESS FROSTED SCRIM
+         Zero text clashing, crystal-clear readability, no harsh box borders
          ========================================================================= */}
-      <section className="relative min-h-[85vh] sm:min-h-[88vh] flex items-center justify-center overflow-hidden py-12 sm:py-20 px-4 sm:px-8 border-b border-black/15">
+      <section className="relative min-h-[85vh] sm:min-h-[88vh] flex items-center justify-center overflow-hidden py-12 sm:py-20 px-4 sm:px-8">
         {/* Main Background Image: The Self-Mastery Guide on iPad */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -146,8 +146,8 @@ export default function GuideLandingPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#fbfaf6] via-transparent to-black/30" />
         </div>
 
-        {/* Foreground Content Card: High-Contrast Frosted Monolith */}
-        <div className="relative z-10 w-full max-w-2xl mx-auto my-auto p-6 sm:p-12 md:p-14 bg-[#fbfaf6]/95 backdrop-blur-md border border-black/15 shadow-2xl rounded-none text-left">
+        {/* Foreground Content: High-Contrast Seamless Frosted Scrim (No Hard Box Border) */}
+        <div className="relative z-10 w-full max-w-2xl mx-auto my-auto p-6 sm:p-12 md:p-14 bg-[#fbfaf6]/92 backdrop-blur-md text-left">
           <span className="text-[11px] uppercase tracking-[0.35em] text-black/50 font-medium block mb-3">
             The Self-Mastery Guide • 112 Pages
           </span>
@@ -177,25 +177,25 @@ export default function GuideLandingPage() {
 
             <Link
               href="/guide"
-              className="rr-btn inline-flex items-center justify-center gap-2 py-4 px-8 text-xs font-medium uppercase tracking-[0.2em] border border-black/30 bg-white/80 text-[#121814] hover:border-black hover:bg-black hover:text-white transition-all rounded-none"
+              className="rr-btn inline-flex items-center justify-center gap-2 py-4 px-8 text-xs font-medium uppercase tracking-[0.2em] border border-black/25 bg-white/80 text-[#121814] hover:border-black hover:bg-black hover:text-white transition-all rounded-none"
             >
               <span>Learn More</span>
               <span>→</span>
             </Link>
           </div>
 
-          {/* Trust Badges directly underneath the CTAs */}
-          <div className="flex flex-wrap items-center justify-start gap-4 sm:gap-6 text-[10px] text-black/60 uppercase tracking-[0.2em] font-medium pt-5 border-t border-black/10">
+          {/* Trust Badges directly underneath the CTAs (No Divider Line) */}
+          <div className="flex flex-wrap items-center justify-start gap-4 sm:gap-6 text-[10px] text-black/60 uppercase tracking-[0.2em] font-medium pt-2">
             <div className="flex items-center gap-1.5">
               <AppleLogo className="w-3.5 h-3.5 opacity-70" />
               <span>iPad & iPhone</span>
             </div>
-            <span>/</span>
+            <span>·</span>
             <div className="flex items-center gap-1.5">
               <KindleLogo className="w-3.5 h-3.5 opacity-70" />
               <span>Kindle & Android</span>
             </div>
-            <span>/</span>
+            <span>·</span>
             <div className="flex items-center gap-1.5">
               <FileText className="w-3.5 h-3.5 opacity-70" />
               <span>Printable PDF</span>
@@ -205,41 +205,40 @@ export default function GuideLandingPage() {
       </section>
 
       {/* =========================================================================
-         3. REVIEWS & TESTIMONIALS (PRIVATE PRE-RELEASE READER FEEDBACK)
+         2. REVIEWS & TESTIMONIALS (SEAMLESS EDITORIAL FLOW — NO BOXES OR LINES)
          ========================================================================= */}
-      <section className="relative py-20 px-4 sm:px-8 max-w-7xl mx-auto border-t border-black/15">
-        <div className="flex flex-col sm:flex-row items-baseline justify-between gap-4 mb-12">
+      <section className="relative py-20 sm:py-28 px-4 sm:px-8 max-w-5xl mx-auto">
+        <div className="flex flex-col sm:flex-row items-baseline justify-between gap-4 mb-16">
           <div>
-            <div className="flex items-center gap-2 text-black/70 mb-2">
-              <span className="w-1.5 h-1.5 bg-black rounded-none" />
+            <div className="flex items-center gap-2 text-black/70 mb-3">
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-3 h-3 fill-black text-black" />
                 ))}
               </div>
-              <span className="text-[11px] font-medium text-black uppercase tracking-[0.25em] ml-1">
+              <span className="text-[11px] font-medium text-black/50 uppercase tracking-[0.25em] ml-1">
                 Private Pre-Release · Early Reader Feedback
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-light uppercase tracking-[0.18em] text-[#121814]">
+            <h2 className="text-2xl sm:text-4xl font-light uppercase tracking-[0.16em] text-[#121814]">
               What Early Readers Are Saying
             </h2>
           </div>
 
           <button
             onClick={() => setShowReviewModal(true)}
-            className="rr-btn px-6 py-2.5 text-[10px] font-medium border border-black/30 hover:border-black text-[#121814] transition-colors rounded-none"
+            className="rr-btn px-6 py-2.5 text-[10px] font-medium border border-black/25 hover:border-black text-[#121814] transition-colors rounded-none"
           >
             Leave Feedback
           </button>
         </div>
 
-        {/* Reviews Architectural Cards — Seamlessly Connected to Header */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+        {/* Seamless Open Reviews Grid — Zero Box Frames, Zero Divider Lines */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-16">
           {reviewsList.slice(0, 4).map((rev) => (
             <div
               key={rev.id}
-              className="border border-black/15 p-6 sm:p-8 bg-white/60 flex flex-col justify-between"
+              className="flex flex-col justify-between space-y-5"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -252,15 +251,15 @@ export default function GuideLandingPage() {
                     {rev.date}
                   </span>
                 </div>
-                <p className="text-xs sm:text-sm text-black/80 font-light leading-relaxed italic mb-6">
+                <p className="text-xs sm:text-sm text-black/80 font-light leading-relaxed italic">
                   &ldquo;{rev.comment}&rdquo;
                 </p>
               </div>
-              <div className="flex items-baseline justify-between pt-4 border-t border-black/10">
+              <div className="flex items-baseline justify-between pt-2">
                 <span className="text-xs uppercase tracking-[0.2em] font-medium text-[#121814]">
                   {rev.name}
                 </span>
-                <span className="text-[9px] uppercase tracking-[0.25em] text-black/50">
+                <span className="text-[9px] uppercase tracking-[0.25em] text-black/45">
                   Early Access Reader
                 </span>
               </div>
@@ -270,34 +269,34 @@ export default function GuideLandingPage() {
       </section>
 
       {/* =========================================================================
-         4. FREQUENTLY ASKED QUESTIONS (RAZOR ACCORDION)
+         3. FREQUENTLY ASKED QUESTIONS (SEAMLESS OPEN ACCORDION)
          ========================================================================= */}
-      <section className="relative py-20 px-4 sm:px-8 max-w-4xl mx-auto border-t border-black/15">
+      <section className="relative py-16 sm:py-24 px-4 sm:px-8 max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl font-light uppercase tracking-[0.2em] text-[#121814] mb-2">
+          <span className="text-[10px] uppercase tracking-[0.3em] text-black/40 block mb-2 font-medium">
+            Questions
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-light uppercase tracking-[0.18em] text-[#121814]">
             Frequently Asked Questions
           </h2>
-          <p className="text-xs uppercase tracking-[0.3em] text-black/50 font-light">
-            Everything You Need To Know
-          </p>
         </div>
 
-        <div className="border-t border-black/15 divide-y divide-black/15">
+        <div className="space-y-4">
           {faqs.map((faq, idx) => (
             <div key={idx} className="transition-all">
               <button
                 onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                className="w-full py-5 text-left flex items-center justify-between gap-4 text-xs sm:text-sm font-medium uppercase tracking-[0.2em] text-[#121814] hover:text-black/70 transition-colors"
+                className="w-full py-4 text-left flex items-center justify-between gap-4 text-xs sm:text-sm font-medium uppercase tracking-[0.18em] text-[#121814] hover:text-black/60 transition-colors cursor-pointer"
               >
                 <span>{faq.q}</span>
                 <ChevronDown
-                  className={`w-4 h-4 text-black/50 shrink-0 transition-transform duration-300 ${
+                  className={`w-4 h-4 text-black/40 shrink-0 transition-transform duration-300 ${
                     openFaq === idx ? "rotate-180 text-black" : ""
                   }`}
                 />
               </button>
               {openFaq === idx && (
-                <div className="pb-6 text-xs sm:text-sm text-black/70 font-light leading-relaxed tracking-[0.01em]">
+                <div className="pb-5 text-xs sm:text-sm text-black/70 font-light leading-relaxed tracking-[0.01em]">
                   {faq.a}
                 </div>
               )}
@@ -307,57 +306,55 @@ export default function GuideLandingPage() {
       </section>
 
       {/* =========================================================================
-         5. FINAL OBSIDIAN CTA BANNER WITH STRIPE LOGO
+         4. SEAMLESS CLOSING CTA (OPEN EDITORIAL FLOW — NO HEAVY BOX)
          ========================================================================= */}
-      <section className="relative py-24 px-4 sm:px-8 bg-[#0a0a0a] text-white text-center border-t border-black/15">
-        <div className="max-w-3xl mx-auto">
-          <span className="text-[10px] uppercase tracking-[0.35em] text-white/50 block mb-3 font-medium">
-            Instant Digital Download
-          </span>
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-light tracking-[0.16em] uppercase mb-4 leading-tight">
-            Look Within. Change Your Life.
-          </h2>
-          <p className="text-xs sm:text-sm text-white/60 font-light mb-10 max-w-xl mx-auto tracking-[0.02em] leading-relaxed">
-            112 pages combining the greatest books and life lessons ever written with honest daily reflection prompts. Delivered straight to your inbox the second you complete checkout.
-          </p>
+      <section className="relative py-20 sm:py-28 px-4 sm:px-8 text-center max-w-3xl mx-auto">
+        <span className="text-[10px] uppercase tracking-[0.35em] text-black/40 block mb-3 font-medium">
+          Instant Digital Download
+        </span>
+        <h2 className="text-2xl sm:text-4xl md:text-5xl font-light tracking-[0.16em] uppercase mb-4 leading-tight text-[#121814]">
+          Look Within. Change Your Life.
+        </h2>
+        <p className="text-xs sm:text-sm text-black/65 font-light mb-10 max-w-xl mx-auto tracking-[0.02em] leading-relaxed">
+          112 pages combining the greatest books and life lessons ever written with honest daily reflection prompts. Delivered straight to your inbox the second you complete checkout.
+        </p>
 
-          <a
-            href={STRIPE_CHECKOUT_URL}
-            className="rr-btn inline-flex items-center justify-center gap-3 px-10 py-4 text-xs font-medium border border-white bg-white text-black hover:bg-transparent hover:text-white transition-all rounded-none"
-          >
-            <StripeLogo className="h-3.5 w-auto" />
-            <span>Get The Guide — $19</span>
-          </a>
+        <a
+          href={STRIPE_CHECKOUT_URL}
+          className="rr-btn inline-flex items-center justify-center gap-3 px-10 py-4 text-xs font-medium border border-[#121814] bg-[#121814] text-white hover:bg-transparent hover:text-[#121814] transition-all rounded-none"
+        >
+          <StripeLogo className="h-3.5 w-auto opacity-80" />
+          <span>Get The Guide — $19</span>
+        </a>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-[10px] text-white/40 uppercase tracking-[0.25em] font-light mt-10">
-            <div className="flex items-center gap-1.5">
-              <StripeLogo className="h-3 w-auto opacity-60" />
-              <span>Secured by Stripe</span>
-            </div>
-            <span>·</span>
-            <span>Immediate Digital Delivery</span>
-            <span>·</span>
-            <span>Instant PDF Download</span>
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-[10px] text-black/45 uppercase tracking-[0.25em] font-light mt-10">
+          <div className="flex items-center gap-1.5">
+            <StripeLogo className="h-3 w-auto opacity-60" />
+            <span>Secured by Stripe</span>
           </div>
+          <span>·</span>
+          <span>Immediate Digital Delivery</span>
+          <span>·</span>
+          <span>Instant PDF Download</span>
         </div>
       </section>
 
       {/* =========================================================================
-         6. MINIMALIST EDITORIAL FOOTER WITH INSTAGRAM LOGO
+         5. MINIMALIST EDITORIAL FOOTER (SEAMLESS — NO BORDER LINE)
          ========================================================================= */}
-      <footer className="w-full border-t border-black/15 py-10 px-4 sm:px-8 text-center text-xs text-black/50 bg-[#fbfaf6]">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+      <footer className="w-full py-12 px-4 sm:px-8 text-center text-xs text-black/50 bg-[#fbfaf6]">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
             <span className="font-medium uppercase tracking-[0.25em] text-[#121814]">
               OurLife.Reset
             </span>
-            <span className="text-black/30">/</span>
+            <span className="text-black/30">·</span>
             <span className="font-light tracking-[0.15em] text-black/60">
               Reset your mind. Control your life.
             </span>
           </div>
 
-          <div className="flex items-center gap-6 uppercase tracking-[0.2em] text-[10px] font-medium text-black/60">
+          <div className="flex flex-wrap items-center justify-center gap-6 uppercase tracking-[0.2em] text-[10px] font-medium text-black/60">
             <a
               href="https://instagram.com/ourlife.reset"
               target="_blank"

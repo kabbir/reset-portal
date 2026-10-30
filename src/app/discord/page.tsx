@@ -58,81 +58,81 @@ export default function DiscordLandingPage() {
     }
   };
 
-  /* Curriculum Modules - Simple, Direct, Confident & Enthusiastic */
+  /* Mentorship Pillars - Authentic, Grounded, Why Mentorship > Figuring It Out Alone */
   const modules = [
     {
       num: "01",
-      title: "How to Make Viral Reels that Actually Get Views",
-      tagline: "The Secret to Stopping the Scroll",
-      desc: "Most people spend hours editing videos only for them to get stuck at 200 views. I'll show you the exact visual formats, clean fonts, high-contrast layouts, and subtle audio that make people stop scrolling and watch your reels two or three times in a row. No expensive cameras, no studio setups, and no complicated editing required.",
+      title: "Direct Eyes on Your Page Every Week",
+      tagline: "Stop Guessing Why Your Videos Are Stuck",
+      desc: "An online tool or a free YouTube tutorial can never look at your profile and tell you what you're doing wrong. When you try to figure this out alone, you can waste months making the same small mistake without realizing it. Inside the Discord, you drop your account link and your latest reels, and I personally tell you what looks off, why people are scrolling past, and what to fix immediately.",
       highlights: [
-        "How to format your text so people can't look away",
-        "The simple audio trick that triggers the algorithm to push your videos",
-        "How to make reels loop seamlessly so your watch time skyrockets"
+        "Personal reviews of your profile, hooks, layouts, and captions",
+        "Real-time answers whenever you hit a wall or your views dip",
+        "Skip months of blind trial and error by having someone check your work"
       ]
     },
     {
       num: "02",
-      title: "Why People Share to Their Stories (The Repost Secret)",
-      tagline: "How to Get Free Organic Reach Daily",
-      desc: "Here's the honest truth: people don't share your reels to help you grow. They share them to show their friends who they are, what they believe, and how smart they are. Once you understand this simple psychology, getting hundreds of daily story shares becomes natural and predictable.",
+      title: "The Psychology Behind Why People Repost",
+      tagline: "Make Viewers Grow Your Page for You",
+      desc: "Most beginners post whatever sounds good to them and wonder why their reels stay stuck at 200 views. People don't repost a video to help you out—they repost it to their story because it makes them look smart, self-aware, or ahead of the curve to their own friends. I'll show you how to consistently find and frame ideas that trigger that exact instinct so your audience shares your page every day.",
       highlights: [
-        "How to pick quotes and topics that people are proud to repost",
-        "Writing 4-paragraph captions that get thousands of saves and shares",
-        "The secret to turning casual viewers into loyal daily followers"
+        "How to spot quotes and angles that people want on their story",
+        "Access to our private vault of proven, high-repost concepts",
+        "Writing captions that make people save your post and check your bio"
       ]
     },
     {
       num: "03",
-      title: "Make a Month of Content in One Afternoon",
-      tagline: "Never Stress About Posting Again",
-      desc: "Stop staring at a blank screen wondering what to post today. I'll hand you the exact automated batch workflow we use to generate, format, and schedule weeks of high-definition reels in just a couple of hours. You set it up once, and your page runs consistently without burning you out.",
+      title: "Clean Visuals Without Complicated Editing",
+      tagline: "What Actually Makes People Stop Scrolling",
+      desc: "If you search online, everyone tells you to learn complex editing software, add flashy transitions, and spend three hours on a ten-second clip. None of that is what makes a page grow. I'll hand you the exact clean typography, spacing, and subtle audio setup we use so your reels look sharp, hold attention to the end, and loop naturally.",
       highlights: [
-        "Step-by-step walkthrough of our entire batch creation system",
-        "How to store and organize your content so you never run out of ideas",
-        "Multi-platform scheduling that posts for you on complete autopilot"
+        "The exact font sizing, margins, and pacing that keep people reading",
+        "How to pair subtle background audio so viewers watch twice",
+        "No cameras, no showing your face, and no exhausting editing timelines"
       ]
     },
     {
       num: "04",
-      title: "Turn Your Views into Real Money with Auto DMs",
-      tagline: "Make Money While You Sleep",
-      desc: "Getting millions of views feels great, but views alone don't pay the bills. I'll show you how we set up simple, friendly automatic DMs that send interested people directly to your digital products, courses, or services the exact second they drop a comment on your post.",
+      title: "A Batch System You Can Actually Stick To",
+      tagline: "Stop Burning Out After Two Weeks",
+      desc: "The real reason most people quit isn't lack of ambition—it's waking up every day stressed about what to post next. Trying to stitch together five different online tools by yourself gets messy fast. I'll walk you through our exact start-to-finish workflow so you can sit down for one afternoon and have weeks of content ready and scheduled.",
       highlights: [
-        "How to set up automatic keyword DMs that get an 80%+ open rate",
-        "Creating simple digital products that people actually want to buy",
-        "How to turn warm comments into immediate Stripe sales smoothly"
+        "Step-by-step walkthrough of how we build and schedule in batches",
+        "How to organize your ideas so you never stare at a blank screen",
+        "Keep your page growing steadily even when you're busy with life or work"
       ]
     },
     {
       num: "05",
-      title: "Weekly Live Account Reviews with Me",
-      tagline: "You Don't Have to Do This Alone",
-      desc: "Every week, you get direct access to me inside our private Discord. Drop your account link, show me your latest reels, and I will personally review what's working, what's holding your views back, and what exact tweaks to make so you can break through plateaus and scale to 30k+ fast.",
+      title: "Turning Your Views Into Real Income",
+      tagline: "Build Something That Actually Pays You",
+      desc: "Growing a page is great, but views alone don't pay your bills. Most creators have no idea how to turn attention into money without looking spammy. I'll help you build a real digital product your audience actually wants to buy, set up automatic comment DMs, and connect a clean Stripe checkout so your page brings in sales around the clock.",
       highlights: [
-        "Live 1-on-1 teardowns of your account, hooks, and captions",
-        "Instant access to our private vault of 500+ proven viral quotes",
-        "A private room of driven, supportive creators all winning together"
+        "How to create a digital product your followers genuinely value",
+        "Setting up automatic DMs that turn comments into buyers naturally",
+        "Building a real brand and income stream that keeps growing long-term"
       ]
     }
   ];
 
   const faqs = [
     {
-      q: "Do I need prior video editing experience?",
-      a: "No. The entire system is built so that anyone can follow our step-by-step templates and automated workflows. You don't need complex software or high-end gear."
+      q: "Why join this instead of just using free tutorials and online tools?",
+      a: "Free videos and online tools give you scattered pieces of information, often from people contradicting each other. None of them look at your actual page, tell you why your last five posts flopped, or help you connect content to a real product that sells. Having direct guidance saves you months of guessing in the dark."
     },
     {
-      q: "Do I have to show my face on camera?",
-      a: "Not at all. OurLife.Reset was grown to over 30,000 followers and millions of monthly impressions completely faceless. We teach both faceless page growth and personal brand scaling."
+      q: "Do I have to show my face or already have a following?",
+      a: "Not at all. OurLife.Reset was built completely faceless from zero. Whether you are starting a brand-new account today or trying to fix an existing page that has stalled, we walk you through every step."
     },
     {
-      q: "What happens after I join the Discord?",
-      a: "You get immediate access to all 5 video modules, our private quote vault, dedicated feedback channels for weekly account reviews with me, and daily discussions with fellow creators."
+      q: "What happens right after I join the Discord?",
+      a: "You get an instant single-use invite link to enter the private server. Inside, you get immediate access to all step-by-step breakdowns, our quote and template vault, and the review channels where you can drop your page and talk directly with me and the community."
     },
     {
-      q: "Can I cancel my membership at any time?",
-      a: "Yes. There are zero contracts or lock-ins. You can cancel your membership anytime with one click directly inside your billing portal."
+      q: "Can I cancel my membership whenever I want?",
+      a: "Yes. There are no lock-ins or long contracts. You can cancel anytime with one click through your billing portal."
     }
   ];
 
@@ -149,21 +149,21 @@ export default function DiscordLandingPage() {
         <div className="inline-flex items-center justify-center gap-2 mb-6 text-white/60">
           <DiscordLogo className="w-4 h-4 opacity-80" />
           <span className="font-riviera text-[11px] uppercase tracking-[0.3em] font-medium text-white/60">
-            PRIVATE CREATOR COMMUNITY · CONTENT & MONETIZATION
+            PRIVATE CREATOR DISCORD · DIRECT MENTORSHIP
           </span>
         </div>
 
         {/* Main Headline */}
-        <h1 className="font-riviera text-3xl sm:text-6xl md:text-7xl font-light uppercase tracking-[0.16em] leading-[1.12] text-white mb-6">
-          GROW FROM 0 TO 30K.
-          <span className="block font-light italic tracking-[0.12em] text-white/70 mt-2">
-            THE 30K BLUEPRINT
+        <h1 className="font-riviera text-3xl sm:text-6xl md:text-7xl font-light uppercase tracking-[0.14em] leading-[1.12] text-white mb-6">
+          STOP TRYING TO FIGURE IT ALL OUT ALONE.
+          <span className="block font-light italic tracking-[0.12em] text-white/70 mt-3 text-2xl sm:text-4xl md:text-5xl">
+            BUILD A PAGE THAT KEEPS GROWING AND PAYS YOU
           </span>
         </h1>
 
         {/* Subhead - Clean, Grounded, Real */}
-        <p className="font-riviera text-sm sm:text-base text-white/60 max-w-2xl mx-auto font-light leading-relaxed tracking-wide mb-12">
-          The exact hook formulas, video formats, batch creation setup, and monetization steps behind OurLife.Reset. Everything you need to grow your account to 30,000+ followers and make real income.
+        <p className="font-riviera text-sm sm:text-base text-white/65 max-w-2xl mx-auto font-light leading-relaxed tracking-wide mb-12">
+          Anyone can find free tutorials and online tools—yet most people still quit after three weeks because a tool can&apos;t tell you what you&apos;re doing wrong. Inside our private Discord, I personally help you build your page, fix your content, and turn your views into real income from start to finish.
         </p>
 
         {/* Action Buttons */}
@@ -180,46 +180,37 @@ export default function DiscordLandingPage() {
             href="#curriculum"
             className="rr-btn w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-xs font-light tracking-[0.25em] uppercase border border-white/20 text-white/70 hover:border-white hover:text-white transition-all duration-400"
           >
-            <span>What You Learn</span>
+            <span>How We Build Together</span>
           </a>
         </div>
 
-        {/* Seamless 4-Metric Open Row — Zero Grid Lines or Boxes */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 pt-4 text-center">
+        {/* 3 Core Mentorship Advantage Pillars — Open Editorial Row */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 sm:gap-12 pt-4 text-left max-w-4xl mx-auto">
           <div>
-            <div className="font-riviera text-3xl sm:text-4xl font-light tracking-[0.08em] text-white">
-              30,000+
+            <div className="font-riviera text-sm sm:text-base uppercase tracking-[0.18em] text-white font-medium mb-2">
+              Skip Blind Trial & Error
             </div>
-            <div className="font-riviera text-[11px] uppercase tracking-[0.25em] text-white/40 mt-2 font-light">
-              Organic Followers
-            </div>
+            <p className="font-riviera text-xs text-white/50 font-light leading-relaxed">
+              Stop wasting months testing random advice from strangers online. Get the exact working workflow handed to you on day one.
+            </p>
           </div>
 
           <div>
-            <div className="font-riviera text-3xl sm:text-4xl font-light tracking-[0.08em] text-white">
-              10M+
+            <div className="font-riviera text-sm sm:text-base uppercase tracking-[0.18em] text-white font-medium mb-2">
+              Direct Eyes On Your Page
             </div>
-            <div className="font-riviera text-[11px] uppercase tracking-[0.25em] text-white/40 mt-2 font-light">
-              Monthly Impressions
-            </div>
+            <p className="font-riviera text-xs text-white/50 font-light leading-relaxed">
+              Online tools can&apos;t tell you why a video flopped. Here, you get real feedback on your hooks, visuals, and profile every single week.
+            </p>
           </div>
 
           <div>
-            <div className="font-riviera text-3xl sm:text-4xl font-light tracking-[0.08em] text-white">
-              100%
+            <div className="font-riviera text-sm sm:text-base uppercase tracking-[0.18em] text-white font-medium mb-2">
+              Built To Scale Long-Term
             </div>
-            <div className="font-riviera text-[11px] uppercase tracking-[0.25em] text-white/40 mt-2 font-light">
-              Automated Production
-            </div>
-          </div>
-
-          <div>
-            <div className="font-riviera text-3xl sm:text-4xl font-light tracking-[0.08em] text-white">
-              80%+
-            </div>
-            <div className="font-riviera text-[11px] uppercase tracking-[0.25em] text-white/40 mt-2 font-light">
-              Loop Retention Rate
-            </div>
+            <p className="font-riviera text-xs text-white/50 font-light leading-relaxed">
+              Don&apos;t just chase one lucky viral reel. Build a real audience and a digital product system that keeps growing month after month.
+            </p>
           </div>
         </div>
       </section>
@@ -230,13 +221,13 @@ export default function DiscordLandingPage() {
       <section className="relative py-20 sm:py-28 px-4 sm:px-8 max-w-5xl mx-auto">
         <div className="text-center mb-12">
           <span className="font-riviera text-[11px] uppercase tracking-[0.35em] text-white/40 block mb-3 font-medium">
-            THE SOCIAL MEDIA TRAP
+            WHY DOING IT ALONE FAILS
           </span>
           <h2 className="font-riviera text-2xl sm:text-4xl md:text-5xl font-light uppercase tracking-[0.14em] text-white max-w-3xl mx-auto leading-tight">
             Do you constantly get these types of reels on your page, but they always leave you feeling overwhelmed?
           </h2>
-          <p className="font-riviera text-xs sm:text-sm text-white/50 max-w-2xl mx-auto mt-4 font-light leading-relaxed tracking-wide">
-            Your feed is flooded with aesthetic videos, cinematic footage, and endless advice — but none of them show you the actual structure behind the growth. Inside our private Discord, we cut out the noise with a clear, step-by-step system: clean layouts, repeatable batching, and monetization.
+          <p className="font-riviera text-xs sm:text-sm text-white/55 max-w-2xl mx-auto mt-4 font-light leading-relaxed tracking-wide">
+            You save dozens of videos, bookmark new AI tools, and watch endless advice—yet when you sit down to build your own page, you still feel stuck. Free clips and software tools only give you tiny pieces of the puzzle and leave you to figure out the rest on your own.
           </p>
         </div>
 
@@ -271,25 +262,25 @@ export default function DiscordLandingPage() {
             href="#curriculum"
             className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-white/55 hover:text-white transition-colors"
           >
-            <span>See how we turn this into a simple 5-step blueprint</span>
+            <span>See how we build this with you step by step</span>
             <span className="text-white/40">↓</span>
           </a>
         </div>
       </section>
 
       {/* =========================================================================
-         3. CURRICULUM MODULES (SEAMLESS OPEN EDITORIAL FLOW — NO LINES OR BOXES)
+         3. MENTORSHIP MODULES (SEAMLESS OPEN EDITORIAL FLOW — NO LINES OR BOXES)
          ========================================================================= */}
       <section id="curriculum" className="relative py-20 sm:py-28 px-4 sm:px-8 max-w-5xl mx-auto">
         <div className="mb-16 sm:mb-20">
           <span className="font-riviera text-[11px] uppercase tracking-[0.35em] text-white/40 block mb-3 font-medium">
-            COURSE BREAKDOWN
+            DIRECT MENTORSHIP VS. ONLINE TOOLS
           </span>
           <h2 className="font-riviera text-2xl sm:text-4xl font-light uppercase tracking-[0.18em] text-white mb-4">
-            WHAT YOU LEARN INSIDE
+            WHY YOU GROW FASTER WHEN YOU DON&apos;T DO IT ALONE
           </h2>
           <p className="font-riviera text-sm sm:text-base text-white/55 max-w-2xl font-light leading-relaxed tracking-wide">
-            No boring theory. No gatekeeping. Just the exact, real-world steps to build an audience that actually cares and turn your views into real money.
+            When you try to figure everything out by yourself, every small mistake costs you weeks of wasted effort. Here is how we actually build your page and income stream together inside the Discord:
           </p>
         </div>
 
@@ -429,17 +420,17 @@ export default function DiscordLandingPage() {
 
             <div>
               <label className="font-riviera text-[10px] uppercase tracking-[0.25em] text-white/60 block mb-2 font-medium">
-                Current Followers
+                Where are you starting from?
               </label>
               <select
                 value={form.currentFollowers}
                 onChange={(e) => setForm({ ...form, currentFollowers: e.target.value })}
                 className="w-full px-4 py-3.5 text-xs rounded-none border border-white/15 bg-[#0a0a0a] text-white focus:border-white focus:outline-none transition-colors"
               >
-                <option value="0 - 1k">0 - 1,000 (Just starting)</option>
-                <option value="1k - 5k">1,000 - 5,000 (Early traction)</option>
-                <option value="5k - 20k">5,000 - 20,000 (Scaling phase)</option>
-                <option value="20k+">20,000+ (Looking to automate & monetize)</option>
+                <option value="0 - 1k">Starting from scratch (0 - 1,000 followers)</option>
+                <option value="1k - 5k">Early traction, trying to stay consistent</option>
+                <option value="5k - 20k">Growing, ready to scale faster</option>
+                <option value="20k+">Established page, ready to monetize properly</option>
               </select>
             </div>
 
@@ -452,7 +443,7 @@ export default function DiscordLandingPage() {
                 value={form.challenge}
                 onChange={(e) => setForm({ ...form, challenge: e.target.value })}
                 className="w-full px-4 py-3.5 text-xs rounded-none border border-white/15 bg-white/[0.03] text-white placeholder-white/30 focus:border-white focus:outline-none transition-colors"
-                placeholder="Scale to 30k, automate daily reels, or monetize views?"
+                placeholder="Stop guessing with my content, grow consistently, or start making real income from my page?"
               />
             </div>
 
